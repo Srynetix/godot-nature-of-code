@@ -1,2 +1,3 @@
-# godot-nature-of-code
-Nature of Code in Godot - https://natureofcode.com/book/
+# Nature of Code in Godot
+
+Official book: https://natureofcode.com/book/
