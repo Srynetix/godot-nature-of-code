@@ -2,7 +2,7 @@
 
 Official book: https://natureofcode.com/book/
 
-Each interactive example and interactive exercise will be implemented in Godot.
+Each interactive example and interactive exercise will be implemented with latest Godot Engine stable version, using C# for the scripting.
 
 ## TODO
 
