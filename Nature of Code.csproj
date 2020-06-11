@@ -53,9 +53,13 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="chapters\00-introduction\Example1.cs" />
-    <Compile Include="chapters\00-introduction\Example2.cs" />
-    <Compile Include="chapters\00-introduction\Exercise1.cs" />
+    <Compile Include="chapters\00-introduction\C0Example1.cs" />
+    <Compile Include="chapters\00-introduction\C0Example2.cs" />
+    <Compile Include="chapters\00-introduction\C0Example3.cs" />
+    <Compile Include="chapters\00-introduction\C0Example4.cs" />
+    <Compile Include="chapters\00-introduction\C0Exercise1.cs" />
+    <Compile Include="chapters\00-introduction\C0Exercise3.cs" />
+    <Compile Include="chapters\00-introduction\C0Exercise4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

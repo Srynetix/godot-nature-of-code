@@ -1,10 +1,15 @@
 using Godot;
-using System;
 
-public class Example2 : Node2D {
+/**
+Example I.2:
+Random number distribution
+*/
+
+public class C0Example2 : Node2D {
 	private int[] randomCounts;
 
 	public override void _Ready() {
+        GD.Randomize();
 		randomCounts = new int[20];
 		VisualServer.SetDefaultClearColor(Colors.White);
 	}

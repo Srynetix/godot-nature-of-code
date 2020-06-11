@@ -1,10 +1,12 @@
 using Godot;
 
 /**
-Create a random walker that has a tendency to move down and to the right.
-**/
+Example I.1:
+Traditional random walk
+*/
 
-public class Exercise1 : Node2D {
+public class C0Example1 : Node2D
+{
     public class Walker {
         float x;
         float y;
@@ -19,28 +21,23 @@ public class Exercise1 : Node2D {
         }
 
         public void Step() {
-            float chance = GD.Randf();
+            var stepX = (float)GD.RandRange(-1.0, 1.0);
+            var stepY = (float)GD.RandRange(-1.0, 1.0);
 
-            if (chance < 0.1) {
-                x++;
-            } else if (chance < 0.2) {
-                y--;
-            } else if (chance < 0.6) {
-                x--;
-            } else {
-                y++;
-            }
+            x += stepX;
+            y += stepY;
         }
-    }
-
+    }   
+    
     private Walker walker;
 
     public override void _Ready() {
+        GD.Randomize();
         walker = new Walker(GetViewport().Size / 2);
         VisualServer.SetDefaultClearColor(Colors.White);
         GetViewport().RenderTargetClearMode = Viewport.ClearMode.OnlyNextFrame;
     }
-
+    
     public override void _Draw() {
         walker.Draw(this);
     }
