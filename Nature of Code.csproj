@@ -60,6 +60,8 @@
     <Compile Include="chapters\00-introduction\C0Exercise1.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise3.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise4.cs" />
+    <Compile Include="chapters\00-introduction\C0Exercise5.cs" />
+    <Compile Include="chapters\00-introduction\C0Exercise6.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

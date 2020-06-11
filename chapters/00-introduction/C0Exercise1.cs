@@ -16,7 +16,7 @@ public class C0Exercise1 : Node2D {
         }
 
         public void Draw(CanvasItem node) {
-            node.DrawCircle(new Vector2(x, y), 1, Colors.Black);
+            node.DrawCircle(new Vector2(x, y), 0.5f, Colors.Black);
         }
 
         public void Step() {

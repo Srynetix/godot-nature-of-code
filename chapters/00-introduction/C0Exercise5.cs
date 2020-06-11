@@ -1,20 +1,23 @@
 using Godot;
 
 /**
-Exercise I.3:
-Create a random walker with dynamic probabilities. 
-For example, can you give it a 50% chance of moving in the direction of the mouse?
+Exercise I.5:
+A Gaussian random walk is defined as one in which the step size (how far the object moves in a given direction) is generated with a normal distribution.
+Implement this variation of our random walk.
 */
 
-public class C0Exercise3 : Node2D
+public class C0Exercise5 : Node2D
 {
     public class Walker {
         float x;
         float y;
+        RandomNumberGenerator generator;
 
         public Walker(Vector2 position) {
             x = position.x;
             y = position.y;
+            generator = new RandomNumberGenerator();
+            generator.Randomize();
         }
 
         public void Draw(CanvasItem node) {
@@ -22,38 +25,21 @@ public class C0Exercise3 : Node2D
         }
 
         public void Step(CanvasItem node) {
-            float chance = GD.Randf();
-
-            if (chance <= 0.5) {
-                // Go towards mouse
-                var mousePosition = node.GetViewport().GetMousePosition();
-                if (x > mousePosition.x) {
-                    x--;
-                } else {
-                    x++;
-                }
-
-                if (y > mousePosition.y) {
-                    y--;
-                } else {
-                    y++;
-                }
-            } else {
-                RandomStep();
-            }
+            RandomStep();
         }
 
         public void RandomStep() {
             float chance = GD.Randf();
+            float amount = generator.Randfn(0, 1);  // Gaussian
 
             if (chance < 0.25) {
-                x++;
+                x += amount;
             } else if (chance < 0.5) {
-                x--;
+                x -= amount;
             } else if (chance < 0.75) {
-                y++;
+                y += amount;
             } else {
-                y--;
+                y -= amount;
             }
         }
     }   
