@@ -58,12 +58,16 @@
     <Compile Include="chapters\00-introduction\C0Example3.cs" />
     <Compile Include="chapters\00-introduction\C0Example4.cs" />
     <Compile Include="chapters\00-introduction\C0Example5.cs" />
+    <Compile Include="chapters\00-introduction\C0Example6.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise1.cs" />
+    <Compile Include="chapters\00-introduction\C0Exercise10.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise3.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise4.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise5.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise6.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise7.cs" />
+    <Compile Include="chapters\00-introduction\C0Exercise8.cs" />
+    <Compile Include="chapters\00-introduction\C0Exercise9.cs" />
     <Compile Include="scripts\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="workspace\Workspace.cs" />
