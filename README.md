@@ -22,5 +22,6 @@ Each interactive example and interactive exercise will be implemented with lates
     - [x] Exercise 7 - Random walker with noise
     - [x] Exercise 8 - Noise visual effects
     - [x] Exercise 9 - Animated 2D noise 
-    - [x] Exercise 10 - Landscape elevation 
+    - [x] Exercise 10 - Landscape elevation
+  - [] 01 - Vectors 
 - [ ] Add a dynamic scene loader to explore examples and exercises
