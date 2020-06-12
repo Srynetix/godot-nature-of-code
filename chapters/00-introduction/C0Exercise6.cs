@@ -26,7 +26,7 @@ public class C0Exercise6 : Node2D
             RandomStep();
         }
 
-        public float ComputeRandomStep() {
+        public float ComputeStepSize() {
             while (true) {
                 float prob = GD.Randf();
                 float value = GD.Randf();
@@ -39,7 +39,7 @@ public class C0Exercise6 : Node2D
         }
 
         public void RandomStep() {
-            float stepsize = ComputeRandomStep();
+            float stepsize = ComputeStepSize();
 
             float stepx = (float)GD.RandRange(-stepsize, stepsize);
             float stepy = (float)GD.RandRange(-stepsize, stepsize);
