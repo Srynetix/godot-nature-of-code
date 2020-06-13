@@ -8,16 +8,12 @@ Traditional random walk
 public class C0Example1 : Node2D
 {
     public class Walker {
-        float x;
-        float y;
+        public float x;
+        public float y;
 
         public Walker(Vector2 position) {
             x = position.x;
             y = position.y;
-        }
-
-        public void Draw(CanvasItem node) {
-            node.DrawCircle(new Vector2(x, y), 0.5f, Colors.Black);
         }
 
         public void Step() {
@@ -30,20 +26,25 @@ public class C0Example1 : Node2D
     }   
     
     private Walker walker;
+    private Utils.Canvas canvas;
 
     public override void _Ready() {
+        var size = GetViewport().Size;
         GD.Randomize();
-        walker = new Walker(GetViewport().Size / 2);
+        walker = new Walker(size / 2);
         VisualServer.SetDefaultClearColor(Colors.White);
-        GetViewport().RenderTargetClearMode = Viewport.ClearMode.OnlyNextFrame;
+        
+        canvas = new Utils.Canvas();
+        AddChild(canvas);
     }
     
-    public override void _Draw() {
-        walker.Draw(this);
-    }
-
     public override void _Process(float delta) {
         walker.Step();
-        Update();
+        
+        canvas.Lock();
+        canvas.SetPixel((int)walker.x, (int)walker.y, Colors.Black);
+        canvas.Unlock();
+
+        canvas.UpdateImage();
     }
 }
