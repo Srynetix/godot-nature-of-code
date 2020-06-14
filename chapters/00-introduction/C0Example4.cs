@@ -7,16 +7,21 @@ Gaussian distribution
 
 public class C0Example4 : Node2D {
     private RandomNumberGenerator generator;
+    private Utils.Canvas canvas;
 
     public override void _Ready() {
         generator = new RandomNumberGenerator();
         generator.Randomize();
 
         VisualServer.SetDefaultClearColor(Colors.White);
-        GetViewport().RenderTargetClearMode = Viewport.ClearMode.OnlyNextFrame;
+
+        canvas = new Utils.Canvas();
+        AddChild(canvas);
+
+        canvas.SetDrawFunction(CanvasDraw);
     }
 
-    public override void _Draw() {
+    public void CanvasDraw(Node2D pen) {
         var size = GetViewport().Size;
 
         float num = generator.Randfn(0, 1);  // Gaussian distribution
@@ -25,10 +30,6 @@ public class C0Example4 : Node2D {
 
         float x = sd * num + mean;
 
-        DrawCircle(new Vector2(x, size.y / 2), 8, Color.Color8(0, 0, 0, 10));
-    }
-
-    public override void _Process(float delta) {
-        Update();
+        pen.DrawCircle(new Vector2(x, size.y / 2), 8, Color.Color8(0, 0, 0, 10));
     }
 }

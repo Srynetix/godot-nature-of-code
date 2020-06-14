@@ -10,16 +10,21 @@ Extra: Follow mouse
 
 public class C0Exercise4 : Node2D {
     private RandomNumberGenerator generator;
+    private Utils.Canvas canvas;
 
     public override void _Ready() {
         generator = new RandomNumberGenerator();
         generator.Randomize();
 
         VisualServer.SetDefaultClearColor(Colors.White);
-        GetViewport().RenderTargetClearMode = Viewport.ClearMode.OnlyNextFrame;
+
+        canvas = new Utils.Canvas();
+        AddChild(canvas);
+
+        canvas.SetDrawFunction(CanvasDraw);
     }
 
-    public override void _Draw() {
+    public void CanvasDraw(Node2D pen) {
         var size = GetViewport().Size;
 
         // Follow mouse for fun
@@ -34,10 +39,6 @@ public class C0Exercise4 : Node2D {
         float x = 20 * xNum + mousePosition.x;
         float y = 20 * yNum + mousePosition.y;
 
-        DrawCircle(new Vector2(x, y), 8, Color.Color8(colNumR, colNumG, colNumB, 40));
-    }
-
-    public override void _Process(float delta) {
-        Update();
+        pen.DrawCircle(new Vector2(x, y), 8, Color.Color8(colNumR, colNumG, colNumB, 40));
     }
 }

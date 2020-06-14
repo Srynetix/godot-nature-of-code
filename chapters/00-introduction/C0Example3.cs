@@ -38,17 +38,18 @@ public class C0Example3 : Node2D
         GD.Randomize();
         walker = new Walker(GetViewport().Size / 2);
         VisualServer.SetDefaultClearColor(Colors.White);
+
         canvas = new Utils.Canvas();
         AddChild(canvas);
+
+        canvas.SetDrawFunction(CanvasDraw);
+    }
+
+    public void CanvasDraw(Node2D pen) {
+        pen.DrawRect(new Rect2(walker.x, walker.y, 1, 1), Colors.Black, true);
     }
 
     public override void _Process(float delta) {
         walker.Step();
-
-        canvas.Lock();
-        canvas.SetPixel((int)walker.x, (int)walker.y, Colors.Black);
-        canvas.Unlock();
-
-        canvas.UpdateImage();
     }
 }
