@@ -69,6 +69,7 @@
     <Compile Include="chapters\00-introduction\C0Exercise8.cs" />
     <Compile Include="chapters\00-introduction\C0Exercise9.cs" />
     <Compile Include="chapters\01-vectors\C1Example1.cs" />
+    <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="scripts\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="workspace\Workspace.cs" />
