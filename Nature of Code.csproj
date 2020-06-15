@@ -73,6 +73,8 @@
     <Compile Include="chapters\01-vectors\C1Example3.cs" />
     <Compile Include="chapters\01-vectors\C1Example4.cs" />
     <Compile Include="chapters\01-vectors\C1Example5.cs" />
+    <Compile Include="chapters\01-vectors\C1Example6.cs" />
+    <Compile Include="chapters\01-vectors\C1Example7.cs" />
     <Compile Include="chapters\01-vectors\C1Exercise3.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="scripts\Utils.cs" />

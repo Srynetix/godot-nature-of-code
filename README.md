@@ -29,5 +29,7 @@ Each interactive example and interactive exercise will be implemented with lates
     - [x] Example 3 - Vector subtraction
     - [x] Example 4 - Vector multiplication
     - [x] Example 5 - Vector magnitude
+    - [x] Example 6 - Normalizing a vector
+    - [x] Example 7 - Motion 101 (velocity)
     - [x] Exercise 3 - Bouncing ball in 3D
 - [ ] Add a dynamic scene loader to explore examples and exercises
