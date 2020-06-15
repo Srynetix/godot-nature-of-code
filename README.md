@@ -26,5 +26,8 @@ Each interactive example and interactive exercise will be implemented with lates
   - [] 01 - Vectors 
     - [x] Example 1 - Bouncing ball with no vectors
     - [x] Example 2 - Bouncing ball with vectors
+    - [x] Example 3 - Vector subtraction
+    - [x] Example 4 - Vector multiplication
+    - [x] Example 5 - Vector magnitude
     - [x] Exercise 3 - Bouncing ball in 3D
 - [ ] Add a dynamic scene loader to explore examples and exercises
