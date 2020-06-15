@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://chapters/01-vectors/C1Exercise3.cs" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0.0627451 )
+
+[sub_resource type="CubeMesh" id=1]
+material = SubResource( 2 )
+size = Vector3( 10, 10, 10 )
+
+[sub_resource type="SpatialMaterial" id=3]
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.39
+
+[sub_resource type="SphereMesh" id=4]
+material = SubResource( 3 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Cube" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Sphere" type="MeshInstance" parent="."]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Position3D" type="Position3D" parent="."]
+
+[node name="Camera" type="Camera" parent="Position3D"]
+transform = Transform( 0.819152, 0.242404, -0.519837, 0, 0.906308, 0.422618, 0.573577, -0.346189, 0.742404, -10, 10, 15 )
+current = true

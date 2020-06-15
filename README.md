@@ -24,4 +24,7 @@ Each interactive example and interactive exercise will be implemented with lates
     - [x] Exercise 9 - Animated 2D noise 
     - [x] Exercise 10 - Landscape elevation
   - [] 01 - Vectors 
+    - [x] Example 1 - Bouncing ball with no vectors
+    - [x] Example 2 - Bouncing ball with vectors
+    - [x] Exercise 3 - Bouncing ball in 3D
 - [ ] Add a dynamic scene loader to explore examples and exercises
