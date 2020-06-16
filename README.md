@@ -23,7 +23,7 @@ Each interactive example and interactive exercise will be implemented with lates
     - [x] Exercise 8 - Noise visual effects
     - [x] Exercise 9 - Animated 2D noise 
     - [x] Exercise 10 - Landscape elevation
-  - [] 01 - Vectors 
+  - [ ] 01 - Vectors 
     - [x] Example 1 - Bouncing ball with no vectors
     - [x] Example 2 - Bouncing ball with vectors
     - [x] Example 3 - Vector subtraction
@@ -31,5 +31,7 @@ Each interactive example and interactive exercise will be implemented with lates
     - [x] Example 5 - Vector magnitude
     - [x] Example 6 - Normalizing a vector
     - [x] Example 7 - Motion 101 (velocity)
+    - [x] Example 8 - Motion 101 (velocity and constant acceleration)
+    - [x] Example 9 - Motion 101 (velocity and random acceleration)
     - [x] Exercise 3 - Bouncing ball in 3D
 - [ ] Add a dynamic scene loader to explore examples and exercises
