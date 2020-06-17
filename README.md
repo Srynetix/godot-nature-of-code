@@ -33,5 +33,6 @@ Each interactive example and interactive exercise will be implemented with lates
     - [x] Example 7 - Motion 101 (velocity)
     - [x] Example 8 - Motion 101 (velocity and constant acceleration)
     - [x] Example 9 - Motion 101 (velocity and random acceleration)
+    - [x] Example 10 - Accelerating towards the mouse
     - [x] Exercise 3 - Bouncing ball in 3D
 - [ ] Add a dynamic scene loader to explore examples and exercises
