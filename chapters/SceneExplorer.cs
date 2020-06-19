@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class SceneExplorer : Control {
 
@@ -60,28 +61,50 @@ public class SceneExplorer : Control {
     }
 
     public void ScanScenes() {
+        Regex rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
+
         foreach (string chapterName in chaptersList) {
-            var chapterPath = chaptersDict[chapterName];     
+            string chapterPath = chaptersDict[chapterName];     
             var list = new List<string>();   
             var dict = new Dictionary<string, PackedScene>();
 
-            var dir = new Directory();
+            Directory dir = new Directory();
             dir.Open(chapterPath);
             dir.ListDirBegin(true);
             
             while (true) {
-                var elem = dir.GetNext();
+                string elem = dir.GetNext();
                 if (elem == "") {
                     break;
                 }
 
                 if (elem.EndsWith(".tscn")) {
-                    list.Add(elem);
-                    dict.Add(elem, (PackedScene)GD.Load(chapterPath + "/" + elem));
+                    string sceneName = elem.Substr(0, elem.Length - 5);
+                    list.Add(sceneName);
+                    dict.Add(sceneName, (PackedScene)GD.Load(chapterPath + "/" + elem));
                 }
             }
 
             dir.ListDirEnd();
+
+            // Sort scenes by name
+            list.Sort(delegate (string x, string y) {
+                GroupCollection xMatchGroups = rgx.Match(x).Groups;
+                GroupCollection yMatchGroups = rgx.Match(y).Groups;
+
+                string xCategory = xMatchGroups["category"].Value;
+                string yCategory = yMatchGroups["category"].Value;
+                int xIdx = xMatchGroups["idx"].Value.ToInt();
+                int yIdx = yMatchGroups["idx"].Value.ToInt();
+
+                if (xCategory == "Exercise" && yCategory != "Exercise") {
+                    return 1;
+                } else if (xCategory != "Exercise" && yCategory == "Exercise") {
+                    return -1;
+                } else {
+                    return xIdx.CompareTo(yIdx);
+                }
+            });
 
             scenesList[chapterName] = list;
             scenesDict[chapterName] = dict;
