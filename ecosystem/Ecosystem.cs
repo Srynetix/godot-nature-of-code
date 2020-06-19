@@ -175,23 +175,24 @@ public class Ecosystem : Node2D {
     }
 
     public class HoppingBunny: Lifeform {
-        public float JumpFactor = 1f;
+        public float JumpSpeed = 8f;
+        public float TailSpeed = 10f;
+        public float AccelerationFactor = 0.025f;
+        public Color BaseColor = Colors.White;
+        public Color EyeColor = Colors.LightBlue;
+        public float EarRotationFactor = 0.01f;
+        public float TailRotationFactor = 0.05f;
 
         private float tJump;
         private float tTail;
-
-        public HoppingBunny() {
-        }
 
         public override void _Ready() {
             base._Ready();
             Rotation = 0;
             
-            // Random rotation left or right
+            // Random direction left or right
             if (GD.Randf() < 0.5f) {
                 Scale = new Vector2(-Scale.x, Scale.y);
-            } else {
-                // Scale = Scale * Vector2.Right;
             }
 
             // Random initial point in time
@@ -199,50 +200,52 @@ public class Ecosystem : Node2D {
         }
 
         public override void _DrawLifeform() {
-            float tailAngle = Mathf.Sin(tTail) * 0.05f;
-            float earAngle = Mathf.Sin(tTail) * 0.01f;
+            float tailAngle = Mathf.Sin(tTail) * TailRotationFactor;
+            float earAngle = Mathf.Sin(tTail) * EarRotationFactor;
+
+            Color baseColor = BaseColor;
+            Color darkenedColor = baseColor.Darkened(0.1f);
 
             // Body
-            DrawCircle(Vector2.Zero, 10, Colors.White);
-            DrawCircle(Vector2.Right * 7.5f, 10, Colors.White);
+            DrawCircle(Vector2.Zero, 10, baseColor);
+            DrawCircle(Vector2.Right * 7.5f, 10, baseColor);
 
             // Paws
-            DrawCircle(Vector2.Down * 9f + Vector2.Left, 2, Colors.LightGray);
-            DrawCircle(Vector2.Down * 9f + Vector2.Right * 2f, 2, Colors.LightGray);
-            DrawCircle(Vector2.Down * 9f + Vector2.Right * 10f, 2, Colors.LightGray);
-            DrawCircle(Vector2.Down * 9f + Vector2.Right * 12f, 2, Colors.LightGray);
+            DrawCircle(Vector2.Down * 9f + Vector2.Left, 2, darkenedColor);
+            DrawCircle(Vector2.Down * 9f + Vector2.Right * 2f, 2, darkenedColor);
+            DrawCircle(Vector2.Down * 9f + Vector2.Right * 10f, 2, darkenedColor);
+            DrawCircle(Vector2.Down * 9f + Vector2.Right * 12f, 2, darkenedColor);
 
             // Tail
-            DrawCircle((Vector2.Left * 10f + Vector2.Up * 6).Rotated(tailAngle), 4, Colors.LightGray);
+            DrawCircle((Vector2.Left * 10f + Vector2.Up * 6).Rotated(tailAngle), 4, darkenedColor);
 
             // Left ear
-            DrawCircle(Vector2.Right * 12f + Vector2.Up * 14, 3, Colors.LightGray);
-            DrawCircle(Vector2.Right * 12f + Vector2.Up * 16, 3, Colors.LightGray);
-            DrawCircle(Vector2.Right * 12f + Vector2.Up * 18, 3, Colors.LightGray);
-            DrawCircle((Vector2.Right * 12f + Vector2.Up * 20).Rotated(-earAngle), 3, Colors.LightGray);
-            DrawCircle((Vector2.Right * 13f + Vector2.Up * 22).Rotated(-earAngle), 3, Colors.LightGray);
+            DrawCircle(Vector2.Right * 12f + Vector2.Up * 14, 3, darkenedColor);
+            DrawCircle(Vector2.Right * 12f + Vector2.Up * 16, 3, darkenedColor);
+            DrawCircle(Vector2.Right * 12f + Vector2.Up * 18, 3, darkenedColor);
+            DrawCircle((Vector2.Right * 12f + Vector2.Up * 20).Rotated(-earAngle), 3, darkenedColor);
+            DrawCircle((Vector2.Right * 13f + Vector2.Up * 22).Rotated(-earAngle), 3, darkenedColor);
 
             // Head
-            DrawCircle(Vector2.Right * 8f + Vector2.Up * 8, 8, Colors.White);
+            DrawCircle(Vector2.Right * 8f + Vector2.Up * 8, 8, baseColor);
 
             // Eye
-            DrawCircle(Vector2.Right * 12f + Vector2.Up * 10, 2, Colors.LightBlue);
+            DrawCircle(Vector2.Right * 12f + Vector2.Up * 10, 2, EyeColor);
             
             // Right ear
-            DrawCircle(Vector2.Right * 5f + Vector2.Up * 14, 3, Colors.LightGray);
-            DrawCircle(Vector2.Right * 5f + Vector2.Up * 16, 3, Colors.LightGray);
-            DrawCircle(Vector2.Right * 5f + Vector2.Up * 18, 3, Colors.LightGray);
-            DrawCircle((Vector2.Right * 5f + Vector2.Up * 20).Rotated(earAngle), 3, Colors.LightGray);
-            DrawCircle((Vector2.Right * 6f + Vector2.Up * 22).Rotated(earAngle), 3, Colors.LightGray);
-
+            DrawCircle(Vector2.Right * 5f + Vector2.Up * 14, 3, darkenedColor);
+            DrawCircle(Vector2.Right * 5f + Vector2.Up * 16, 3, darkenedColor);
+            DrawCircle(Vector2.Right * 5f + Vector2.Up * 18, 3, darkenedColor);
+            DrawCircle((Vector2.Right * 5f + Vector2.Up * 20).Rotated(earAngle), 3, darkenedColor);
+            DrawCircle((Vector2.Right * 6f + Vector2.Up * 22).Rotated(earAngle), 3, darkenedColor);
         }
 
         public override void _Process(float delta) {
-            Acceleration.y = Mathf.Sin(tJump) * JumpFactor;
-            Acceleration.x = 0.025f * Mathf.Sign(Scale.x);
+            Acceleration.y = Mathf.Sin(tJump);
+            Acceleration.x = AccelerationFactor * Mathf.Sign(Scale.x);
 
-            tTail += delta * 10f;
-            tJump += delta * 8f;
+            tTail += delta * TailSpeed;
+            tJump += delta * JumpSpeed;
 
             Move();
             Update();
