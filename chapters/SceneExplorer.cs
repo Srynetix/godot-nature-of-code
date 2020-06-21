@@ -2,7 +2,8 @@ using Godot;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-public class SceneExplorer : Control {
+public class SceneExplorer : Control
+{
 
     private List<string> chaptersList;
     private Dictionary<string, string> chaptersDict;
@@ -24,38 +25,45 @@ public class SceneExplorer : Control {
     private string currentChapter;
     private string currentScene;
 
-    public SceneExplorer() {
+    public SceneExplorer()
+    {
         chaptersList = new List<string>();
         chaptersDict = new Dictionary<string, string>();
         scenesList = new Dictionary<string, List<string>>();
         scenesDict = new Dictionary<string, Dictionary<string, PackedScene>>();
-        
+
         ScanChapters();
         ScanScenes();
 
         currentChapter = "";
         currentScene = "";
-        if (chaptersList.Count > 0) {
+        if (chaptersList.Count > 0)
+        {
             currentChapter = chaptersList[0];
         }
 
-        if (currentChapter != "" && scenesList[currentChapter].Count > 0) {
+        if (currentChapter != "" && scenesList[currentChapter].Count > 0)
+        {
             currentScene = scenesList[currentChapter][0];
         }
     }
 
-    public void ScanChapters() {
+    public void ScanChapters()
+    {
         var dir = new Directory();
         dir.Open("res://chapters");
         dir.ListDirBegin(true);
 
-        while (true) {
+        while (true)
+        {
             var elem = dir.GetNext();
-            if (elem == "") {
+            if (elem == "")
+            {
                 break;
             }
 
-            if (!elem.Contains(".")) {
+            if (!elem.Contains("."))
+            {
                 chaptersList.Add(elem);
                 chaptersDict.Add(elem, "res://chapters/" + elem);
             }
@@ -64,25 +72,30 @@ public class SceneExplorer : Control {
         dir.ListDirEnd();
     }
 
-    public void ScanScenes() {
+    public void ScanScenes()
+    {
         Regex rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
 
-        foreach (string chapterName in chaptersList) {
-            string chapterPath = chaptersDict[chapterName];     
-            var list = new List<string>();   
+        foreach (string chapterName in chaptersList)
+        {
+            string chapterPath = chaptersDict[chapterName];
+            var list = new List<string>();
             var dict = new Dictionary<string, PackedScene>();
 
             Directory dir = new Directory();
             dir.Open(chapterPath);
             dir.ListDirBegin(true);
-            
-            while (true) {
+
+            while (true)
+            {
                 string elem = dir.GetNext();
-                if (elem == "") {
+                if (elem == "")
+                {
                     break;
                 }
 
-                if (elem.EndsWith(".tscn")) {
+                if (elem.EndsWith(".tscn"))
+                {
                     string sceneName = elem.Substr(0, elem.Length - 5);
                     list.Add(sceneName);
                     dict.Add(sceneName, (PackedScene)GD.Load(chapterPath + "/" + elem));
@@ -92,7 +105,8 @@ public class SceneExplorer : Control {
             dir.ListDirEnd();
 
             // Sort scenes by name
-            list.Sort(delegate (string x, string y) {
+            list.Sort(delegate (string x, string y)
+            {
                 GroupCollection xMatchGroups = rgx.Match(x).Groups;
                 GroupCollection yMatchGroups = rgx.Match(y).Groups;
 
@@ -101,11 +115,16 @@ public class SceneExplorer : Control {
                 int xIdx = xMatchGroups["idx"].Value.ToInt();
                 int yIdx = yMatchGroups["idx"].Value.ToInt();
 
-                if (xCategory == "Exercise" && yCategory != "Exercise") {
+                if (xCategory == "Exercise" && yCategory != "Exercise")
+                {
                     return 1;
-                } else if (xCategory != "Exercise" && yCategory == "Exercise") {
+                }
+                else if (xCategory != "Exercise" && yCategory == "Exercise")
+                {
                     return -1;
-                } else {
+                }
+                else
+                {
                     return xIdx.CompareTo(yIdx);
                 }
             });
@@ -115,25 +134,34 @@ public class SceneExplorer : Control {
         }
     }
 
-    public void SelectPrevChapter() {
+    public void SelectPrevChapter()
+    {
         var chapPos = chaptersList.IndexOf(currentChapter);
-        if (chapPos == 0) {
+        if (chapPos == 0)
+        {
             SelectChapter(chaptersList[chaptersList.Count - 1]);
-        } else {
+        }
+        else
+        {
             SelectChapter(chaptersList[chapPos - 1]);
         }
     }
 
-    public void SelectNextChapter() {
+    public void SelectNextChapter()
+    {
         var chapPos = chaptersList.IndexOf(currentChapter);
-        if (chapPos == chaptersList.Count - 1) {
+        if (chapPos == chaptersList.Count - 1)
+        {
             SelectChapter(chaptersList[0]);
-        } else {
+        }
+        else
+        {
             SelectChapter(chaptersList[chapPos + 1]);
         }
     }
 
-    public void SelectChapter(string chapter) {
+    public void SelectChapter(string chapter)
+    {
         currentChapter = chapter;
         SelectChapterButton.Text = currentChapter;
 
@@ -141,33 +169,44 @@ public class SceneExplorer : Control {
         SelectExample(firstExample);
     }
 
-    public void SelectPrevExample() {
+    public void SelectPrevExample()
+    {
         var scenePos = scenesList[currentChapter].IndexOf(currentScene);
-        if (scenePos == 0) {
+        if (scenePos == 0)
+        {
             SelectExample(scenesList[currentChapter][scenesList[currentChapter].Count - 1]);
-        } else {
+        }
+        else
+        {
             SelectExample(scenesList[currentChapter][scenePos - 1]);
         }
     }
 
-    public void SelectNextExample() {
+    public void SelectNextExample()
+    {
         var scenePos = scenesList[currentChapter].IndexOf(currentScene);
-        if (scenePos == scenesList[currentChapter].Count - 1) {
+        if (scenePos == scenesList[currentChapter].Count - 1)
+        {
             SelectExample(scenesList[currentChapter][0]);
-        } else {
+        }
+        else
+        {
             SelectExample(scenesList[currentChapter][scenePos + 1]);
         }
     }
 
-    public void SelectExample(string scene) {
+    public void SelectExample(string scene)
+    {
         currentScene = scene;
         SelectExampleButton.Text = currentScene;
         LoadCurrentExample();
     }
 
-    public void LoadCurrentExample() {
+    public void LoadCurrentExample()
+    {
         var scene = scenesDict[currentChapter][currentScene];
-        foreach (Node child in CurrentSceneContainer.GetChildren()) {
+        foreach (Node child in CurrentSceneContainer.GetChildren())
+        {
             child.QueueFree();
         }
 
@@ -181,12 +220,14 @@ public class SceneExplorer : Control {
         CodeLabel.ScrollToLine(0);
 
         // Set summary
-        if (instance is IExample baseInstance) {
+        if (instance is IExample baseInstance)
+        {
             SummaryLabel.Text = baseInstance._Summary();
         }
     }
 
-    private string ReadSourceCodeAtPath(string path) {
+    private string ReadSourceCodeAtPath(string path)
+    {
         var f = new File();
         f.Open(path, File.ModeFlags.Read);
         var code = f.GetAsText();
@@ -195,12 +236,14 @@ public class SceneExplorer : Control {
         return code;
     }
 
-    public void ToggleCodeLabel() {
+    public void ToggleCodeLabel()
+    {
         CodeBackground.Visible = !CodeBackground.Visible;
         CodeLabel.Visible = !CodeLabel.Visible;
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
         CurrentSceneContainer = GetNode<MarginContainer>("Container/CurrentScene");
         CodeLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Code");
         SummaryLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Summary");

@@ -12,11 +12,13 @@ public class C0Example5 : Node2D, IExample
     private float tx;
     private float ty;
 
-    public string _Summary() {
+    public string _Summary()
+    {
         return "Example I.5:\nPerlin noise walker";
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
         noise = new OpenSimplexNoise();
         position = GetViewport().Size / 2;
 
@@ -24,7 +26,8 @@ public class C0Example5 : Node2D, IExample
         ty = 10000;
     }
 
-    public override void _Draw() {
+    public override void _Draw()
+    {
         float nx = noise.GetNoise1d(tx);
         float ny = noise.GetNoise1d(ty);
         float x = Utils.Map(nx, 0, 1, 0, GetViewport().Size.x / 4);
@@ -36,7 +39,8 @@ public class C0Example5 : Node2D, IExample
         DrawCircle(newPosition, 18, Colors.LightGray);
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
         Update();
 
         tx += delta * 10;

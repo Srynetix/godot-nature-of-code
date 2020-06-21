@@ -8,17 +8,20 @@ Can you use a normal distribution of random numbers to generate the locations of
 Extra: Follow mouse
 */
 
-public class C0Exercise4 : Node2D, IExample {
+public class C0Exercise4 : Node2D, IExample
+{
     private RandomNumberGenerator generator;
     private Utils.Canvas canvas;
 
-    public string _Summary() {
-        return "Exercise I.4:\n" + 
+    public string _Summary()
+    {
+        return "Exercise I.4:\n" +
             "Consider a simulation of paint splatter drawn as a collection of colored dots. Most of the paint clusters around a central location, but some dots do splatter out towards the edges.\n" +
             "Can you use a normal distribution of random numbers to generate the locations of the dots? Can you also use a normal distribution of random numbers to generate a color palette?";
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
         generator = new RandomNumberGenerator();
         generator.Randomize();
 
@@ -28,7 +31,8 @@ public class C0Exercise4 : Node2D, IExample {
         canvas.SetDrawFunction(CanvasDraw);
     }
 
-    public void CanvasDraw(Node2D pen) {
+    public void CanvasDraw(Node2D pen)
+    {
         var size = GetViewport().Size;
 
         // Follow mouse for fun

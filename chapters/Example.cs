@@ -1,3 +1,8 @@
-public interface IExample {
+/**
+Common example interface.
+*/
+
+public interface IExample
+{
     string _Summary();
 }

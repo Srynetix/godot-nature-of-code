@@ -13,7 +13,8 @@ public class C1Exercise3 : Spatial, IExample
     private Vector3 position;
     private Vector3 velocity = new Vector3(0.75f, 0.5f, 0.25f);
 
-    public string _Summary() {
+    public string _Summary()
+    {
         return "Exercise 1.3:\nExtend the bouncing ball with vectors example into 3D. Can you get a sphere to bounce around a box?";
     }
 
@@ -24,20 +25,24 @@ public class C1Exercise3 : Spatial, IExample
         camPoint = GetNode<Position3D>("Position3D");
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
         camPoint.RotateY(delta * 0.5f);
         int limit = 4;
         position += velocity * delta * 10.0f;
 
-        if (position.x > limit || position.x < -limit) {
+        if (position.x > limit || position.x < -limit)
+        {
             velocity.x *= -1;
         }
 
-        if (position.y > limit || position.y < -limit) {
+        if (position.y > limit || position.y < -limit)
+        {
             velocity.y *= -1;
         }
 
-        if (position.z > limit || position.z < -limit) {
+        if (position.z > limit || position.z < -limit)
+        {
             velocity.z *= -1;
         }
 

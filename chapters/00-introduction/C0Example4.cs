@@ -5,15 +5,18 @@ Example I.4:
 Gaussian distribution
 */
 
-public class C0Example4 : Node2D, IExample {
+public class C0Example4 : Node2D, IExample
+{
     private RandomNumberGenerator generator;
     private Utils.Canvas canvas;
 
-    public string _Summary() {
+    public string _Summary()
+    {
         return "Example I.4:\nGaussian distribution";
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
         generator = new RandomNumberGenerator();
         generator.Randomize();
 
@@ -23,7 +26,8 @@ public class C0Example4 : Node2D, IExample {
         canvas.SetDrawFunction(CanvasDraw);
     }
 
-    public void CanvasDraw(Node2D pen) {
+    public void CanvasDraw(Node2D pen)
+    {
         var size = GetViewport().Size;
 
         float num = generator.Randfn(0, 1);  // Gaussian distribution

@@ -7,11 +7,13 @@ Vector magnitude
 
 public class C1Example5 : Node2D, IExample
 {
-    public string _Summary() {
+    public string _Summary()
+    {
         return "Example 1.5:\nVector magnitude";
     }
 
-    public override void _Draw() {
+    public override void _Draw()
+    {
         var mousePosition = GetViewport().GetMousePosition();
         var size = GetViewport().Size;
         var center = size / 2;
@@ -23,7 +25,8 @@ public class C1Example5 : Node2D, IExample
         DrawLine(center, center + target, Colors.Black, 2, true);
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
         Update();
     }
 }

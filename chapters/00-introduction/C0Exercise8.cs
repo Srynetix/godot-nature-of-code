@@ -12,12 +12,14 @@ public class C0Exercise8 : Node2D, IExample
     private ImageTexture texture;
     private OpenSimplexNoise noise;
 
-    public string _Summary() {
+    public string _Summary()
+    {
         return "Exercise I.8\n" +
             "Play with color, noiseDetail(), and the rate at which xoff and yoff are incremented to achieve different visual effects.";
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
         sprite = new Sprite();
         image = new Image();
         texture = new ImageTexture();
@@ -38,14 +40,17 @@ public class C0Exercise8 : Node2D, IExample
         AddChild(sprite);
     }
 
-    private void GenerateNoiseTexture() {
+    private void GenerateNoiseTexture()
+    {
         var size = GetViewport().Size;
 
         noise.Octaves = 8;
 
         image.Lock();
-        for (int x = 0; x < size.x; ++x) {
-            for (int y = 0; y < size.y; ++y) {
+        for (int x = 0; x < size.x; ++x)
+        {
+            for (int y = 0; y < size.y; ++y)
+            {
                 float n = Utils.Map(noise.GetNoise2d(x + GD.Randf() * 10, y + GD.Randf() * 10), -1, 1, 0, 1);
                 byte tint = (byte)Utils.Map(n, 0, 1, 0, 255);
                 image.SetPixel(x, y, Color.Color8(tint, tint, tint));
