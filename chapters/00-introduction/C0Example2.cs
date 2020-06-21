@@ -5,13 +5,16 @@ Example I.2:
 Random number distribution
 */
 
-public class C0Example2 : Node2D {
+public class C0Example2 : Node2D, IExample {
 	private int[] randomCounts;
+
+	public string _Summary() {
+        return "Example I.2:\nRandom number distribution";
+    }
 
 	public override void _Ready() {
         GD.Randomize();
 		randomCounts = new int[20];
-		VisualServer.SetDefaultClearColor(Colors.White);
 	}
 
 	public override void _Draw() {

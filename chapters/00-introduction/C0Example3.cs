@@ -5,7 +5,7 @@ Example I.3:
 Walker that tends to move to the right
 */
 
-public class C0Example3 : Node2D
+public class C0Example3 : Node2D, IExample
 {
     public class Walker {
         public float x;
@@ -34,10 +34,13 @@ public class C0Example3 : Node2D
     private Walker walker;
     private Utils.Canvas canvas;
 
+    public string _Summary() {
+        return "Example I.3:\nWalker that tends to move to the right";
+    }
+
     public override void _Ready() {
         GD.Randomize();
         walker = new Walker(GetViewport().Size / 2);
-        VisualServer.SetDefaultClearColor(Colors.White);
 
         canvas = new Utils.Canvas();
         AddChild(canvas);

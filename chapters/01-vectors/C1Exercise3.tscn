@@ -2,12 +2,12 @@
 
 [ext_resource path="res://chapters/01-vectors/C1Exercise3.cs" type="Script" id=1]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
 albedo_color = Color( 1, 1, 1, 0.0627451 )
 
-[sub_resource type="CubeMesh" id=1]
-material = SubResource( 2 )
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 1 )
 size = Vector3( 10, 10, 10 )
 
 [sub_resource type="SpatialMaterial" id=3]
@@ -22,7 +22,7 @@ material = SubResource( 3 )
 script = ExtResource( 1 )
 
 [node name="Cube" type="MeshInstance" parent="."]
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Sphere" type="MeshInstance" parent="."]

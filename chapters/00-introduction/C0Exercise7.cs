@@ -6,7 +6,7 @@ In the above random walker, the result of the noise function is mapped directly 
 Create a random walker where you instead map the result of the noise() function to a Walker’s step size.
 */
 
-public class C0Exercise7 : Node2D
+public class C0Exercise7 : Node2D, IExample
 {
     public class Walker {
         float x;
@@ -50,10 +50,15 @@ public class C0Exercise7 : Node2D
     
     private Walker walker;
 
+    public string _Summary() {
+        return "Exercise I.7:\n" +
+            "In the above random walker, the result of the noise function is mapped directly to the Walker’s location.\n" +
+            "Create a random walker where you instead map the result of the noise() function to a Walker’s step size.";
+    }
+
     public override void _Ready() {
         GD.Randomize();
         walker = new Walker(GetViewport().Size / 2);
-        VisualServer.SetDefaultClearColor(Colors.White);
     }
     
     public override void _Draw() {

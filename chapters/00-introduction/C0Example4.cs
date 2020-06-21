@@ -5,15 +5,17 @@ Example I.4:
 Gaussian distribution
 */
 
-public class C0Example4 : Node2D {
+public class C0Example4 : Node2D, IExample {
     private RandomNumberGenerator generator;
     private Utils.Canvas canvas;
+
+    public string _Summary() {
+        return "Example I.4:\nGaussian distribution";
+    }
 
     public override void _Ready() {
         generator = new RandomNumberGenerator();
         generator.Randomize();
-
-        VisualServer.SetDefaultClearColor(Colors.White);
 
         canvas = new Utils.Canvas();
         AddChild(canvas);

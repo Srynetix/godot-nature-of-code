@@ -6,7 +6,7 @@ Create a random walker with dynamic probabilities.
 For example, can you give it a 50% chance of moving in the direction of the mouse?
 */
 
-public class C0Exercise3 : Node2D
+public class C0Exercise3 : Node2D, IExample
 {
     public class Walker {
         public float x;
@@ -57,10 +57,13 @@ public class C0Exercise3 : Node2D
     private Walker walker;
     private Utils.Canvas canvas;
 
+    public string _Summary() {
+        return "Exercise I.3:\nCreate a random walker with dynamic probabilities.\nFor example, can you give it a 50% chance of moving in the direction of the mouse?";
+    }
+
     public override void _Ready() {
         GD.Randomize();
         walker = new Walker(GetViewport().Size / 2);
-        VisualServer.SetDefaultClearColor(Colors.White);
 
         canvas = new Utils.Canvas();
         AddChild(canvas);

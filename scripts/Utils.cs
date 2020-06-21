@@ -29,10 +29,15 @@ public class Utils {
         private Viewport viewport;
         private Node2D pen;
         private TextureRect board;
+        private Color backgroundColor = Color.Color8(45, 45, 45);
         private DrawFunction drawFunction = null;
 
         public void SetDrawFunction(DrawFunction fn) {
             drawFunction = fn;
+        }
+
+        public void SetBackgroundColor(Color color) {
+            backgroundColor = color;
         }
 
         public override void _Ready() {
@@ -44,10 +49,6 @@ public class Utils {
             viewport.RenderTargetClearMode = Viewport.ClearMode.OnlyNextFrame;
             viewport.RenderTargetVFlip = true;
 
-            var colorRect = new ColorRect();
-            colorRect.Modulate = Colors.Blue;
-            viewport.AddChild(colorRect);
-            
             pen = new Node2D();
             pen.Connect("draw", this, nameof(OnPenDraw));
             viewport.AddChild(pen);
@@ -60,6 +61,8 @@ public class Utils {
         }
 
         public void OnPenDraw() {
+            VisualServer.SetDefaultClearColor(backgroundColor);
+
             if (drawFunction != null) {
                 drawFunction(pen);
             }

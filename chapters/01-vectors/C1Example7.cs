@@ -5,7 +5,7 @@ Example 1.7:
 Motion 101 (velocity)
 */
 
-public class C1Example7 : Node2D {
+public class C1Example7 : Node2D, IExample {
     public class Mover : Node2D {
         private Vector2 velocity;
 
@@ -44,10 +44,13 @@ public class C1Example7 : Node2D {
 
     private Mover mover;
 
+    public string _Summary() {
+        return "Example 1.7:\nMotion 101 (velocity)";
+    }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         GD.Randomize();
-        VisualServer.SetDefaultClearColor(Colors.White);
         
         mover = new Mover();
         AddChild(mover);

@@ -1,13 +1,13 @@
 using Godot;
 
 /**
-Exercise I.5:
+Exercise I.6:
 Use a custom probability distribution to vary the size of a step taken by the random walker.
 The step size can be determined by influencing the range of values picked.
 Can you map the probability exponentially—i.e. making the likelihood that a value is picked equal to the value squared?
 */
 
-public class C0Exercise6 : Node2D
+public class C0Exercise6 : Node2D, IExample
 {
     public class Walker {
         public float x;
@@ -48,10 +48,16 @@ public class C0Exercise6 : Node2D
     private Walker walker;
     private Utils.Canvas canvas;
 
+    public string _Summary() {
+        return "Exercise I.6:\n" +
+            "Use a custom probability distribution to vary the size of a step taken by the random walker.\n" +
+            "The step size can be determined by influencing the range of values picked.\n" +
+            "Can you map the probability exponentially—i.e. making the likelihood that a value is picked equal to the value squared?";
+    }
+
     public override void _Ready() {
         GD.Randomize();
         walker = new Walker(GetViewport().Size / 2);
-        VisualServer.SetDefaultClearColor(Colors.White);
 
         canvas = new Utils.Canvas();
         AddChild(canvas);

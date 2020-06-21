@@ -5,10 +5,10 @@ Example 1.3:
 Vector subtraction
 */
 
-public class C1Example3 : Node2D
+public class C1Example3 : Node2D, IExample
 {
-    public override void _Ready() {
-        VisualServer.SetDefaultClearColor(Colors.White);
+    public string _Summary() {
+        return "Example 1.3:\nVector subtraction";
     }
 
     public override void _Draw() {

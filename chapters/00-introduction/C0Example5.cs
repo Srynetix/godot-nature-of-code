@@ -5,17 +5,20 @@ Example I.5:
 Perlin noise walker
 */
 
-public class C0Example5 : Node2D
+public class C0Example5 : Node2D, IExample
 {
     private OpenSimplexNoise noise;
     private Vector2 position;
     private float tx;
     private float ty;
 
+    public string _Summary() {
+        return "Example I.5:\nPerlin noise walker";
+    }
+
     public override void _Ready() {
         noise = new OpenSimplexNoise();
         position = GetViewport().Size / 2;
-        VisualServer.SetDefaultClearColor(Colors.White);
 
         tx = 0;
         ty = 10000;

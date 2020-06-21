@@ -5,12 +5,13 @@ Example 1.2:
 Bouncing ball with vectors.
 */
 
-public class C1Example2 : Node2D {
+public class C1Example2 : Node2D, IExample {
     private Vector2 position = new Vector2(100, 100);
     private Vector2 velocity = new Vector2(2.5f, 5f);
 
-    public override void _Ready() {
-        VisualServer.SetDefaultClearColor(Colors.White);
+    public string _Summary() {
+        return "Example 1.2:\n" +
+            "Bouncing ball with vectors.";
     }
 
     public override void _Draw() {

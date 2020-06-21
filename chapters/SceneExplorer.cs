@@ -16,6 +16,10 @@ public class SceneExplorer : Control {
     private Button PrevExampleButton;
     private Button NextExampleButton;
     private Button SelectExampleButton;
+    private RichTextLabel CodeLabel;
+    private RichTextLabel SummaryLabel;
+    private ColorRect CodeBackground;
+    private Button ToggleCodeButton;
 
     private string currentChapter;
     private string currentScene;
@@ -167,24 +171,56 @@ public class SceneExplorer : Control {
             child.QueueFree();
         }
 
-        CurrentSceneContainer.AddChild(scene.Instance());
-    } 
+        var instance = scene.Instance();
+        CurrentSceneContainer.AddChild(instance);
+
+        // Show code
+        CSharpScript script = (CSharpScript)instance.GetScript();
+        string scriptPath = script.ResourcePath;
+        CodeLabel.Text = ReadSourceCodeAtPath(scriptPath);
+        CodeLabel.ScrollToLine(0);
+
+        // Set summary
+        if (instance is IExample baseInstance) {
+            SummaryLabel.Text = baseInstance._Summary();
+        }
+    }
+
+    private string ReadSourceCodeAtPath(string path) {
+        var f = new File();
+        f.Open(path, File.ModeFlags.Read);
+        var code = f.GetAsText();
+        f.Close();
+
+        return code;
+    }
+
+    public void ToggleCodeLabel() {
+        CodeBackground.Visible = !CodeBackground.Visible;
+        CodeLabel.Visible = !CodeLabel.Visible;
+    }
 
     public override void _Ready() {
-        CurrentSceneContainer = GetNode<MarginContainer>("Container/VBox/CurrentScene");
-        PrevChapterButton = GetNode<Button>("Container/VBox/Buttons/ChapterSelection/PrevChapter");
-        NextChapterButton = GetNode<Button>("Container/VBox/Buttons/ChapterSelection/NextChapter");
-        SelectChapterButton = GetNode<Button>("Container/VBox/Buttons/ChapterSelection/SelectChapter");
-        PrevExampleButton = GetNode<Button>("Container/VBox/Buttons/ExampleSelection/PrevExample");
-        NextExampleButton = GetNode<Button>("Container/VBox/Buttons/ExampleSelection/NextExample");
-        SelectExampleButton = GetNode<Button>("Container/VBox/Buttons/ExampleSelection/SelectExample");
+        CurrentSceneContainer = GetNode<MarginContainer>("Container/CurrentScene");
+        CodeLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Code");
+        SummaryLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Summary");
+        CodeBackground = GetNode<ColorRect>("Container/VBox/TopControl/CodeBackground");
+        ToggleCodeButton = GetNode<Button>("Container/VBox/Buttons/ToggleCodeButton");
+        PrevChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/PrevChapter");
+        NextChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/NextChapter");
+        SelectChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/SelectChapter");
+        PrevExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/PrevExample");
+        NextExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/NextExample");
+        SelectExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/SelectExample");
 
         PrevChapterButton.Connect("pressed", this, nameof(SelectPrevChapter));
         NextChapterButton.Connect("pressed", this, nameof(SelectNextChapter));
         PrevExampleButton.Connect("pressed", this, nameof(SelectPrevExample));
         NextExampleButton.Connect("pressed", this, nameof(SelectNextExample));
         SelectExampleButton.Connect("pressed", this, nameof(LoadCurrentExample));
+        ToggleCodeButton.Connect("pressed", this, nameof(ToggleCodeLabel));
 
+        ToggleCodeLabel();
         SelectChapter(currentChapter);
     }
 }

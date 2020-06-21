@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://chapters/SceneExplorer.cs" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Raleway-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/FiraCode-Regular.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
@@ -11,6 +12,21 @@ use_filter = true
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 14
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
@@ -33,6 +49,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CurrentScene" type="MarginContainer" parent="Container"]
+margin_right = 1024.0
+margin_bottom = 580.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VBox" type="VBoxContainer" parent="Container"]
 margin_right = 1024.0
 margin_bottom = 580.0
@@ -40,77 +65,150 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CurrentScene" type="MarginContainer" parent="Container/VBox"]
+[node name="TopControl" type="MarginContainer" parent="Container/VBox"]
 margin_right = 1024.0
 margin_bottom = 484.0
 size_flags_vertical = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
 
-[node name="Buttons" type="VBoxContainer" parent="Container/VBox"]
+[node name="CodeBackground" type="ColorRect" parent="Container/VBox/TopControl"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 464.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.0470588, 0.0470588, 0.0470588, 0.313726 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CodeHBox" type="MarginContainer" parent="Container/VBox/TopControl"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 464.0
+size_flags_vertical = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="Summary" type="RichTextLabel" parent="Container/VBox/TopControl/CodeHBox"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 964.0
+margin_bottom = 424.0
+custom_fonts/normal_font = SubResource( 1 )
+text = "[This is the summary text]"
+
+[node name="Code" type="RichTextLabel" parent="Container/VBox/TopControl/CodeHBox"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 964.0
+margin_bottom = 424.0
+focus_mode = 2
+size_flags_horizontal = 3
+custom_fonts/normal_font = SubResource( 2 )
+text = "[This is the example code]"
+selection_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="HBoxContainer" parent="Container/VBox"]
 margin_top = 488.0
 margin_right = 1024.0
 margin_bottom = 580.0
 
-[node name="ChapterHeader" type="Label" parent="Container/VBox/Buttons"]
+[node name="ToggleCodeButton" type="Button" parent="Container/VBox/Buttons"]
+margin_left = 207.0
+margin_top = 34.0
+margin_right = 303.0
+margin_bottom = 58.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 3 )
+text = "Toggle code"
+
+[node name="SelectionButtons" type="VBoxContainer" parent="Container/VBox/Buttons"]
+margin_left = 514.0
 margin_right = 1024.0
+margin_bottom = 92.0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="ChapterHeader" type="Label" parent="Container/VBox/Buttons/SelectionButtons"]
+margin_right = 510.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 4 )
 text = "Chapter selection"
 align = 1
 
-[node name="ChapterSelection" type="HBoxContainer" parent="Container/VBox/Buttons"]
+[node name="ChapterSelection" type="HBoxContainer" parent="Container/VBox/Buttons/SelectionButtons"]
 margin_top = 24.0
-margin_right = 1024.0
+margin_right = 510.0
 margin_bottom = 44.0
 
-[node name="PrevChapter" type="Button" parent="Container/VBox/Buttons/ChapterSelection"]
-margin_left = 318.0
-margin_right = 338.0
+[node name="PrevChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
+margin_left = 147.0
+margin_right = 167.0
 margin_bottom = 20.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 text = "<"
 
-[node name="SelectChapter" type="Button" parent="Container/VBox/Buttons/ChapterSelection"]
-margin_left = 342.0
-margin_right = 680.0
+[node name="SelectChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
+margin_left = 171.0
+margin_right = 338.0
 margin_bottom = 20.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 
-[node name="NextChapter" type="Button" parent="Container/VBox/Buttons/ChapterSelection"]
-margin_left = 684.0
-margin_right = 704.0
+[node name="NextChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
+margin_left = 342.0
+margin_right = 362.0
 margin_bottom = 20.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 2
 text = ">"
 
-[node name="ExampleHeader" type="Label" parent="Container/VBox/Buttons"]
+[node name="ExampleHeader" type="Label" parent="Container/VBox/Buttons/SelectionButtons"]
 margin_top = 48.0
-margin_right = 1024.0
+margin_right = 510.0
 margin_bottom = 68.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 5 )
 text = "Example/Exercise selection"
 align = 1
 
-[node name="ExampleSelection" type="HBoxContainer" parent="Container/VBox/Buttons"]
+[node name="ExampleSelection" type="HBoxContainer" parent="Container/VBox/Buttons/SelectionButtons"]
 margin_top = 72.0
-margin_right = 1024.0
+margin_right = 510.0
 margin_bottom = 92.0
 
-[node name="PrevExample" type="Button" parent="Container/VBox/Buttons/ExampleSelection"]
-margin_left = 318.0
-margin_right = 338.0
+[node name="PrevExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 147.0
+margin_right = 167.0
 margin_bottom = 20.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 text = "<"
 
-[node name="SelectExample" type="Button" parent="Container/VBox/Buttons/ExampleSelection"]
-margin_left = 342.0
-margin_right = 680.0
+[node name="SelectExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 171.0
+margin_right = 338.0
 margin_bottom = 20.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 
-[node name="NextExample" type="Button" parent="Container/VBox/Buttons/ExampleSelection"]
-margin_left = 684.0
-margin_right = 704.0
+[node name="NextExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 342.0
+margin_right = 362.0
 margin_bottom = 20.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 2
 text = ">"

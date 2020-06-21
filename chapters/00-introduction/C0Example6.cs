@@ -5,12 +5,16 @@ Example I.6:
 2D Perlin noise
 */
 
-public class C0Example6 : Node2D
+public class C0Example6 : Node2D, IExample
 {
     private Sprite sprite;
     private Image image;
     private ImageTexture texture;
     private OpenSimplexNoise noise;
+
+    public string _Summary() {
+        return "Example I.6:\n2D Perlin noise";
+    }
 
     public override void _Ready() {
         sprite = new Sprite();

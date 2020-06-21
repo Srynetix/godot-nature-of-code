@@ -5,7 +5,7 @@ Example 1.9:
 Motion 101 (velocity and random acceleration)
 */
 
-public class C1Example9 : Node2D
+public class C1Example9 : Node2D, IExample
 {
     public class Mover : Node2D {
         private Vector2 velocity;
@@ -53,9 +53,12 @@ public class C1Example9 : Node2D
 
     private Mover mover;
 
+    public string _Summary() {
+        return "Example 1.9:\n Motion 101 (velocity and random acceleration)";
+    }
+
     public override void _Ready() {
         GD.Randomize();
-        VisualServer.SetDefaultClearColor(Colors.White);
         
         mover = new Mover();
         AddChild(mover);

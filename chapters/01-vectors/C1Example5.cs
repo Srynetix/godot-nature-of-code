@@ -5,10 +5,10 @@ Example 1.5:
 Vector magnitude
 */
 
-public class C1Example5 : Node2D
+public class C1Example5 : Node2D, IExample
 {
-    public override void _Ready() {
-        VisualServer.SetDefaultClearColor(Colors.White);
+    public string _Summary() {
+        return "Example 1.5:\nVector magnitude";
     }
 
     public override void _Draw() {

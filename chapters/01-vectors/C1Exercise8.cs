@@ -5,7 +5,7 @@ Exercise 1.8:
 Try implementing the above example with a variable magnitude of acceleration, stronger when it is either closer or farther away.
 */
 
-public class C1Exercise8 : Node2D
+public class C1Exercise8 : Node2D, IExample
 {
     public class Mover : Node2D {
         private Vector2 velocity;
@@ -59,9 +59,12 @@ public class C1Exercise8 : Node2D
 
     private Mover mover;
 
+    public string _Summary() {
+        return "Exercise 1.8:\nTry implementing the above example with a variable magnitude of acceleration, stronger when it is either closer or farther away.";
+    }
+
     public override void _Ready() {
         GD.Randomize();
-        VisualServer.SetDefaultClearColor(Colors.White);
         
         mover = new Mover();
         AddChild(mover);

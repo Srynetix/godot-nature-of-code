@@ -6,7 +6,7 @@ A Gaussian random walk is defined as one in which the step size (how far the obj
 Implement this variation of our random walk.
 */
 
-public class C0Exercise5 : Node2D
+public class C0Exercise5 : Node2D, IExample
 {
     public class Walker {
         public float x;
@@ -43,10 +43,15 @@ public class C0Exercise5 : Node2D
     private Walker walker;
     private Utils.Canvas canvas;
 
+    public string _Summary() {
+        return "Exercise I.5:\n" +
+            "A Gaussian random walk is defined as one in which the step size (how far the object moves in a given direction) is generated with a normal distribution.\n" +
+            "Implement this variation of our random walk.";
+    }
+
     public override void _Ready() {
         GD.Randomize();
         walker = new Walker(GetViewport().Size / 2);
-        VisualServer.SetDefaultClearColor(Colors.White);
 
         canvas = new Utils.Canvas();
         AddChild(canvas);

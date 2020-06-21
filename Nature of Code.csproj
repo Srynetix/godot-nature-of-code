@@ -81,8 +81,10 @@
     <Compile Include="chapters\01-vectors\C1Example9.cs" />
     <Compile Include="chapters\01-vectors\C1Exercise3.cs" />
     <Compile Include="chapters\01-vectors\C1Exercise8.cs" />
+    <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="ecosystem\Ecosystem.cs" />
+    <Compile Include="launcher\Launcher.cs" />
     <Compile Include="scripts\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="workspace\Workspace.cs" />

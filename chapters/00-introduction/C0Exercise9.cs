@@ -5,13 +5,18 @@ Exercise I.9:
 Add a third argument to noise that increments once per cycle through draw() to animate the two-dimensional noise.
 **/
 
-public class C0Exercise9 : Node2D
+public class C0Exercise9 : Node2D, IExample
 {
     private Sprite sprite;
     private Image image;
     private ImageTexture texture;
     private OpenSimplexNoise noise;
     private float time;
+
+    public string _Summary() {
+        return "Exercise I.9:\n" +
+            "Add a third argument to noise that increments once per cycle through draw() to animate the two-dimensional noise.";
+    }
 
     public override void _Ready() {
         sprite = new Sprite();

@@ -5,7 +5,7 @@ Example 1.11:
 Array of movers accelerating towards the mouse
 */
 
-public class C1Example11 : Node2D
+public class C1Example11 : Node2D, IExample
 {
     public class Mover : Node2D {
         private Vector2 velocity;
@@ -53,9 +53,12 @@ public class C1Example11 : Node2D
         }
     }
 
+    public string _Summary() {
+        return "Example 1.11:\nArray of movers accelerating towards the mouse";
+    }
+
     public override void _Ready() {
         GD.Randomize();
-        VisualServer.SetDefaultClearColor(Colors.White);
 
         var moverCount = 20; 
         for (int i = 0; i < moverCount; ++i) {

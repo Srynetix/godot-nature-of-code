@@ -1,7 +1,7 @@
 using Godot;
 using System.Linq;
 
-public class Ecosystem : Node2D {
+public class Ecosystem : Control {
     public class Lifeform: Node2D {
         public Vector2 Velocity;
         public Vector2 Acceleration;
@@ -231,6 +231,9 @@ public class Ecosystem : Node2D {
 
             // Eye
             DrawCircle(Vector2.Right * 12f + Vector2.Up * 10, 2, EyeColor);
+
+            // Nose
+            DrawCircle(Vector2.Right * 16f + Vector2.Up * 8, 1.5f, baseColor);
             
             // Right ear
             DrawCircle(Vector2.Right * 5f + Vector2.Up * 14, 3, darkenedColor);
@@ -257,7 +260,7 @@ public class Ecosystem : Node2D {
     public override void _Ready() {
         GD.Randomize();
 
-        fpsLabel = GetNode<Label>("CanvasLayer/MarginContainer/VBoxContainer/FPS");
+        fpsLabel = GetNode<Label>("MarginContainer/VBoxContainer/FPS");
 
         int nervousFlyCount = 10;
         foreach (int x in Enumerable.Range(0, nervousFlyCount)) {
@@ -278,6 +281,16 @@ public class Ecosystem : Node2D {
             var bunny = new HoppingBunny();
             bunny.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
             AddChild(bunny);
+        }
+    }
+
+    public override void _Input(InputEvent @event) {
+        if (@event is InputEventKey inputEventKey) {
+            if (!inputEventKey.Pressed) {
+                if (inputEventKey.Scancode == (int)KeyList.Space) {
+                    GetTree().ReloadCurrentScene();
+                }
+            }
         }
     }
 

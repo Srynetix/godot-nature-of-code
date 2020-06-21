@@ -5,10 +5,10 @@ Example 1.6:
 Normalizing a vector
 */
 
-public class C1Example6 : Node2D
+public class C1Example6 : Node2D, IExample
 {
-    public override void _Ready() {
-        VisualServer.SetDefaultClearColor(Colors.White);
+    public string _Summary() {
+        return "Example 1.6:\nNormalizing a vector";
     }
 
     public override void _Draw() {

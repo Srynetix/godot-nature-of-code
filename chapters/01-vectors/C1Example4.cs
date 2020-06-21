@@ -5,10 +5,10 @@ Example 1.4:
 Vector multiplication
 */
 
-public class C1Example4 : Node2D
+public class C1Example4 : Node2D, IExample
 {
-    public override void _Ready() {
-        VisualServer.SetDefaultClearColor(Colors.White);
+    public string _Summary() {
+        return "Example 1.4:\nVector multiplication";
     }
 
     public override void _Draw() {
