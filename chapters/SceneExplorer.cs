@@ -240,6 +240,7 @@ public class SceneExplorer : Control
     {
         CodeBackground.Visible = !CodeBackground.Visible;
         CodeLabel.Visible = !CodeLabel.Visible;
+        SummaryLabel.Visible = !SummaryLabel.Visible;
     }
 
     public override void _Ready()
@@ -263,7 +264,10 @@ public class SceneExplorer : Control
         SelectExampleButton.Connect("pressed", this, nameof(LoadCurrentExample));
         ToggleCodeButton.Connect("pressed", this, nameof(ToggleCodeLabel));
 
-        ToggleCodeLabel();
+        SummaryLabel.Visible = true;
+        CodeBackground.Visible = false;
+        CodeLabel.Visible = false;
+
         SelectChapter(currentChapter);
     }
 }
