@@ -6,6 +6,8 @@ Each interactive example and interactive exercise will be implemented with lates
 
 The project contain a launcher, with a **scene explorer** to navigate examples and exercises, and the **ecosystem simulation** scene.
 
+![screen](./docs/screen.gif)
+
 ## Roadmap
 
 - [ ] Implement missing examples and exercises.
