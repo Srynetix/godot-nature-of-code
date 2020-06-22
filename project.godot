@@ -19,10 +19,6 @@ config/name="Nature of Code"
 run/main_scene="res://launcher/Launcher.tscn"
 config/icon="res://icon.png"
 
-[display]
-
-window/size/resizable=false
-
 [mono]
 
 export/include_scripts_content=true

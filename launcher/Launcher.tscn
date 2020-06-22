@@ -69,7 +69,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Margin"]
+[node name="VBox" type="VBoxContainer" parent="Margin"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1004.0
@@ -78,9 +78,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Margin/VBoxContainer"]
+[node name="Label" type="Label" parent="Margin/VBox"]
 margin_right = 984.0
-margin_bottom = 278.0
+margin_bottom = 370.0
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 2 )
 text = "Interactive
@@ -89,14 +89,22 @@ in Godot Engine"
 align = 1
 valign = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Margin/VBoxContainer"]
-margin_top = 382.0
+[node name="Margin" type="MarginContainer" parent="Margin/VBox"]
+margin_top = 374.0
 margin_right = 984.0
 margin_bottom = 560.0
-size_flags_vertical = 10
-custom_constants/separation = 50
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 
-[node name="ExamplesButton" type="Button" parent="Margin/VBoxContainer/VBoxContainer"]
+[node name="Buttons" type="VBoxContainer" parent="Margin/VBox/Margin"]
+margin_right = 984.0
+margin_bottom = 186.0
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExamplesButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
 margin_left = 397.0
 margin_right = 587.0
 margin_bottom = 26.0
@@ -105,7 +113,7 @@ size_flags_horizontal = 4
 custom_fonts/font = SubResource( 3 )
 text = "Examples and exercises"
 
-[node name="EcosystemButton" type="Button" parent="Margin/VBoxContainer/VBoxContainer"]
+[node name="EcosystemButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
 margin_left = 404.0
 margin_top = 76.0
 margin_right = 579.0
@@ -115,7 +123,7 @@ size_flags_horizontal = 4
 custom_fonts/font = SubResource( 4 )
 text = "Ecosystem simulation"
 
-[node name="QuitButton" type="Button" parent="Margin/VBoxContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
 margin_left = 471.0
 margin_top = 152.0
 margin_right = 513.0
@@ -124,3 +132,24 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 5 )
 text = "Quit"
+
+[node name="Links" type="RichTextLabel" parent="Margin/VBox/Margin"]
+margin_left = 784.0
+margin_top = 111.0
+margin_right = 984.0
+margin_bottom = 186.0
+rect_min_size = Vector2( 200, 75 )
+rect_clip_content = false
+size_flags_horizontal = 8
+size_flags_vertical = 8
+bbcode_enabled = true
+bbcode_text = "[url=https://natureofcode.com]Get The Nature of Code[/url]
+
+[url=https://godotengine.org]Get Godot Engine[/url]
+
+[url=https://github.com/Srynetix/godot-nature-of-code]See me on GitHub[/url]"
+text = "Get The Nature of Code
+
+Get Godot Engine
+
+See me on GitHub"

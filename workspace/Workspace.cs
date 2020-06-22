@@ -1,5 +1,4 @@
 using Godot;
 
-public class Workspace : Node2D
-{
+public class Workspace : Node2D {
 }
