@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ecosystem/Ecosystem.cs" type="Script" id=1]
+[ext_resource path="res://assets/fonts/FiraCode-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
 
 [node name="Ecosystem" type="Control"]
 anchor_right = 1.0
@@ -14,6 +22,11 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.176471, 0.176471, 0.176471, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DrawZone" type="Control" parent="."]
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,5 +51,6 @@ margin_bottom = 580.0
 
 [node name="FPS" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 984.0
-margin_bottom = 14.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 1 )
 text = "FPS: [FPS]"

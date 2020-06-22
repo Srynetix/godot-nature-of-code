@@ -258,31 +258,33 @@ public class Ecosystem : Control {
   }
 
   private Label fpsLabel;
+  private Control drawZone;
 
   public override void _Ready() {
     GD.Randomize();
 
+    drawZone = GetNode<Control>("DrawZone");
     fpsLabel = GetNode<Label>("MarginContainer/VBoxContainer/FPS");
 
     int nervousFlyCount = 10;
     foreach (int x in Enumerable.Range(0, nervousFlyCount)) {
       var fly = new NervousFly();
       fly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
-      AddChild(fly);
+      drawZone.AddChild(fly);
     }
 
     int swimmingFishCount = 10;
     foreach (int x in Enumerable.Range(0, swimmingFishCount)) {
       var fish = new SwimmingFish();
       fish.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
-      AddChild(fish);
+      drawZone.AddChild(fish);
     }
 
     int hoppingBunnyCount = 10;
     foreach (int x in Enumerable.Range(0, hoppingBunnyCount)) {
       var bunny = new HoppingBunny();
       bunny.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
-      AddChild(bunny);
+      drawZone.AddChild(bunny);
     }
   }
 
