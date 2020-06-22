@@ -20,7 +20,9 @@ font_data = ExtResource( 2 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=6]
-size = 14
+size = 15
+use_mipmaps = true
+use_filter = true
 font_data = ExtResource( 2 )
 
 [node name="Launcher" type="Control"]

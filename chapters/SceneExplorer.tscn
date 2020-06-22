@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://chapters/SceneExplorer.cs" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Raleway-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/fonts/FiraCode-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://resources/AppTheme.tres" type="Theme" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
@@ -67,7 +68,7 @@ __meta__ = {
 
 [node name="TopControl" type="MarginContainer" parent="Container/VBox"]
 margin_right = 1024.0
-margin_bottom = 484.0
+margin_bottom = 482.0
 size_flags_vertical = 3
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -78,7 +79,7 @@ custom_constants/margin_bottom = 20
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1004.0
-margin_bottom = 464.0
+margin_bottom = 462.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.0470588, 0.0470588, 0.0470588, 0.313726 )
@@ -90,7 +91,7 @@ __meta__ = {
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1004.0
-margin_bottom = 464.0
+margin_bottom = 462.0
 size_flags_vertical = 3
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -101,7 +102,7 @@ custom_constants/margin_bottom = 20
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 964.0
-margin_bottom = 424.0
+margin_bottom = 422.0
 custom_fonts/normal_font = SubResource( 1 )
 text = "[This is the summary text]"
 
@@ -109,7 +110,7 @@ text = "[This is the summary text]"
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 964.0
-margin_bottom = 424.0
+margin_bottom = 422.0
 focus_mode = 2
 size_flags_horizontal = 3
 custom_fonts/normal_font = SubResource( 2 )
@@ -120,15 +121,15 @@ __meta__ = {
 }
 
 [node name="Buttons" type="HBoxContainer" parent="Container/VBox"]
-margin_top = 488.0
+margin_top = 486.0
 margin_right = 1024.0
 margin_bottom = 580.0
 
 [node name="ToggleCodeButton" type="Button" parent="Container/VBox/Buttons"]
 margin_left = 207.0
-margin_top = 34.0
+margin_top = 35.0
 margin_right = 303.0
-margin_bottom = 58.0
+margin_bottom = 59.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
@@ -138,7 +139,7 @@ text = "Toggle code"
 [node name="SelectionButtons" type="VBoxContainer" parent="Container/VBox/Buttons"]
 margin_left = 514.0
 margin_right = 1024.0
-margin_bottom = 92.0
+margin_bottom = 94.0
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
@@ -152,72 +153,79 @@ align = 1
 [node name="ChapterSelection" type="HBoxContainer" parent="Container/VBox/Buttons/SelectionButtons"]
 margin_top = 24.0
 margin_right = 510.0
-margin_bottom = 44.0
+margin_bottom = 45.0
 
 [node name="PrevChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
-margin_left = 147.0
+margin_left = 149.0
 margin_right = 167.0
-margin_bottom = 20.0
+margin_bottom = 21.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
+theme = ExtResource( 4 )
 text = "<"
 
 [node name="SelectChapter" type="OptionButton" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
 margin_left = 171.0
 margin_right = 338.0
-margin_bottom = 20.0
+margin_bottom = 21.0
 size_flags_horizontal = 3
+theme = ExtResource( 4 )
 text = "Select chapter ..."
 
 [node name="NextChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
 margin_left = 342.0
-margin_right = 362.0
-margin_bottom = 20.0
+margin_right = 360.0
+margin_bottom = 21.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 2
+theme = ExtResource( 4 )
 text = ">"
 
 [node name="ExampleHeader" type="Label" parent="Container/VBox/Buttons/SelectionButtons"]
-margin_top = 48.0
+margin_top = 49.0
 margin_right = 510.0
-margin_bottom = 68.0
+margin_bottom = 69.0
 custom_fonts/font = SubResource( 5 )
 text = "Example/Exercise selection"
 align = 1
 
 [node name="ExampleSelection" type="HBoxContainer" parent="Container/VBox/Buttons/SelectionButtons"]
-margin_top = 72.0
+margin_top = 73.0
 margin_right = 510.0
-margin_bottom = 92.0
+margin_bottom = 94.0
 
 [node name="PrevExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 127.0
-margin_right = 147.0
-margin_bottom = 20.0
+margin_left = 131.0
+margin_right = 149.0
+margin_bottom = 21.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
+theme = ExtResource( 4 )
 text = "<"
 
 [node name="SelectExample" type="OptionButton" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 151.0
-margin_right = 298.0
-margin_bottom = 20.0
+margin_left = 153.0
+margin_right = 302.0
+margin_bottom = 21.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
+theme = ExtResource( 4 )
 text = "Select example ..."
 
 [node name="ReloadExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 302.0
+margin_left = 306.0
 margin_right = 357.0
-margin_bottom = 20.0
+margin_bottom = 21.0
 hint_tooltip = "Reload current example/exercise"
 mouse_default_cursor_shape = 2
+theme = ExtResource( 4 )
 text = "Reload"
 
 [node name="NextExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
 margin_left = 361.0
-margin_right = 381.0
-margin_bottom = 20.0
+margin_right = 379.0
+margin_bottom = 21.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 2
+theme = ExtResource( 4 )
 text = ">"
