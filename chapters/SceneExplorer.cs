@@ -215,7 +215,8 @@ public class SceneExplorer : Control {
     // Show code
     CSharpScript script = (CSharpScript)instance.GetScript();
     string scriptPath = script.ResourcePath;
-    CodeLabel.Text = ReadSourceCodeAtPath(scriptPath);
+    CodeLabel.BbcodeEnabled = true;
+    CodeLabel.BbcodeText = ReadSourceCodeAtPath(scriptPath);
     CodeLabel.ScrollToLine(0);
 
     // Set summary
@@ -230,7 +231,8 @@ public class SceneExplorer : Control {
     var code = f.GetAsText();
     f.Close();
 
-    return code;
+    var highlighter = new SyntaxHighlighter();
+    return highlighter.HighlightWithBBCode(code);
   }
 
   private void LoadChapterItems() {

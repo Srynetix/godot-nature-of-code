@@ -168,6 +168,7 @@ text = "<"
 margin_left = 171.0
 margin_right = 338.0
 margin_bottom = 21.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "Select chapter ..."
