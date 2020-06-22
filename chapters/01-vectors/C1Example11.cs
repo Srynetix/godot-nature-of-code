@@ -50,7 +50,7 @@ public class C1Example11 : Node2D, IExample {
     }
 
     public override void _Draw() {
-      DrawCircle(Vector2.Zero, 20, Color.Color8(64, 64, 64, 64));
+      DrawCircle(Vector2.Zero, 20, Colors.LightCyan.WithAlpha(64));
     }
   }
 

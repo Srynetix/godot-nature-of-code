@@ -57,7 +57,6 @@ public class Launcher : Control {
 
   private void LinkClicked(object data) {
     if (data is string stringData) {
-      // Open link
       OS.ShellOpen(stringData);
     }
   }

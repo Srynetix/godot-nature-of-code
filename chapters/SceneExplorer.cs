@@ -12,10 +12,11 @@ public class SceneExplorer : Control {
   private MarginContainer CurrentSceneContainer;
   private Button PrevChapterButton;
   private Button NextChapterButton;
-  private Button SelectChapterButton;
+  private OptionButton SelectChapterButton;
   private Button PrevExampleButton;
   private Button NextExampleButton;
-  private Button SelectExampleButton;
+  private OptionButton SelectExampleButton;
+  private Button ReloadExampleButton;
   private RichTextLabel CodeLabel;
   private RichTextLabel SummaryLabel;
   private ColorRect CodeBackground;
@@ -45,6 +46,8 @@ public class SceneExplorer : Control {
   }
 
   public void ScanChapters() {
+    Regex rgx = new Regex(@"(?<idx>\d+)-(?<name>.+)");
+
     var dir = new Directory();
     dir.Open("res://chapters");
     dir.ListDirBegin(true);
@@ -56,8 +59,11 @@ public class SceneExplorer : Control {
       }
 
       if (!elem.Contains(".")) {
-        chaptersList.Add(elem);
-        chaptersDict.Add(elem, "res://chapters/" + elem);
+        var groups = rgx.Match(elem).Groups;
+        var chapterName = groups["idx"] + " - " + groups["name"].Value.Capitalize();
+
+        chaptersList.Add(chapterName);
+        chaptersDict.Add(chapterName, "res://chapters/" + elem);
       }
     }
 
@@ -66,6 +72,7 @@ public class SceneExplorer : Control {
 
   public void ScanScenes() {
     Regex rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
+    Regex prettyRgx = new Regex(@"(?<category>(Example|Exercise)) (?<idx>\d+)");
 
     foreach (string chapterName in chaptersList) {
       string chapterPath = chaptersDict[chapterName];
@@ -83,7 +90,11 @@ public class SceneExplorer : Control {
         }
 
         if (elem.EndsWith(".tscn")) {
-          string sceneName = elem.Substr(0, elem.Length - 5);
+          string sceneFileName = elem.Substr(0, elem.Length - 5);
+
+          var groups = rgx.Match(sceneFileName).Groups;
+          string sceneName = groups["category"].Value + " " + groups["idx"].Value;
+
           list.Add(sceneName);
           dict.Add(sceneName, (PackedScene)GD.Load(chapterPath + "/" + elem));
         }
@@ -93,8 +104,8 @@ public class SceneExplorer : Control {
 
       // Sort scenes by name
       list.Sort(delegate (string x, string y) {
-        GroupCollection xMatchGroups = rgx.Match(x).Groups;
-        GroupCollection yMatchGroups = rgx.Match(y).Groups;
+        GroupCollection xMatchGroups = prettyRgx.Match(x).Groups;
+        GroupCollection yMatchGroups = prettyRgx.Match(y).Groups;
 
         string xCategory = xMatchGroups["category"].Value;
         string yCategory = yMatchGroups["category"].Value;
@@ -118,56 +129,77 @@ public class SceneExplorer : Control {
   }
 
   public void SelectPrevChapter() {
-    var chapPos = chaptersList.IndexOf(currentChapter);
+    int chapPos = chaptersList.IndexOf(currentChapter);
+    int prevPos;
     if (chapPos == 0) {
-      SelectChapter(chaptersList[chaptersList.Count - 1]);
+      prevPos = chaptersList.Count - 1;
     }
     else {
-      SelectChapter(chaptersList[chapPos - 1]);
+      prevPos = chapPos - 1;
     }
+
+    SelectChapterFromId(prevPos);
   }
 
   public void SelectNextChapter() {
-    var chapPos = chaptersList.IndexOf(currentChapter);
+    int chapPos = chaptersList.IndexOf(currentChapter);
+    int nextPos;
     if (chapPos == chaptersList.Count - 1) {
-      SelectChapter(chaptersList[0]);
+      nextPos = 0;
     }
     else {
-      SelectChapter(chaptersList[chapPos + 1]);
+      nextPos = chapPos + 1;
     }
+
+    SelectChapterFromId(nextPos);
   }
 
   public void SelectChapter(string chapter) {
     currentChapter = chapter;
-    SelectChapterButton.Text = currentChapter;
+    LoadExampleItems();
+    SelectExampleFromId(0);
+  }
 
-    var firstExample = scenesList[currentChapter][0];
-    SelectExample(firstExample);
+  private void SelectChapterFromId(int index) {
+    SelectChapterButton.Selected = index;
+    string itemName = SelectChapterButton.GetItemText(index);
+    SelectChapter(itemName);
+  }
+
+  private void SelectExampleFromId(int index) {
+    SelectExampleButton.Selected = index;
+    string itemName = SelectExampleButton.GetItemText(index);
+    SelectExample(itemName);
   }
 
   public void SelectPrevExample() {
     var scenePos = scenesList[currentChapter].IndexOf(currentScene);
+    int prevPos;
     if (scenePos == 0) {
-      SelectExample(scenesList[currentChapter][scenesList[currentChapter].Count - 1]);
+      prevPos = scenesList[currentChapter].Count - 1;
     }
     else {
-      SelectExample(scenesList[currentChapter][scenePos - 1]);
+      prevPos = scenePos - 1;
     }
+
+    SelectExampleFromId(prevPos);
   }
 
   public void SelectNextExample() {
     var scenePos = scenesList[currentChapter].IndexOf(currentScene);
+    int nextPos;
     if (scenePos == scenesList[currentChapter].Count - 1) {
-      SelectExample(scenesList[currentChapter][0]);
+      nextPos = 0;
     }
     else {
-      SelectExample(scenesList[currentChapter][scenePos + 1]);
+      nextPos = scenePos + 1;
     }
+
+    SelectExampleFromId(nextPos);
   }
 
   public void SelectExample(string scene) {
     currentScene = scene;
-    SelectExampleButton.Text = currentScene;
     LoadCurrentExample();
   }
 
@@ -201,6 +233,22 @@ public class SceneExplorer : Control {
     return code;
   }
 
+  private void LoadChapterItems() {
+    SelectChapterButton.Clear();
+
+    foreach (string chapterName in chaptersList) {
+      SelectChapterButton.AddItem(chapterName);
+    }
+  }
+
+  private void LoadExampleItems() {
+    SelectExampleButton.Clear();
+
+    foreach (string sceneName in scenesList[currentChapter]) {
+      SelectExampleButton.AddItem(sceneName);
+    }
+  }
+
   public void ToggleCodeLabel() {
     CodeBackground.Visible = !CodeBackground.Visible;
     CodeLabel.Visible = !CodeLabel.Visible;
@@ -215,22 +263,26 @@ public class SceneExplorer : Control {
     ToggleCodeButton = GetNode<Button>("Container/VBox/Buttons/ToggleCodeButton");
     PrevChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/PrevChapter");
     NextChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/NextChapter");
-    SelectChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/SelectChapter");
+    SelectChapterButton = GetNode<OptionButton>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/SelectChapter");
     PrevExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/PrevExample");
     NextExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/NextExample");
-    SelectExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/SelectExample");
+    SelectExampleButton = GetNode<OptionButton>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/SelectExample");
+    ReloadExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/ReloadExample");
 
     PrevChapterButton.Connect("pressed", this, nameof(SelectPrevChapter));
     NextChapterButton.Connect("pressed", this, nameof(SelectNextChapter));
     PrevExampleButton.Connect("pressed", this, nameof(SelectPrevExample));
     NextExampleButton.Connect("pressed", this, nameof(SelectNextExample));
-    SelectExampleButton.Connect("pressed", this, nameof(LoadCurrentExample));
     ToggleCodeButton.Connect("pressed", this, nameof(ToggleCodeLabel));
+    ReloadExampleButton.Connect("pressed", this, nameof(LoadCurrentExample));
+    SelectChapterButton.Connect("item_selected", this, nameof(SelectChapterFromId));
+    SelectExampleButton.Connect("item_selected", this, nameof(SelectExampleFromId));
 
     SummaryLabel.Visible = true;
     CodeBackground.Visible = false;
     CodeLabel.Visible = false;
 
-    SelectChapter(currentChapter);
+    LoadChapterItems();
+    SelectChapterFromId(0);
   }
 }

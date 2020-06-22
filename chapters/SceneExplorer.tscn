@@ -162,12 +162,12 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 text = "<"
 
-[node name="SelectChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
+[node name="SelectChapter" type="OptionButton" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
 margin_left = 171.0
 margin_right = 338.0
 margin_bottom = 20.0
-mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
+text = "Select chapter ..."
 
 [node name="NextChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
 margin_left = 342.0
@@ -191,23 +191,32 @@ margin_right = 510.0
 margin_bottom = 92.0
 
 [node name="PrevExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 147.0
-margin_right = 167.0
+margin_left = 127.0
+margin_right = 147.0
 margin_bottom = 20.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 text = "<"
 
-[node name="SelectExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 171.0
-margin_right = 338.0
+[node name="SelectExample" type="OptionButton" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 151.0
+margin_right = 298.0
 margin_bottom = 20.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
+text = "Select example ..."
+
+[node name="ReloadExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 302.0
+margin_right = 357.0
+margin_bottom = 20.0
+hint_tooltip = "Reload current example/exercise"
+mouse_default_cursor_shape = 2
+text = "Reload"
 
 [node name="NextExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 342.0
-margin_right = 362.0
+margin_left = 361.0
+margin_right = 381.0
 margin_bottom = 20.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 2

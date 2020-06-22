@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://launcher/Launcher.cs" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Raleway-Regular.ttf" type="DynamicFontData" id=2]
@@ -17,6 +17,10 @@ font_data = ExtResource( 2 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 14
 font_data = ExtResource( 2 )
 
 [node name="Launcher" type="Control"]
@@ -135,13 +139,14 @@ text = "Quit"
 
 [node name="Links" type="RichTextLabel" parent="Margin/VBox/Margin"]
 margin_left = 784.0
-margin_top = 111.0
+margin_top = 86.0
 margin_right = 984.0
 margin_bottom = 186.0
-rect_min_size = Vector2( 200, 75 )
+rect_min_size = Vector2( 200, 100 )
 rect_clip_content = false
 size_flags_horizontal = 8
 size_flags_vertical = 8
+custom_fonts/normal_font = SubResource( 6 )
 bbcode_enabled = true
 bbcode_text = "[url=https://natureofcode.com]Get The Nature of Code[/url]
 
