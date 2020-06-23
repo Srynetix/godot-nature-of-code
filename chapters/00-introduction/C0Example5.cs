@@ -1,19 +1,16 @@
 using Godot;
 
-/**
-Example I.5:
-Perlin noise walker
-*/
-
 public class C0Example5 : Node2D, IExample {
+  public string _Summary() {
+    return "Example I.5:\n"
+      + "Perlin noise walker";
+  }
+
   private OpenSimplexNoise noise;
   private Vector2 position;
   private float tx;
   private float ty;
 
-  public string _Summary() {
-    return "Example I.5:\nPerlin noise walker";
-  }
 
   public override void _Ready() {
     noise = new OpenSimplexNoise();

@@ -1,13 +1,9 @@
 using Godot;
 
-/**
-Example 1.5:
-Vector magnitude
-*/
-
 public class C1Example5 : Node2D, IExample {
   public string _Summary() {
-    return "Example 1.5:\nVector magnitude";
+    return "Example 1.5:\n"
+      + "Vector magnitude";
   }
 
   public override void _Draw() {

@@ -1,11 +1,11 @@
 using Godot;
 
-/**
-Exercise 1.8:
-Try implementing the above example with a variable magnitude of acceleration, stronger when it is either closer or farther away.
-*/
-
 public class C1Exercise8 : Node2D, IExample {
+  public string _Summary() {
+    return "Exercise 1.8:\n"
+      + "Try implementing the above example with a variable magnitude of acceleration, stronger when it is either closer or farther away.";
+  }
+
   public class Mover : Node2D {
     private Vector2 velocity;
     private Vector2 acceleration;
@@ -59,10 +59,6 @@ public class C1Exercise8 : Node2D, IExample {
   }
 
   private Mover mover;
-
-  public string _Summary() {
-    return "Exercise 1.8:\nTry implementing the above example with a variable magnitude of acceleration, stronger when it is either closer or farther away.";
-  }
 
   public override void _Ready() {
     GD.Randomize();

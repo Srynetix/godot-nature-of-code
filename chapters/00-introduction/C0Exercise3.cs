@@ -1,12 +1,12 @@
 using Godot;
 
-/**
-Exercise I.3:
-Create a random walker with dynamic probabilities. 
-For example, can you give it a 50% chance of moving in the direction of the mouse?
-*/
-
 public class C0Exercise3 : Node2D, IExample {
+  public string _Summary() {
+    return "Exercise I.3:\n"
+      + "Create a random walker with dynamic probabilities.\n"
+      + "For example, can you give it a 50% chance of moving in the direction of the mouse?";
+  }
+
   public class Walker {
     public float x;
     public float y;
@@ -61,12 +61,6 @@ public class C0Exercise3 : Node2D, IExample {
 
   private Walker walker;
   private Utils.Canvas canvas;
-
-  public string _Summary() {
-    return "Exercise I.3:\n" +
-        "Create a random walker with dynamic probabilities.\n" +
-        "For example, can you give it a 50% chance of moving in the direction of the mouse?";
-  }
 
   public override void _Ready() {
     GD.Randomize();

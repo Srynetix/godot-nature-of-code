@@ -1,11 +1,11 @@
 using Godot;
 
-/**
-Example I.1:
-Traditional random walk
-*/
-
 public class C0Example1 : Node2D, IExample {
+  public string _Summary() {
+    return "Example I.1:\n"
+      + "Traditional random walk";
+  }
+
   public class Walker {
     public float x;
     public float y;
@@ -26,10 +26,6 @@ public class C0Example1 : Node2D, IExample {
 
   private Walker walker;
   private Utils.Canvas canvas;
-
-  public string _Summary() {
-    return "Example I.1:\nTraditional random walk";
-  }
 
   public override void _Ready() {
     var size = GetViewport().Size;

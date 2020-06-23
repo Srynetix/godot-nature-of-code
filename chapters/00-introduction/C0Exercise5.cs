@@ -1,12 +1,12 @@
 using Godot;
 
-/**
-Exercise I.5:
-A Gaussian random walk is defined as one in which the step size (how far the object moves in a given direction) is generated with a normal distribution.
-Implement this variation of our random walk.
-*/
-
 public class C0Exercise5 : Node2D, IExample {
+  public string _Summary() {
+    return "Exercise I.5:\n"
+      + "A Gaussian random walk is defined as one in which the step size (how far the object moves in a given direction) is generated with a normal distribution.\n"
+      + "Implement this variation of our random walk.";
+  }
+
   public class Walker {
     public float x;
     public float y;
@@ -44,12 +44,6 @@ public class C0Exercise5 : Node2D, IExample {
 
   private Walker walker;
   private Utils.Canvas canvas;
-
-  public string _Summary() {
-    return "Exercise I.5:\n" +
-        "A Gaussian random walk is defined as one in which the step size (how far the object moves in a given direction) is generated with a normal distribution.\n" +
-        "Implement this variation of our random walk.";
-  }
 
   public override void _Ready() {
     GD.Randomize();

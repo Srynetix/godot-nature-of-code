@@ -1,20 +1,15 @@
 using Godot;
 
-/**
-Exercise I.8
-Play with color, noiseDetail(), and the rate at which xoff and yoff are incremented to achieve different visual effects.
-**/
-
 public class C0Exercise8 : Node2D, IExample {
+  public string _Summary() {
+    return "Exercise I.8\n"
+      + "Play with color, noiseDetail(), and the rate at which xoff and yoff are incremented to achieve different visual effects.";
+  }
+
   private Sprite sprite;
   private Image image;
   private ImageTexture texture;
   private OpenSimplexNoise noise;
-
-  public string _Summary() {
-    return "Exercise I.8\n" +
-        "Play with color, noiseDetail(), and the rate at which xoff and yoff are incremented to achieve different visual effects.";
-  }
 
   public override void _Ready() {
     sprite = new Sprite();

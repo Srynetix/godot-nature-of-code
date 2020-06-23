@@ -1,16 +1,12 @@
 using Godot;
 
-/**
-Example I.2:
-Random number distribution
-*/
-
 public class C0Example2 : Node2D, IExample {
-  private int[] randomCounts;
-
   public string _Summary() {
-    return "Example I.2:\nRandom number distribution";
+    return "Example I.2:\n"
+      + "Random number distribution";
   }
+
+  private int[] randomCounts;
 
   public override void _Ready() {
     GD.Randomize();

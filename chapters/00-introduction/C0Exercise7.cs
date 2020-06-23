@@ -1,12 +1,12 @@
 using Godot;
 
-/**
-Exercise I.7:
-In the above random walker, the result of the noise function is mapped directly to the Walker’s location.
-Create a random walker where you instead map the result of the noise() function to a Walker’s step size.
-*/
-
 public class C0Exercise7 : Node2D, IExample {
+  public string _Summary() {
+    return "Exercise I.7:\n"
+      + "In the above random walker, the result of the noise function is mapped directly to the Walker’s location.\n"
+      + "Create a random walker where you instead map the result of the noise() function to a Walker’s step size.";
+  }
+
   public class Walker {
     float x;
     float y;
@@ -48,12 +48,6 @@ public class C0Exercise7 : Node2D, IExample {
   }
 
   private Walker walker;
-
-  public string _Summary() {
-    return "Exercise I.7:\n" +
-        "In the above random walker, the result of the noise function is mapped directly to the Walker’s location.\n" +
-        "Create a random walker where you instead map the result of the noise() function to a Walker’s step size.";
-  }
 
   public override void _Ready() {
     GD.Randomize();

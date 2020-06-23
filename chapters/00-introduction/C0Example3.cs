@@ -1,11 +1,11 @@
 using Godot;
 
-/**
-Example I.3:
-Walker that tends to move to the right
-*/
-
 public class C0Example3 : Node2D, IExample {
+  public string _Summary() {
+    return "Example I.3:\n"
+      + "Walker that tends to move to the right";
+  }
+
   public class Walker {
     public float x;
     public float y;
@@ -35,10 +35,6 @@ public class C0Example3 : Node2D, IExample {
 
   private Walker walker;
   private Utils.Canvas canvas;
-
-  public string _Summary() {
-    return "Example I.3:\nWalker that tends to move to the right";
-  }
 
   public override void _Ready() {
     GD.Randomize();

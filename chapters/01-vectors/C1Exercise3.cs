@@ -1,20 +1,16 @@
 using Godot;
 
-/**
-Exercise 1.3:
-Extend the bouncing ball with vectors example into 3D. Can you get a sphere to bounce around a box?
-*/
-
 public class C1Exercise3 : Spatial, IExample {
+  public string _Summary() {
+    return "Exercise 1.3:\n"
+      + "Extend the bouncing ball with vectors example into 3D. Can you get a sphere to bounce around a box?";
+  }
+
   private MeshInstance sphere;
   private Position3D camPoint;
 
   private Vector3 position;
   private Vector3 velocity = new Vector3(0.75f, 0.5f, 0.25f);
-
-  public string _Summary() {
-    return "Exercise 1.3:\nExtend the bouncing ball with vectors example into 3D. Can you get a sphere to bounce around a box?";
-  }
 
   // Called when the node enters the scene tree for the first time.
   public override void _Ready() {

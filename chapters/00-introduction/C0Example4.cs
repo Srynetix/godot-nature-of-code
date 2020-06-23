@@ -1,17 +1,13 @@
 using Godot;
 
-/**
-Example I.4:
-Gaussian distribution
-*/
-
 public class C0Example4 : Node2D, IExample {
+  public string _Summary() {
+    return "Example I.4:\n"
+      + "Gaussian distribution";
+  }
+
   private RandomNumberGenerator generator;
   private Utils.Canvas canvas;
-
-  public string _Summary() {
-    return "Example I.4:\nGaussian distribution";
-  }
 
   public override void _Ready() {
     generator = new RandomNumberGenerator();

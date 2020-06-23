@@ -1,21 +1,14 @@
-using System;
 using Godot;
 
-/**
-Exercise I.10:
-Use the noise values as the elevations of a landscape. See the screenshot below as a reference.
-Extra: This will be in 2D
-*/
-
 public class C0Exercise10 : Node2D, IExample {
+  public string _Summary() {
+    return "Exercise I.10:\n"
+      + "Use the noise values as the elevations of a landscape. See the screenshot below as a reference.\n"
+      + "Extra: This will be in 2D";
+  }
+
   private OpenSimplexNoise noise;
   private float t;
-
-  public string _Summary() {
-    return "Exercise I.10:\n" +
-        "Use the noise values as the elevations of a landscape. See the screenshot below as a reference.\n" +
-        "Extra: This will be in 2D";
-  }
 
   public override void _Ready() {
     noise = new OpenSimplexNoise();

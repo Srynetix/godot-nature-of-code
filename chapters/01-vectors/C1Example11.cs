@@ -1,11 +1,11 @@
 using Godot;
 
-/**
-Example 1.11:
-Array of movers accelerating towards the mouse
-*/
-
 public class C1Example11 : Node2D, IExample {
+  public string _Summary() {
+    return "Example 1.11:\n"
+      + "Array of movers accelerating towards the mouse";
+  }
+
   public class Mover : Node2D {
     private Vector2 velocity;
     private Vector2 acceleration;
@@ -52,10 +52,6 @@ public class C1Example11 : Node2D, IExample {
     public override void _Draw() {
       DrawCircle(Vector2.Zero, 20, Colors.LightCyan.WithAlpha(64));
     }
-  }
-
-  public string _Summary() {
-    return "Example 1.11:\nArray of movers accelerating towards the mouse";
   }
 
   public override void _Ready() {

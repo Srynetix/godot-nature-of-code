@@ -1,11 +1,11 @@
 using Godot;
 
-/**
-Example 1.9:
-Motion 101 (velocity and random acceleration)
-*/
-
 public class C1Example9 : Node2D, IExample {
+  public string _Summary() {
+    return "Example 1.9:\n"
+      + "Motion 101 (velocity and random acceleration)";
+  }
+
   public class Mover : Node2D {
     private Vector2 velocity;
     private Vector2 acceleration;
@@ -53,10 +53,6 @@ public class C1Example9 : Node2D, IExample {
   }
 
   private Mover mover;
-
-  public string _Summary() {
-    return "Example 1.9:\n Motion 101 (velocity and random acceleration)";
-  }
 
   public override void _Ready() {
     GD.Randomize();

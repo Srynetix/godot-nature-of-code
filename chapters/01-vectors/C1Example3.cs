@@ -1,13 +1,9 @@
 using Godot;
 
-/**
-Example 1.3:
-Vector subtraction
-*/
-
 public class C1Example3 : Node2D, IExample {
   public string _Summary() {
-    return "Example 1.3:\nVector subtraction";
+    return "Example 1.3:\n"
+      + "Vector subtraction";
   }
 
   public override void _Draw() {

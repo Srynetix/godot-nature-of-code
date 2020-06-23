@@ -1,11 +1,11 @@
 using Godot;
 
-/**
-Exercise I.1:
-Create a random walker that has a tendency to move down and to the right.
-**/
-
 public class C0Exercise1 : Node2D, IExample {
+  public string _Summary() {
+    return "Exercise I.1:\n"
+      + "Create a random walker that has a tendency to move down and to the right";
+  }
+
   public class Walker {
     public float x;
     public float y;
@@ -35,10 +35,6 @@ public class C0Exercise1 : Node2D, IExample {
 
   private Walker walker;
   private Utils.Canvas canvas;
-
-  public string _Summary() {
-    return "Exercise I.1:\nCreate a random walker that has a tendency to move down and to the right";
-  }
 
   public override void _Ready() {
     GD.Randomize();
