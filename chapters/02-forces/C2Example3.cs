@@ -1,11 +1,10 @@
 using Godot;
 using System.Linq;
 
-public class C2Exercise3 : Node2D, IExample {
+public class C2Example3 : Node2D, IExample {
   public string _Summary() {
-    return "Exercise 2.3:\n"
-      + "Instead of objects bouncing off the edge of the wall, create an example in which an invisible force pushes back on the objects to keep them in the window.\n"
-      + "Can you weight the force according to how far the object is from an edge—i.e., the closer it is, the stronger the force?";
+    return "Example 2.3:\n"
+      + "Gravity scaled by mass";
   }
 
   public class Mover : Node2D {
@@ -33,43 +32,23 @@ public class C2Exercise3 : Node2D, IExample {
       if (Position.y < BodySize / 2 || Position.y > size.y - BodySize / 2) {
         Velocity.y *= -1;
       }
-    }
 
-    public Vector2 ComputeWindForce() {
-      var size = GetViewport().Size;
-      var pos = Position;
-      var output = Vector2.Zero;
-      var limit = BodySize * 8;
-
-      // Push left
-      if (Position.x > size.x - limit) {
-        var force = limit * 2 - (size.x - Position.x);
-        output.x = -force * 0.01f;
+      if (Position.x < BodySize / 2 || Position.x > size.x - BodySize / 2) {
+        Velocity.x *= -1;
       }
-
-      // Push right
-      else if (Position.x < limit) {
-        var force = limit * 2 - Position.x;
-        output.x = force * 0.01f;
-      }
-
-      else {
-        output.x = 0.1f;
-      }
-
-      return output;
     }
 
     public override void _Ready() {
       var size = GetViewport().Size;
-      var xPos = (float)GD.RandRange(BodySize * 4, size.x - BodySize * 4);
+      var xPos = (float)GD.RandRange(BodySize, size.x - BodySize);
       Position = new Vector2(xPos, size.y / 2);
     }
 
     public override void _Process(float delta) {
-      var gravity = new Vector2(0, 0.9f);
+      var wind = new Vector2(0.1f, 0);
+      var gravity = new Vector2(0, 0.09f * Mass);
 
-      ApplyForce(ComputeWindForce());
+      ApplyForce(wind);
       ApplyForce(gravity);
 
       Move();

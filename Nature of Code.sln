@@ -5,15 +5,15 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
-	Release|Any CPU = Release|Any CPU
-	Tools|Any CPU = Tools|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.Tools|Any CPU.ActiveCfg = Tools|Any CPU
-		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.Tools|Any CPU.Build.0 = Tools|Any CPU
+		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{154D38B0-965F-4F29-8CA9-64B6FBB20F5B}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal
