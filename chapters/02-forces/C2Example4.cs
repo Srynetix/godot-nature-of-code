@@ -1,9 +1,10 @@
 using Godot;
+using System.Linq;
 
-public class C2Example1 : Node2D, IExample {
+public class C2Example4 : Node2D, IExample {
   public string _Summary() {
-    return "Example 2.1:\n"
-      + "Forces";
+    return "Example 2.4:\n"
+      + "Including friction";
   }
 
   public class Mover : Node2D {
@@ -15,6 +16,11 @@ public class C2Example1 : Node2D, IExample {
 
     public void ApplyForce(Vector2 force) {
       Acceleration += force / Mass;
+    }
+
+    public void ApplyFriction(float coef) {
+      var friction = (-Velocity).Normalized() * coef;
+      ApplyForce(friction);
     }
 
     public void Move() {
@@ -52,15 +58,17 @@ public class C2Example1 : Node2D, IExample {
 
     public override void _Ready() {
       var size = GetViewport().Size;
-      Position = size / 2;
+      var xPos = (float)GD.RandRange(BodySize, size.x - BodySize);
+      Position = new Vector2(xPos, size.y / 2);
     }
 
     public override void _Process(float delta) {
       var wind = new Vector2(0.1f, 0);
-      var gravity = new Vector2(0, 0.9f);
+      var gravity = new Vector2(0, 0.98f);
 
       ApplyForce(wind);
       ApplyForce(gravity);
+      ApplyFriction(0.1f);
 
       Move();
     }
@@ -72,6 +80,11 @@ public class C2Example1 : Node2D, IExample {
   }
 
   public override void _Ready() {
-    AddChild(new Mover());
+    foreach (var x in Enumerable.Range(0, 20)) {
+      var mover = new Mover();
+      mover.BodySize = (float)GD.RandRange(5, 20);
+      mover.Mass = (float)GD.RandRange(5, 10);
+      AddChild(mover);
+    }
   }
 }

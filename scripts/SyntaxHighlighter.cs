@@ -32,7 +32,7 @@ public class SyntaxHighlighter {
     string outputCode = code;
 
     // getting keywords/functions
-    string keywords = @"\b(public|private|partial|static|namespace|class|using|void|foreach|in)\b";
+    string keywords = @"\b(public|private|partial|static|namespace|class|using|void|foreach|in|var|override|if|for|else|new)\b";
     MatchCollection keywordMatches = Regex.Matches(outputCode, keywords);
     outputCode = ColorizeMatches(outputCode, keywordMatches, Colors.Cyan);
 

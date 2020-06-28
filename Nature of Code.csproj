@@ -84,8 +84,10 @@
     <Compile Include="chapters\02-forces\C2Example1.cs" />
     <Compile Include="chapters\02-forces\C2Example2.cs" />
     <Compile Include="chapters\02-forces\C2Example3.cs" />
+    <Compile Include="chapters\02-forces\C2Example4.cs" />
     <Compile Include="chapters\02-forces\C2Exercise1.cs" />
     <Compile Include="chapters\02-forces\C2Exercise3.cs" />
+    <Compile Include="chapters\02-forces\C2Exercise4.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="ecosystem\Ecosystem.cs" />

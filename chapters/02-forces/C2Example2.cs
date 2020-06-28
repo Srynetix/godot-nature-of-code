@@ -28,14 +28,27 @@ public class C2Example2 : Node2D, IExample {
 
     public void BounceOnEdges() {
       var size = GetViewport().Size;
+      var newPos = Position;
 
-      if (Position.y < BodySize / 2 || Position.y > size.y - BodySize / 2) {
+      if (Position.y < BodySize / 2) {
         Velocity.y *= -1;
+        newPos.y = BodySize / 2;
+      }
+      else if (Position.y > size.y - BodySize / 2) {
+        Velocity.y *= -1;
+        newPos.y = size.y - BodySize / 2;
       }
 
-      if (Position.x < BodySize / 2 || Position.x > size.x - BodySize / 2) {
+      if (Position.x < BodySize / 2) {
         Velocity.x *= -1;
+        newPos.x = BodySize / 2;
       }
+      else if (Position.x > size.x - BodySize / 2) {
+        Velocity.x *= -1;
+        newPos.x = size.x - BodySize / 2;
+      }
+
+      Position = newPos;
     }
 
     public override void _Ready() {

@@ -23,6 +23,19 @@ public class Utils {
     return Map(GD.Randf(), 0, 1, -1, 1);
   }
 
+  static private Font DEFAULT_FONT = null;
+
+  static public Font LoadDefaultFont() {
+    if (DEFAULT_FONT == null) {
+      var fontData = GD.Load("res://assets/fonts/Raleway-Regular.ttf");
+      var dynamicFont = new DynamicFont();
+      dynamicFont.FontData = (DynamicFontData)fontData;
+      DEFAULT_FONT = dynamicFont;
+    }
+
+    return DEFAULT_FONT;
+  }
+
   public class Canvas : Control {
     public delegate void DrawFunction(Node2D pen);
 
