@@ -8,6 +8,7 @@ public class Launcher : Control {
   private Button examplesButton;
   private Button ecosystemButton;
   private Button quitButton;
+  private Label fpsLabel;
   private RichTextLabel links;
   private Control drawSpace;
 
@@ -20,6 +21,7 @@ public class Launcher : Control {
     quitButton = GetNode<Button>("Margin/VBox/Margin/Buttons/QuitButton");
     links = GetNode<RichTextLabel>("Margin/VBox/Margin/Links");
     drawSpace = GetNode<Control>("DrawSpace");
+    fpsLabel = GetNode<Label>("Margin/FPS");
 
     examplesButton.Connect("pressed", this, nameof(LoadSceneExplorer));
     ecosystemButton.Connect("pressed", this, nameof(LoadEcosystem));
@@ -67,5 +69,9 @@ public class Launcher : Control {
 
   private void Quit() {
     GetTree().Quit();
+  }
+
+  public override void _Process(float delta) {
+    fpsLabel.Text = "FPS: " + Engine.GetFramesPerSecond();
   }
 }

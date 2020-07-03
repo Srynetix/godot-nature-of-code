@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://chapters/SceneExplorer.cs" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Raleway-Regular.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://resources/AppTheme.tres" type="Theme" id=4]
 
 [sub_resource type="DynamicFont" id=1]
+size = 18
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
@@ -15,24 +16,6 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=2]
 size = 12
 font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 14
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=4]
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=5]
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 2 )
 
 [node name="SceneExplorer" type="Control"]
 anchor_right = 1.0
@@ -51,8 +34,8 @@ __meta__ = {
 }
 
 [node name="CurrentScene" type="MarginContainer" parent="Container"]
-margin_right = 1024.0
-margin_bottom = 580.0
+margin_right = 960.0
+margin_bottom = 520.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -60,15 +43,15 @@ __meta__ = {
 }
 
 [node name="VBox" type="VBoxContainer" parent="Container"]
-margin_right = 1024.0
-margin_bottom = 580.0
+margin_right = 960.0
+margin_bottom = 520.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TopControl" type="MarginContainer" parent="Container/VBox"]
-margin_right = 1024.0
-margin_bottom = 482.0
+margin_right = 960.0
+margin_bottom = 404.0
 size_flags_vertical = 3
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -78,8 +61,8 @@ custom_constants/margin_bottom = 20
 [node name="CodeBackground" type="ColorRect" parent="Container/VBox/TopControl"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 1004.0
-margin_bottom = 462.0
+margin_right = 940.0
+margin_bottom = 384.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.0470588, 0.0470588, 0.0470588, 0.313726 )
@@ -90,8 +73,8 @@ __meta__ = {
 [node name="CodeHBox" type="MarginContainer" parent="Container/VBox/TopControl"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 1004.0
-margin_bottom = 462.0
+margin_right = 940.0
+margin_bottom = 384.0
 size_flags_vertical = 3
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -101,16 +84,16 @@ custom_constants/margin_bottom = 20
 [node name="Summary" type="RichTextLabel" parent="Container/VBox/TopControl/CodeHBox"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 964.0
-margin_bottom = 422.0
+margin_right = 900.0
+margin_bottom = 344.0
 custom_fonts/normal_font = SubResource( 1 )
 text = "[This is the summary text]"
 
 [node name="Code" type="RichTextLabel" parent="Container/VBox/TopControl/CodeHBox"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 964.0
-margin_bottom = 422.0
+margin_right = 900.0
+margin_bottom = 344.0
 focus_mode = 2
 size_flags_horizontal = 3
 custom_fonts/normal_font = SubResource( 2 )
@@ -121,112 +104,130 @@ __meta__ = {
 }
 
 [node name="Buttons" type="HBoxContainer" parent="Container/VBox"]
-margin_top = 486.0
-margin_right = 1024.0
-margin_bottom = 580.0
+margin_top = 408.0
+margin_right = 960.0
+margin_bottom = 520.0
 
-[node name="ToggleCodeButton" type="Button" parent="Container/VBox/Buttons"]
-margin_left = 207.0
-margin_top = 35.0
-margin_right = 303.0
-margin_bottom = 59.0
+[node name="LeftButtons" type="VBoxContainer" parent="Container/VBox/Buttons"]
+margin_top = 18.0
+margin_right = 478.0
+margin_bottom = 94.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_constants/separation = 20
+
+[node name="ToggleCodeButton" type="Button" parent="Container/VBox/Buttons/LeftButtons"]
+margin_left = 179.0
+margin_right = 299.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 3 )
+theme = ExtResource( 4 )
 text = "Toggle code"
 
+[node name="ToggleUIButton" type="Button" parent="Container/VBox/Buttons/LeftButtons"]
+margin_left = 191.0
+margin_top = 48.0
+margin_right = 286.0
+margin_bottom = 76.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource( 4 )
+text = "Toggle UI"
+
 [node name="SelectionButtons" type="VBoxContainer" parent="Container/VBox/Buttons"]
-margin_left = 514.0
-margin_right = 1024.0
-margin_bottom = 94.0
+margin_left = 482.0
+margin_right = 960.0
+margin_bottom = 112.0
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
 [node name="ChapterHeader" type="Label" parent="Container/VBox/Buttons/SelectionButtons"]
-margin_right = 510.0
-margin_bottom = 20.0
-custom_fonts/font = SubResource( 4 )
+margin_right = 478.0
+margin_bottom = 22.0
+theme = ExtResource( 4 )
 text = "Chapter selection"
 align = 1
 
 [node name="ChapterSelection" type="HBoxContainer" parent="Container/VBox/Buttons/SelectionButtons"]
-margin_top = 24.0
-margin_right = 510.0
-margin_bottom = 45.0
+margin_top = 26.0
+margin_right = 478.0
+margin_bottom = 54.0
 
 [node name="PrevChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
-margin_left = 149.0
-margin_right = 167.0
-margin_bottom = 21.0
+margin_left = 87.0
+margin_right = 151.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 theme = ExtResource( 4 )
-text = "<"
+text = "< Prev"
 
 [node name="SelectChapter" type="OptionButton" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
-margin_left = 171.0
-margin_right = 338.0
-margin_bottom = 21.0
+margin_left = 155.0
+margin_right = 322.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "Select chapter ..."
 
 [node name="NextChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
-margin_left = 342.0
-margin_right = 360.0
-margin_bottom = 21.0
+margin_left = 326.0
+margin_right = 392.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 2
 theme = ExtResource( 4 )
-text = ">"
+text = "Next >"
 
 [node name="ExampleHeader" type="Label" parent="Container/VBox/Buttons/SelectionButtons"]
-margin_top = 49.0
-margin_right = 510.0
-margin_bottom = 69.0
-custom_fonts/font = SubResource( 5 )
+margin_top = 58.0
+margin_right = 478.0
+margin_bottom = 80.0
+theme = ExtResource( 4 )
 text = "Example/Exercise selection"
 align = 1
 
 [node name="ExampleSelection" type="HBoxContainer" parent="Container/VBox/Buttons/SelectionButtons"]
-margin_top = 73.0
-margin_right = 510.0
-margin_bottom = 94.0
+margin_top = 84.0
+margin_right = 478.0
+margin_bottom = 112.0
 
 [node name="PrevExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 131.0
-margin_right = 149.0
-margin_bottom = 21.0
+margin_left = 45.0
+margin_right = 109.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 theme = ExtResource( 4 )
-text = "<"
+text = "< Prev"
 
 [node name="SelectExample" type="OptionButton" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 153.0
-margin_right = 302.0
-margin_bottom = 21.0
+margin_left = 113.0
+margin_right = 289.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "Select example ..."
 
 [node name="ReloadExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 306.0
-margin_right = 357.0
-margin_bottom = 21.0
+margin_left = 293.0
+margin_right = 365.0
+margin_bottom = 28.0
 hint_tooltip = "Reload current example/exercise"
 mouse_default_cursor_shape = 2
 theme = ExtResource( 4 )
 text = "Reload"
 
 [node name="NextExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 361.0
-margin_right = 379.0
-margin_bottom = 21.0
+margin_left = 369.0
+margin_right = 435.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 2
 theme = ExtResource( 4 )
-text = ">"
+text = "Next >"

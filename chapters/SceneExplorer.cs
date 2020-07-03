@@ -19,8 +19,10 @@ public class SceneExplorer : Control {
   private Button ReloadExampleButton;
   private RichTextLabel CodeLabel;
   private RichTextLabel SummaryLabel;
+  private VBoxContainer SelectionButtons;
   private ColorRect CodeBackground;
   private Button ToggleCodeButton;
+  private Button ToggleUIButton;
 
   private string currentChapter;
   private string currentScene;
@@ -257,12 +259,27 @@ public class SceneExplorer : Control {
     SummaryLabel.Visible = !SummaryLabel.Visible;
   }
 
+  public void ToggleUI() {
+    SelectionButtons.Visible = !SelectionButtons.Visible;
+    ToggleCodeButton.Visible = !ToggleCodeButton.Visible;
+    CodeLabel.Visible = false;
+    CodeBackground.Visible = false;
+
+    if (!SelectionButtons.Visible) {
+      SummaryLabel.Visible = false;
+    }
+    else {
+      SummaryLabel.Visible = true;
+    }
+  }
+
   public override void _Ready() {
     CurrentSceneContainer = GetNode<MarginContainer>("Container/CurrentScene");
     CodeLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Code");
     SummaryLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Summary");
     CodeBackground = GetNode<ColorRect>("Container/VBox/TopControl/CodeBackground");
-    ToggleCodeButton = GetNode<Button>("Container/VBox/Buttons/ToggleCodeButton");
+    ToggleCodeButton = GetNode<Button>("Container/VBox/Buttons/LeftButtons/ToggleCodeButton");
+    ToggleUIButton = GetNode<Button>("Container/VBox/Buttons/LeftButtons/ToggleUIButton");
     PrevChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/PrevChapter");
     NextChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/NextChapter");
     SelectChapterButton = GetNode<OptionButton>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/SelectChapter");
@@ -270,6 +287,7 @@ public class SceneExplorer : Control {
     NextExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/NextExample");
     SelectExampleButton = GetNode<OptionButton>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/SelectExample");
     ReloadExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/ReloadExample");
+    SelectionButtons = GetNode<VBoxContainer>("Container/VBox/Buttons/SelectionButtons");
 
     PrevChapterButton.Connect("pressed", this, nameof(SelectPrevChapter));
     NextChapterButton.Connect("pressed", this, nameof(SelectNextChapter));
@@ -279,6 +297,7 @@ public class SceneExplorer : Control {
     ReloadExampleButton.Connect("pressed", this, nameof(LoadCurrentExample));
     SelectChapterButton.Connect("item_selected", this, nameof(SelectChapterFromId));
     SelectExampleButton.Connect("item_selected", this, nameof(SelectExampleFromId));
+    ToggleUIButton.Connect("pressed", this, nameof(ToggleUI));
 
     SummaryLabel.Visible = true;
     CodeBackground.Visible = false;

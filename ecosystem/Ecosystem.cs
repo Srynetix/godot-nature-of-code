@@ -257,14 +257,12 @@ public class Ecosystem : Control {
     }
   }
 
-  private Label fpsLabel;
   private Control drawZone;
 
   public override void _Ready() {
     GD.Randomize();
 
     drawZone = GetNode<Control>("DrawZone");
-    fpsLabel = GetNode<Label>("MarginContainer/VBoxContainer/FPS");
 
     int nervousFlyCount = 10;
     foreach (int x in Enumerable.Range(0, nervousFlyCount)) {
@@ -296,9 +294,5 @@ public class Ecosystem : Control {
         }
       }
     }
-  }
-
-  public override void _Process(float delta) {
-    fpsLabel.Text = "FPS: " + Engine.GetFramesPerSecond();
   }
 }

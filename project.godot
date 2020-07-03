@@ -19,6 +19,13 @@ config/name="Nature of Code"
 run/main_scene="res://launcher/Launcher.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=960
+window/size/height=540
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [gui]
 
 theme/custom="res://resources/AppTheme.tres"

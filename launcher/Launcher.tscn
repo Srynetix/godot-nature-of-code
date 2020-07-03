@@ -1,26 +1,19 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://launcher/Launcher.cs" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Raleway-Regular.ttf" type="DynamicFontData" id=2]
-
-[sub_resource type="DynamicFont" id=1]
-font_data = ExtResource( 2 )
+[ext_resource path="res://assets/fonts/FiraCode-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://resources/AppTheme.tres" type="Theme" id=4]
 
 [sub_resource type="DynamicFont" id=2]
-size = 34
-font_data = ExtResource( 2 )
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 48
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=5]
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=6]
-size = 15
+size = 18
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 2 )
@@ -62,33 +55,43 @@ __meta__ = {
 }
 
 [node name="BackButton" type="Button" parent="Margin"]
-margin_left = 955.0
+margin_left = 886.0
 margin_top = 20.0
-margin_right = 1004.0
-margin_bottom = 46.0
+margin_right = 940.0
+margin_bottom = 48.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 1 )
+theme = ExtResource( 4 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FPS" type="Label" parent="Margin"]
+margin_left = 20.0
+margin_top = 498.0
+margin_right = 120.0
+margin_bottom = 520.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+custom_fonts/font = SubResource( 2 )
+text = "FPS: [FPS]"
+
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 1004.0
-margin_bottom = 580.0
+margin_right = 940.0
+margin_bottom = 520.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Margin/VBox"]
-margin_right = 984.0
-margin_bottom = 370.0
+margin_right = 920.0
+margin_bottom = 330.0
 size_flags_vertical = 7
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Interactive
 Nature of Code
 in Godot Engine"
@@ -96,59 +99,61 @@ align = 1
 valign = 1
 
 [node name="Margin" type="MarginContainer" parent="Margin/VBox"]
-margin_top = 374.0
-margin_right = 984.0
-margin_bottom = 560.0
+margin_top = 334.0
+margin_right = 920.0
+margin_bottom = 500.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
 [node name="Buttons" type="VBoxContainer" parent="Margin/VBox/Margin"]
-margin_right = 984.0
-margin_bottom = 186.0
-custom_constants/separation = 50
+margin_top = 16.0
+margin_right = 920.0
+margin_bottom = 150.0
+size_flags_vertical = 4
+custom_constants/separation = 25
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ExamplesButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
-margin_left = 397.0
-margin_right = 587.0
-margin_bottom = 26.0
+margin_left = 351.0
+margin_right = 568.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
-custom_fonts/font = SubResource( 3 )
+theme = ExtResource( 4 )
 text = "Examples and exercises"
 
 [node name="EcosystemButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
-margin_left = 404.0
-margin_top = 76.0
-margin_right = 579.0
-margin_bottom = 102.0
+margin_left = 360.0
+margin_top = 53.0
+margin_right = 559.0
+margin_bottom = 81.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
-custom_fonts/font = SubResource( 4 )
+theme = ExtResource( 4 )
 text = "Ecosystem simulation"
 
 [node name="QuitButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
-margin_left = 471.0
-margin_top = 152.0
-margin_right = 513.0
-margin_bottom = 178.0
+margin_left = 437.0
+margin_top = 106.0
+margin_right = 483.0
+margin_bottom = 134.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
-custom_fonts/font = SubResource( 5 )
+theme = ExtResource( 4 )
 text = "Quit"
 
 [node name="Links" type="RichTextLabel" parent="Margin/VBox/Margin"]
-margin_left = 784.0
-margin_top = 86.0
-margin_right = 984.0
-margin_bottom = 186.0
-rect_min_size = Vector2( 200, 100 )
+margin_left = 695.0
+margin_top = 41.0
+margin_right = 920.0
+margin_bottom = 166.0
+rect_min_size = Vector2( 225, 125 )
 rect_clip_content = false
 size_flags_horizontal = 8
 size_flags_vertical = 8
-custom_fonts/normal_font = SubResource( 6 )
+custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
 bbcode_text = "[url=https://natureofcode.com]Get The Nature of Code[/url]
 
