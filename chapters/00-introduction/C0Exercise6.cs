@@ -11,6 +11,7 @@ public class C0Exercise6 : Node2D, IExample {
   public class Walker {
     public float x;
     public float y;
+    public float StepSize = 3;
 
     public Walker(Vector2 position) {
       x = position.x;
@@ -39,8 +40,8 @@ public class C0Exercise6 : Node2D, IExample {
       float stepx = (float)GD.RandRange(-stepsize, stepsize);
       float stepy = (float)GD.RandRange(-stepsize, stepsize);
 
-      x += stepx;
-      y += stepy;
+      x += stepx * StepSize;
+      y += stepy * StepSize;
     }
   }
 
@@ -58,7 +59,7 @@ public class C0Exercise6 : Node2D, IExample {
   }
 
   public void CanvasDraw(Node2D pen) {
-    pen.DrawRect(new Rect2(walker.x, walker.y, 1, 1), Colors.LightCyan, true);
+    pen.DrawRect(new Rect2(walker.x, walker.y, walker.StepSize, walker.StepSize), Colors.LightCyan, true);
   }
 
   public override void _Process(float delta) {

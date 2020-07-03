@@ -14,8 +14,8 @@ public class C1Example5 : Node2D, IExample {
     var target = mousePosition - center;
     var magnitude = target.Length();
 
-    DrawRect(new Rect2(0, 0, magnitude, 16), Colors.Black);
-    DrawLine(center, center + target, Colors.Black, 2, true);
+    DrawRect(new Rect2(0, 0, magnitude, 16), Colors.LightBlue);
+    DrawLine(center, center + target, Colors.LightBlue, 2, true);
   }
 
   public override void _Process(float delta) {

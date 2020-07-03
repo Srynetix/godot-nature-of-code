@@ -10,6 +10,7 @@ public class C0Exercise3 : Node2D, IExample {
   public class Walker {
     public float x;
     public float y;
+    public float StepSize = 3;
 
     public Walker(Vector2 position) {
       x = position.x;
@@ -23,17 +24,17 @@ public class C0Exercise3 : Node2D, IExample {
         // Go towards mouse
         var mousePosition = node.GetViewport().GetMousePosition();
         if (x > mousePosition.x) {
-          x--;
+          x -= StepSize;
         }
         else {
-          x++;
+          x += StepSize;
         }
 
         if (y > mousePosition.y) {
-          y--;
+          y -= StepSize;
         }
         else {
-          y++;
+          y += StepSize;
         }
       }
       else {
@@ -45,16 +46,16 @@ public class C0Exercise3 : Node2D, IExample {
       float chance = GD.Randf();
 
       if (chance < 0.25) {
-        x++;
+        x += StepSize;
       }
       else if (chance < 0.5) {
-        x--;
+        x -= StepSize;
       }
       else if (chance < 0.75) {
-        y++;
+        y += StepSize;
       }
       else {
-        y--;
+        y -= StepSize;
       }
     }
   }
@@ -73,7 +74,7 @@ public class C0Exercise3 : Node2D, IExample {
   }
 
   public void CanvasDraw(Node2D pen) {
-    pen.DrawRect(new Rect2(walker.x, walker.y, 1, 1), Colors.LightCyan, true);
+    pen.DrawRect(new Rect2(walker.x, walker.y, walker.StepSize, walker.StepSize), Colors.LightCyan, true);
   }
 
   public override void _Process(float delta) {

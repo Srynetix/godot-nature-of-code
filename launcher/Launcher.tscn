@@ -5,14 +5,14 @@
 [ext_resource path="res://assets/fonts/FiraCode-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://resources/AppTheme.tres" type="Theme" id=4]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 48
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 18
 use_mipmaps = true
 use_filter = true
@@ -75,7 +75,7 @@ margin_right = 120.0
 margin_bottom = 520.0
 size_flags_horizontal = 0
 size_flags_vertical = 8
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "FPS: [FPS]"
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
@@ -91,7 +91,7 @@ __meta__ = {
 margin_right = 920.0
 margin_bottom = 330.0
 size_flags_vertical = 7
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Interactive
 Nature of Code
 in Godot Engine"
@@ -153,7 +153,7 @@ rect_min_size = Vector2( 225, 125 )
 rect_clip_content = false
 size_flags_horizontal = 8
 size_flags_vertical = 8
-custom_fonts/normal_font = SubResource( 4 )
+custom_fonts/normal_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[url=https://natureofcode.com]Get The Nature of Code[/url]
 

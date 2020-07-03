@@ -11,7 +11,6 @@ public class C0Example5 : Node2D, IExample {
   private float tx;
   private float ty;
 
-
   public override void _Ready() {
     noise = new OpenSimplexNoise();
     position = GetViewport().Size / 2;

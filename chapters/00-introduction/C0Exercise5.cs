@@ -10,6 +10,7 @@ public class C0Exercise5 : Node2D, IExample {
   public class Walker {
     public float x;
     public float y;
+    public float StepSize = 3;
     RandomNumberGenerator generator;
 
     public Walker(Vector2 position) {
@@ -25,7 +26,7 @@ public class C0Exercise5 : Node2D, IExample {
 
     public void RandomStep() {
       float chance = GD.Randf();
-      float amount = generator.Randfn(0, 1);  // Gaussian
+      float amount = generator.Randfn(0, 1) * StepSize;  // Gaussian
 
       if (chance < 0.25) {
         x += amount;
@@ -56,7 +57,7 @@ public class C0Exercise5 : Node2D, IExample {
   }
 
   public void CanvasDraw(Node2D pen) {
-    pen.DrawRect(new Rect2(walker.x, walker.y, 1, 1), Colors.LightCyan, true);
+    pen.DrawRect(new Rect2(walker.x, walker.y, walker.StepSize, walker.StepSize), Colors.LightCyan, true);
   }
 
   public override void _Process(float delta) {

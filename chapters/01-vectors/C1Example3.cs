@@ -13,7 +13,7 @@ public class C1Example3 : Node2D, IExample {
 
     var target = mousePosition - center;
 
-    DrawLine(center, center + target, Colors.Black, 2, true);
+    DrawLine(center, center + target, Colors.LightBlue, 2, true);
   }
 
   public override void _Process(float delta) {
