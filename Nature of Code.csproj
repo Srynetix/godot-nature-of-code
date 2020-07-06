@@ -88,7 +88,9 @@
     <Compile Include="chapters\02-forces\C2Example5.cs" />
     <Compile Include="chapters\02-forces\C2Example6.cs" />
     <Compile Include="chapters\02-forces\C2Example7.cs" />
+    <Compile Include="chapters\02-forces\C2Example8.cs" />
     <Compile Include="chapters\02-forces\C2Exercise1.cs" />
+    <Compile Include="chapters\02-forces\C2Exercise10.cs" />
     <Compile Include="chapters\02-forces\C2Exercise3.cs" />
     <Compile Include="chapters\02-forces\C2Exercise4.cs" />
     <Compile Include="chapters\02-forces\C2Exercise5.cs" />

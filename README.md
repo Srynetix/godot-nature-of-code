@@ -12,7 +12,11 @@ The project contain a launcher, with a **scene explorer** to navigate examples a
 
 - [ ] Implement missing examples and exercises.
   - [x] 00 - Introduction
-  - [x] 01 - Vectors 
+  - [x] 01 - Vectors
+  - [x] 02 - Forces
+  - [ ] ...
 - [ ] Implement the Ecosystem project
   - [x] Step 1 - Base rules
+  - [ ] Step 2 - Forces
+  - [ ] ...
 - [x] Add a dynamic scene loader to explore examples and exercises
