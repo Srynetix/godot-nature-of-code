@@ -113,11 +113,11 @@ public class SceneExplorer : Control {
 
           var groups = rgx.Match(sceneFileName).Groups;
           string sceneName = groups["category"].Value + " " + groups["idx"].Value;
-        
+
           var scene = (PackedScene)GD.Load(chapterPath + "/" + elem);
           var descr = _ExtractSceneSummary(scene);
           sceneName += " - " + descr;
-          
+
           list.Add(sceneName);
           dict.Add(sceneName, scene);
         }
