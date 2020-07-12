@@ -10,11 +10,14 @@ indent_style = space
 # Code files
 [*.cs]
 indent_size = 2
+end_of_line = lf
 insert_final_newline = true
 charset = utf-8
 
-# CSharp code style settings:
-[*.cs]
+# Organize usings
+dotnet_separate_import_directive_groups = true
+dotnet_sort_system_directives_first = true
+
 # Newline settings
 csharp_new_line_before_open_brace = false
 csharp_new_line_before_else = true

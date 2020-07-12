@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using Godot;
 
 public class SceneExplorer : Control {
@@ -72,6 +73,22 @@ public class SceneExplorer : Control {
     dir.ListDirEnd();
   }
 
+  private string _ExtractSceneSummary(PackedScene packedScene) {
+    var inst = packedScene.Instance();
+    var descr = ((IExample)inst)._Summary();
+    inst.QueueFree();
+
+    var splitString = descr.Split('\n');
+    var secondLine = splitString[1];
+
+    // Only get nth first characters
+    var maxLength = 20;
+    if (secondLine.Length > maxLength) {
+      secondLine = secondLine.Substring(0, maxLength - 3) + "...";
+    }
+    return secondLine;
+  }
+
   public void ScanScenes() {
     Regex rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
     Regex prettyRgx = new Regex(@"(?<category>(Example|Exercise)) (?<idx>\d+)");
@@ -96,9 +113,13 @@ public class SceneExplorer : Control {
 
           var groups = rgx.Match(sceneFileName).Groups;
           string sceneName = groups["category"].Value + " " + groups["idx"].Value;
-
+        
+          var scene = (PackedScene)GD.Load(chapterPath + "/" + elem);
+          var descr = _ExtractSceneSummary(scene);
+          sceneName += " - " + descr;
+          
           list.Add(sceneName);
-          dict.Add(sceneName, (PackedScene)GD.Load(chapterPath + "/" + elem));
+          dict.Add(sceneName, scene);
         }
       }
 
@@ -278,16 +299,16 @@ public class SceneExplorer : Control {
     CodeLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Code");
     SummaryLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Summary");
     CodeBackground = GetNode<ColorRect>("Container/VBox/TopControl/CodeBackground");
-    ToggleCodeButton = GetNode<Button>("Container/VBox/Buttons/LeftButtons/ToggleCodeButton");
-    ToggleUIButton = GetNode<Button>("Container/VBox/Buttons/LeftButtons/ToggleUIButton");
-    PrevChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/PrevChapter");
-    NextChapterButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/NextChapter");
-    SelectChapterButton = GetNode<OptionButton>("Container/VBox/Buttons/SelectionButtons/ChapterSelection/SelectChapter");
-    PrevExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/PrevExample");
-    NextExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/NextExample");
-    SelectExampleButton = GetNode<OptionButton>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/SelectExample");
-    ReloadExampleButton = GetNode<Button>("Container/VBox/Buttons/SelectionButtons/ExampleSelection/ReloadExample");
-    SelectionButtons = GetNode<VBoxContainer>("Container/VBox/Buttons/SelectionButtons");
+    ToggleCodeButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/LeftButtons/ToggleCodeButton");
+    ToggleUIButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/LeftButtons/ToggleUIButton");
+    PrevChapterButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/PrevChapter");
+    NextChapterButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/NextChapter");
+    SelectChapterButton = GetNode<OptionButton>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/SelectChapter");
+    PrevExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/PrevExample");
+    NextExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/NextExample");
+    SelectExampleButton = GetNode<OptionButton>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/SelectExample");
+    ReloadExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/ReloadExample");
+    SelectionButtons = GetNode<VBoxContainer>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons");
 
     PrevChapterButton.Connect("pressed", this, nameof(SelectPrevChapter));
     NextChapterButton.Connect("pressed", this, nameof(SelectNextChapter));

@@ -2,7 +2,7 @@ using Godot;
 
 public class C0Exercise8 : Node2D, IExample {
   public string _Summary() {
-    return "Exercise I.8\n"
+    return "Exercise I.8:\n"
       + "Play with color, noiseDetail(), and the rate at which xoff and yoff are incremented to achieve different visual effects.";
   }
 

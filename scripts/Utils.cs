@@ -30,6 +30,10 @@ public class Utils {
       var fontData = GD.Load("res://assets/fonts/Raleway-Regular.ttf");
       var dynamicFont = new DynamicFont();
       dynamicFont.FontData = (DynamicFontData)fontData;
+      dynamicFont.Size = 16;
+      dynamicFont.UseFilter = true;
+      dynamicFont.OutlineSize = 1;
+      dynamicFont.OutlineColor = Colors.Black;
       DEFAULT_FONT = dynamicFont;
     }
 

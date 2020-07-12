@@ -1,5 +1,6 @@
-using Godot;
 using System.Linq;
+
+using Godot;
 
 public class C2Exercise10 : Node2D, IExample {
   public string _Summary() {

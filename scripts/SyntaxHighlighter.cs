@@ -1,5 +1,6 @@
-using Godot;
 using System.Text.RegularExpressions;
+
+using Godot;
 
 /**
 Adapted from https://codingvision.net/interface/c-simple-syntax-highlighting

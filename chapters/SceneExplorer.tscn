@@ -51,7 +51,7 @@ __meta__ = {
 
 [node name="TopControl" type="MarginContainer" parent="Container/VBox"]
 margin_right = 960.0
-margin_bottom = 404.0
+margin_bottom = 384.0
 size_flags_vertical = 3
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -62,7 +62,7 @@ custom_constants/margin_bottom = 20
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 940.0
-margin_bottom = 384.0
+margin_bottom = 364.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.0470588, 0.0470588, 0.0470588, 0.313726 )
@@ -74,7 +74,7 @@ __meta__ = {
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 940.0
-margin_bottom = 384.0
+margin_bottom = 364.0
 size_flags_vertical = 3
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -85,7 +85,7 @@ custom_constants/margin_bottom = 20
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 900.0
-margin_bottom = 344.0
+margin_bottom = 324.0
 custom_fonts/normal_font = SubResource( 1 )
 text = "[This is the summary text]"
 
@@ -93,7 +93,7 @@ text = "[This is the summary text]"
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 900.0
-margin_bottom = 344.0
+margin_bottom = 324.0
 focus_mode = 2
 size_flags_horizontal = 3
 custom_fonts/normal_font = SubResource( 2 )
@@ -103,22 +103,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="HBoxContainer" parent="Container/VBox"]
-margin_top = 408.0
+[node name="ButtonsMargin" type="MarginContainer" parent="Container/VBox"]
+margin_top = 388.0
 margin_right = 960.0
 margin_bottom = 520.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
 
-[node name="LeftButtons" type="VBoxContainer" parent="Container/VBox/Buttons"]
+[node name="Buttons" type="HBoxContainer" parent="Container/VBox/ButtonsMargin"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 950.0
+margin_bottom = 122.0
+
+[node name="LeftButtons" type="VBoxContainer" parent="Container/VBox/ButtonsMargin/Buttons"]
 margin_top = 18.0
-margin_right = 478.0
+margin_right = 468.0
 margin_bottom = 94.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/separation = 20
 
-[node name="ToggleCodeButton" type="Button" parent="Container/VBox/Buttons/LeftButtons"]
-margin_left = 179.0
-margin_right = 299.0
+[node name="ToggleCodeButton" type="Button" parent="Container/VBox/ButtonsMargin/Buttons/LeftButtons"]
+margin_left = 174.0
+margin_right = 294.0
 margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 6
@@ -126,10 +136,10 @@ size_flags_vertical = 4
 theme = ExtResource( 4 )
 text = "Toggle code"
 
-[node name="ToggleUIButton" type="Button" parent="Container/VBox/Buttons/LeftButtons"]
-margin_left = 191.0
+[node name="ToggleUIButton" type="Button" parent="Container/VBox/ButtonsMargin/Buttons/LeftButtons"]
+margin_left = 186.0
 margin_top = 48.0
-margin_right = 286.0
+margin_right = 281.0
 margin_bottom = 76.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
@@ -137,95 +147,95 @@ size_flags_vertical = 0
 theme = ExtResource( 4 )
 text = "Toggle UI"
 
-[node name="SelectionButtons" type="VBoxContainer" parent="Container/VBox/Buttons"]
-margin_left = 482.0
-margin_right = 960.0
+[node name="SelectionButtons" type="VBoxContainer" parent="Container/VBox/ButtonsMargin/Buttons"]
+margin_left = 472.0
+margin_right = 940.0
 margin_bottom = 112.0
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
-[node name="ChapterHeader" type="Label" parent="Container/VBox/Buttons/SelectionButtons"]
-margin_right = 478.0
+[node name="ChapterHeader" type="Label" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons"]
+margin_right = 468.0
 margin_bottom = 22.0
 theme = ExtResource( 4 )
 text = "Chapter selection"
 align = 1
 
-[node name="ChapterSelection" type="HBoxContainer" parent="Container/VBox/Buttons/SelectionButtons"]
+[node name="ChapterSelection" type="HBoxContainer" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons"]
 margin_top = 26.0
-margin_right = 478.0
+margin_right = 468.0
 margin_bottom = 54.0
 
-[node name="PrevChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
-margin_left = 87.0
-margin_right = 151.0
+[node name="PrevChapter" type="Button" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection"]
+margin_left = 82.0
+margin_right = 146.0
 margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 theme = ExtResource( 4 )
 text = "< Prev"
 
-[node name="SelectChapter" type="OptionButton" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
-margin_left = 155.0
-margin_right = 322.0
+[node name="SelectChapter" type="OptionButton" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection"]
+margin_left = 150.0
+margin_right = 317.0
 margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "Select chapter ..."
 
-[node name="NextChapter" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ChapterSelection"]
-margin_left = 326.0
-margin_right = 392.0
+[node name="NextChapter" type="Button" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection"]
+margin_left = 321.0
+margin_right = 387.0
 margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 2
 theme = ExtResource( 4 )
 text = "Next >"
 
-[node name="ExampleHeader" type="Label" parent="Container/VBox/Buttons/SelectionButtons"]
+[node name="ExampleHeader" type="Label" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons"]
 margin_top = 58.0
-margin_right = 478.0
+margin_right = 468.0
 margin_bottom = 80.0
 theme = ExtResource( 4 )
 text = "Example/Exercise selection"
 align = 1
 
-[node name="ExampleSelection" type="HBoxContainer" parent="Container/VBox/Buttons/SelectionButtons"]
+[node name="ExampleSelection" type="HBoxContainer" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons"]
 margin_top = 84.0
-margin_right = 478.0
+margin_right = 468.0
 margin_bottom = 112.0
 
-[node name="PrevExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 45.0
-margin_right = 109.0
+[node name="PrevExample" type="Button" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 40.0
+margin_right = 104.0
 margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 theme = ExtResource( 4 )
 text = "< Prev"
 
-[node name="SelectExample" type="OptionButton" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 113.0
-margin_right = 289.0
+[node name="SelectExample" type="OptionButton" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 108.0
+margin_right = 284.0
 margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "Select example ..."
 
-[node name="ReloadExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 293.0
-margin_right = 365.0
+[node name="ReloadExample" type="Button" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 288.0
+margin_right = 360.0
 margin_bottom = 28.0
 hint_tooltip = "Reload current example/exercise"
 mouse_default_cursor_shape = 2
 theme = ExtResource( 4 )
 text = "Reload"
 
-[node name="NextExample" type="Button" parent="Container/VBox/Buttons/SelectionButtons/ExampleSelection"]
-margin_left = 369.0
-margin_right = 435.0
+[node name="NextExample" type="Button" parent="Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection"]
+margin_left = 364.0
+margin_right = 430.0
 margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 2

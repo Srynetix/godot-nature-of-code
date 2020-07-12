@@ -1,4 +1,5 @@
 using System.Linq;
+
 using Godot;
 
 public class C2Exercise1 : Node2D, IExample {
