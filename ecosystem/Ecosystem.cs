@@ -27,7 +27,7 @@ public class Ecosystem : Control {
       SetAtRandomAngle();
     }
 
-    public void Move() {
+    public virtual void Move() {
       AngularVelocity = Mathf.Clamp(AngularVelocity + AngularAcceleration, -TopAngularSpeed, TopAngularSpeed);
       Rotation += AngularVelocity;
 
@@ -36,7 +36,7 @@ public class Ecosystem : Control {
       WrapEdges();
     }
 
-    private void WrapEdges() {
+    protected void WrapEdges() {
       var size = GetViewport().Size;
 
       if (Position.x > size.x) {
@@ -78,6 +78,83 @@ public class Ecosystem : Control {
       if (DebugDraw) {
         _DebugDraw();
       }
+    }
+  }
+
+  public class PhysicalLifeform : Lifeform {
+    public float Mass = 10;
+    public float Gravitation = 1.0f;
+
+    public Vector2 Attract(PhysicalLifeform lifeform) {
+      var force = Position - lifeform.Position;
+      var length = Mathf.Clamp(force.Length(), 5, 25);
+      float strength = (Gravitation * Mass * lifeform.Mass) / (length * length);
+      return force.Normalized() * strength;
+    }
+
+    public void ApplyForce(Vector2 force) {
+      Acceleration += force / Mass;
+    }
+
+    public override void Move() {
+      base.Move();
+
+      Acceleration = Vector2.Zero;
+    }
+  }
+
+  public class AttractedFly : PhysicalLifeform {
+    public float AngularAccelerationFactor = 0.01f;
+    public float AccelerationFactor = 0.5f;
+    public float BodySize = 4f;
+    public Color BaseColor = Colors.DarkOliveGreen;
+    public float WingRotationFactor = 0.5f;
+    public float WingSpeed = 64f;
+    public float WingSize = 3f;
+    public byte WingColorAlpha = 80;
+
+    private float tWings = 0;
+
+    public AttractedFly() {
+      TopSpeed = 5f;
+      TopAngularSpeed = 0.01f;
+    }
+
+    public override void _Ready() {
+      base._Ready();
+
+      AddToGroup("attracted_fly");
+    }
+
+    public override void _DrawLifeform() {
+      // Body
+      DrawCircle(Vector2.Zero, BodySize, BaseColor);
+
+      var leftWingPos = (Vector2.Up * (BodySize + 1)).Rotated(Mathf.Sin(tWings) * WingRotationFactor);
+      var rightWingPos = (Vector2.Up * -(BodySize + 1)).Rotated(Mathf.Sin(-tWings) * WingRotationFactor);
+
+      // Wings
+      var wingsColor = BaseColor.WithAlpha(WingColorAlpha);
+      DrawCircle(leftWingPos, WingSize, wingsColor);
+      DrawCircle(rightWingPos, WingSize, wingsColor);
+    }
+
+    public override void _Process(float delta) {
+      AngularAcceleration = Utils.SignedRandf() * AngularAccelerationFactor;
+
+      foreach (var n in GetTree().GetNodesInGroup("attracted_fly")) {
+        if (n != this) {
+          var attractor = (PhysicalLifeform)n;
+          var force = attractor.Attract(this);
+          ApplyForce(-force);
+        }
+      }
+
+      Move();
+
+      tWings += delta * WingSpeed;
+
+      Update();
     }
   }
 
@@ -284,6 +361,13 @@ public class Ecosystem : Control {
       var bunny = new HoppingBunny();
       bunny.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
       drawZone.AddChild(bunny);
+    }
+
+    int attractedFlyCount = 10;
+    foreach (int x in Enumerable.Range(0, attractedFlyCount)) {
+      var fly = new AttractedFly();
+      fly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
+      drawZone.AddChild(fly);
     }
   }
 
