@@ -10,6 +10,7 @@ public class Ecosystem : Control {
     public float AngularAcceleration;
     public float TopSpeed;
     public float TopAngularSpeed;
+    public float BodySize = 10;
 
     public bool DebugDraw = false;
 
@@ -34,6 +35,31 @@ public class Ecosystem : Control {
       Velocity = (Velocity + Acceleration).Clamped(TopSpeed);
       Position += Velocity;
       WrapEdges();
+    }
+
+    public void BounceOnEdges() {
+      var size = GetViewport().Size;
+      var newPos = Position;
+
+      if (Position.y < BodySize / 2) {
+        Velocity.y *= -1;
+        newPos.y = BodySize / 2;
+      }
+      else if (Position.y > size.y - BodySize / 2) {
+        Velocity.y *= -1;
+        newPos.y = size.y - BodySize / 2;
+      }
+
+      if (Position.x < BodySize / 2) {
+        Velocity.x *= -1;
+        newPos.x = BodySize / 2;
+      }
+      else if (Position.x > size.x - BodySize / 2) {
+        Velocity.x *= -1;
+        newPos.x = size.x - BodySize / 2;
+      }
+
+      Position = newPos;
     }
 
     protected void WrapEdges() {
@@ -97,16 +123,21 @@ public class Ecosystem : Control {
     }
 
     public override void Move() {
-      base.Move();
+      AngularVelocity = Mathf.Clamp(AngularVelocity + AngularAcceleration, -TopAngularSpeed, TopAngularSpeed);
+      Rotation += AngularVelocity;
+
+      Velocity = (Velocity + Acceleration).Clamped(TopSpeed);
+      Position += Velocity;
 
       Acceleration = Vector2.Zero;
+
+      BounceOnEdges();
     }
   }
 
   public class AttractedFly : PhysicalLifeform {
     public float AngularAccelerationFactor = 0.01f;
     public float AccelerationFactor = 0.5f;
-    public float BodySize = 4f;
     public Color BaseColor = Colors.DarkOliveGreen;
     public float WingRotationFactor = 0.5f;
     public float WingSpeed = 64f;
@@ -116,6 +147,7 @@ public class Ecosystem : Control {
     private float tWings = 0;
 
     public AttractedFly() {
+      BodySize = 4;
       TopSpeed = 5f;
       TopAngularSpeed = 0.01f;
     }
@@ -161,7 +193,6 @@ public class Ecosystem : Control {
   public class NervousFly : Lifeform {
     public float AngularAccelerationFactor = 0.01f;
     public float AccelerationFactor = 0.5f;
-    public float BodySize = 4f;
     public Color BaseColor = Colors.MediumPurple;
     public float WingRotationFactor = 0.5f;
     public float WingSpeed = 64f;
@@ -171,6 +202,7 @@ public class Ecosystem : Control {
     private float tWings = 0;
 
     public NervousFly() {
+      BodySize = 4f;
       TopSpeed = 5f;
       TopAngularSpeed = 0.01f;
     }
