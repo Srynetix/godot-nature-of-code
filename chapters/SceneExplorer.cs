@@ -70,6 +70,9 @@ public class SceneExplorer : Control {
       }
     }
 
+    // Sort chapters by name
+    chaptersList.Sort();
+
     dir.ListDirEnd();
   }
 
