@@ -99,6 +99,7 @@
     <Compile Include="chapters\02-forces\C2Exercise8.cs" />
     <Compile Include="chapters\02-forces\C2Exercise9.cs" />
     <Compile Include="chapters\03-oscillation\C3Example1.cs" />
+    <Compile Include="chapters\03-oscillation\C3Example2.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="ecosystem\Ecosystem.cs" />
