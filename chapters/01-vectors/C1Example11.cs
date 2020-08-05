@@ -1,17 +1,21 @@
 using Godot;
 
-public class C1Example11 : Node2D, IExample {
-  public string _Summary() {
+public class C1Example11 : Node2D, IExample
+{
+  public string _Summary()
+  {
     return "Example 1.11:\n"
       + "Array of movers accelerating towards the mouse";
   }
 
-  public class Mover : Node2D {
+  public class Mover : Node2D
+  {
     private Vector2 velocity;
     private Vector2 acceleration;
     private float topSpeed;
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
       var size = GetViewport().Size;
       Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
       velocity = Vector2.Zero;
@@ -19,7 +23,8 @@ public class C1Example11 : Node2D, IExample {
       topSpeed = 10;
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
       var mousePos = GetViewport().GetMousePosition();
       var dir = (mousePos - Position).Normalized();
 
@@ -31,34 +36,42 @@ public class C1Example11 : Node2D, IExample {
       WrapEdges();
     }
 
-    private void WrapEdges() {
+    private void WrapEdges()
+    {
       var size = GetViewport().Size;
 
-      if (Position.x > size.x) {
+      if (Position.x > size.x)
+      {
         Position = new Vector2(0, Position.y);
       }
-      else if (Position.x < 0) {
+      else if (Position.x < 0)
+      {
         Position = new Vector2(size.x, Position.y);
       }
 
-      if (Position.y > size.y) {
+      if (Position.y > size.y)
+      {
         Position = new Vector2(Position.x, 0);
       }
-      else if (Position.y < 0) {
+      else if (Position.y < 0)
+      {
         Position = new Vector2(Position.x, size.y);
       }
     }
 
-    public override void _Draw() {
+    public override void _Draw()
+    {
       DrawCircle(Vector2.Zero, 20, Colors.LightCyan.WithAlpha(64));
     }
   }
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
     GD.Randomize();
 
     var moverCount = 20;
-    for (int i = 0; i < moverCount; ++i) {
+    for (int i = 0; i < moverCount; ++i)
+    {
       var mover = new Mover();
       AddChild(mover);
     }

@@ -1,6 +1,7 @@
 using Godot;
 
-public class Launcher : Control {
+public class Launcher : Control
+{
   private VBoxContainer launcherUI;
   private ColorRect background;
   private Button backButton;
@@ -11,7 +12,8 @@ public class Launcher : Control {
   private RichTextLabel links;
   private Control drawSpace;
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
     background = GetNode<ColorRect>("Background");
     launcherUI = GetNode<VBoxContainer>("Margin/VBox");
     backButton = GetNode<Button>("Margin/BackButton");
@@ -31,7 +33,8 @@ public class Launcher : Control {
     ToggleBackUI(false);
   }
 
-  private void LoadSceneExplorer() {
+  private void LoadSceneExplorer()
+  {
     var sceneExplorer = (PackedScene)GD.Load("res://chapters/SceneExplorer.tscn");
     drawSpace.AddChild(sceneExplorer.Instance());
 
@@ -39,7 +42,8 @@ public class Launcher : Control {
     ToggleBackUI(true);
   }
 
-  private void LoadEcosystem() {
+  private void LoadEcosystem()
+  {
     var ecosystem = (PackedScene)GD.Load("res://ecosystem/Ecosystem.tscn");
     drawSpace.AddChild(ecosystem.Instance());
 
@@ -47,30 +51,37 @@ public class Launcher : Control {
     ToggleBackUI(true);
   }
 
-  private void ToggleLauncherUI(bool state) {
+  private void ToggleLauncherUI(bool state)
+  {
     launcherUI.Visible = state;
     background.Visible = state;
   }
 
-  private void ToggleBackUI(bool state) {
+  private void ToggleBackUI(bool state)
+  {
     backButton.Visible = state;
   }
 
-  private void LinkClicked(object data) {
-    if (data is string stringData) {
+  private void LinkClicked(object data)
+  {
+    if (data is string stringData)
+    {
       OS.ShellOpen(stringData);
     }
   }
 
-  private void ReloadLauncher() {
+  private void ReloadLauncher()
+  {
     GetTree().ReloadCurrentScene();
   }
 
-  private void Quit() {
+  private void Quit()
+  {
     GetTree().Quit();
   }
 
-  public override void _Process(float delta) {
+  public override void _Process(float delta)
+  {
     fpsLabel.Text = "FPS: " + Engine.GetFramesPerSecond();
   }
 }

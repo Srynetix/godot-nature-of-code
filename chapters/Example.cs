@@ -2,6 +2,7 @@
 Common example interface.
 */
 
-public interface IExample {
+public interface IExample
+{
   string _Summary();
 }

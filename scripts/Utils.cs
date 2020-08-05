@@ -1,32 +1,39 @@
 using Godot;
 
-public static class ColorExtensions {
-  public static Color WithAlpha(this Color color, byte alpha) {
+public static class ColorExtensions
+{
+  public static Color WithAlpha(this Color color, byte alpha)
+  {
     Color clone = color;
     clone.a8 = alpha;
     return clone;
   }
 }
 
-public class Utils {
+public class Utils
+{
   /**
    * Map a value from one bound to another.
    */
-  static public float Map(float value, float istart, float istop, float ostart, float ostop) {
+  static public float Map(float value, float istart, float istop, float ostart, float ostop)
+  {
     return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
   }
 
   /**
    * Return a signed Randf, between -1 and 1.
    */
-  static public float SignedRandf() {
+  static public float SignedRandf()
+  {
     return Map(GD.Randf(), 0, 1, -1, 1);
   }
 
   static private Font DEFAULT_FONT = null;
 
-  static public Font LoadDefaultFont() {
-    if (DEFAULT_FONT == null) {
+  static public Font LoadDefaultFont()
+  {
+    if (DEFAULT_FONT == null)
+    {
       var fontData = GD.Load("res://assets/fonts/Raleway-Regular.ttf");
       var dynamicFont = new DynamicFont();
       dynamicFont.FontData = (DynamicFontData)fontData;
@@ -40,7 +47,8 @@ public class Utils {
     return DEFAULT_FONT;
   }
 
-  public class Canvas : Control {
+  public class Canvas : Control
+  {
     public delegate void DrawFunction(Node2D pen);
 
     private Viewport viewport;
@@ -49,15 +57,18 @@ public class Utils {
     private Color backgroundColor = Color.Color8(45, 45, 45);
     private DrawFunction drawFunction = null;
 
-    public void SetDrawFunction(DrawFunction fn) {
+    public void SetDrawFunction(DrawFunction fn)
+    {
       drawFunction = fn;
     }
 
-    public void SetBackgroundColor(Color color) {
+    public void SetBackgroundColor(Color color)
+    {
       backgroundColor = color;
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
       var size = GetViewport().Size;
       viewport = new Viewport();
       viewport.Size = size;
@@ -77,15 +88,18 @@ public class Utils {
       AddChild(board);
     }
 
-    public void OnPenDraw() {
+    public void OnPenDraw()
+    {
       VisualServer.SetDefaultClearColor(backgroundColor);
 
-      if (drawFunction != null) {
+      if (drawFunction != null)
+      {
         drawFunction(pen);
       }
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
       pen.Update();
     }
   }

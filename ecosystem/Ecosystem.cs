@@ -2,8 +2,10 @@ using System.Linq;
 
 using Godot;
 
-public class Ecosystem : Control {
-  public class Lifeform : Node2D {
+public class Ecosystem : Control
+{
+  public class Lifeform : Node2D
+  {
     public Vector2 Velocity;
     public Vector2 Acceleration;
     public float AngularVelocity;
@@ -14,7 +16,8 @@ public class Ecosystem : Control {
 
     public bool DebugDraw = false;
 
-    public Lifeform() {
+    public Lifeform()
+    {
       Velocity = Vector2.Zero;
       AngularVelocity = 0;
       Acceleration = Vector2.Zero;
@@ -23,12 +26,14 @@ public class Ecosystem : Control {
       TopAngularSpeed = 0.25f;
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
       SetAtRandomScreenPos();
       SetAtRandomAngle();
     }
 
-    public virtual void Move() {
+    public virtual void Move()
+    {
       AngularVelocity = Mathf.Clamp(AngularVelocity + AngularAcceleration, -TopAngularSpeed, TopAngularSpeed);
       Rotation += AngularVelocity;
 
@@ -37,24 +42,29 @@ public class Ecosystem : Control {
       WrapEdges();
     }
 
-    public void BounceOnEdges() {
+    public void BounceOnEdges()
+    {
       var size = GetViewport().Size;
       var newPos = Position;
 
-      if (Position.y < BodySize / 2) {
+      if (Position.y < BodySize / 2)
+      {
         Velocity.y *= -1;
         newPos.y = BodySize / 2;
       }
-      else if (Position.y > size.y - BodySize / 2) {
+      else if (Position.y > size.y - BodySize / 2)
+      {
         Velocity.y *= -1;
         newPos.y = size.y - BodySize / 2;
       }
 
-      if (Position.x < BodySize / 2) {
+      if (Position.x < BodySize / 2)
+      {
         Velocity.x *= -1;
         newPos.x = BodySize / 2;
       }
-      else if (Position.x > size.x - BodySize / 2) {
+      else if (Position.x > size.x - BodySize / 2)
+      {
         Velocity.x *= -1;
         newPos.x = size.x - BodySize / 2;
       }
@@ -62,67 +72,82 @@ public class Ecosystem : Control {
       Position = newPos;
     }
 
-    protected void WrapEdges() {
+    protected void WrapEdges()
+    {
       var size = GetViewport().Size;
 
-      if (Position.x > size.x) {
+      if (Position.x > size.x)
+      {
         Position = new Vector2(0, Position.y);
       }
-      else if (Position.x < 0) {
+      else if (Position.x < 0)
+      {
         Position = new Vector2(size.x, Position.y);
       }
 
-      if (Position.y > size.y) {
+      if (Position.y > size.y)
+      {
         Position = new Vector2(Position.x, 0);
       }
-      else if (Position.y < 0) {
+      else if (Position.y < 0)
+      {
         Position = new Vector2(Position.x, size.y);
       }
     }
 
-    public void SetAtRandomScreenPos() {
+    public void SetAtRandomScreenPos()
+    {
       var size = GetViewport().Size;
       Position = new Vector2(GD.Randf() * size.x, GD.Randf() * size.y);
     }
 
-    public void SetAtRandomAngle() {
+    public void SetAtRandomAngle()
+    {
       Rotation = Utils.Map(GD.Randf(), 0, 1, 0, 2 * Mathf.Pi);
     }
 
-    public void _DebugDraw() {
+    public void _DebugDraw()
+    {
       DrawCircle(Vector2.Zero, 1f, Colors.Red);
       DrawLine(Vector2.Zero, Vector2.Right * 10, Colors.Blue);
     }
 
-    public virtual void _DrawLifeform() {
+    public virtual void _DrawLifeform()
+    {
       // Nothing
     }
 
-    public override void _Draw() {
+    public override void _Draw()
+    {
       _DrawLifeform();
 
-      if (DebugDraw) {
+      if (DebugDraw)
+      {
         _DebugDraw();
       }
     }
   }
 
-  public class PhysicalLifeform : Lifeform {
+  public class PhysicalLifeform : Lifeform
+  {
     public float Mass = 10;
     public float Gravitation = 1.0f;
 
-    public Vector2 Attract(PhysicalLifeform lifeform) {
+    public Vector2 Attract(PhysicalLifeform lifeform)
+    {
       var force = Position - lifeform.Position;
       var length = Mathf.Clamp(force.Length(), 5, 25);
       float strength = (Gravitation * Mass * lifeform.Mass) / (length * length);
       return force.Normalized() * strength;
     }
 
-    public void ApplyForce(Vector2 force) {
+    public void ApplyForce(Vector2 force)
+    {
       Acceleration += force / Mass;
     }
 
-    public override void Move() {
+    public override void Move()
+    {
       AngularVelocity = Mathf.Clamp(AngularVelocity + AngularAcceleration, -TopAngularSpeed, TopAngularSpeed);
       Rotation += AngularVelocity;
 
@@ -135,7 +160,8 @@ public class Ecosystem : Control {
     }
   }
 
-  public class AttractedFly : PhysicalLifeform {
+  public class AttractedFly : PhysicalLifeform
+  {
     public float AngularAccelerationFactor = 0.01f;
     public float AccelerationFactor = 0.5f;
     public Color BaseColor = Colors.DarkOliveGreen;
@@ -146,19 +172,22 @@ public class Ecosystem : Control {
 
     private float tWings = 0;
 
-    public AttractedFly() {
+    public AttractedFly()
+    {
       BodySize = 4;
       TopSpeed = 5f;
       TopAngularSpeed = 0.01f;
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
       base._Ready();
 
       AddToGroup("attracted_fly");
     }
 
-    public override void _DrawLifeform() {
+    public override void _DrawLifeform()
+    {
       // Body
       DrawCircle(Vector2.Zero, BodySize, BaseColor);
 
@@ -171,11 +200,14 @@ public class Ecosystem : Control {
       DrawCircle(rightWingPos, WingSize, wingsColor);
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
       AngularAcceleration = Utils.SignedRandf() * AngularAccelerationFactor;
 
-      foreach (var n in GetTree().GetNodesInGroup("attracted_fly")) {
-        if (n != this) {
+      foreach (var n in GetTree().GetNodesInGroup("attracted_fly"))
+      {
+        if (n != this)
+        {
           var attractor = (PhysicalLifeform)n;
           var force = attractor.Attract(this);
           ApplyForce(-force);
@@ -190,7 +222,8 @@ public class Ecosystem : Control {
     }
   }
 
-  public class NervousFly : Lifeform {
+  public class NervousFly : Lifeform
+  {
     public float AngularAccelerationFactor = 0.01f;
     public float AccelerationFactor = 0.5f;
     public Color BaseColor = Colors.MediumPurple;
@@ -201,13 +234,15 @@ public class Ecosystem : Control {
 
     private float tWings = 0;
 
-    public NervousFly() {
+    public NervousFly()
+    {
       BodySize = 4f;
       TopSpeed = 5f;
       TopAngularSpeed = 0.01f;
     }
 
-    public override void _DrawLifeform() {
+    public override void _DrawLifeform()
+    {
       // Body
       DrawCircle(Vector2.Zero, BodySize, BaseColor);
 
@@ -220,7 +255,8 @@ public class Ecosystem : Control {
       DrawCircle(rightWingPos, WingSize, wingsColor);
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
       AngularAcceleration = Utils.SignedRandf() * AngularAccelerationFactor;
       Acceleration = new Vector2(
           Utils.SignedRandf(),
@@ -235,7 +271,8 @@ public class Ecosystem : Control {
     }
   }
 
-  public class SwimmingFish : Lifeform {
+  public class SwimmingFish : Lifeform
+  {
     public float TailSpeed = 10f;
     public Color BaseColor = Colors.CadetBlue;
     public float ForwardAcceleration = 0.25f;
@@ -243,11 +280,13 @@ public class Ecosystem : Control {
 
     private float tTail = 0;
 
-    public SwimmingFish() {
+    public SwimmingFish()
+    {
       TopSpeed = 1f;
     }
 
-    public override void _DrawLifeform() {
+    public override void _DrawLifeform()
+    {
       Color colorToUse = BaseColor;
 
       Color lightenedColor = colorToUse.Lightened(0.25f);
@@ -273,7 +312,8 @@ public class Ecosystem : Control {
       DrawCircle(Vector2.Right * (10 + tailAngle) + Vector2.Down * 5, 1.5f, lightenedColor);
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
       var forward = Vector2.Right.Rotated(Rotation).Normalized() * ForwardAcceleration;
       var offset = new Vector2(Utils.SignedRandf(), Utils.SignedRandf()) * SideOffsetAcceleration;
       Acceleration = forward + offset;
@@ -286,7 +326,8 @@ public class Ecosystem : Control {
     }
   }
 
-  public class HoppingBunny : Lifeform {
+  public class HoppingBunny : Lifeform
+  {
     public float JumpSpeed = 8f;
     public float TailSpeed = 10f;
     public float AccelerationFactor = 0.025f;
@@ -298,12 +339,14 @@ public class Ecosystem : Control {
     private float tJump;
     private float tTail;
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
       base._Ready();
       Rotation = 0;
 
       // Random direction left or right
-      if (GD.Randf() < 0.5f) {
+      if (GD.Randf() < 0.5f)
+      {
         Scale = new Vector2(-Scale.x, Scale.y);
       }
 
@@ -311,7 +354,8 @@ public class Ecosystem : Control {
       tJump = (float)GD.RandRange(0f, 100f);
     }
 
-    public override void _DrawLifeform() {
+    public override void _DrawLifeform()
+    {
       float tailAngle = Mathf.Sin(tTail) * TailRotationFactor;
       float earAngle = Mathf.Sin(tTail) * EarRotationFactor;
 
@@ -355,7 +399,8 @@ public class Ecosystem : Control {
       DrawCircle((Vector2.Right * 6f + Vector2.Up * 22).Rotated(earAngle), 3, darkenedColor);
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
       Acceleration.y = Mathf.Sin(tJump);
       Acceleration.x = AccelerationFactor * Mathf.Sign(Scale.x);
 
@@ -369,44 +414,53 @@ public class Ecosystem : Control {
 
   private Control drawZone;
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
     GD.Randomize();
 
     drawZone = GetNode<Control>("DrawZone");
 
     int nervousFlyCount = 10;
-    foreach (int x in Enumerable.Range(0, nervousFlyCount)) {
+    foreach (int x in Enumerable.Range(0, nervousFlyCount))
+    {
       var fly = new NervousFly();
       fly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
       drawZone.AddChild(fly);
     }
 
     int swimmingFishCount = 10;
-    foreach (int x in Enumerable.Range(0, swimmingFishCount)) {
+    foreach (int x in Enumerable.Range(0, swimmingFishCount))
+    {
       var fish = new SwimmingFish();
       fish.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
       drawZone.AddChild(fish);
     }
 
     int hoppingBunnyCount = 10;
-    foreach (int x in Enumerable.Range(0, hoppingBunnyCount)) {
+    foreach (int x in Enumerable.Range(0, hoppingBunnyCount))
+    {
       var bunny = new HoppingBunny();
       bunny.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
       drawZone.AddChild(bunny);
     }
 
     int attractedFlyCount = 10;
-    foreach (int x in Enumerable.Range(0, attractedFlyCount)) {
+    foreach (int x in Enumerable.Range(0, attractedFlyCount))
+    {
       var fly = new AttractedFly();
       fly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
       drawZone.AddChild(fly);
     }
   }
 
-  public override void _Input(InputEvent @event) {
-    if (@event is InputEventKey inputEventKey) {
-      if (!inputEventKey.Pressed) {
-        if (inputEventKey.Scancode == (int)KeyList.Space) {
+  public override void _Input(InputEvent @event)
+  {
+    if (@event is InputEventKey inputEventKey)
+    {
+      if (!inputEventKey.Pressed)
+      {
+        if (inputEventKey.Scancode == (int)KeyList.Space)
+        {
           GetTree().ReloadCurrentScene();
         }
       }

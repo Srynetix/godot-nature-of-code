@@ -1,12 +1,15 @@
 using Godot;
 
-public class C1Example6 : Node2D, IExample {
-  public string _Summary() {
+public class C1Example6 : Node2D, IExample
+{
+  public string _Summary()
+  {
     return "Example 1.6:\n"
       + "Normalizing a vector";
   }
 
-  public override void _Draw() {
+  public override void _Draw()
+  {
     var mousePosition = GetViewport().GetMousePosition();
     var size = GetViewport().Size;
     var center = size / 2;
@@ -16,7 +19,8 @@ public class C1Example6 : Node2D, IExample {
     DrawLine(center, center + target * 100, Colors.LightBlue, 2, true);
   }
 
-  public override void _Process(float delta) {
+  public override void _Process(float delta)
+  {
     Update();
   }
 }

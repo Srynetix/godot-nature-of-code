@@ -2,21 +2,25 @@ using System.Linq;
 
 using Godot;
 
-public class C2Exercise7 : Node2D, IExample {
-  public string _Summary() {
+public class C2Exercise7 : Node2D, IExample
+{
+  public string _Summary()
+  {
     return "Exercise 2.7:\n"
       + "Fluid resistance does not only work opposite to the velocity vector, but also perpendicular to it.\n"
       + "This is known as “lift-induced drag” and will cause an airplane with an angled wing to rise in altitude.\n"
       + "Try creating a simulation of lift.";
   }
 
-  public class Liquid : Area2D {
+  public class Liquid : Area2D
+  {
     public Vector2 Size = new Vector2(100, 100);
     public float Coeff = 0;
 
     private Font defaultFont;
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
       SetCollisionLayerBit(0, false);
       SetCollisionLayerBit(1, true);
       SetCollisionMaskBit(0, true);
@@ -32,7 +36,8 @@ public class C2Exercise7 : Node2D, IExample {
       defaultFont = Utils.LoadDefaultFont();
     }
 
-    public override void _Draw() {
+    public override void _Draw()
+    {
       Color color = Colors.DarkViolet;
 
       DrawRect(new Rect2(Vector2.Zero - Size / 2, Size), color.WithAlpha(200));
@@ -42,31 +47,37 @@ public class C2Exercise7 : Node2D, IExample {
       DrawString(defaultFont, Vector2.Left * strSize / 2, strToDraw);
     }
 
-    public override void _Process(float delta) {
-      foreach (var area in GetOverlappingAreas()) {
+    public override void _Process(float delta)
+    {
+      foreach (var area in GetOverlappingAreas())
+      {
         var mover = (Mover)area;
         mover.ApplyDrag(Coeff);
       }
     }
   }
 
-  public class Mover : Area2D {
+  public class Mover : Area2D
+  {
     public Vector2 Velocity = Vector2.Zero;
     public Vector2 Acceleration = Vector2.Zero;
     public float MaxVelocity = 10.0f;
     public float BodySize = 20;
     public float Mass = 10;
 
-    public void ApplyForce(Vector2 force) {
+    public void ApplyForce(Vector2 force)
+    {
       Acceleration += force / Mass;
     }
 
-    public void ApplyFriction(float coef) {
+    public void ApplyFriction(float coef)
+    {
       var friction = Velocity.Normalized() * -coef;
       ApplyForce(friction);
     }
 
-    public void ApplyDrag(float coef) {
+    public void ApplyDrag(float coef)
+    {
       float speedSqr = Velocity.LengthSquared();
       float mag = coef * speedSqr;
 
@@ -79,7 +90,8 @@ public class C2Exercise7 : Node2D, IExample {
       ApplyForce(perpDrag * 0.75f);
     }
 
-    public void Move() {
+    public void Move()
+    {
       Velocity = (Velocity + Acceleration).Clamped(MaxVelocity);
       Position += Velocity;
       Acceleration = Vector2.Zero;
@@ -87,24 +99,29 @@ public class C2Exercise7 : Node2D, IExample {
       BounceOnEdges();
     }
 
-    public void BounceOnEdges() {
+    public void BounceOnEdges()
+    {
       var size = GetViewport().Size;
       var newPos = Position;
 
-      if (Position.y < BodySize / 2) {
+      if (Position.y < BodySize / 2)
+      {
         Velocity.y *= -1;
         newPos.y = BodySize / 2;
       }
-      else if (Position.y > size.y - BodySize / 2) {
+      else if (Position.y > size.y - BodySize / 2)
+      {
         Velocity.y *= -1;
         newPos.y = size.y - BodySize / 2;
       }
 
-      if (Position.x < BodySize / 2) {
+      if (Position.x < BodySize / 2)
+      {
         Velocity.x *= -1;
         newPos.x = BodySize / 2;
       }
-      else if (Position.x > size.x - BodySize / 2) {
+      else if (Position.x > size.x - BodySize / 2)
+      {
         Velocity.x *= -1;
         newPos.x = size.x - BodySize / 2;
       }
@@ -112,7 +129,8 @@ public class C2Exercise7 : Node2D, IExample {
       Position = newPos;
     }
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
       SetCollisionLayerBit(0, true);
       SetCollisionMaskBit(0, true);
       SetCollisionMaskBit(1, true);
@@ -129,7 +147,8 @@ public class C2Exercise7 : Node2D, IExample {
       AddChild(collisionShape);
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(float delta)
+    {
       var wind = new Vector2(0.2f, 0);
       var gravity = new Vector2(0, 0.098f * Mass);
 
@@ -139,12 +158,14 @@ public class C2Exercise7 : Node2D, IExample {
       Move();
     }
 
-    public override void _Draw() {
+    public override void _Draw()
+    {
       DrawRect(new Rect2(-Vector2.One * BodySize / 2, Vector2.One * BodySize), Colors.LightBlue.WithAlpha(200));
     }
   }
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
     var size = GetViewport().Size;
 
     var zone = new Liquid();
@@ -153,7 +174,8 @@ public class C2Exercise7 : Node2D, IExample {
     zone.Position = new Vector2(size.x / 2, size.y - size.y / 8);
     AddChild(zone);
 
-    foreach (var x in Enumerable.Range(0, 20)) {
+    foreach (var x in Enumerable.Range(0, 20))
+    {
       var mover = new Mover();
       mover.BodySize = (float)GD.RandRange(10, 40);
       mover.Mass = (float)GD.RandRange(5, 10);

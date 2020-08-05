@@ -1,43 +1,53 @@
 using Godot;
 
-public class C0Exercise5 : Node2D, IExample {
-  public string _Summary() {
+public class C0Exercise5 : Node2D, IExample
+{
+  public string _Summary()
+  {
     return "Exercise I.5:\n"
       + "A Gaussian random walk is defined as one in which the step size (how far the object moves in a given direction) is generated with a normal distribution.\n"
       + "Implement this variation of our random walk.";
   }
 
-  public class Walker {
+  public class Walker
+  {
     public float x;
     public float y;
     public float StepSize = 3;
     RandomNumberGenerator generator;
 
-    public Walker(Vector2 position) {
+    public Walker(Vector2 position)
+    {
       x = position.x;
       y = position.y;
       generator = new RandomNumberGenerator();
       generator.Randomize();
     }
 
-    public void Step(CanvasItem node) {
+    public void Step(CanvasItem node)
+    {
       RandomStep();
     }
 
-    public void RandomStep() {
+    public void RandomStep()
+    {
       float chance = GD.Randf();
       float amount = generator.Randfn(0, 1) * StepSize;  // Gaussian
 
-      if (chance < 0.25) {
+      if (chance < 0.25)
+      {
         x += amount;
       }
-      else if (chance < 0.5) {
+      else if (chance < 0.5)
+      {
         x -= amount;
       }
-      else if (chance < 0.75) {
+      else if (chance < 0.75)
+      {
         y += amount;
       }
-      else {
+      else
+      {
         y -= amount;
       }
     }
@@ -46,7 +56,8 @@ public class C0Exercise5 : Node2D, IExample {
   private Walker walker;
   private Utils.Canvas canvas;
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
     GD.Randomize();
     walker = new Walker(GetViewport().Size / 2);
 
@@ -56,11 +67,13 @@ public class C0Exercise5 : Node2D, IExample {
     canvas.SetDrawFunction(CanvasDraw);
   }
 
-  public void CanvasDraw(Node2D pen) {
+  public void CanvasDraw(Node2D pen)
+  {
     pen.DrawRect(new Rect2(walker.x, walker.y, walker.StepSize, walker.StepSize), Colors.LightCyan, true);
   }
 
-  public override void _Process(float delta) {
+  public override void _Process(float delta)
+  {
     walker.Step(this);
   }
 }

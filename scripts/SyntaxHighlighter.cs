@@ -6,13 +6,16 @@ using Godot;
 Adapted from https://codingvision.net/interface/c-simple-syntax-highlighting
 */
 
-public class SyntaxHighlighter {
+public class SyntaxHighlighter
+{
 
-  private string ColorizeMatches(string source, MatchCollection collection, Color color) {
+  private string ColorizeMatches(string source, MatchCollection collection, Color color)
+  {
     int currentOffset = 0;
     var outputCode = source;
 
-    foreach (Match m in collection) {
+    foreach (Match m in collection)
+    {
       int startIndex = m.Index + currentOffset;
       int endIndex = m.Index + m.Length + currentOffset;
 
@@ -29,7 +32,8 @@ public class SyntaxHighlighter {
     return outputCode;
   }
 
-  public string HighlightWithBBCode(string code) {
+  public string HighlightWithBBCode(string code)
+  {
     string outputCode = code;
 
     // getting keywords/functions

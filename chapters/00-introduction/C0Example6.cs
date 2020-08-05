@@ -1,7 +1,9 @@
 using Godot;
 
-public class C0Example6 : Node2D, IExample {
-  public string _Summary() {
+public class C0Example6 : Node2D, IExample
+{
+  public string _Summary()
+  {
     return "Example I.6:\n"
       + "2D Perlin noise";
   }
@@ -11,7 +13,8 @@ public class C0Example6 : Node2D, IExample {
   private ImageTexture texture;
   private OpenSimplexNoise noise;
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
     sprite = new Sprite();
     image = new Image();
     texture = new ImageTexture();
@@ -32,12 +35,15 @@ public class C0Example6 : Node2D, IExample {
     AddChild(sprite);
   }
 
-  private void GenerateNoiseTexture() {
+  private void GenerateNoiseTexture()
+  {
     var size = GetViewport().Size;
 
     image.Lock();
-    for (int x = 0; x < size.x; ++x) {
-      for (int y = 0; y < size.y; ++y) {
+    for (int x = 0; x < size.x; ++x)
+    {
+      for (int y = 0; y < size.y; ++y)
+      {
         float n = Utils.Map(noise.GetNoise2d(x, y), -1, 1, 0, 1);
         byte tint = (byte)Utils.Map(n, 0, 1, 0, 255);
         image.SetPixel(x, y, Color.Color8(tint, tint, tint));
