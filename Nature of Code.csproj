@@ -15,6 +15,7 @@
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)</IntermediateOutputPath>
     <ApiConfiguration Condition=" '$(Configuration)' != 'ExportRelease' ">Debug</ApiConfiguration>
     <ApiConfiguration Condition=" '$(Configuration)' == 'ExportRelease' ">Release</ApiConfiguration>
+    <ProjectTypeGuids>{8F3E2DF0-C35C-4265-82FC-BEA011F4A7ED};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ExportDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -101,12 +102,16 @@
     <Compile Include="chapters\02-forces\C2Exercise9.cs" />
     <Compile Include="chapters\03-oscillation\C3Example1.cs" />
     <Compile Include="chapters\03-oscillation\C3Example2.cs" />
+    <Compile Include="chapters\03-oscillation\C3Exercise2.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="ecosystem\Ecosystem.cs" />
     <Compile Include="launcher\Launcher.cs" />
     <Compile Include="scripts\Utils.cs" />
     <Compile Include="scripts\SyntaxHighlighter.cs" />
+    <Compile Include="scripts\common\Mover.cs" />
+    <Compile Include="scripts\common\DrawCanvas.cs" />
+    <Compile Include="scripts\common\Walker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

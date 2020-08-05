@@ -9,27 +9,9 @@ public class C0Exercise5 : Node2D, IExample
       + "Implement this variation of our random walk.";
   }
 
-  public class Walker
+  public class CWalker : Walker
   {
-    public float x;
-    public float y;
-    public float StepSize = 3;
-    RandomNumberGenerator generator;
-
-    public Walker(Vector2 position)
-    {
-      x = position.x;
-      y = position.y;
-      generator = new RandomNumberGenerator();
-      generator.Randomize();
-    }
-
-    public void Step(CanvasItem node)
-    {
-      RandomStep();
-    }
-
-    public void RandomStep()
+    public override void Step()
     {
       float chance = GD.Randf();
       float amount = generator.Randfn(0, 1) * StepSize;  // Gaussian
@@ -54,26 +36,22 @@ public class C0Exercise5 : Node2D, IExample
   }
 
   private Walker walker;
-  private Utils.Canvas canvas;
+  private DrawCanvas canvas;
 
   public override void _Ready()
   {
     GD.Randomize();
-    walker = new Walker(GetViewport().Size / 2);
 
-    canvas = new Utils.Canvas();
+    walker = new CWalker();
+    walker.SetXY(GetViewport().Size / 2);
+    canvas = new DrawCanvas(CanvasDraw);
+
     AddChild(canvas);
-
-    canvas.SetDrawFunction(CanvasDraw);
+    AddChild(walker);
   }
 
   public void CanvasDraw(Node2D pen)
   {
-    pen.DrawRect(new Rect2(walker.x, walker.y, walker.StepSize, walker.StepSize), Colors.LightCyan, true);
-  }
-
-  public override void _Process(float delta)
-  {
-    walker.Step(this);
+    pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
   }
 }

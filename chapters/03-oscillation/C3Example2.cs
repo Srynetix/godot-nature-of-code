@@ -10,14 +10,8 @@ public class C3Example2 : Node2D, IExample
       + "Forces with (arbitrary) angular motion";
   }
 
-  public class Square : Node2D
+  public class Square : Mover
   {
-    Vector2 velocity = Vector2.Zero;
-    Vector2 acceleration = Vector2.One * 0.01f;
-    float angularVelocity = 0;
-    float angularAcceleration = 0.01f;
-    float bodySize = 10;
-
     public override void _Ready()
     {
       bodySize = (float)GD.RandRange(5, 20);
@@ -25,7 +19,8 @@ public class C3Example2 : Node2D, IExample
 
     public override void _Draw()
     {
-      DrawRect(new Rect2(Vector2.Zero, Vector2.One * bodySize), Colors.LightBlue);
+      DrawRect(new Rect2(Vector2.Zero, Vector2.One * (bodySize + 1)), Colors.Black);
+      DrawRect(new Rect2(Vector2.One, Vector2.One * (bodySize - 1)), Colors.LightBlue);
     }
 
     public override void _Process(float delta)
@@ -46,29 +41,6 @@ public class C3Example2 : Node2D, IExample
       WrapEdges();
       Update();
     }
-
-    private void WrapEdges()
-    {
-      var size = GetViewport().Size;
-
-      if (GlobalPosition.x > size.x)
-      {
-        GlobalPosition = new Vector2(0, GlobalPosition.y);
-      }
-      else if (GlobalPosition.x < 0)
-      {
-        GlobalPosition = new Vector2(size.x, GlobalPosition.y);
-      }
-
-      if (GlobalPosition.y > size.y)
-      {
-        GlobalPosition = new Vector2(GlobalPosition.x, 0);
-      }
-      else if (GlobalPosition.y < 0)
-      {
-        GlobalPosition = new Vector2(GlobalPosition.x, size.y);
-      }
-    }
   }
 
   public override void _Draw()
@@ -81,7 +53,7 @@ public class C3Example2 : Node2D, IExample
     Position = GetViewport().Size / 2;
 
     // Spawn squares
-    int squareCount = 10;
+    int squareCount = 20;
     foreach (int x in Enumerable.Range(0, squareCount))
     {
       var square = new Square();

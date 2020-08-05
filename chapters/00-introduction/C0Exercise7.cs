@@ -9,30 +9,15 @@ public class C0Exercise7 : Node2D, IExample
       + "Create a random walker where you instead map the result of the noise() function to a Walker’s step size.";
   }
 
-  public class Walker
+  public class CWalker : Walker
   {
-    float x;
-    float y;
-    float tx;
-    float ty;
-    OpenSimplexNoise noise;
-
-    public Walker(Vector2 position)
+    public override void _Draw()
     {
-      x = position.x;
-      y = position.y;
-      noise = new OpenSimplexNoise();
-      tx = 0;
-      ty = 10000;
+      DrawCircle(Vector2.Zero, 20, Colors.Black);
+      DrawCircle(Vector2.Zero, 18, Colors.LightGray);
     }
 
-    public void Draw(CanvasItem node)
-    {
-      node.DrawCircle(new Vector2(x, y), 20, Colors.Black);
-      node.DrawCircle(new Vector2(x, y), 18, Colors.LightGray);
-    }
-
-    public void Step(CanvasItem node)
+    public override void Step()
     {
       RandomStep();
 
@@ -60,17 +45,9 @@ public class C0Exercise7 : Node2D, IExample
   public override void _Ready()
   {
     GD.Randomize();
-    walker = new Walker(GetViewport().Size / 2);
-  }
+    walker = new CWalker();
+    walker.SetXY(GetViewport().Size / 2);
 
-  public override void _Draw()
-  {
-    walker.Draw(this);
-  }
-
-  public override void _Process(float delta)
-  {
-    walker.Step(this);
-    Update();
+    AddChild(walker);
   }
 }

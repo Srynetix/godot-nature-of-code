@@ -9,26 +9,16 @@ public class C0Exercise3 : Node2D, IExample
       + "For example, can you give it a 50% chance of moving in the direction of the mouse?";
   }
 
-  public class Walker
+  public class CWalker : Walker
   {
-    public float x;
-    public float y;
-    public float StepSize = 3;
-
-    public Walker(Vector2 position)
-    {
-      x = position.x;
-      y = position.y;
-    }
-
-    public void Step(CanvasItem node)
+    public override void Step()
     {
       float chance = GD.Randf();
 
       if (chance <= 0.5)
       {
         // Go towards mouse
-        var mousePosition = node.GetViewport().GetMousePosition();
+        var mousePosition = GetViewport().GetMousePosition();
         if (x > mousePosition.x)
         {
           x -= StepSize;
@@ -76,27 +66,23 @@ public class C0Exercise3 : Node2D, IExample
     }
   }
 
-  private Walker walker;
-  private Utils.Canvas canvas;
+  private CWalker walker;
+  private DrawCanvas canvas;
 
   public override void _Ready()
   {
     GD.Randomize();
-    walker = new Walker(GetViewport().Size / 2);
 
-    canvas = new Utils.Canvas();
+    walker = new CWalker();
+    walker.SetXY(GetViewport().Size / 2);
+    canvas = new DrawCanvas(CanvasDraw);
+
     AddChild(canvas);
-
-    canvas.SetDrawFunction(CanvasDraw);
+    AddChild(walker);
   }
 
   public void CanvasDraw(Node2D pen)
   {
-    pen.DrawRect(new Rect2(walker.x, walker.y, walker.StepSize, walker.StepSize), Colors.LightCyan, true);
-  }
-
-  public override void _Process(float delta)
-  {
-    walker.Step(this);
+    pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
   }
 }

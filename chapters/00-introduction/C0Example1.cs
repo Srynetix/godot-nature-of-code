@@ -8,19 +8,9 @@ public class C0Example1 : Node2D, IExample
       + "Traditional random walk";
   }
 
-  public class Walker
+  public class CWalker : Walker
   {
-    public float x;
-    public float y;
-    public float StepSize = 3;
-
-    public Walker(Vector2 position)
-    {
-      x = position.x;
-      y = position.y;
-    }
-
-    public void Step()
+    public override void Step()
     {
       var stepX = (float)GD.RandRange(-1.0, 1.0);
       var stepY = (float)GD.RandRange(-1.0, 1.0);
@@ -30,28 +20,23 @@ public class C0Example1 : Node2D, IExample
     }
   }
 
-  private Walker walker;
-  private Utils.Canvas canvas;
+  private CWalker walker;
+  private DrawCanvas canvas;
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
     GD.Randomize();
-    walker = new Walker(size / 2);
 
-    canvas = new Utils.Canvas();
+    walker = new CWalker();
+    walker.SetXY(GetViewport().Size / 2);
+    canvas = new DrawCanvas(CanvasDraw);
+
     AddChild(canvas);
-
-    canvas.SetDrawFunction(CanvasDraw);
+    AddChild(walker);
   }
 
   public void CanvasDraw(Node2D pen)
   {
-    pen.DrawRect(new Rect2(walker.x, walker.y, walker.StepSize, walker.StepSize), Colors.LightCyan, true);
-  }
-
-  public override void _Process(float delta)
-  {
-    walker.Step();
+    pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
   }
 }

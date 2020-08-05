@@ -9,17 +9,15 @@ public class C0Example4 : Node2D, IExample
   }
 
   private RandomNumberGenerator generator;
-  private Utils.Canvas canvas;
+  private DrawCanvas canvas;
 
   public override void _Ready()
   {
     generator = new RandomNumberGenerator();
     generator.Randomize();
 
-    canvas = new Utils.Canvas();
+    canvas = new DrawCanvas(CanvasDraw);
     AddChild(canvas);
-
-    canvas.SetDrawFunction(CanvasDraw);
   }
 
   public void CanvasDraw(Node2D pen)
