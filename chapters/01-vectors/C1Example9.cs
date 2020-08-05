@@ -8,58 +8,11 @@ public class C1Example9 : Node2D, IExample
       + "Motion 101 (velocity and random acceleration)";
   }
 
-  public class Mover : Node2D
+  public class Mover : SimpleMover
   {
-    private Vector2 velocity;
-    private Vector2 acceleration;
-    private float topSpeed;
-
-    public override void _Ready()
+    protected override void UpdateAcceleration()
     {
-      var size = GetViewport().Size;
-      Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
-      velocity = Vector2.Zero;
-      acceleration = Vector2.Zero;
-      topSpeed = 10;
-    }
-
-    public override void _Process(float delta)
-    {
-      acceleration = new Vector2((float)GD.RandRange(-1, 1), (float)GD.RandRange(-1, 1));
-
-      velocity += acceleration;
-      velocity = velocity.Clamped(topSpeed);
-      Position += velocity;
-      WrapEdges();
-    }
-
-    private void WrapEdges()
-    {
-      var size = GetViewport().Size;
-
-      if (Position.x > size.x)
-      {
-        Position = new Vector2(0, Position.y);
-      }
-      else if (Position.x < 0)
-      {
-        Position = new Vector2(size.x, Position.y);
-      }
-
-      if (Position.y > size.y)
-      {
-        Position = new Vector2(Position.x, 0);
-      }
-      else if (Position.y < 0)
-      {
-        Position = new Vector2(Position.x, size.y);
-      }
-    }
-
-    public override void _Draw()
-    {
-      DrawCircle(Vector2.Zero, 20, Colors.Black);
-      DrawCircle(Vector2.Zero, 18, Colors.LightGray);
+      Acceleration = new Vector2((float)GD.RandRange(-1, 1), (float)GD.RandRange(-1, 1));
     }
   }
 
@@ -68,8 +21,11 @@ public class C1Example9 : Node2D, IExample
   public override void _Ready()
   {
     GD.Randomize();
+    var size = GetViewport().Size;
 
     mover = new Mover();
+    mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
+
     AddChild(mover);
   }
 }
