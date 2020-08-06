@@ -1,6 +1,6 @@
 using Godot;
 
-public class Walker : Node2D
+public class SimpleWalker : Node2D
 {
   public float x;
   public float y;
@@ -12,7 +12,7 @@ public class Walker : Node2D
   public float tx;
   public float ty;
 
-  public Walker()
+  public SimpleWalker()
   {
     x = 0;
     y = 0;

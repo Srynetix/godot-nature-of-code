@@ -16,16 +16,13 @@ public class C1Example9 : Node2D, IExample
     }
   }
 
-  private Mover mover;
-
   public override void _Ready()
   {
     GD.Randomize();
     var size = GetViewport().Size;
 
-    mover = new Mover();
+    var mover = new Mover();
     mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
-
     AddChild(mover);
   }
 }

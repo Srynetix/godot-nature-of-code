@@ -6,10 +6,13 @@ root = true
 # Don't use tabs for indentation.
 [*]
 indent_style = space
+charset = utf-8
+end_of_line = lf
+
+[Makefile]
+indent_style = tabs
 
 # Code files
 [*.cs]
 indent_size = 2
-end_of_line = lf
 insert_final_newline = true
-charset = utf-8

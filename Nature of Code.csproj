@@ -109,10 +109,14 @@
     <Compile Include="launcher\Launcher.cs" />
     <Compile Include="scripts\Utils.cs" />
     <Compile Include="scripts\SyntaxHighlighter.cs" />
-    <Compile Include="scripts\common\Mover.cs" />
-    <Compile Include="scripts\common\SimpleMover.cs" />
     <Compile Include="scripts\common\DrawCanvas.cs" />
-    <Compile Include="scripts\common\Walker.cs" />
+    <Compile Include="scripts\common\SimpleAttractor.cs" />
+    <Compile Include="scripts\common\SimpleFrictionPocket.cs" />
+    <Compile Include="scripts\common\SimpleLiquid.cs" />
+    <Compile Include="scripts\common\SimpleMover.cs" />
+    <Compile Include="scripts\common\SimpleTrail.cs" />
+    <Compile Include="scripts\common\SimpleWalker.cs" />
+    <Compile Include="scripts\common\SimpleZone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

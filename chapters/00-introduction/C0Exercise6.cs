@@ -10,7 +10,7 @@ public class C0Exercise6 : Node2D, IExample
       + "Can you map the probability exponentially—i.e. making the likelihood that a value is picked equal to the value squared?";
   }
 
-  public class CWalker : Walker
+  public class Walker : SimpleWalker
   {
     public float ComputeStepSize()
     {
@@ -40,17 +40,16 @@ public class C0Exercise6 : Node2D, IExample
   }
 
   private Walker walker;
-  private DrawCanvas canvas;
 
   public override void _Ready()
   {
     GD.Randomize();
-    walker = new CWalker();
+    walker = new Walker();
     walker.SetXY(GetViewport().Size / 2);
-
-    canvas = new DrawCanvas(CanvasDraw);
-    AddChild(canvas);
     AddChild(walker);
+
+    var canvas = new DrawCanvas(CanvasDraw);
+    AddChild(canvas);
   }
 
   public void CanvasDraw(Node2D pen)

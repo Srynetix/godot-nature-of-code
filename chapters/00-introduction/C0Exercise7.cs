@@ -9,7 +9,7 @@ public class C0Exercise7 : Node2D, IExample
       + "Create a random walker where you instead map the result of the noise() function to a Walker’s step size.";
   }
 
-  public class CWalker : Walker
+  public class Walker : SimpleWalker
   {
     public override void _Draw()
     {
@@ -45,9 +45,8 @@ public class C0Exercise7 : Node2D, IExample
   public override void _Ready()
   {
     GD.Randomize();
-    walker = new CWalker();
+    walker = new Walker();
     walker.SetXY(GetViewport().Size / 2);
-
     AddChild(walker);
   }
 }

@@ -11,52 +11,20 @@ public class C2Exercise1 : Node2D, IExample
       + "Can you add a wind force that changes over time, perhaps according to Perlin noise?";
   }
 
-  public class Mover : Node2D
-  {
-    public Vector2 Velocity = Vector2.Zero;
-    public Vector2 Acceleration = Vector2.Zero;
-    public float MaxVelocity = 1.0f;
-    public float BodySize = 20;
-
-    public void ApplyForce(Vector2 force)
-    {
-      Acceleration = force;
-    }
-
-    public void Move()
-    {
-      Velocity = (Velocity + Acceleration).Clamped(MaxVelocity);
-      Position += Velocity;
-      Acceleration *= 0;
-
-      BounceOnEdges();
-    }
-
-    public void BounceOnEdges()
-    {
-      var size = GetViewport().Size;
-
-      if (Position.y < BodySize / 2 || Position.y > size.y - BodySize / 2)
-      {
-        Velocity.y *= -1;
-      }
-
-      if (Position.x < BodySize / 2 || Position.x > size.x - BodySize / 2)
-      {
-        Velocity.x *= -1;
-      }
-    }
-  }
-
-  public class Balloon : Mover
+  public class Balloon : SimpleMover
   {
     private float tRope;
     private float tNoise;
     private OpenSimplexNoise noise;
 
+    public Balloon() : base(WrapModeEnum.Bounce) { }
+
     public override void _Ready()
     {
+      base._Ready();
+
       var halfSize = GetViewport().Size / 2;
+      MaxVelocity = 0.35f;
 
       noise = new OpenSimplexNoise();
       Position = new Vector2((float)GD.RandRange(halfSize.x / 2, halfSize.x + halfSize.x / 2), (float)GD.RandRange(halfSize.y / 2, halfSize.y + halfSize.y / 2));
@@ -71,13 +39,16 @@ public class C2Exercise1 : Node2D, IExample
       DrawLine(Vector2.Down * BodySize, (Vector2.Down * (BodySize * 2)).Rotated(Mathf.Sin(tRope) / 10), Colors.White.WithAlpha(128), 2);
     }
 
+    protected override void UpdateAcceleration()
+    {
+      var windForce = new Vector2(noise.GetNoise1d(tNoise) * 0.1f, -0.05f);
+      ApplyForce(windForce * 0.025f);
+    }
+
     public override void _Process(float delta)
     {
-      var windForce = new Vector2(noise.GetNoise1d(tNoise), (float)GD.RandRange(-0.75f, 0.25f));
-      ApplyForce(windForce * 2.0f * delta);
-      Move();
+      base._Process(delta);
 
-      Update();
       tRope += delta * 10;
       tNoise += delta * 10;
     }

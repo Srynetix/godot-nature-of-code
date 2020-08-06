@@ -9,14 +9,13 @@ public class C0Example4 : Node2D, IExample
   }
 
   private RandomNumberGenerator generator;
-  private DrawCanvas canvas;
 
   public override void _Ready()
   {
     generator = new RandomNumberGenerator();
     generator.Randomize();
 
-    canvas = new DrawCanvas(CanvasDraw);
+    var canvas = new DrawCanvas(CanvasDraw);
     AddChild(canvas);
   }
 

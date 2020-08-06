@@ -10,36 +10,23 @@ public class C3Example2 : Node2D, IExample
       + "Forces with (arbitrary) angular motion";
   }
 
-  public class Square : Mover
+  public class Square : SimpleMover
   {
-    public override void _Ready()
+    public Square() : base(WrapModeEnum.Wrap)
     {
-      bodySize = (float)GD.RandRange(5, 20);
+      MaxVelocity = 2.0f;
     }
 
     public override void _Draw()
     {
-      DrawRect(new Rect2(Vector2.Zero, Vector2.One * (bodySize + 1)), Colors.Black);
-      DrawRect(new Rect2(Vector2.One, Vector2.One * (bodySize - 1)), Colors.LightBlue);
+      DrawRect(new Rect2(Vector2.Zero, Vector2.One * (BodySize + 1)), Colors.LightBlue);
+      DrawRect(new Rect2(Vector2.One, Vector2.One * (BodySize - 1)), Colors.White);
     }
 
-    public override void _Process(float delta)
+    protected override void UpdateAcceleration()
     {
-      acceleration += new Vector2((float)GD.RandRange(-1, 1), (float)GD.RandRange(-1, 1)) * delta;
-
-      velocity += acceleration;
-      velocity.x = Mathf.Clamp(velocity.x, -1.0f, 1.0f);
-      velocity.y = Mathf.Clamp(velocity.y, -1.0f, 1.0f);
-
-      Position += velocity;
-
-      angularAcceleration = acceleration.x / 10.0f;
-      angularVelocity += angularAcceleration;
-      angularVelocity = Mathf.Clamp(angularVelocity, -0.1f, 0.1f);
-      Rotation += angularVelocity;
-
-      WrapEdges();
-      Update();
+      Acceleration += new Vector2((float)GD.RandRange(-1, 1), (float)GD.RandRange(-1, 1)) * 0.02f;
+      AngularAcceleration = Acceleration.x / 10.0f;
     }
   }
 
@@ -57,6 +44,7 @@ public class C3Example2 : Node2D, IExample
     foreach (int x in Enumerable.Range(0, squareCount))
     {
       var square = new Square();
+      square.BodySize = (float)GD.RandRange(5, 20);
       AddChild(square);
     }
   }

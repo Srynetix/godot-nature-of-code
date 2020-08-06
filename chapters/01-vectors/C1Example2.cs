@@ -13,8 +13,8 @@ public class C1Example2 : Node2D, IExample
 
   public override void _Draw()
   {
-    DrawCircle(position, 20, Colors.Black);
-    DrawCircle(position, 18, Colors.LightGray);
+    DrawCircle(position, 20, Colors.LightBlue);
+    DrawCircle(position, 18, Colors.White);
   }
 
   public override void _Process(float delta)

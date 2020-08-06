@@ -8,7 +8,7 @@ public class C0Exercise1 : Node2D, IExample
       + "Create a random walker that has a tendency to move down and to the right";
   }
 
-  public class CWalker : Walker
+  public class Walker : SimpleWalker
   {
     public override void Step()
     {
@@ -33,19 +33,18 @@ public class C0Exercise1 : Node2D, IExample
     }
   }
 
-  private CWalker walker;
-  private DrawCanvas canvas;
+  private Walker walker;
 
   public override void _Ready()
   {
     GD.Randomize();
 
-    walker = new CWalker();
+    walker = new Walker();
     walker.SetXY(GetViewport().Size / 2);
-    canvas = new DrawCanvas(CanvasDraw);
-
-    AddChild(canvas);
     AddChild(walker);
+
+    var canvas = new DrawCanvas(CanvasDraw);
+    AddChild(canvas);
   }
 
   public void CanvasDraw(Node2D pen)

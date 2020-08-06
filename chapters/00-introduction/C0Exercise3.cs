@@ -9,7 +9,7 @@ public class C0Exercise3 : Node2D, IExample
       + "For example, can you give it a 50% chance of moving in the direction of the mouse?";
   }
 
-  public class CWalker : Walker
+  public class Walker : SimpleWalker
   {
     public override void Step()
     {
@@ -66,19 +66,18 @@ public class C0Exercise3 : Node2D, IExample
     }
   }
 
-  private CWalker walker;
-  private DrawCanvas canvas;
+  private Walker walker;
 
   public override void _Ready()
   {
     GD.Randomize();
 
-    walker = new CWalker();
+    walker = new Walker();
     walker.SetXY(GetViewport().Size / 2);
-    canvas = new DrawCanvas(CanvasDraw);
-
-    AddChild(canvas);
     AddChild(walker);
+
+    var canvas = new DrawCanvas(CanvasDraw);
+    AddChild(canvas);
   }
 
   public void CanvasDraw(Node2D pen)

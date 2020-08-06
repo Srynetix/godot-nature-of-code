@@ -15,8 +15,8 @@ public class C1Example1 : Node2D, IExample
 
   public override void _Draw()
   {
-    DrawCircle(new Vector2(x, y), 20, Colors.Black);
-    DrawCircle(new Vector2(x, y), 18, Colors.LightGray);
+    DrawCircle(new Vector2(x, y), 20, Colors.LightBlue);
+    DrawCircle(new Vector2(x, y), 18, Colors.White);
   }
 
   public override void _Process(float delta)

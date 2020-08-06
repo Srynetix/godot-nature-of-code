@@ -9,7 +9,7 @@ public class C0Exercise5 : Node2D, IExample
       + "Implement this variation of our random walk.";
   }
 
-  public class CWalker : Walker
+  public class Walker : SimpleWalker
   {
     public override void Step()
     {
@@ -36,18 +36,17 @@ public class C0Exercise5 : Node2D, IExample
   }
 
   private Walker walker;
-  private DrawCanvas canvas;
 
   public override void _Ready()
   {
     GD.Randomize();
 
-    walker = new CWalker();
+    walker = new Walker();
     walker.SetXY(GetViewport().Size / 2);
-    canvas = new DrawCanvas(CanvasDraw);
-
-    AddChild(canvas);
     AddChild(walker);
+
+    var canvas = new DrawCanvas(CanvasDraw);
+    AddChild(canvas);
   }
 
   public void CanvasDraw(Node2D pen)
