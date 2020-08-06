@@ -4,95 +4,26 @@ using Godot;
 
 public class Ecosystem : Control
 {
-  public class Lifeform : Node2D
+  public class Lifeform : SimpleMover
   {
-    public Vector2 Velocity;
-    public Vector2 Acceleration;
-    public float AngularVelocity;
-    public float AngularAcceleration;
-    public float TopSpeed;
-    public float TopAngularSpeed;
-    public float BodySize = 10;
-
     public bool DebugDraw = false;
 
-    public Lifeform()
+    public Lifeform() : base(WrapModeEnum.Wrap)
     {
       Velocity = Vector2.Zero;
       AngularVelocity = 0;
       Acceleration = Vector2.Zero;
       AngularAcceleration = 0;
-      TopSpeed = 5f;
-      TopAngularSpeed = 0.25f;
+      MaxVelocity = 5f;
+      MaxAngularVelocity = 0.25f;
     }
 
     public override void _Ready()
     {
+      base._Ready();
+
       SetAtRandomScreenPos();
       SetAtRandomAngle();
-    }
-
-    public virtual void Move()
-    {
-      AngularVelocity = Mathf.Clamp(AngularVelocity + AngularAcceleration, -TopAngularSpeed, TopAngularSpeed);
-      Rotation += AngularVelocity;
-
-      Velocity = (Velocity + Acceleration).Clamped(TopSpeed);
-      Position += Velocity;
-      WrapEdges();
-    }
-
-    public void BounceOnEdges()
-    {
-      var size = GetViewport().Size;
-      var newPos = Position;
-
-      if (Position.y < BodySize / 2)
-      {
-        Velocity.y *= -1;
-        newPos.y = BodySize / 2;
-      }
-      else if (Position.y > size.y - BodySize / 2)
-      {
-        Velocity.y *= -1;
-        newPos.y = size.y - BodySize / 2;
-      }
-
-      if (Position.x < BodySize / 2)
-      {
-        Velocity.x *= -1;
-        newPos.x = BodySize / 2;
-      }
-      else if (Position.x > size.x - BodySize / 2)
-      {
-        Velocity.x *= -1;
-        newPos.x = size.x - BodySize / 2;
-      }
-
-      Position = newPos;
-    }
-
-    protected void WrapEdges()
-    {
-      var size = GetViewport().Size;
-
-      if (Position.x > size.x)
-      {
-        Position = new Vector2(0, Position.y);
-      }
-      else if (Position.x < 0)
-      {
-        Position = new Vector2(size.x, Position.y);
-      }
-
-      if (Position.y > size.y)
-      {
-        Position = new Vector2(Position.x, 0);
-      }
-      else if (Position.y < 0)
-      {
-        Position = new Vector2(Position.x, size.y);
-      }
     }
 
     public void SetAtRandomScreenPos()
@@ -128,39 +59,7 @@ public class Ecosystem : Control
     }
   }
 
-  public class PhysicalLifeform : Lifeform
-  {
-    public float Mass = 10;
-    public float Gravitation = 1.0f;
-
-    public Vector2 Attract(PhysicalLifeform lifeform)
-    {
-      var force = Position - lifeform.Position;
-      var length = Mathf.Clamp(force.Length(), 5, 25);
-      float strength = (Gravitation * Mass * lifeform.Mass) / (length * length);
-      return force.Normalized() * strength;
-    }
-
-    public void ApplyForce(Vector2 force)
-    {
-      Acceleration += force / Mass;
-    }
-
-    public override void Move()
-    {
-      AngularVelocity = Mathf.Clamp(AngularVelocity + AngularAcceleration, -TopAngularSpeed, TopAngularSpeed);
-      Rotation += AngularVelocity;
-
-      Velocity = (Velocity + Acceleration).Clamped(TopSpeed);
-      Position += Velocity;
-
-      Acceleration = Vector2.Zero;
-
-      BounceOnEdges();
-    }
-  }
-
-  public class AttractedFly : PhysicalLifeform
+  public class AttractedFly : Lifeform
   {
     public float AngularAccelerationFactor = 0.01f;
     public float AccelerationFactor = 0.5f;
@@ -175,15 +74,17 @@ public class Ecosystem : Control
     public AttractedFly()
     {
       BodySize = 4;
-      TopSpeed = 5f;
-      TopAngularSpeed = 0.01f;
+      MaxVelocity = 5f;
+      MaxAngularVelocity = 0.01f;
     }
 
     public override void _Ready()
     {
       base._Ready();
 
-      AddToGroup("attracted_fly");
+      var attractor = new SimpleAttractor();
+      attractor.Drawing = false;
+      AddChild(attractor);
     }
 
     public override void _DrawLifeform()
@@ -200,25 +101,16 @@ public class Ecosystem : Control
       DrawCircle(rightWingPos, WingSize, wingsColor);
     }
 
-    public override void _Process(float delta)
+    protected override void UpdateAcceleration()
     {
       AngularAcceleration = Utils.SignedRandf() * AngularAccelerationFactor;
+    }
 
-      foreach (var n in GetTree().GetNodesInGroup("attracted_fly"))
-      {
-        if (n != this)
-        {
-          var attractor = (PhysicalLifeform)n;
-          var force = attractor.Attract(this);
-          ApplyForce(-force);
-        }
-      }
-
-      Move();
+    public override void _Process(float delta)
+    {
+      base._Process(delta);
 
       tWings += delta * WingSpeed;
-
-      Update();
     }
   }
 
@@ -237,8 +129,8 @@ public class Ecosystem : Control
     public NervousFly()
     {
       BodySize = 4f;
-      TopSpeed = 5f;
-      TopAngularSpeed = 0.01f;
+      MaxVelocity = 5f;
+      MaxAngularVelocity = 0.01f;
     }
 
     public override void _DrawLifeform()
@@ -255,19 +147,19 @@ public class Ecosystem : Control
       DrawCircle(rightWingPos, WingSize, wingsColor);
     }
 
-    public override void _Process(float delta)
+    protected override void UpdateAcceleration()
     {
       AngularAcceleration = Utils.SignedRandf() * AngularAccelerationFactor;
       Acceleration = new Vector2(
           Utils.SignedRandf(),
           Utils.SignedRandf()
       ) * AccelerationFactor;
+    }
 
-      Move();
-
+    public override void _Process(float delta)
+    {
+      base._Process(delta);
       tWings += delta * WingSpeed;
-
-      Update();
     }
   }
 
@@ -282,7 +174,7 @@ public class Ecosystem : Control
 
     public SwimmingFish()
     {
-      TopSpeed = 1f;
+      MaxVelocity = 1f;
     }
 
     public override void _DrawLifeform()
@@ -312,17 +204,18 @@ public class Ecosystem : Control
       DrawCircle(Vector2.Right * (10 + tailAngle) + Vector2.Down * 5, 1.5f, lightenedColor);
     }
 
-    public override void _Process(float delta)
+    protected override void UpdateAcceleration()
     {
       var forward = Vector2.Right.Rotated(Rotation).Normalized() * ForwardAcceleration;
       var offset = new Vector2(Utils.SignedRandf(), Utils.SignedRandf()) * SideOffsetAcceleration;
       Acceleration = forward + offset;
+    }
 
-      Move();
+    public override void _Process(float delta)
+    {
+      base._Process(delta);
 
       tTail += delta * TailSpeed;
-
-      Update();
     }
   }
 
@@ -342,6 +235,7 @@ public class Ecosystem : Control
     public override void _Ready()
     {
       base._Ready();
+
       Rotation = 0;
 
       // Random direction left or right
@@ -399,16 +293,18 @@ public class Ecosystem : Control
       DrawCircle((Vector2.Right * 6f + Vector2.Up * 22).Rotated(earAngle), 3, darkenedColor);
     }
 
-    public override void _Process(float delta)
+    protected override void UpdateAcceleration()
     {
       Acceleration.y = Mathf.Sin(tJump);
       Acceleration.x = AccelerationFactor * Mathf.Sign(Scale.x);
+    }
+
+    public override void _Process(float delta)
+    {
+      base._Process(delta);
 
       tTail += delta * TailSpeed;
       tJump += delta * JumpSpeed;
-
-      Move();
-      Update();
     }
   }
 
@@ -450,20 +346,6 @@ public class Ecosystem : Control
       var fly = new AttractedFly();
       fly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
       drawZone.AddChild(fly);
-    }
-  }
-
-  public override void _Input(InputEvent @event)
-  {
-    if (@event is InputEventKey inputEventKey)
-    {
-      if (!inputEventKey.Pressed)
-      {
-        if (inputEventKey.Scancode == (int)KeyList.Space)
-        {
-          GetTree().ReloadCurrentScene();
-        }
-      }
     }
   }
 }
