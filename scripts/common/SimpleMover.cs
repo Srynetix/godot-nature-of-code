@@ -5,7 +5,8 @@ public class SimpleMover : Area2D
   public enum WrapModeEnum
   {
     Wrap,
-    Bounce
+    Bounce,
+    None
   }
 
   public Vector2 Velocity = Vector2.Zero;
@@ -88,7 +89,7 @@ public class SimpleMover : Area2D
     {
       WrapEdges();
     }
-    else
+    else if (WrapMode == WrapModeEnum.Bounce)
     {
       BounceOnEdges();
     }

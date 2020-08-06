@@ -13,7 +13,7 @@ public class C2Exercise3 : Node2D, IExample
 
   public class Mover : SimpleMover
   {
-    public Mover() : base(WrapModeEnum.Bounce) { }
+    public Mover() : base(WrapModeEnum.None) { }
 
     public Vector2 ComputeWindForce()
     {
@@ -26,14 +26,14 @@ public class C2Exercise3 : Node2D, IExample
       if (Position.x > size.x - limit)
       {
         var force = limit * 2 - (size.x - Position.x);
-        output.x = -force * 0.01f;
+        output.x = -force * 0.1f;
       }
 
       // Push right
       else if (Position.x < limit)
       {
         var force = limit * 2 - Position.x;
-        output.x = force * 0.01f;
+        output.x = force * 0.1f;
       }
 
       else
@@ -41,15 +41,31 @@ public class C2Exercise3 : Node2D, IExample
         output.x = 0.1f;
       }
 
+      // Push up
+      if (Position.y > size.y - limit)
+      {
+        var force = limit * 2 - (size.y - Position.y);
+        output.y = -force * 0.1f;
+      }
+
+      // Push down
+      else if (Position.y < limit)
+      {
+        var force = limit * 2 - Position.y;
+        output.y = force * 0.1f;
+      }
+
+      else
+      {
+        output.y = 0.9f;
+      }
+
       return output;
     }
 
     protected override void UpdateAcceleration()
     {
-      var gravity = new Vector2(0, 0.9f);
-
       ApplyForce(ComputeWindForce());
-      ApplyForce(gravity);
     }
   }
 
