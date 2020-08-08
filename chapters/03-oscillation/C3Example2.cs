@@ -32,12 +32,13 @@ public class C3Example2 : Node2D, IExample
 
   public override void _Draw()
   {
-    DrawCircle(Vector2.Zero, 20, Colors.LightBlue);
+    var size = GetViewport().Size;
+    DrawCircle(size / 2, 20, Colors.LightBlue);
   }
 
   public override void _Ready()
   {
-    Position = GetViewport().Size / 2;
+    var size = GetViewport().Size;
 
     // Spawn squares
     int squareCount = 20;
@@ -45,6 +46,7 @@ public class C3Example2 : Node2D, IExample
     {
       var square = new Square();
       square.BodySize = (float)GD.RandRange(5, 20);
+      square.Position = Utils.RandVector2(size / 8, size - size / 8);
       AddChild(square);
     }
   }

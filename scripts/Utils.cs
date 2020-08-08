@@ -28,6 +28,18 @@ public class Utils
     return Map(GD.Randf(), 0, 1, -1, 1);
   }
 
+  /**
+   * Return a random Vector2.
+   */
+  static public Vector2 RandVector2(Vector2 min, Vector2 max)
+  {
+    var vec = Vector2.Zero;
+    vec.x = (float)GD.RandRange(min.x, max.x);
+    vec.y = (float)GD.RandRange(min.y, max.y);
+
+    return vec;
+  }
+
   static private Font DEFAULT_FONT = null;
 
   static public Font LoadDefaultFont()

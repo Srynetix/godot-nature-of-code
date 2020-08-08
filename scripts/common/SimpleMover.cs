@@ -52,15 +52,25 @@ public class SimpleMover : Area2D
   {
   }
 
-  public void ApplyForce(Vector2 force)
+  public virtual void ApplyForce(Vector2 force)
   {
     Acceleration += force / Mass;
+  }
+
+  public virtual void ApplyAngularForce(float force)
+  {
+    AngularAcceleration += force / Mass;
   }
 
   public virtual void ApplyFriction(float coef)
   {
     var friction = (-Velocity).Normalized() * coef;
     ApplyForce(friction);
+  }
+
+  public virtual void ApplyAngularFriction(float coef)
+  {
+    AngularAcceleration += -AngularVelocity * coef / 10f;
   }
 
   public virtual void ApplyDrag(float coef)
