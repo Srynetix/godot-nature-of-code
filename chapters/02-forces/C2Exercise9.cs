@@ -7,8 +7,7 @@ public class C2Exercise9 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.9:\n"
-      + "What happens if you design a force that is weaker the closer it gets and stronger the farther it gets?\n"
-      + "Or what if you design your attractor to attract faraway objects, but repel close ones?";
+      + "Distance Attraction";
   }
 
   public class Attractor : SimpleAttractor
@@ -32,7 +31,7 @@ public class C2Exercise9 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var attractor1 = new Attractor();
     attractor1.Position = new Vector2(size.x / 4, size.y / 2);

@@ -107,7 +107,7 @@ public class SimpleMover : Area2D
 
   protected void WrapEdges()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     if (GlobalPosition.x > size.x)
     {
@@ -130,7 +130,7 @@ public class SimpleMover : Area2D
 
   protected void BounceOnEdges()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     var newPos = Position;
 
     if (Position.y < BodySize / 2)

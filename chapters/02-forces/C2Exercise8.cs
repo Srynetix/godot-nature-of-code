@@ -7,14 +7,12 @@ public class C2Exercise8 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.8:\n"
-      + "Build an example that has systems of both movers and attractors.\n"
-      + "What if you make the attractors invisible?\n"
-      + "Can you create a pattern/design from the trails of objects moving around attractors?";
+      + "Attractor Pattern";
   }
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var attractor1 = new SimpleAttractor();
     attractor1.Position = new Vector2(size.x / 4, size.y / 2);

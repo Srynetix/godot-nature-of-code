@@ -5,7 +5,7 @@ public class C1Example1 : Node2D, IExample
   public string _Summary()
   {
     return "Example 1.1:\n"
-      + "Bouncing ball with no vectors";
+      + "Bouncing ball, no vectors";
   }
 
   private float x;
@@ -21,7 +21,7 @@ public class C1Example1 : Node2D, IExample
 
   public override void _Process(float delta)
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     x += xSpeed;
     y += ySpeed;

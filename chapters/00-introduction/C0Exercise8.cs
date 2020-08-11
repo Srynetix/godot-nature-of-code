@@ -5,7 +5,7 @@ public class C0Exercise8 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise I.8:\n"
-      + "Play with color, noiseDetail(), and the rate at which xoff and yoff are incremented to achieve different visual effects.";
+      + "Noise visual effects";
   }
 
   private Sprite sprite;
@@ -20,7 +20,7 @@ public class C0Exercise8 : Node2D, IExample
     texture = new ImageTexture();
     noise = new OpenSimplexNoise();
 
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     image.Create((int)size.x, (int)size.y, false, Image.Format.Rgba8);
 
     // Generate
@@ -37,7 +37,7 @@ public class C0Exercise8 : Node2D, IExample
 
   private void GenerateNoiseTexture()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     noise.Octaves = 8;
 

@@ -5,7 +5,7 @@ public class C1Exercise8 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 1.8:\n"
-      + "Try implementing the above example with a variable magnitude of acceleration, stronger when it is either closer or farther away.";
+      + "Accel. towards mouse variant";
   }
 
   public class Mover : SimpleMover
@@ -25,7 +25,7 @@ public class C1Exercise8 : Node2D, IExample
   public override void _Ready()
   {
     GD.Randomize();
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var mover = new Mover();
     mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));

@@ -5,7 +5,7 @@ public class C3Example1 : Node2D, IExample
   public string _Summary()
   {
     return "Example 3.1:\n"
-      + "Angular motion using rotate()";
+      + "Angular Motion";
   }
 
   float angularVelocity = 0;
@@ -22,7 +22,7 @@ public class C3Example1 : Node2D, IExample
 
   public override void _Ready()
   {
-    Position = GetViewport().Size / 2;
+    Position = GetViewportRect().Size / 2;
   }
 
   public override void _Process(float delta)

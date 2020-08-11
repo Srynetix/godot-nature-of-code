@@ -16,7 +16,7 @@ public class C0Example5 : Node2D, IExample
   public override void _Ready()
   {
     noise = new OpenSimplexNoise();
-    position = GetViewport().Size / 2;
+    position = GetViewportRect().Size / 2;
 
     tx = 0;
     ty = 10000;
@@ -26,8 +26,8 @@ public class C0Example5 : Node2D, IExample
   {
     float nx = noise.GetNoise1d(tx);
     float ny = noise.GetNoise1d(ty);
-    float x = Utils.Map(nx, 0, 1, 0, GetViewport().Size.x / 4);
-    float y = Utils.Map(ny, 0, 1, 0, GetViewport().Size.y / 4);
+    float x = Utils.Map(nx, 0, 1, 0, GetViewportRect().Size.x / 4);
+    float y = Utils.Map(ny, 0, 1, 0, GetViewportRect().Size.y / 4);
 
     var newPosition = position + new Vector2(x, y);
 

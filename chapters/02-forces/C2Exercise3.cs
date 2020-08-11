@@ -7,8 +7,7 @@ public class C2Exercise3 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.3:\n"
-      + "Instead of objects bouncing off the edge of the wall, create an example in which an invisible force pushes back on the objects to keep them in the window.\n"
-      + "Can you weight the force according to how far the object is from an edge—i.e., the closer it is, the stronger the force?";
+      + "Wind walls";
   }
 
   public class Mover : SimpleMover
@@ -17,7 +16,7 @@ public class C2Exercise3 : Node2D, IExample
 
     public Vector2 ComputeWindForce()
     {
-      var size = GetViewport().Size;
+      var size = GetViewportRect().Size;
       var pos = Position;
       var output = Vector2.Zero;
       var limit = BodySize * 8;
@@ -75,7 +74,7 @@ public class C2Exercise3 : Node2D, IExample
     {
       var mover = new Mover();
       var bodySize = (float)GD.RandRange(5, 20);
-      var size = GetViewport().Size;
+      var size = GetViewportRect().Size;
       var xPos = (float)GD.RandRange(bodySize * 4, size.x - bodySize * 4);
       mover.BodySize = bodySize;
       mover.Mass = (float)GD.RandRange(5, 10);

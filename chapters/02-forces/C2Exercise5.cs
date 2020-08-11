@@ -7,10 +7,7 @@ public class C2Exercise5 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.5:\n"
-      + "The faster an object moves, the greater the drag force against it.\n"
-      + "In fact, an object not moving in water experiences no drag at all.\n"
-      + "Expand the example to drop the balls from different heights.\n"
-      + "How does this affect the drag as they hit the water?";
+      + "Water Drag Height";
   }
 
   public class Mover : SimpleMover
@@ -29,7 +26,7 @@ public class C2Exercise5 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var zone = new SimpleLiquid();
     zone.Coeff = 0.25f;

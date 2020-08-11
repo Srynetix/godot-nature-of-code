@@ -5,7 +5,7 @@ public class C0Exercise9 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise I.9:\n"
-      + "Add a third argument to noise that increments once per cycle through draw() to animate the two-dimensional noise.";
+      + "Animated 2D noise";
   }
 
   private Sprite sprite;
@@ -21,7 +21,7 @@ public class C0Exercise9 : Node2D, IExample
     texture = new ImageTexture();
     noise = new OpenSimplexNoise();
 
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     image.Create((int)size.x, (int)size.y, false, Image.Format.Rgba8);
 
     // Generate
@@ -46,7 +46,7 @@ public class C0Exercise9 : Node2D, IExample
 
   private void GenerateNoiseTexture()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     noise.Octaves = 8;
 

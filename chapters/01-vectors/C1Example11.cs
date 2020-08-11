@@ -5,7 +5,7 @@ public class C1Example11 : Node2D, IExample
   public string _Summary()
   {
     return "Example 1.11:\n"
-      + "Array of movers accelerating towards the mouse";
+      + "Movers towards mouse";
   }
 
   public class Mover : SimpleMover
@@ -22,7 +22,7 @@ public class C1Example11 : Node2D, IExample
   public override void _Ready()
   {
     GD.Randomize();
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var moverCount = 20;
     for (int i = 0; i < moverCount; ++i)

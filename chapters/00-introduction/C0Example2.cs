@@ -22,8 +22,8 @@ public class C0Example2 : Node2D, IExample
     randomCounts[index] += 10;
 
     var color = Colors.LightGray;
-    var width = GetViewport().Size.x;
-    var height = GetViewport().Size.y;
+    var width = GetViewportRect().Size.x;
+    var height = GetViewportRect().Size.y;
     var w = width / (float)randomCounts.Length;
 
     for (int x = 0; x < randomCounts.Length; x++)

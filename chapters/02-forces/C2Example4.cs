@@ -7,7 +7,7 @@ public class C2Example4 : Node2D, IExample
   public string _Summary()
   {
     return "Example 2.4:\n"
-      + "Including friction";
+      + "Friction";
   }
 
   public class Mover : SimpleMover
@@ -33,7 +33,7 @@ public class C2Example4 : Node2D, IExample
       mover.BodySize = (float)GD.RandRange(5, 20);
       mover.Mass = (float)GD.RandRange(5, 10);
 
-      var size = GetViewport().Size;
+      var size = GetViewportRect().Size;
       var xPos = (float)GD.RandRange(mover.BodySize, size.x - mover.BodySize);
       mover.Position = new Vector2(xPos, size.y / 2);
 

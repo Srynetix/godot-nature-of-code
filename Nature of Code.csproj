@@ -102,11 +102,14 @@
     <Compile Include="chapters\02-forces\C2Exercise9.cs" />
     <Compile Include="chapters\03-oscillation\C3Example1.cs" />
     <Compile Include="chapters\03-oscillation\C3Example2.cs" />
+    <Compile Include="chapters\03-oscillation\C3Example3.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise2.cs" />
+    <Compile Include="chapters\03-oscillation\C3Exercise3.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="ecosystem\Ecosystem.cs" />
     <Compile Include="launcher\Launcher.cs" />
+    <Compile Include="modules\VirtualControls.cs" />
     <Compile Include="scripts\Utils.cs" />
     <Compile Include="scripts\SyntaxHighlighter.cs" />
     <Compile Include="scripts\common\DrawCanvas.cs" />

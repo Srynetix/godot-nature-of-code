@@ -7,8 +7,7 @@ public class C2Exercise6 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.6:\n"
-      + "The formula for drag also included surface area.\n"
-      + "Can you create a simulation of boxes falling into water with a drag force dependent on the length of the side hitting the water?";
+      + "Water Drag Surface";
   }
 
   public class Mover : SimpleMover
@@ -45,7 +44,7 @@ public class C2Exercise6 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var zone = new SimpleLiquid();
     zone.Coeff = 0.25f;

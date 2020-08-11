@@ -5,7 +5,7 @@ public class C1Example2 : Node2D, IExample
   public string _Summary()
   {
     return "Example 1.2:\n"
-      + "Bouncing ball with vectors.";
+      + "Bouncing ball, vectors";
   }
 
   private Vector2 position = new Vector2(100, 100);
@@ -19,7 +19,7 @@ public class C1Example2 : Node2D, IExample
 
   public override void _Process(float delta)
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     position += velocity;
 

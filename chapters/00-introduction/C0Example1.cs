@@ -27,7 +27,7 @@ public class C0Example1 : Node2D, IExample
     GD.Randomize();
 
     walker = new Walker();
-    walker.SetXY(GetViewport().Size / 2);
+    walker.SetXY(GetViewportRect().Size / 2);
     AddChild(walker);
 
     var canvas = new DrawCanvas(CanvasDraw);

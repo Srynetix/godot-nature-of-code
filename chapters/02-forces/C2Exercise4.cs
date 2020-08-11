@@ -7,9 +7,7 @@ public class C2Exercise4 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.4:\n"
-      + "Create pockets of friction so that objects only experience friction when crossing over those pockets.\n"
-      + "What if you vary the strength (friction coefficient) of each area?\n"
-      + "What if you make some pockets feature the opposite of friction—i.e., when you enter a given pocket you actually speed up instead of slowing down?";
+      + "Friction Pockets";
   }
 
   public class Mover : SimpleMover
@@ -28,7 +26,7 @@ public class C2Exercise4 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var zone1 = new SimpleFrictionPocket();
     zone1.Coeff = 0.25f;

@@ -5,7 +5,7 @@ public class C1Example9 : Node2D, IExample
   public string _Summary()
   {
     return "Example 1.9:\n"
-      + "Motion 101 (velocity and random acceleration)";
+      + "Velocity & random accel.";
   }
 
   public class Mover : SimpleMover
@@ -19,7 +19,7 @@ public class C1Example9 : Node2D, IExample
   public override void _Ready()
   {
     GD.Randomize();
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var mover = new Mover();
     mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));

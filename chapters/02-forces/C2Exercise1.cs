@@ -7,8 +7,7 @@ public class C2Exercise1 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.1:\n"
-      + "Using forces, simulate a helium-filled balloon floating upward and bouncing off the top of a window.\n"
-      + "Can you add a wind force that changes over time, perhaps according to Perlin noise?";
+      + "Helium-filled balloons";
   }
 
   public class Balloon : SimpleMover
@@ -23,7 +22,7 @@ public class C2Exercise1 : Node2D, IExample
     {
       base._Ready();
 
-      var halfSize = GetViewport().Size / 2;
+      var halfSize = GetViewportRect().Size / 2;
       MaxVelocity = 0.35f;
 
       noise = new OpenSimplexNoise();

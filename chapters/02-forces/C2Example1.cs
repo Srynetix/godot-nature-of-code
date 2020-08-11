@@ -25,7 +25,7 @@ public class C2Example1 : Node2D, IExample
   public override void _Ready()
   {
     var mover = new Mover();
-    mover.Position = GetViewport().Size / 2;
+    mover.Position = GetViewportRect().Size / 2;
     AddChild(mover);
   }
 }

@@ -5,7 +5,7 @@ public class C1Exercise3 : Spatial, IExample
   public string _Summary()
   {
     return "Exercise 1.3:\n"
-      + "Extend the bouncing ball with vectors example into 3D. Can you get a sphere to bounce around a box?";
+      + "3D bouncing ball";
   }
 
   private MeshInstance sphere;

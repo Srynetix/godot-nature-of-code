@@ -7,7 +7,7 @@ public class C3Example2 : Node2D, IExample
   public string _Summary()
   {
     return "Example 3.2:\n"
-      + "Forces with (arbitrary) angular motion";
+      + "Forces with angular motion";
   }
 
   public class Square : SimpleMover
@@ -32,13 +32,13 @@ public class C3Example2 : Node2D, IExample
 
   public override void _Draw()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     DrawCircle(size / 2, 20, Colors.LightBlue);
   }
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     // Spawn squares
     int squareCount = 20;

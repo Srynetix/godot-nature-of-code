@@ -5,13 +5,13 @@ public class C1Example6 : Node2D, IExample
   public string _Summary()
   {
     return "Example 1.6:\n"
-      + "Normalizing a vector";
+      + "Vector normalization";
   }
 
   public override void _Draw()
   {
     var mousePosition = GetViewport().GetMousePosition();
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     var center = size / 2;
 
     var target = (mousePosition - center).Normalized();

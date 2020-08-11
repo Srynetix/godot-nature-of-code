@@ -5,8 +5,7 @@ public class C3Exercise2 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 3.2:\n"
-      + "Step 1: Create a simulation where objects are shot out of a cannon. Each object should experience a sudden force when shot (just once) as well as gravity (always present)\n"
-      + "Step 2: Add rotation to the object to model its spin as it is shot from the cannon. How realistic can you make it look?";
+      + "Cannon";
   }
 
   public class Cannon : Node2D
@@ -91,7 +90,7 @@ public class C3Exercise2 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     var offset = 50;
     var fireTime = 1f;
 

@@ -12,7 +12,7 @@ public class C2Example8 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     foreach (var x in Enumerable.Range(0, 20))
     {

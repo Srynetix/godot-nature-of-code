@@ -26,7 +26,7 @@ public class C2Example5 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var zone = new SimpleLiquid();
     zone.Coeff = 0.25f;

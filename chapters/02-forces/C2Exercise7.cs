@@ -7,9 +7,7 @@ public class C2Exercise7 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.7:\n"
-      + "Fluid resistance does not only work opposite to the velocity vector, but also perpendicular to it.\n"
-      + "This is known as “lift-induced drag” and will cause an airplane with an angled wing to rise in altitude.\n"
-      + "Try creating a simulation of lift.";
+      + "Water Drag Lift";
   }
 
   public class Mover : SimpleMover
@@ -46,7 +44,7 @@ public class C2Exercise7 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var zone = new SimpleLiquid();
     zone.Coeff = 0.25f;

@@ -5,9 +5,7 @@ public class C0Exercise6 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise I.6:\n"
-      + "Use a custom probability distribution to vary the size of a step taken by the random walker.\n"
-      + "The step size can be determined by influencing the range of values picked.\n"
-      + "Can you map the probability exponentially—i.e. making the likelihood that a value is picked equal to the value squared?";
+      + "Walker with random step";
   }
 
   public class Walker : SimpleWalker
@@ -45,7 +43,7 @@ public class C0Exercise6 : Node2D, IExample
   {
     GD.Randomize();
     walker = new Walker();
-    walker.SetXY(GetViewport().Size / 2);
+    walker.SetXY(GetViewportRect().Size / 2);
     AddChild(walker);
 
     var canvas = new DrawCanvas(CanvasDraw);

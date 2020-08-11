@@ -94,7 +94,7 @@ public class SceneExplorer : Control
     var secondLine = splitString[1];
 
     // Only get nth first characters
-    var maxLength = 20;
+    var maxLength = 30;
     if (secondLine.Length > maxLength)
     {
       secondLine = secondLine.Substring(0, maxLength - 3) + "...";
@@ -105,7 +105,7 @@ public class SceneExplorer : Control
   public void ScanScenes()
   {
     Regex rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
-    Regex prettyRgx = new Regex(@"(?<category>(Example|Exercise)) (?<idx>\d+)");
+    Regex prettyRgx = new Regex(@"(?<category>(Exam\.|Exer\.)) (?<idx>\d+)");
 
     foreach (string chapterName in chaptersList)
     {
@@ -130,7 +130,7 @@ public class SceneExplorer : Control
           string sceneFileName = elem.Substr(0, elem.Length - 5);
 
           var groups = rgx.Match(sceneFileName).Groups;
-          string sceneName = groups["category"].Value + " " + groups["idx"].Value;
+          string sceneName = groups["category"].Value.Substring(0, 4) + ". " + groups["idx"].Value;
 
           var scene = (PackedScene)GD.Load(chapterPath + "/" + elem);
           var descr = _ExtractSceneSummary(scene);
@@ -154,11 +154,11 @@ public class SceneExplorer : Control
         int xIdx = xMatchGroups["idx"].Value.ToInt();
         int yIdx = yMatchGroups["idx"].Value.ToInt();
 
-        if (xCategory == "Exercise" && yCategory != "Exercise")
+        if (xCategory == "Exer." && yCategory != "Exer.")
         {
           return 1;
         }
-        else if (xCategory != "Exercise" && yCategory == "Exercise")
+        else if (xCategory != "Exer." && yCategory == "Exer.")
         {
           return -1;
         }

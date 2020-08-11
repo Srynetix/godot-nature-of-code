@@ -12,7 +12,7 @@ public class C2Example7 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     var attractor = new SimpleAttractor();
     attractor.Gravitation = 0.5f;

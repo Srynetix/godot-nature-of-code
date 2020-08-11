@@ -21,7 +21,7 @@ public class C0Example4 : Node2D, IExample
 
   public void CanvasDraw(Node2D pen)
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     float num = generator.Randfn(0, 1);  // Gaussian distribution
     float sd = size.x / 8;

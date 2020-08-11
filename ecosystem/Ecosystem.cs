@@ -28,7 +28,7 @@ public class Ecosystem : Control
 
     public void SetAtRandomScreenPos()
     {
-      var size = GetViewport().Size;
+      var size = GetViewportRect().Size;
       Position = new Vector2(GD.Randf() * size.x, GD.Randf() * size.y);
     }
 

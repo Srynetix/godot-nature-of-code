@@ -5,8 +5,7 @@ public class C0Exercise10 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise I.10:\n"
-      + "Use the noise values as the elevations of a landscape. See the screenshot below as a reference.\n"
-      + "Extra: This will be in 2D";
+      + "2D landscape elevation";
   }
 
   private OpenSimplexNoise noise;
@@ -20,7 +19,7 @@ public class C0Exercise10 : Node2D, IExample
 
   public override void _Draw()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     var middleY = size.y / 2;
     float stepSize = size.x / 20.0f;
     float prevY = middleY;

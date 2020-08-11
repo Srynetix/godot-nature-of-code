@@ -5,8 +5,7 @@ public class C0Exercise5 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise I.5:\n"
-      + "A Gaussian random walk is defined as one in which the step size (how far the object moves in a given direction) is generated with a normal distribution.\n"
-      + "Implement this variation of our random walk.";
+      + "Gaussian random walk";
   }
 
   public class Walker : SimpleWalker
@@ -42,7 +41,7 @@ public class C0Exercise5 : Node2D, IExample
     GD.Randomize();
 
     walker = new Walker();
-    walker.SetXY(GetViewport().Size / 2);
+    walker.SetXY(GetViewportRect().Size / 2);
     AddChild(walker);
 
     var canvas = new DrawCanvas(CanvasDraw);

@@ -7,8 +7,7 @@ public class C2Exercise10 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 2.10:\n"
-      + "Change the attraction force in Example 2.8 to a repulsion force.\n"
-      + "Can you create an example in which all of the Mover objects are attracted to the mouse, but repel each other?";
+      + "Repulsion";
   }
 
   public class Repulsor : SimpleAttractor
@@ -55,7 +54,7 @@ public class C2Exercise10 : Node2D, IExample
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     foreach (var x in Enumerable.Range(0, 20))
     {

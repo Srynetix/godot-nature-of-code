@@ -27,7 +27,7 @@ public class DrawCanvas : Control
 
   public override void _Ready()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     viewport = new Viewport();
     viewport.Size = size;
     viewport.Usage = Viewport.UsageEnum.Usage2d;

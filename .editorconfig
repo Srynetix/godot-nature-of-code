@@ -14,5 +14,8 @@ indent_style = tabs
 
 # Code files
 [*.cs]
+charset = utf-8
+end_of_line = lf
+indent_style = space
 indent_size = 2
 insert_final_newline = true

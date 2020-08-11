@@ -5,7 +5,7 @@ public class C0Exercise1 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise I.1:\n"
-      + "Create a random walker that has a tendency to move down and to the right";
+      + "Walker moving down and right";
   }
 
   public class Walker : SimpleWalker
@@ -40,7 +40,7 @@ public class C0Exercise1 : Node2D, IExample
     GD.Randomize();
 
     walker = new Walker();
-    walker.SetXY(GetViewport().Size / 2);
+    walker.SetXY(GetViewportRect().Size / 2);
     AddChild(walker);
 
     var canvas = new DrawCanvas(CanvasDraw);

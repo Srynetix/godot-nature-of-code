@@ -5,8 +5,7 @@ public class C0Exercise3 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise I.3:\n"
-      + "Create a random walker with dynamic probabilities.\n"
-      + "For example, can you give it a 50% chance of moving in the direction of the mouse?";
+      + "Walker 50% moving to mouse";
   }
 
   public class Walker : SimpleWalker
@@ -73,7 +72,7 @@ public class C0Exercise3 : Node2D, IExample
     GD.Randomize();
 
     walker = new Walker();
-    walker.SetXY(GetViewport().Size / 2);
+    walker.SetXY(GetViewportRect().Size / 2);
     AddChild(walker);
 
     var canvas = new DrawCanvas(CanvasDraw);

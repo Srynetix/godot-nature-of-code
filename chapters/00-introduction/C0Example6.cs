@@ -20,7 +20,7 @@ public class C0Example6 : Node2D, IExample
     texture = new ImageTexture();
     noise = new OpenSimplexNoise();
 
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     image.Create((int)size.x, (int)size.y, false, Image.Format.Rgba8);
 
     // Generate
@@ -37,7 +37,7 @@ public class C0Example6 : Node2D, IExample
 
   private void GenerateNoiseTexture()
   {
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
 
     image.Lock();
     for (int x = 0; x < size.x; ++x)

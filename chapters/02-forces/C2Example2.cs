@@ -7,7 +7,7 @@ public class C2Example2 : Node2D, IExample
   public string _Summary()
   {
     return "Example 2.2:\n"
-      + "Forces acting on many objects";
+      + "Forces on many objects";
   }
 
   public class Mover : SimpleMover

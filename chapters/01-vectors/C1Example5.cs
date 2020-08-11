@@ -11,7 +11,7 @@ public class C1Example5 : Node2D, IExample
   public override void _Draw()
   {
     var mousePosition = GetViewport().GetMousePosition();
-    var size = GetViewport().Size;
+    var size = GetViewportRect().Size;
     var center = size / 2;
 
     var target = mousePosition - center;
