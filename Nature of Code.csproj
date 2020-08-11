@@ -103,6 +103,7 @@
     <Compile Include="chapters\03-oscillation\C3Example1.cs" />
     <Compile Include="chapters\03-oscillation\C3Example2.cs" />
     <Compile Include="chapters\03-oscillation\C3Example3.cs" />
+    <Compile Include="chapters\03-oscillation\C3Example4.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise2.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise3.cs" />
     <Compile Include="chapters\Example.cs" />
