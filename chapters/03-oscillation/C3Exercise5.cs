@@ -12,6 +12,8 @@ public class C3Exercise5 : Control, IExample
 
   public class Spaceship : SimpleMover
   {
+    private bool thrusting = false;
+
     public Spaceship() : base(WrapModeEnum.Wrap) { }
 
     public void Accelerate(float amount)
@@ -29,6 +31,13 @@ public class C3Exercise5 : Control, IExample
       ApplyFriction(0.05f);
     }
 
+    public override void _Process(float delta)
+    {
+      thrusting = (Acceleration.LengthSquared() > 0.01);
+
+      base._Process(delta);
+    }
+
     public override void _Draw()
     {
       // Body
@@ -41,9 +50,10 @@ public class C3Exercise5 : Control, IExample
       DrawPolygon(innerPoints, innerColors);
 
       // Thrusters
+      var thrusterColor = !thrusting ? Colors.White : Colors.Red;
       var thrusterSize = BodySize / 3;
-      DrawRect(new Rect2(-BodySize / 2 - thrusterSize / 2, BodySize, thrusterSize, thrusterSize), Colors.White);
-      DrawRect(new Rect2(BodySize / 2 - thrusterSize / 2, BodySize, thrusterSize, thrusterSize), Colors.White);
+      DrawRect(new Rect2(-BodySize / 2 - thrusterSize / 2, BodySize, thrusterSize, thrusterSize), thrusterColor);
+      DrawRect(new Rect2(BodySize / 2 - thrusterSize / 2, BodySize, thrusterSize, thrusterSize), thrusterColor);
     }
   }
 
