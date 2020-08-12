@@ -5,7 +5,7 @@ public class C3Example4 : Node2D, IExample
   public string _Summary()
   {
     return "Example 3.4:\n"
-      + "Polar to cartesian";
+      + "Polar to Cartesian";
   }
 
   public class Ball : Node2D

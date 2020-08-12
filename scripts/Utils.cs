@@ -40,6 +40,11 @@ public class Utils
     return vec;
   }
 
+  static public Color RandColor()
+  {
+    return new Color(GD.Randf(), GD.Randf(), GD.Randf());
+  }
+
   static private Font DEFAULT_FONT = null;
 
   static public Font LoadDefaultFont()

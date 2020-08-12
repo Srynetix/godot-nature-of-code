@@ -5,7 +5,7 @@ public class C3Exercise3 : Control, IExample
   public string _Summary()
   {
     return "Exercise 3.3:\n"
-      + "Car drive\n\n"
+      + "Car Drive\n\n"
       + "On desktop, use arrow keys (left arrow accelerates the car to the left, right to the right).\n"
       + "On mobile, you can use the virtual controls.";
   }
