@@ -109,6 +109,7 @@
     <Compile Include="chapters\03-oscillation\C3Example7.cs" />
     <Compile Include="chapters\03-oscillation\C3Example8.cs" />
     <Compile Include="chapters\03-oscillation\C3Example9.cs" />
+    <Compile Include="chapters\03-oscillation\C3Exercise10.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise2.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise3.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise4.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="ecosystem\Ecosystem.cs" />
     <Compile Include="launcher\Launcher.cs" />
     <Compile Include="modules\VirtualControls.cs" />
+    <Compile Include="scripts\common\SimpleWave.cs" />
     <Compile Include="scripts\Utils.cs" />
     <Compile Include="scripts\SyntaxHighlighter.cs" />
     <Compile Include="scripts\common\DrawCanvas.cs" />
