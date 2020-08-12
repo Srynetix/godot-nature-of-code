@@ -54,7 +54,6 @@ public class C3Exercise5 : Control, IExample
   {
     // Add virtual controls
     controls = new VirtualControls();
-    controls.VisibilityMode = VirtualControls.VisibilityModeEnum.TouchscreenOnly;
     AddChild(controls);
 
     spaceship = new Spaceship();

@@ -62,7 +62,6 @@ public class C3Exercise3 : Control, IExample
   {
     // Add virtual controls
     controls = new VirtualControls();
-    controls.VisibilityMode = VirtualControls.VisibilityModeEnum.TouchscreenOnly;
     AddChild(controls);
 
     // Add car

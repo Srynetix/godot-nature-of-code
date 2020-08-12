@@ -55,9 +55,9 @@ __meta__ = {
 }
 
 [node name="BackButton" type="Button" parent="Margin"]
-margin_left = 886.0
+margin_left = 1066.0
 margin_top = 20.0
-margin_right = 940.0
+margin_right = 1120.0
 margin_bottom = 48.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 8
@@ -81,14 +81,14 @@ text = "FPS: [FPS]"
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 940.0
+margin_right = 1120.0
 margin_bottom = 520.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Margin/VBox"]
-margin_right = 920.0
+margin_right = 1100.0
 margin_bottom = 330.0
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 2 )
@@ -100,14 +100,14 @@ valign = 1
 
 [node name="Margin" type="MarginContainer" parent="Margin/VBox"]
 margin_top = 334.0
-margin_right = 920.0
+margin_right = 1100.0
 margin_bottom = 500.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
 [node name="Buttons" type="VBoxContainer" parent="Margin/VBox/Margin"]
 margin_top = 16.0
-margin_right = 920.0
+margin_right = 1100.0
 margin_bottom = 150.0
 size_flags_vertical = 4
 custom_constants/separation = 25
@@ -116,8 +116,8 @@ __meta__ = {
 }
 
 [node name="ExamplesButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
-margin_left = 351.0
-margin_right = 568.0
+margin_left = 441.0
+margin_right = 658.0
 margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
@@ -125,9 +125,9 @@ theme = ExtResource( 4 )
 text = "Examples and exercises"
 
 [node name="EcosystemButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
-margin_left = 360.0
+margin_left = 450.0
 margin_top = 53.0
-margin_right = 559.0
+margin_right = 649.0
 margin_bottom = 81.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
@@ -135,9 +135,9 @@ theme = ExtResource( 4 )
 text = "Ecosystem simulation"
 
 [node name="QuitButton" type="Button" parent="Margin/VBox/Margin/Buttons"]
-margin_left = 437.0
+margin_left = 527.0
 margin_top = 106.0
-margin_right = 483.0
+margin_right = 573.0
 margin_bottom = 134.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
@@ -145,9 +145,9 @@ theme = ExtResource( 4 )
 text = "Quit"
 
 [node name="Links" type="RichTextLabel" parent="Margin/VBox/Margin"]
-margin_left = 695.0
+margin_left = 875.0
 margin_top = 41.0
-margin_right = 920.0
+margin_right = 1100.0
 margin_bottom = 166.0
 rect_min_size = Vector2( 225, 125 )
 rect_clip_content = false

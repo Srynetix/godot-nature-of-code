@@ -27,7 +27,7 @@ public class VirtualControls : Control
   [Export] public bool DebugDraw = false;
   [Export] public JoystickModeEnum JoystickMode = JoystickModeEnum.Fixed;
   [Export] public VectorModeEnum VectorMode = VectorModeEnum.Real;
-  [Export] public VisibilityModeEnum VisibilityMode = VisibilityModeEnum.Always;
+  [Export] public VisibilityModeEnum VisibilityMode = VisibilityModeEnum.TouchscreenOnly;
   [Export] public Color JoystickPressedColor = Colors.Gray;
   [Export(PropertyHint.Range, "0.5,0.75,0.05")] public float JoystickAnchorTop = 0.55f;
   [Export(PropertyHint.Range, "0,0.75,0.05")] public float JoystickAnchorRight = 0.25f;
@@ -55,6 +55,7 @@ public class VirtualControls : Control
       public Color MainLinesColor = Colors.LightBlue.WithAlpha(200);
       public Color SubLinesColor = Colors.LightPink.WithAlpha(150);
       public float Radius => RectSize.x;
+      public Vector2 OriginalPosition;
 
       private Joystick parent;
 
@@ -104,11 +105,13 @@ public class VirtualControls : Control
 
     public class Handle : Control
     {
+      public Color OriginalColor;
       public float Radius => RectSize.x;
 
       public override void _Ready()
       {
         RectMinSize = new Vector2(8, 8);
+        OriginalColor = SelfModulate;
       }
 
       public override void _Draw()
@@ -120,8 +123,6 @@ public class VirtualControls : Control
     private VirtualControls parent;
     private Background background;
     private Handle handle;
-    private Color originalColor;
-    private Vector2 originalPosition;
     private int touchIndex = -1;
     private Font defaultFont;
 
@@ -176,15 +177,9 @@ public class VirtualControls : Control
       parent.JoystickOutput = Vector2.Zero;
 
       touchIndex = -1;
-      handle.SelfModulate = originalColor;
-      background.RectPosition = originalPosition;
+      handle.SelfModulate = handle.OriginalColor;
+      background.RectPosition = background.OriginalPosition;
       ResetHandle();
-    }
-
-    private void _SaveOriginalValues()
-    {
-      originalColor = handle.SelfModulate;
-      originalPosition = background.RectPosition;
     }
 
     private bool TouchStarted(InputEventScreenTouch eventScreenTouch)
@@ -197,7 +192,7 @@ public class VirtualControls : Control
       return !eventScreenTouch.Pressed && touchIndex == eventScreenTouch.Index;
     }
 
-    public override void _Ready()
+    async public override void _Ready()
     {
       // Parent is a MarginContainer, next parent is VirtualControls
       parent = (VirtualControls)GetParent().GetParent();
@@ -217,8 +212,9 @@ public class VirtualControls : Control
         Hide();
       }
 
-      // Save as deferred, waiting for containers to do their thing
-      CallDeferred(nameof(_SaveOriginalValues));
+      // Wait for next frame to store original position
+      await ToSignal(GetTree(), "idle_frame");
+      background.OriginalPosition = background.RectPosition;
     }
 
     public override void _Input(InputEvent @event)
@@ -308,11 +304,12 @@ public class VirtualControls : Control
 
     public override void _Draw()
     {
-
       if (parent.DebugDraw)
       {
         DrawRect(new Rect2(0, 0, RectSize.x, RectSize.y), Colors.LightCyan.WithAlpha(32));
         DrawString(defaultFont, new Vector2(0, -8), "Output: " + parent.JoystickOutput.ToString());
+        DrawString(defaultFont, new Vector2(0, -24), "RectPosition: " + background.RectPosition.ToString());
+        DrawString(defaultFont, new Vector2(0, -40), "OriginalPosition: " + background.OriginalPosition.ToString());
       }
     }
   }
