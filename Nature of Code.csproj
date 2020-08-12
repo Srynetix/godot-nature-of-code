@@ -105,11 +105,15 @@
     <Compile Include="chapters\03-oscillation\C3Example3.cs" />
     <Compile Include="chapters\03-oscillation\C3Example4.cs" />
     <Compile Include="chapters\03-oscillation\C3Example5.cs" />
+    <Compile Include="chapters\03-oscillation\C3Example6.cs" />
+    <Compile Include="chapters\03-oscillation\C3Example7.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise2.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise3.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise4.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise5.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise6.cs" />
+    <Compile Include="chapters\03-oscillation\C3Exercise7.cs" />
+    <Compile Include="chapters\03-oscillation\C3Exercise8.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="ecosystem\Ecosystem.cs" />
@@ -122,6 +126,7 @@
     <Compile Include="scripts\common\SimpleFrictionPocket.cs" />
     <Compile Include="scripts\common\SimpleLiquid.cs" />
     <Compile Include="scripts\common\SimpleMover.cs" />
+    <Compile Include="scripts\common\SimpleOscillator.cs" />
     <Compile Include="scripts\common\SimpleTrail.cs" />
     <Compile Include="scripts\common\SimpleWalker.cs" />
     <Compile Include="scripts\common\SimpleZone.cs" />
