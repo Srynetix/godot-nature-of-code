@@ -5,7 +5,6 @@ using Godot;
 
 public class SceneExplorer : Control
 {
-
   private List<string> chaptersList;
   private Dictionary<string, string> chaptersDict;
   private Dictionary<string, List<string>> scenesList;

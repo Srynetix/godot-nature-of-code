@@ -8,7 +8,6 @@ public class DrawCanvas : Control
 
   private Viewport viewport;
   private Node2D pen;
-  private Color backgroundColor = Color.Color8(45, 45, 45);
   private DrawFunction drawFunction = null;
 
   public DrawCanvas(DrawFunction func = null)
@@ -19,11 +18,6 @@ public class DrawCanvas : Control
   public void SetDrawFunction(DrawFunction fn)
   {
     drawFunction = fn;
-  }
-
-  public void SetBackgroundColor(Color color)
-  {
-    backgroundColor = color;
   }
 
   public override void _Ready()
@@ -51,8 +45,6 @@ public class DrawCanvas : Control
 
   public void OnPenDraw()
   {
-    VisualServer.SetDefaultClearColor(backgroundColor);
-
     if (drawFunction != null)
     {
       drawFunction(pen);

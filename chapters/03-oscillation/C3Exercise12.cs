@@ -6,7 +6,8 @@ public class C3Exercise12 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 3.12:\n"
-      + "Pendulum Chain";
+      + "Pendulum Chain\n\n"
+      + "You can move pendulums by touching them.";
   }
 
   public float Steps = 3;
@@ -43,6 +44,7 @@ public class C3Exercise12 : Node2D, IExample
           for (int cIndex = 0; cIndex < ChildrenPerParent; ++cIndex)
           {
             var plm = new SimplePendulum();
+            plm.ShowBehindParent = true;
             plm.RopeLength = ropeLength;
             plm.Angle = angleStep * cIndex;
             parents[pIndex].AddChild(plm);

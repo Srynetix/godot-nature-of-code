@@ -44,7 +44,7 @@ public class SimplePendulum : Node2D
       if (touched)
       {
         // Compute angle from touch position
-        var touchAngle = (eventScreenDrag.Position - Position).Normalized().Angle();
+        var touchAngle = (eventScreenDrag.Position - GlobalPosition).Normalized().Angle();
         Angle = -(touchAngle - Mathf.Pi / 2);
       }
     }
