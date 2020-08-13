@@ -112,6 +112,7 @@
     <Compile Include="chapters\03-oscillation\C3Example9.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise10.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise11.cs" />
+    <Compile Include="chapters\03-oscillation\C3Exercise12.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise2.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise3.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise4.cs" />

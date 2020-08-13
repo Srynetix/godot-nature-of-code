@@ -14,7 +14,7 @@ public class SimplePendulum : Node2D
   private bool touched = false;
   private int touchIndex = -1;
 
-  private Vector2 GetBallPosition()
+  public Vector2 GetBallPosition()
   {
     return new Vector2(RopeLength * Mathf.Sin(Angle), RopeLength * Mathf.Cos(Angle));
   }
@@ -59,6 +59,12 @@ public class SimplePendulum : Node2D
       Angle += AngularVelocity;
 
       AngularVelocity *= Damping;
+    }
+
+    // Update child pendulum positions
+    foreach (Node2D child in GetChildren())
+    {
+      child.Position = GetBallPosition();
     }
 
     Update();
