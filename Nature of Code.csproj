@@ -101,6 +101,7 @@
     <Compile Include="chapters\02-forces\C2Exercise8.cs" />
     <Compile Include="chapters\02-forces\C2Exercise9.cs" />
     <Compile Include="chapters\03-oscillation\C3Example1.cs" />
+    <Compile Include="chapters\03-oscillation\C3Example10.cs" />
     <Compile Include="chapters\03-oscillation\C3Example2.cs" />
     <Compile Include="chapters\03-oscillation\C3Example3.cs" />
     <Compile Include="chapters\03-oscillation\C3Example4.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="scripts\common\SimpleLiquid.cs" />
     <Compile Include="scripts\common\SimpleMover.cs" />
     <Compile Include="scripts\common\SimpleOscillator.cs" />
+    <Compile Include="scripts\common\SimplePendulum.cs" />
     <Compile Include="scripts\common\SimpleTrail.cs" />
     <Compile Include="scripts\common\SimpleWalker.cs" />
     <Compile Include="scripts\common\SimpleZone.cs" />
