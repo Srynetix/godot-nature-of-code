@@ -1,7 +1,13 @@
 using Godot;
 
-public class C3Exercise10 : Node2D
+public class C3Exercise10 : Node2D, IExample
 {
+  public string _Summary()
+  {
+    return "Exercise 3.10:\n"
+      + "Multiple Waves";
+  }
+
   public class NoiseWave : SimpleWave
   {
     private OpenSimplexNoise noise;

@@ -23,8 +23,8 @@ public class SimpleWave : Node2D
     {
       var target = new Vector2(x, ComputeY(angle));
 
-      DrawCircle(target, Radius, Colors.LightBlue.WithAlpha(100));
-      DrawCircle(target, Radius - 2, Colors.White.WithAlpha(100));
+      DrawCircle(target, Radius, Colors.White.WithAlpha(100));
+      this.DrawCircleOutline(target, Radius - 2, Colors.Gray, 2, 8);
       angle += AngularVelocity;
     }
   }

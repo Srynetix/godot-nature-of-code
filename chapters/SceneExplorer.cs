@@ -87,10 +87,23 @@ public class SceneExplorer : Control
   private string _ExtractSceneSummary(PackedScene packedScene)
   {
     var inst = packedScene.Instance();
-    var descr = ((IExample)inst)._Summary();
+    var exampleInst = inst as IExample;
+    if (exampleInst == null)
+    {
+      GD.PrintErr("Error while reading '" + packedScene.ResourcePath + "' example summary. Make sure you inherited the IExample interface.");
+      return "";
+    }
+
+    var descr = exampleInst._Summary();
     inst.QueueFree();
 
     var splitString = descr.Split('\n');
+    if (splitString.Length < 2)
+    {
+      GD.PrintErr("Error while reading '" + packedScene.ResourcePath + "' example summary. It should have at least 2 lines.");
+      return "";
+    }
+
     var secondLine = splitString[1];
 
     // Only get nth first characters
