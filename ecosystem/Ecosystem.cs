@@ -29,12 +29,12 @@ public class Ecosystem : Control
     public void SetAtRandomScreenPos()
     {
       var size = GetViewportRect().Size;
-      Position = new Vector2(GD.Randf() * size.x, GD.Randf() * size.y);
+      Position = new Vector2((float)GD.RandRange(0, 1) * size.x, (float)GD.RandRange(0, 1) * size.y);
     }
 
     public void SetAtRandomAngle()
     {
-      Rotation = Utils.Map(GD.Randf(), 0, 1, 0, 2 * Mathf.Pi);
+      Rotation = Utils.Map((float)GD.RandRange(0, 1), 0, 1, 0, 2 * Mathf.Pi);
     }
 
     public void _DebugDraw()
@@ -239,7 +239,7 @@ public class Ecosystem : Control
       Rotation = 0;
 
       // Random direction left or right
-      if (GD.Randf() < 0.5f)
+      if ((float)GD.RandRange(0, 1) < 0.5f)
       {
         Scale = new Vector2(-Scale.x, Scale.y);
       }

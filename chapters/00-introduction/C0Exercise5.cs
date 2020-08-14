@@ -12,7 +12,7 @@ public class C0Exercise5 : Node2D, IExample
   {
     public override void Step()
     {
-      float chance = GD.Randf();
+      float chance = (float)GD.RandRange(0, 1);
       float amount = generator.Randfn(0, 1) * StepSize;  // Gaussian
 
       if (chance < 0.25)

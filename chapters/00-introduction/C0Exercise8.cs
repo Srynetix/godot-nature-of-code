@@ -46,7 +46,7 @@ public class C0Exercise8 : Node2D, IExample
     {
       for (int y = 0; y < size.y; ++y)
       {
-        float n = Utils.Map(noise.GetNoise2d(x + GD.Randf() * 10, y + GD.Randf() * 10), -1, 1, 0, 1);
+        float n = Utils.Map(noise.GetNoise2d(x + (float)GD.RandRange(0, 1) * 10, y + (float)GD.RandRange(0, 1) * 10), -1, 1, 0, 1);
         byte tint = (byte)Utils.Map(n, 0, 1, 0, 255);
         image.SetPixel(x, y, Color.Color8(tint, tint, tint));
       }

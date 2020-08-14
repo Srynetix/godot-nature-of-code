@@ -33,6 +33,11 @@ public class Launcher : Control
     backButton.Connect("pressed", this, nameof(ReloadLauncher));
     links.Connect("meta_clicked", this, nameof(LinkClicked));
 
+    if (OS.GetName() == "HTML5")
+    {
+      quitButton.Hide();
+    }
+
     ToggleBackUI(false);
   }
 

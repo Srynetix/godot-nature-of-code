@@ -48,7 +48,7 @@ public class Utils
    */
   static public float SignedRandf()
   {
-    return Map(GD.Randf(), 0, 1, -1, 1);
+    return Map((float)GD.RandRange(0, 1), 0, 1, -1, 1);
   }
 
   /**
@@ -65,7 +65,7 @@ public class Utils
 
   static public Color RandColor()
   {
-    return new Color(GD.Randf(), GD.Randf(), GD.Randf());
+    return new Color((float)GD.RandRange(0, 1), (float)GD.RandRange(0, 1), (float)GD.RandRange(0, 1));
   }
 
   static private Font DEFAULT_FONT = null;

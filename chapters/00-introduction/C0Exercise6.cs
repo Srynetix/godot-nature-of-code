@@ -14,8 +14,8 @@ public class C0Exercise6 : Node2D, IExample
     {
       while (true)
       {
-        float prob = GD.Randf();
-        float value = GD.Randf();
+        float prob = (float)GD.RandRange(0, 1);
+        float value = (float)GD.RandRange(0, 1);
         float target = value * value;
 
         if (prob < target)

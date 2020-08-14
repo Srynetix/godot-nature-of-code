@@ -12,7 +12,7 @@ public class C0Exercise3 : Node2D, IExample
   {
     public override void Step()
     {
-      float chance = GD.Randf();
+      float chance = (float)GD.RandRange(0, 1);
 
       if (chance <= 0.5)
       {
@@ -44,7 +44,7 @@ public class C0Exercise3 : Node2D, IExample
 
     public void RandomStep()
     {
-      float chance = GD.Randf();
+      float chance = (float)GD.RandRange(0, 1);
 
       if (chance < 0.25)
       {
