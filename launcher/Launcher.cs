@@ -8,12 +8,9 @@ public class Launcher : Control
   private Button examplesButton;
   private Button ecosystemButton;
   private Button quitButton;
-  private Label loadingLabel;
   private Label fpsLabel;
   private RichTextLabel links;
   private Control drawSpace;
-
-  private Timer loadingTimer;
 
   public override void _Ready()
   {
@@ -29,7 +26,6 @@ public class Launcher : Control
     links = GetNode<RichTextLabel>("Margin/VBox/Margin/Links");
     drawSpace = GetNode<Control>("DrawSpace");
     fpsLabel = GetNode<Label>("Margin/FPS");
-    loadingLabel = GetNode<Label>("Margin/Loading");
 
     examplesButton.Connect("pressed", this, nameof(LoadSceneExplorer));
     ecosystemButton.Connect("pressed", this, nameof(LoadEcosystem));
@@ -37,29 +33,16 @@ public class Launcher : Control
     backButton.Connect("pressed", this, nameof(ReloadLauncher));
     links.Connect("meta_clicked", this, nameof(LinkClicked));
 
-    loadingTimer = new Timer();
-    loadingTimer.WaitTime = 0.1f;
-    loadingTimer.Autostart = false;
-    loadingTimer.OneShot = true;
-    AddChild(loadingTimer);
-    loadingTimer.Connect("timeout", this, nameof(_LoadSceneExplorerInner));
-
     ToggleBackUI(false);
   }
 
   private void LoadSceneExplorer()
   {
-    loadingLabel.Show();
     ToggleLauncherUI(false);
-    loadingTimer.Start();
-  }
 
-  private void _LoadSceneExplorerInner()
-  {
     var sceneExplorer = (PackedScene)GD.Load("res://chapters/SceneExplorer.tscn");
     drawSpace.AddChild(sceneExplorer.Instance());
 
-    loadingLabel.Hide();
     ToggleBackUI(true);
   }
 

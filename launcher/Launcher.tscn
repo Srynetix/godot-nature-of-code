@@ -78,17 +78,6 @@ size_flags_vertical = 8
 custom_fonts/font = SubResource( 1 )
 text = "FPS: [FPS]"
 
-[node name="Loading" type="Label" parent="Margin"]
-visible = false
-margin_left = 20.0
-margin_top = 259.0
-margin_right = 1120.0
-margin_bottom = 281.0
-theme = ExtResource( 4 )
-text = "Loading ..."
-align = 1
-valign = 1
-
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 margin_left = 20.0
 margin_top = 20.0

@@ -123,6 +123,7 @@
     <Compile Include="chapters\03-oscillation\C3Exercise9.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
+    <Compile Include="chapters\SceneLoader.cs" />
     <Compile Include="ecosystem\Ecosystem.cs" />
     <Compile Include="launcher\Launcher.cs" />
     <Compile Include="modules\VirtualControls.cs" />
