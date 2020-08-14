@@ -205,6 +205,11 @@ public class SceneExplorer : Control
 
     sceneLoader = new SceneLoader();
     sceneLoader.Connect("scenes_loaded", this, nameof(_OnScenesLoaded));
+
+    // Force min size for exercise selection
+    var font = SelectChapterButton.GetFont("font");
+    SelectExampleButton.RectMinSize = font.GetCharSize('w') * new Vector2(sceneLoader.SampleNameMaxLength, 1);
+
     await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
     AddChild(sceneLoader);
   }

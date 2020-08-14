@@ -7,6 +7,8 @@ public class SceneLoader : Node
   // Sent when all scenes are loaded
   [Signal] public delegate void scenes_loaded();
 
+  public int SampleNameMaxLength = 30;
+
   private List<string> chaptersList;
   private Dictionary<string, string> chaptersDict;
   private Dictionary<string, List<string>> scenesList;
@@ -284,10 +286,9 @@ public class SceneLoader : Node
     var secondLine = splitString[1];
 
     // Only get nth first characters
-    var maxLength = 30;
-    if (secondLine.Length > maxLength)
+    if (secondLine.Length > SampleNameMaxLength)
     {
-      secondLine = secondLine.Substring(0, maxLength - 3) + "...";
+      secondLine = secondLine.Substring(0, SampleNameMaxLength - 3) + "...";
     }
     return secondLine;
   }
