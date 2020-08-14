@@ -102,6 +102,7 @@
     <Compile Include="chapters\02-forces\C2Exercise9.cs" />
     <Compile Include="chapters\03-oscillation\C3Example1.cs" />
     <Compile Include="chapters\03-oscillation\C3Example10.cs" />
+    <Compile Include="chapters\03-oscillation\C3Example11.cs" />
     <Compile Include="chapters\03-oscillation\C3Example2.cs" />
     <Compile Include="chapters\03-oscillation\C3Example3.cs" />
     <Compile Include="chapters\03-oscillation\C3Example4.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="chapters\03-oscillation\C3Exercise10.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise11.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise12.cs" />
+    <Compile Include="chapters\03-oscillation\C3Exercise16.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise2.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise3.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise4.cs" />
@@ -137,6 +139,7 @@
     <Compile Include="scripts\common\SimpleMover.cs" />
     <Compile Include="scripts\common\SimpleOscillator.cs" />
     <Compile Include="scripts\common\SimplePendulum.cs" />
+    <Compile Include="scripts\common\SimpleSpring.cs" />
     <Compile Include="scripts\common\SimpleTrail.cs" />
     <Compile Include="scripts\common\SimpleWalker.cs" />
     <Compile Include="scripts\common\SimpleZone.cs" />

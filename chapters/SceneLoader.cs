@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 
 public class SceneLoader : Node
 {
+  // Sent when all scenes are loaded
   [Signal] public delegate void scenes_loaded();
 
   private List<string> chaptersList;

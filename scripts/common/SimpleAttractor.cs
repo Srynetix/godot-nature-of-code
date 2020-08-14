@@ -5,12 +5,14 @@ public class SimpleAttractor : Node2D
   public float Radius = 20.0f;
   public float Mass = 20.0f;
   public float Gravitation = 1.0f;
+  public float MinForce = 5;
+  public float MaxForce = 25;
   public bool Drawing = true;
 
   public virtual Vector2 Attract(SimpleMover mover)
   {
     var force = GlobalPosition - mover.GlobalPosition;
-    var length = Mathf.Clamp(force.Length(), 5, 25);
+    var length = Mathf.Clamp(force.Length(), MinForce, MaxForce);
     float strength = (Gravitation * Mass * mover.Mass) / (length * length);
     return force.Normalized() * strength;
   }

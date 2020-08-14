@@ -18,6 +18,7 @@ public class SimpleMover : Area2D
   public float MaxAngularVelocity = 0.1f;
   public float Mass = 1;
   public WrapModeEnum WrapMode;
+  public bool DisableForces = false;
 
   public SimpleMover(WrapModeEnum wrapMode = WrapModeEnum.Wrap)
   {
@@ -43,8 +44,12 @@ public class SimpleMover : Area2D
 
   public override void _Process(float delta)
   {
-    UpdateAcceleration();
-    ApplyMovement();
+    if (!DisableForces)
+    {
+      UpdateAcceleration();
+      ApplyMovement();
+    }
+
     Update();
   }
 
@@ -80,6 +85,11 @@ public class SimpleMover : Area2D
 
     var drag = Velocity.Normalized() * mag * -1;
     ApplyForce(drag);
+  }
+
+  public virtual void ApplyDamping(float coef)
+  {
+    Velocity *= coef;
   }
 
   protected void ApplyMovement()
