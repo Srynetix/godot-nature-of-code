@@ -137,6 +137,7 @@
     <Compile Include="scripts\common\SimpleFrictionPocket.cs" />
     <Compile Include="scripts\common\SimpleLiquid.cs" />
     <Compile Include="scripts\common\SimpleMover.cs" />
+    <Compile Include="scripts\common\SimpleNoiseTexture.cs" />
     <Compile Include="scripts\common\SimpleOscillator.cs" />
     <Compile Include="scripts\common\SimplePendulum.cs" />
     <Compile Include="scripts\common\SimpleSpring.cs" />
