@@ -10,29 +10,6 @@ public static class ColorExtensions
   }
 }
 
-public static class CanvasItemExtensions
-{
-  public static void DrawCircleOutline(this CanvasItem canvasItem, Vector2 position, float radius, Color color, int width = 1, int pointsCount = 32, bool antialiased = false)
-  {
-    float twoPi = Mathf.Pi * 2;
-    float angleStep = twoPi / pointsCount;
-    Vector2 line = new Vector2(radius, 0);
-
-    var lines = new Vector2[pointsCount + 1];
-
-    // Precompute segments
-    for (int i = 0; i < pointsCount + 1; ++i)
-    {
-      lines[i] = position + line.Rotated(i * angleStep);
-    }
-
-    for (int i = 0; i < pointsCount; ++i)
-    {
-      canvasItem.DrawLine(lines[i], lines[i + 1], color, width, antialiased);
-    }
-  }
-}
-
 public class Utils
 {
   /**
