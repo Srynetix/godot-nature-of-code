@@ -63,7 +63,7 @@ public class Ecosystem : Control
   {
     public float AngularAccelerationFactor = 0.01f;
     public float AccelerationFactor = 0.5f;
-    public Color BaseColor = Colors.DarkOliveGreen;
+    public Color BaseColor = Colors.Olive;
     public float WingRotationFactor = 0.5f;
     public float WingSpeed = 64f;
     public float WingSize = 3f;
@@ -160,6 +160,46 @@ public class Ecosystem : Control
     {
       base._Process(delta);
       tWings += delta * WingSpeed;
+    }
+  }
+
+  public class NervousButterfly : NervousFly
+  {
+    public class OscillatingWing : SimpleOscillator
+    {
+      public override void _Ready()
+      {
+        Radius = 4;
+        Velocity = new Vector2(0f, 0.75f);
+        Amplitude = new Vector2(1, 7);
+        ShowLine = false;
+        BallOutlineColor = Colors.Green;
+
+        ShowBehindParent = true;
+      }
+    }
+
+    public NervousButterfly()
+    {
+      BaseColor = Colors.GreenYellow;
+    }
+
+    public override void _Ready()
+    {
+      base._Ready();
+
+      var oscillatingLeftWing = new OscillatingWing();
+      oscillatingLeftWing.Position = Vector2.Left * (BodySize + 1);
+      AddChild(oscillatingLeftWing);
+
+      var oscillatingRightWing = new OscillatingWing();
+      oscillatingRightWing.Position = Vector2.Right * (BodySize + 1);
+      AddChild(oscillatingRightWing);
+    }
+
+    public override void _DrawLifeform()
+    {
+      DrawCircle(Vector2.Zero, BodySize, BaseColor);
     }
   }
 
@@ -308,44 +348,36 @@ public class Ecosystem : Control
     }
   }
 
+  public int CountPerSpecies = 3;
+
   private Control drawZone;
 
   public override void _Ready()
   {
     GD.Randomize();
-
     drawZone = GetNode<Control>("DrawZone");
 
-    int nervousFlyCount = 10;
-    foreach (int x in Enumerable.Range(0, nervousFlyCount))
+    foreach (int x in Enumerable.Range(0, CountPerSpecies))
     {
       var fly = new NervousFly();
       fly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
       drawZone.AddChild(fly);
-    }
 
-    int swimmingFishCount = 10;
-    foreach (int x in Enumerable.Range(0, swimmingFishCount))
-    {
+      var butterfly = new NervousButterfly();
+      butterfly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
+      drawZone.AddChild(butterfly);
+
       var fish = new SwimmingFish();
       fish.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
       drawZone.AddChild(fish);
-    }
 
-    int hoppingBunnyCount = 10;
-    foreach (int x in Enumerable.Range(0, hoppingBunnyCount))
-    {
       var bunny = new HoppingBunny();
       bunny.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
       drawZone.AddChild(bunny);
-    }
 
-    int attractedFlyCount = 10;
-    foreach (int x in Enumerable.Range(0, attractedFlyCount))
-    {
-      var fly = new AttractedFly();
-      fly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
-      drawZone.AddChild(fly);
+      var attractedFly = new AttractedFly();
+      attractedFly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
+      drawZone.AddChild(attractedFly);
     }
   }
 }

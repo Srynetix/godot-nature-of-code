@@ -3,12 +3,17 @@ using Godot;
 public class SimpleOscillator : Node2D
 {
   public float Radius = 30;
+  public bool ShowLine = true;
 
   public Vector2 Angle;
   public Vector2 Offset;
   public Vector2 Velocity;
   public Vector2 Amplitude;
   public Vector2 AngularAcceleration;
+
+  public Color LineColor = Colors.LightGray;
+  public Color BallOutlineColor = Colors.LightBlue;
+  public Color BallColor = Colors.White;
 
   public SimpleOscillator()
   {
@@ -21,9 +26,13 @@ public class SimpleOscillator : Node2D
     float y = Offset.y + Mathf.Sin(Angle.y) * Amplitude.y;
     var target = new Vector2(x, y);
 
-    DrawLine(Vector2.Zero, target, Colors.LightGray, 2);
-    DrawCircle(target, Radius, Colors.LightBlue);
-    DrawCircle(target, Radius - 2, Colors.White);
+    if (ShowLine)
+    {
+      DrawLine(Vector2.Zero, target, LineColor, 2);
+    }
+
+    DrawCircle(target, Radius, BallOutlineColor);
+    DrawCircle(target, Radius - 2, BallColor);
   }
 
   public override void _Process(float delta)
