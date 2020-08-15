@@ -15,14 +15,12 @@ public class C3Exercise4 : Node2D, IExample
   private float theta = 0;
   private float margin = 0;
 
-  private DrawCanvas canvas;
-
   public override void _Ready()
   {
     GD.Randomize();
 
-    canvas = new DrawCanvas(CanvasDraw);
-    canvas.ShowBehindParent = true;
+    var canvas = new DrawCanvas(CanvasDraw);
+    canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
     AddChild(canvas);
   }
 

@@ -16,6 +16,7 @@ public class C0Example4 : Node2D, IExample
     generator.Randomize();
 
     var canvas = new DrawCanvas(CanvasDraw);
+    canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
     AddChild(canvas);
   }
 

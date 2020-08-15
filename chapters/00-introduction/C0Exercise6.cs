@@ -47,6 +47,7 @@ public class C0Exercise6 : Node2D, IExample
     AddChild(walker);
 
     var canvas = new DrawCanvas(CanvasDraw);
+    canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
     AddChild(canvas);
   }
 
