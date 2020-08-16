@@ -147,6 +147,7 @@
     <Compile Include="scripts\common\SimpleTrail.cs" />
     <Compile Include="scripts\common\SimpleWalker.cs" />
     <Compile Include="scripts\common\SimpleZone.cs" />
+    <Compile Include="scripts\common\variants\ConstantAccelerationMover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

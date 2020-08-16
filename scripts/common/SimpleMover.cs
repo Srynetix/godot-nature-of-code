@@ -169,5 +169,4 @@ public class SimpleMover : Area2D
 
     Position = newPos;
   }
-
 }
