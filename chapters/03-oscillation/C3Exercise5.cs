@@ -12,7 +12,7 @@ public class C3Exercise5 : Control, IExample
 
   public class Spaceship : SimpleMover
   {
-    private bool thrusting = false;
+    protected bool thrusting = false;
 
     public Spaceship() : base(WrapModeEnum.Wrap) { }
 
@@ -57,8 +57,8 @@ public class C3Exercise5 : Control, IExample
     }
   }
 
-  private VirtualControls controls;
-  private Spaceship spaceship;
+  protected VirtualControls controls;
+  protected Spaceship spaceship;
 
   public override void _Ready()
   {

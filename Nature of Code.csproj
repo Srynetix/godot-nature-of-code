@@ -129,6 +129,7 @@
     <Compile Include="chapters\04-particles\C4Exercise1.cs" />
     <Compile Include="chapters\04-particles\C4Exercise2.cs" />
     <Compile Include="chapters\04-particles\C4Exercise3.cs" />
+    <Compile Include="chapters\04-particles\C4Exercise4.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="chapters\SceneLoader.cs" />

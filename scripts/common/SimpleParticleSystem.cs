@@ -4,11 +4,21 @@ using System.Collections.Generic;
 
 public class SimpleParticleSystem : SimpleMover
 {
-  private List<SimpleParticle> particles;
+  public delegate SimpleParticle CreateParticleFunction();
 
-  public SimpleParticleSystem(WrapModeEnum wrapMode = WrapModeEnum.Wrap): base(wrapMode)
+  public bool Emitting = false;
+
+  private List<SimpleParticle> particles;
+  private CreateParticleFunction particleFunction = null;
+
+  public SimpleParticleSystem(WrapModeEnum wrapMode = WrapModeEnum.Wrap) : base(wrapMode)
   {
     particles = new List<SimpleParticle>();
+  }
+
+  public void SetCreateParticleFunction(CreateParticleFunction fn)
+  {
+    particleFunction = fn;
   }
 
   public void AddParticle(SimpleParticle particle)
@@ -39,10 +49,17 @@ public class SimpleParticleSystem : SimpleMover
   {
     base._Process(delta);
 
+    if (Emitting && particleFunction != null)
+    {
+      var particle = particleFunction();
+      AddParticle(particle);
+    }
+
     UpdateParticles();
   }
 
-  public override void _Draw() {
+  public override void _Draw()
+  {
     // No draw
   }
 }
