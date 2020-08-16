@@ -19,6 +19,7 @@ public class SimpleMover : Area2D
   public float Mass = 1;
   public WrapModeEnum WrapMode;
   public bool DisableForces = false;
+  public bool Drawing = true;
 
   public SimpleMover(WrapModeEnum wrapMode = WrapModeEnum.Wrap)
   {
@@ -40,8 +41,11 @@ public class SimpleMover : Area2D
 
   public override void _Draw()
   {
-    DrawCircle(Vector2.Zero, Radius, Colors.LightBlue);
-    DrawCircle(Vector2.Zero, Radius - 2, Colors.White);
+    if (Drawing)
+    {
+      DrawCircle(Vector2.Zero, Radius, Colors.LightBlue);
+      DrawCircle(Vector2.Zero, Radius - 2, Colors.White);
+    }
   }
 
   public override void _Process(float delta)
