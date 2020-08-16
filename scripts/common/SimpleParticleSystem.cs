@@ -7,6 +7,8 @@ public class SimpleParticleSystem : SimpleMover
   public delegate SimpleParticle CreateParticleFunction();
 
   public bool Emitting = false;
+  public bool RemoveWhenEmptyParticles = false;
+  public int ParticleCount = -1;
 
   private List<SimpleParticle> particles;
   private CreateParticleFunction particleFunction = null;
@@ -49,10 +51,20 @@ public class SimpleParticleSystem : SimpleMover
   {
     base._Process(delta);
 
-    if (Emitting && particleFunction != null)
+    if (Emitting && particleFunction != null && ParticleCount != 0)
     {
       var particle = particleFunction();
       AddParticle(particle);
+
+      if (ParticleCount > 0)
+      {
+        ParticleCount--;
+      }
+    }
+
+    if (RemoveWhenEmptyParticles && particles.Count == 0)
+    {
+      QueueFree();
     }
 
     UpdateParticles();
