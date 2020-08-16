@@ -4,7 +4,7 @@ public class C4Exercise10 : Node2D, IExample
 {
   public string _Summary()
   {
-    return "Exercise 4.9:\n"
+    return "Exercise 4.10:\n"
       + "Responding Particles";
   }
 
