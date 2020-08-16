@@ -12,7 +12,7 @@ public class C4Exercise2 : Node2D, IExample
   {
     protected override void UpdateAcceleration()
     {
-      Acceleration = new Vector2(0.01f, 0.01f);
+      Acceleration = new Vector2((float)GD.RandRange(-0.25f, 0.25f), 0.01f);
       AngularAcceleration = Acceleration.x / 10.0f;
     }
 

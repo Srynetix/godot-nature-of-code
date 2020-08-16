@@ -33,9 +33,18 @@ public class Utils
    */
   static public Vector2 RandVector2(Vector2 min, Vector2 max)
   {
+    return Utils.RandVector2(min.x, min.y, max.x, max.y);
+  }
+
+  /**
+   * Return a random Vector2.
+   */
+  static public Vector2 RandVector2(float minX, float minY, float maxX, float maxY)
+  {
+
     var vec = Vector2.Zero;
-    vec.x = (float)GD.RandRange(min.x, max.x);
-    vec.y = (float)GD.RandRange(min.y, max.y);
+    vec.x = (float)GD.RandRange(minX, maxX);
+    vec.y = (float)GD.RandRange(minY, maxY);
 
     return vec;
   }

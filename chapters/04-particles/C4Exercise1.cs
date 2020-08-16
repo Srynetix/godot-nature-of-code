@@ -12,8 +12,7 @@ public class C4Exercise1 : Node2D, IExample
   {
     protected override void UpdateAcceleration()
     {
-      Acceleration = new Vector2(0, 0.01f);
-      ApplyForce(new Vector2(0.25f, 0.25f));
+      ApplyForce(new Vector2((float)GD.RandRange(-0.25f, 0.25f), 0.25f));
     }
   }
 

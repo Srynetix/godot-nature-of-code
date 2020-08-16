@@ -7,6 +7,8 @@ public class SimpleParticle : SimpleMover
 
   private float initialLifespan;
 
+  public SimpleParticle(WrapModeEnum wrapMode = WrapModeEnum.Wrap) : base(wrapMode) { }
+
   public override void _Ready()
   {
     initialLifespan = Lifespan;

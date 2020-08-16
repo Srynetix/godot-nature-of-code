@@ -124,6 +124,7 @@
     <Compile Include="chapters\03-oscillation\C3Exercise8.cs" />
     <Compile Include="chapters\03-oscillation\C3Exercise9.cs" />
     <Compile Include="chapters\04-particles\C4Example1.cs" />
+    <Compile Include="chapters\04-particles\C4Example2.cs" />
     <Compile Include="chapters\04-particles\C4Exercise1.cs" />
     <Compile Include="chapters\04-particles\C4Exercise2.cs" />
     <Compile Include="chapters\Example.cs" />
