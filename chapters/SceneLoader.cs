@@ -238,24 +238,10 @@ public class SceneLoader : Node
       {
         GroupCollection xMatchGroups = prettyRgx.Match(x).Groups;
         GroupCollection yMatchGroups = prettyRgx.Match(y).Groups;
-
-        string xCategory = xMatchGroups["category"].Value;
-        string yCategory = yMatchGroups["category"].Value;
         int xIdx = xMatchGroups["idx"].Value.ToInt();
         int yIdx = yMatchGroups["idx"].Value.ToInt();
 
-        if (xCategory == "Exer." && yCategory != "Exer.")
-        {
-          return 1;
-        }
-        else if (xCategory != "Exer." && yCategory == "Exer.")
-        {
-          return -1;
-        }
-        else
-        {
-          return xIdx.CompareTo(yIdx);
-        }
+        return xIdx.CompareTo(yIdx);
       });
 
       scenesList[chapterName] = list;
