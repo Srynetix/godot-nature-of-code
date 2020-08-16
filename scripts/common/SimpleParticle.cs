@@ -13,6 +13,7 @@ public class SimpleParticle : SimpleMover
 
   public override void _Ready()
   {
+    base._Ready();
     initialLifespan = Lifespan;
   }
 

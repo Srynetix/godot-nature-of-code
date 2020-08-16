@@ -128,12 +128,15 @@
     <Compile Include="chapters\04-particles\C4Example3.cs" />
     <Compile Include="chapters\04-particles\C4Example4.cs" />
     <Compile Include="chapters\04-particles\C4Example5.cs" />
+    <Compile Include="chapters\04-particles\C4Example7.cs" />
     <Compile Include="chapters\04-particles\C4Exercise1.cs" />
+    <Compile Include="chapters\04-particles\C4Exercise10.cs" />
     <Compile Include="chapters\04-particles\C4Exercise2.cs" />
     <Compile Include="chapters\04-particles\C4Exercise3.cs" />
     <Compile Include="chapters\04-particles\C4Exercise4.cs" />
     <Compile Include="chapters\04-particles\C4Exercise5.cs" />
     <Compile Include="chapters\04-particles\C4Exercise6.cs" />
+    <Compile Include="chapters\04-particles\C4Exercise9.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="chapters\SceneLoader.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="scripts\common\SimpleWalker.cs" />
     <Compile Include="scripts\common\SimpleZone.cs" />
     <Compile Include="scripts\common\variants\ConstantAccelerationMover.cs" />
+    <Compile Include="scripts\common\variants\SimpleRepeller.cs" />
     <Compile Include="scripts\common\variants\SimpleSquareParticle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

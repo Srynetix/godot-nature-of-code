@@ -9,13 +9,16 @@ public class SimpleParticleSystem : SimpleMover
   public bool Emitting = false;
   public bool RemoveWhenEmptyParticles = false;
   public int ParticleCount = -1;
+  public int ParticleSpawnFrameDelay = 4;
 
   private List<SimpleParticle> particles;
   private CreateParticleFunction particleFunction = null;
+  private int elapsedFrames = 0;
 
   public SimpleParticleSystem(WrapModeEnum wrapMode = WrapModeEnum.Wrap) : base(wrapMode)
   {
     particles = new List<SimpleParticle>();
+    DisableForces = true;
   }
 
   public void SetCreateParticleFunction(CreateParticleFunction fn)
@@ -53,12 +56,21 @@ public class SimpleParticleSystem : SimpleMover
 
     if (Emitting && particleFunction != null && ParticleCount != 0)
     {
-      var particle = particleFunction();
-      AddParticle(particle);
-
-      if (ParticleCount > 0)
+      if (elapsedFrames == 0)
       {
-        ParticleCount--;
+        var particle = particleFunction();
+        AddParticle(particle);
+
+        if (ParticleCount > 0)
+        {
+          ParticleCount--;
+        }
+
+        elapsedFrames = ParticleSpawnFrameDelay;
+      }
+      else
+      {
+        elapsedFrames--;
       }
     }
 

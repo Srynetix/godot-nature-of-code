@@ -19,7 +19,10 @@ public class C4Exercise3 : Node2D, IExample
 
   public class DynamicParticleSystem : SimpleParticleSystem
   {
-    public DynamicParticleSystem() : base(WrapModeEnum.Bounce) { }
+    public DynamicParticleSystem() : base(WrapModeEnum.Bounce)
+    {
+      DisableForces = false;
+    }
 
     protected override void UpdateAcceleration()
     {

@@ -8,6 +8,7 @@ public class SimpleAttractor : Node2D
   public float MinForce = 5;
   public float MaxForce = 25;
   public bool Drawing = true;
+  public Color BaseColor = Colors.LightGoldenrod;
 
   public virtual Vector2 Attract(SimpleMover mover)
   {
@@ -26,7 +27,7 @@ public class SimpleAttractor : Node2D
   {
     if (Drawing)
     {
-      DrawCircle(Vector2.Zero, Radius, Colors.LightGoldenrod);
+      DrawCircle(Vector2.Zero, Radius, BaseColor);
     }
   }
 
