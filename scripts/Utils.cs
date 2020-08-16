@@ -28,12 +28,17 @@ public class Utils
     return Map((float)GD.RandRange(0, 1), 0, 1, -1, 1);
   }
 
+  static public float RandRangef(float min, float max)
+  {
+    return (float)GD.RandRange(min, max);
+  }
+
   /**
    * Return a random Vector2.
    */
   static public Vector2 RandVector2(Vector2 min, Vector2 max)
   {
-    return Utils.RandVector2(min.x, min.y, max.x, max.y);
+    return RandVector2(min.x, min.y, max.x, max.y);
   }
 
   /**
@@ -41,7 +46,6 @@ public class Utils
    */
   static public Vector2 RandVector2(float minX, float minY, float maxX, float maxY)
   {
-
     var vec = Vector2.Zero;
     vec.x = (float)GD.RandRange(minX, maxX);
     vec.y = (float)GD.RandRange(minY, maxY);

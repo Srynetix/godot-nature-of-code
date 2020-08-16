@@ -127,6 +127,7 @@
     <Compile Include="chapters\04-particles\C4Example2.cs" />
     <Compile Include="chapters\04-particles\C4Example3.cs" />
     <Compile Include="chapters\04-particles\C4Example4.cs" />
+    <Compile Include="chapters\04-particles\C4Example5.cs" />
     <Compile Include="chapters\04-particles\C4Exercise1.cs" />
     <Compile Include="chapters\04-particles\C4Exercise2.cs" />
     <Compile Include="chapters\04-particles\C4Exercise3.cs" />
