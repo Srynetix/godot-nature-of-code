@@ -2,24 +2,17 @@ using Godot;
 
 using System.Collections.Generic;
 
-public class SimpleParticleSystem : Node2D
+public class SimpleParticleSystem : SimpleMover
 {
   private List<SimpleParticle> particles;
 
-  public SimpleParticleSystem()
+  public SimpleParticleSystem(WrapModeEnum wrapMode = WrapModeEnum.Wrap): base(wrapMode)
   {
     particles = new List<SimpleParticle>();
   }
 
-  protected virtual void InitializeParticle(SimpleParticle particle)
-  {
-    particle.BodySize = new Vector2(20, 20);
-    particle.Lifespan = 2;
-  }
-
   public void AddParticle(SimpleParticle particle)
   {
-    InitializeParticle(particle);
     particles.Add(particle);
     AddChild(particle);
   }
@@ -44,6 +37,12 @@ public class SimpleParticleSystem : Node2D
 
   public override void _Process(float delta)
   {
+    base._Process(delta);
+
     UpdateParticles();
+  }
+
+  public override void _Draw() {
+    // No draw
   }
 }

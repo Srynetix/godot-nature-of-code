@@ -1,11 +1,11 @@
 using Godot;
 
-public class C4Example3 : Node2D, IExample
+public class C4Exercise3 : Node2D, IExample
 {
   public string _Summary()
   {
-    return "Example 4.3:\n"
-      + "Particle System";
+    return "Exercise 4.3:\n"
+      + "Dynamic Particle System";
   }
 
   public class EParticle : SimpleSquareParticle
@@ -17,12 +17,23 @@ public class C4Example3 : Node2D, IExample
     }
   }
 
+  public class DynamicParticleSystem : SimpleParticleSystem
+  {
+    public DynamicParticleSystem(): base(WrapModeEnum.Bounce) {}
+
+    protected override void UpdateAcceleration()
+    {
+      float offset = 0.5f;
+      ApplyForce(new Vector2((float)GD.RandRange(-offset, offset), (float)GD.RandRange(-offset, offset)));
+    }
+  }
+
   private SimpleParticleSystem particleSystem;
 
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
-    particleSystem = new SimpleParticleSystem();
+    particleSystem = new DynamicParticleSystem();
     particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
     AddChild(particleSystem);
   }
