@@ -13,7 +13,7 @@ public class C4Exercise1 : Node2D, IExample
     protected override void UpdateAcceleration()
     {
       Acceleration = new Vector2(0, 0.01f);
-      BodySize = 10;
+      BodySize = new Vector2(10, 10);
 
       ApplyForce(new Vector2(0.25f, 0.25f));
     }

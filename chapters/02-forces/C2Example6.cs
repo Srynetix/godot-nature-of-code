@@ -18,8 +18,8 @@ public class C2Example6 : Node2D, IExample
     AddChild(attractor);
 
     var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
-    var xPos = (float)GD.RandRange(mover.BodySize, size.x - mover.BodySize);
-    var yPos = (float)GD.RandRange(mover.BodySize, size.y - mover.BodySize);
+    var xPos = (float)GD.RandRange(mover.Radius, size.x - mover.Radius);
+    var yPos = (float)GD.RandRange(mover.Radius, size.y - mover.Radius);
     mover.Position = new Vector2(xPos, yPos);
     AddChild(mover);
   }

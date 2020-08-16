@@ -32,7 +32,7 @@ public class SimpleParticle : SimpleMover
     }
 
     var alpha = LifespanAsAlpha ? (byte)((Lifespan / initialLifespan) * 255) : (byte)255;
-    DrawCircle(Vector2.Zero, BodySize, Colors.LightBlue.WithAlpha(alpha));
+    DrawCircle(Vector2.Zero, Radius, Colors.LightBlue.WithAlpha(alpha));
   }
 
   public bool IsDead()

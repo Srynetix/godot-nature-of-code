@@ -44,16 +44,16 @@ public class C3Exercise5 : Control, IExample
       Vector2[] points = { new Vector2(-1, 1) * BodySize, new Vector2(1, 1) * BodySize, new Vector2(0, -1) * BodySize };
       Color[] colors = { Colors.LightBlue, Colors.LightBlue, Colors.LightBlue };
       DrawPolygon(points, colors);
-      Vector2[] innerPoints = { new Vector2(-1, 1) * (BodySize - 2), new Vector2(1, 1) * (BodySize - 2), new Vector2(0, -1) * (BodySize - 2) };
+      Vector2[] innerPoints = { new Vector2(-1, 1) * (Radius - 2), new Vector2(1, 1) * (Radius - 2), new Vector2(0, -1) * (Radius - 2) };
 
       Color[] innerColors = { Colors.White, Colors.White, Colors.White };
       DrawPolygon(innerPoints, innerColors);
 
       // Thrusters
       var thrusterColor = !thrusting ? Colors.White : Colors.Red;
-      var thrusterSize = BodySize / 3;
-      DrawRect(new Rect2(-BodySize / 2 - thrusterSize / 2, BodySize, thrusterSize, thrusterSize), thrusterColor);
-      DrawRect(new Rect2(BodySize / 2 - thrusterSize / 2, BodySize, thrusterSize, thrusterSize), thrusterColor);
+      var thrusterSize = Radius / 3;
+      DrawRect(new Rect2(-Radius / 2 - thrusterSize / 2, Radius, thrusterSize, thrusterSize), thrusterColor);
+      DrawRect(new Rect2(Radius / 2 - thrusterSize / 2, Radius, thrusterSize, thrusterSize), thrusterColor);
     }
   }
 

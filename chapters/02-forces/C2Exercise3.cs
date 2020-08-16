@@ -19,7 +19,7 @@ public class C2Exercise3 : Node2D, IExample
       var size = GetViewportRect().Size;
       var pos = Position;
       var output = Vector2.Zero;
-      var limit = BodySize * 8;
+      var limit = Radius * 8;
 
       // Push left
       if (Position.x > size.x - limit)
@@ -76,7 +76,7 @@ public class C2Exercise3 : Node2D, IExample
       var bodySize = (float)GD.RandRange(5, 20);
       var size = GetViewportRect().Size;
       var xPos = (float)GD.RandRange(bodySize * 4, size.x - bodySize * 4);
-      mover.BodySize = bodySize;
+      mover.BodySize = new Vector2(bodySize, bodySize);
       mover.Mass = (float)GD.RandRange(5, 10);
       mover.Position = new Vector2(xPos, size.y / 2);
       AddChild(mover);

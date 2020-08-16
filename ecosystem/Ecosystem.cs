@@ -73,7 +73,7 @@ public class Ecosystem : Control
 
     public AttractedFly()
     {
-      BodySize = 4;
+      BodySize = new Vector2(4, 4);
       MaxVelocity = 5f;
       MaxAngularVelocity = 0.01f;
     }
@@ -90,10 +90,10 @@ public class Ecosystem : Control
     public override void _DrawLifeform()
     {
       // Body
-      DrawCircle(Vector2.Zero, BodySize, BaseColor);
+      DrawCircle(Vector2.Zero, Radius, BaseColor);
 
-      var leftWingPos = (Vector2.Up * (BodySize + 1)).Rotated(Mathf.Sin(tWings) * WingRotationFactor);
-      var rightWingPos = (Vector2.Up * -(BodySize + 1)).Rotated(Mathf.Sin(-tWings) * WingRotationFactor);
+      var leftWingPos = (Vector2.Up * (Radius + 1)).Rotated(Mathf.Sin(tWings) * WingRotationFactor);
+      var rightWingPos = (Vector2.Up * -(Radius + 1)).Rotated(Mathf.Sin(-tWings) * WingRotationFactor);
 
       // Wings
       var wingsColor = BaseColor.WithAlpha(WingColorAlpha);
@@ -128,7 +128,7 @@ public class Ecosystem : Control
 
     public NervousFly()
     {
-      BodySize = 4f;
+      BodySize = new Vector2(4f, 4f);
       MaxVelocity = 5f;
       MaxAngularVelocity = 0.01f;
     }
@@ -136,10 +136,10 @@ public class Ecosystem : Control
     public override void _DrawLifeform()
     {
       // Body
-      DrawCircle(Vector2.Zero, BodySize, BaseColor);
+      DrawCircle(Vector2.Zero, Radius, BaseColor);
 
-      var leftWingPos = (Vector2.Up * (BodySize + 1)).Rotated(Mathf.Sin(tWings) * WingRotationFactor);
-      var rightWingPos = (Vector2.Up * -(BodySize + 1)).Rotated(Mathf.Sin(-tWings) * WingRotationFactor);
+      var leftWingPos = (Vector2.Up * (Radius + 1)).Rotated(Mathf.Sin(tWings) * WingRotationFactor);
+      var rightWingPos = (Vector2.Up * -(Radius + 1)).Rotated(Mathf.Sin(-tWings) * WingRotationFactor);
 
       // Wings
       var wingsColor = BaseColor.WithAlpha(WingColorAlpha);
@@ -189,17 +189,17 @@ public class Ecosystem : Control
       base._Ready();
 
       var oscillatingLeftWing = new OscillatingWing();
-      oscillatingLeftWing.Position = Vector2.Left * (BodySize + 1);
+      oscillatingLeftWing.Position = Vector2.Left * (Radius + 1);
       AddChild(oscillatingLeftWing);
 
       var oscillatingRightWing = new OscillatingWing();
-      oscillatingRightWing.Position = Vector2.Right * (BodySize + 1);
+      oscillatingRightWing.Position = Vector2.Right * (Radius + 1);
       AddChild(oscillatingRightWing);
     }
 
     public override void _DrawLifeform()
     {
-      DrawCircle(Vector2.Zero, BodySize, BaseColor);
+      DrawCircle(Vector2.Zero, Radius, BaseColor);
     }
   }
 

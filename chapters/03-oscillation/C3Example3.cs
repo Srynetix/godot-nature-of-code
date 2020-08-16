@@ -29,8 +29,8 @@ public class C3Example3 : Node2D, IExample
 
     public override void _Draw()
     {
-      var length = BodySize * 2;
-      var width = BodySize;
+      var length = Radius * 2;
+      var width = Radius;
 
       DrawRect(new Rect2(-length / 2, -width / 2, length, width), Colors.LightBlue);
       DrawRect(new Rect2(-length / 2 + 2, -width / 2 + 2, length - 4, width - 4), Colors.White);

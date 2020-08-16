@@ -13,7 +13,7 @@ public class SimpleMover : Area2D
   public Vector2 Acceleration = Vector2.Zero;
   public float AngularVelocity = 0;
   public float AngularAcceleration = 0;
-  public float BodySize = 20;
+  public Vector2 BodySize = new Vector2(20, 20);
   public float MaxVelocity = 10;
   public float MaxAngularVelocity = 0.1f;
   public float Mass = 1;
@@ -25,21 +25,23 @@ public class SimpleMover : Area2D
     WrapMode = wrapMode;
   }
 
+  public float Radius => BodySize.x;
+
   public override void _Ready()
   {
     AddToGroup("movers");
 
     var collisionShape = new CollisionShape2D();
     var shape = new CircleShape2D();
-    shape.Radius = BodySize;
+    shape.Radius = Radius;
     collisionShape.Shape = shape;
     AddChild(collisionShape);
   }
 
   public override void _Draw()
   {
-    DrawCircle(Vector2.Zero, BodySize, Colors.LightBlue);
-    DrawCircle(Vector2.Zero, BodySize - 2, Colors.White);
+    DrawCircle(Vector2.Zero, Radius, Colors.LightBlue);
+    DrawCircle(Vector2.Zero, Radius - 2, Colors.White);
   }
 
   public override void _Process(float delta)
@@ -143,26 +145,26 @@ public class SimpleMover : Area2D
     var size = GetViewportRect().Size;
     var newPos = Position;
 
-    if (Position.y < BodySize / 2)
+    if (Position.y < BodySize.y / 2)
     {
       Velocity.y *= -1;
-      newPos.y = BodySize / 2;
+      newPos.y = BodySize.y / 2;
     }
-    else if (Position.y > size.y - BodySize / 2)
+    else if (Position.y > size.y - BodySize.y / 2)
     {
       Velocity.y *= -1;
-      newPos.y = size.y - BodySize / 2;
+      newPos.y = size.y - BodySize.y / 2;
     }
 
-    if (Position.x < BodySize / 2)
+    if (Position.x < BodySize.x / 2)
     {
       Velocity.x *= -1;
-      newPos.x = BodySize / 2;
+      newPos.x = BodySize.x / 2;
     }
-    else if (Position.x > size.x - BodySize / 2)
+    else if (Position.x > size.x - BodySize.x / 2)
     {
       Velocity.x *= -1;
-      newPos.x = size.x - BodySize / 2;
+      newPos.x = size.x - BodySize.x / 2;
     }
 
     Position = newPos;

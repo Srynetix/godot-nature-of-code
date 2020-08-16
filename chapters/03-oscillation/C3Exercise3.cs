@@ -27,9 +27,9 @@ public class C3Exercise3 : Control, IExample
     public override void _Draw()
     {
       // Car body
-      var bodyLength = BodySize * 2;
-      var bodyWidth = BodySize;
-      var wheelRadius = BodySize / 4;
+      var bodyLength = Radius * 2;
+      var bodyWidth = Radius;
+      var wheelRadius = Radius / 4;
 
       DrawCircle(new Vector2(-bodyLength / 2 + bodyLength / 4, -bodyWidth / 2), wheelRadius, Colors.Green);
       DrawCircle(new Vector2(bodyLength / 2 - bodyLength / 4, -bodyWidth / 2), wheelRadius, Colors.Green);

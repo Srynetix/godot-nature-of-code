@@ -19,8 +19,8 @@ public class C3Example2 : Node2D, IExample
 
     public override void _Draw()
     {
-      DrawRect(new Rect2(Vector2.Zero, Vector2.One * (BodySize + 1)), Colors.LightBlue);
-      DrawRect(new Rect2(Vector2.One, Vector2.One * (BodySize - 1)), Colors.White);
+      DrawRect(new Rect2(Vector2.Zero, Vector2.One * (Radius + 1)), Colors.LightBlue);
+      DrawRect(new Rect2(Vector2.One, Vector2.One * (Radius - 1)), Colors.White);
     }
 
     protected override void UpdateAcceleration()
@@ -45,7 +45,8 @@ public class C3Example2 : Node2D, IExample
     foreach (int x in Enumerable.Range(0, squareCount))
     {
       var square = new Square();
-      square.BodySize = (float)GD.RandRange(5, 20);
+      var radius = (float)GD.RandRange(5, 20);
+      square.BodySize = new Vector2(radius, radius);
       square.Position = Utils.RandVector2(size / 8, size - size / 8);
       AddChild(square);
     }

@@ -32,8 +32,8 @@ public class C2Exercise8 : Node2D, IExample
       var bodySize = (float)GD.RandRange(5, 20);
       var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
       var yPos = (float)GD.RandRange(bodySize, size.y - bodySize);
-      mover.BodySize = bodySize;
-      mover.Mass = mover.BodySize;
+      mover.BodySize = new Vector2(bodySize, bodySize);
+      mover.Mass = bodySize;
       mover.Position = new Vector2(xPos, yPos);
 
       var trail = new SimpleTrail();

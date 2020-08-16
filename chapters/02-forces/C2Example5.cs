@@ -37,9 +37,10 @@ public class C2Example5 : Node2D, IExample
     foreach (var x in Enumerable.Range(0, 20))
     {
       var mover = new Mover();
-      mover.BodySize = (float)GD.RandRange(5, 20);
+      var bodySize = (float)GD.RandRange(5, 20);
+      mover.BodySize = new Vector2(bodySize, bodySize);
       mover.Mass = (float)GD.RandRange(5, 10);
-      var xPos = (float)GD.RandRange(mover.BodySize, size.x - mover.BodySize);
+      var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
       mover.Position = new Vector2(xPos, size.y / 2);
       AddChild(mover);
     }

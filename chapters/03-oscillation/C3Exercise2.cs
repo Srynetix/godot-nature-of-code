@@ -80,8 +80,8 @@ public class C3Exercise2 : Node2D, IExample
 
     public override void _Draw()
     {
-      DrawRect(new Rect2(-BodySize / 2, -BodySize / 2, BodySize, BodySize), Colors.LightBlue);
-      DrawRect(new Rect2(-BodySize / 2 + 2, -BodySize / 2 + 2, BodySize - 4, BodySize - 4), Colors.White);
+      DrawRect(new Rect2(-Radius / 2, -Radius / 2, Radius, Radius), Colors.LightBlue);
+      DrawRect(new Rect2(-Radius / 2 + 2, -Radius / 2 + 2, Radius - 4, Radius - 4), Colors.White);
     }
   }
 

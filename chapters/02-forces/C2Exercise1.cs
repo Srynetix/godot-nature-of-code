@@ -33,8 +33,8 @@ public class C2Exercise1 : Node2D, IExample
 
     public override void _Draw()
     {
-      DrawCircle(Vector2.Zero, BodySize, Colors.White.WithAlpha(128));
-      DrawCircle(Vector2.Zero, BodySize - 2, Colors.LightCyan.WithAlpha(128));
+      DrawCircle(Vector2.Zero, Radius, Colors.White.WithAlpha(128));
+      DrawCircle(Vector2.Zero, Radius - 2, Colors.LightCyan.WithAlpha(128));
       DrawLine(Vector2.Down * BodySize, (Vector2.Down * (BodySize * 2)).Rotated(Mathf.Sin(tRope) / 10), Colors.White.WithAlpha(128), 2);
     }
 

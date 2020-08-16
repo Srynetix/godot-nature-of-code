@@ -29,7 +29,8 @@ public class C2Example2 : Node2D, IExample
     foreach (var x in Enumerable.Range(0, 20))
     {
       var mover = new Mover();
-      mover.BodySize = (float)GD.RandRange(5, 20);
+      var bodySize = (float)GD.RandRange(5, 20);
+      mover.BodySize = new Vector2(bodySize, bodySize);
       mover.Mass = (float)GD.RandRange(5, 10);
       AddChild(mover);
     }

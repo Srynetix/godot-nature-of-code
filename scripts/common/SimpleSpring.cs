@@ -71,7 +71,7 @@ public class SimpleSpring : Node2D
     {
       if (eventScreenTouch.Pressed && touchIndex == -1)
       {
-        if (eventScreenTouch.Position.DistanceTo(currentMover.GlobalPosition) < currentMover.BodySize * 2)
+        if (eventScreenTouch.Position.DistanceTo(currentMover.GlobalPosition) < currentMover.Radius * 2)
         {
           touchIndex = eventScreenTouch.Index;
           currentMover.DisableForces = true;
