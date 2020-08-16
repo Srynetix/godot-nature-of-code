@@ -22,14 +22,7 @@ public class Ecosystem : Control
     {
       base._Ready();
 
-      SetAtRandomScreenPos();
       SetAtRandomAngle();
-    }
-
-    public void SetAtRandomScreenPos()
-    {
-      var size = GetViewportRect().Size;
-      Position = new Vector2((float)GD.RandRange(0, 1) * size.x, (float)GD.RandRange(0, 1) * size.y);
     }
 
     public void SetAtRandomAngle()
@@ -351,6 +344,22 @@ public class Ecosystem : Control
   public int CountPerSpecies = 3;
 
   private Control drawZone;
+  private int zoneCount = 5;
+  private float zoneMargin = 10;
+
+  private void AddInZone(Lifeform lifeform, int zoneIdx)
+  {
+    var size = GetViewportRect().Size;
+    var zoneSplit = size.y / zoneCount;
+    var zoneLowerLimit = size.y - (zoneMargin + zoneIdx * zoneSplit);
+    var zoneUpperLimit = zoneLowerLimit - zoneSplit;
+
+    var xPosition = (float)GD.RandRange(lifeform.BodySize.x, size.x - lifeform.BodySize.x);
+    var yPosition = (float)GD.RandRange(zoneLowerLimit, zoneUpperLimit);
+
+    lifeform.Position = new Vector2(xPosition, yPosition);
+    drawZone.AddChild(lifeform);
+  }
 
   public override void _Ready()
   {
@@ -361,23 +370,23 @@ public class Ecosystem : Control
     {
       var fly = new NervousFly();
       fly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
-      drawZone.AddChild(fly);
+      AddInZone(fly, 4);
 
       var butterfly = new NervousButterfly();
       butterfly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
-      drawZone.AddChild(butterfly);
+      AddInZone(butterfly, 3);
 
       var fish = new SwimmingFish();
       fish.Scale = Vector2.One * (float)GD.RandRange(0.5f, 2f);
-      drawZone.AddChild(fish);
+      AddInZone(fish, 0);
 
       var bunny = new HoppingBunny();
       bunny.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
-      drawZone.AddChild(bunny);
+      AddInZone(bunny, 1);
 
       var attractedFly = new AttractedFly();
       attractedFly.Scale = Vector2.One * (float)GD.RandRange(0.5f, 1.5f);
-      drawZone.AddChild(attractedFly);
+      AddInZone(attractedFly, 2);
     }
   }
 }
