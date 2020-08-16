@@ -125,6 +125,7 @@
     <Compile Include="chapters\03-oscillation\C3Exercise9.cs" />
     <Compile Include="chapters\04-particles\C4Example1.cs" />
     <Compile Include="chapters\04-particles\C4Example2.cs" />
+    <Compile Include="chapters\04-particles\C4Example3.cs" />
     <Compile Include="chapters\04-particles\C4Exercise1.cs" />
     <Compile Include="chapters\04-particles\C4Exercise2.cs" />
     <Compile Include="chapters\Example.cs" />
@@ -144,12 +145,14 @@
     <Compile Include="scripts\common\SimpleNoiseTexture.cs" />
     <Compile Include="scripts\common\SimpleOscillator.cs" />
     <Compile Include="scripts\common\SimpleParticle.cs" />
+    <Compile Include="scripts\common\SimpleParticleSystem.cs" />
     <Compile Include="scripts\common\SimplePendulum.cs" />
     <Compile Include="scripts\common\SimpleSpring.cs" />
     <Compile Include="scripts\common\SimpleTrail.cs" />
     <Compile Include="scripts\common\SimpleWalker.cs" />
     <Compile Include="scripts\common\SimpleZone.cs" />
     <Compile Include="scripts\common\variants\ConstantAccelerationMover.cs" />
+    <Compile Include="scripts\common\variants\SimpleSquareParticle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

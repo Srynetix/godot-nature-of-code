@@ -10,24 +10,12 @@ public class C4Example2 : Node2D, IExample
       + "Particles List";
   }
 
-  public class EParticle : SimpleParticle
+  public class EParticle : SimpleSquareParticle
   {
-    public EParticle() : base(WrapModeEnum.None) { }
-
     protected override void UpdateAcceleration()
     {
       AngularAcceleration = Acceleration.x / 10f;
       ApplyForce(new Vector2((float)GD.RandRange(-0.5f, 0.5f), 0.15f));
-    }
-
-    public override void _Draw()
-    {
-      if (IsDead())
-      {
-        return;
-      }
-
-      DrawRect(new Rect2(-BodySize / 2, BodySize / 2), Colors.LightBlue.WithAlpha(GetLifespanAlphaValue()));
     }
   }
 
