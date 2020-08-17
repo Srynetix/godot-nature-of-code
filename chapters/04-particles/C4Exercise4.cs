@@ -8,14 +8,6 @@ public class C4Exercise4 : C3Exercise5, IExample
       + "Asteroids with Particles";
   }
 
-  public class EParticle : SimpleSquareParticle
-  {
-    protected override void UpdateAcceleration()
-    {
-      ApplyForce(new Vector2((float)GD.RandRange(-0.5f, 0.5f), 0.5f));
-    }
-  }
-
   public class SpaceshipWithParticles : Spaceship
   {
     private SimpleParticleSystem particleSystem;
@@ -40,9 +32,9 @@ public class C4Exercise4 : C3Exercise5, IExample
       particleSystem.Emitting = thrusting;
     }
 
-    public SimpleParticle CreateParticle()
+    private SimpleParticle CreateParticle()
     {
-      var particle = new EParticle();
+      var particle = new SimpleFallingParticle();
       particle.BodySize = new Vector2(10, 10);
       particle.Lifespan = 2;
       return particle;

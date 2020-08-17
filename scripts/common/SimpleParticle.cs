@@ -6,6 +6,7 @@ public class SimpleParticle : SimpleMover
   public bool LifespanAsAlpha = true;
   public Color BaseColor = Colors.White;
   public Color BaseOutlineColor = Colors.LightBlue;
+  public bool IsSquare = false;
 
   private float initialLifespan;
 
@@ -37,8 +38,16 @@ public class SimpleParticle : SimpleMover
     }
 
     var alpha = LifespanAsAlpha ? GetLifespanAlphaValue() : (byte)255;
-    DrawCircle(Vector2.Zero, Radius, BaseOutlineColor.WithAlpha(alpha));
-    DrawCircle(Vector2.Zero, Radius - 2, BaseColor.WithAlpha(alpha));
+
+    if (IsSquare)
+    {
+      DrawRect(new Rect2(-BodySize / 2, BodySize / 2), Colors.LightBlue.WithAlpha(GetLifespanAlphaValue()));
+    }
+    else
+    {
+      DrawCircle(Vector2.Zero, Radius, BaseOutlineColor.WithAlpha(alpha));
+      DrawCircle(Vector2.Zero, Radius - 2, BaseColor.WithAlpha(alpha));
+    }
   }
 
   protected byte GetLifespanAlphaValue()

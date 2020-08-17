@@ -8,20 +8,13 @@ public class C4Exercise1 : Node2D, IExample
       + "Particle With Forces";
   }
 
-  public class EParticle : SimpleParticle
-  {
-    protected override void UpdateAcceleration()
-    {
-      ApplyForce(new Vector2((float)GD.RandRange(-0.25f, 0.25f), 0.25f));
-    }
-  }
-
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
-    var particle = new EParticle();
+    var particle = new SimpleFallingParticle();
+    particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
     particle.Position = size / 2;
-    particle.BodySize = new Vector2(10, 10);
+    particle.BodySize = new Vector2(20, 20);
     particle.Lifespan = 4;
 
     AddChild(particle);

@@ -47,7 +47,7 @@ public class C3Example2 : Node2D, IExample
       var square = new Square();
       var radius = (float)GD.RandRange(5, 20);
       square.BodySize = new Vector2(radius, radius);
-      square.Position = Utils.RandVector2(size / 8, size - size / 8);
+      square.Position = Utils.RandVector2(size.x / 8, size.x / 1.125f, size.y / 8, size.y / 1.125f);
       AddChild(square);
     }
   }

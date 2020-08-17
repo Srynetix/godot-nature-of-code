@@ -6,7 +6,7 @@ public class SimpleParticleSystem : SimpleMover
 {
   public delegate SimpleParticle CreateParticleFunction();
 
-  public bool Emitting = false;
+  public bool Emitting = true;
   public bool RemoveWhenEmptyParticles = false;
   public int ParticleCount = -1;
   public int ParticleSpawnFrameDelay = 4;

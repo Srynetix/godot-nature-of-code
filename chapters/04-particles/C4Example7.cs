@@ -8,21 +8,12 @@ public class C4Example7 : Node2D, IExample
       + "Particle System and Repeller";
   }
 
-  public class EParticle : SimpleParticle
-  {
-    protected override void UpdateAcceleration()
-    {
-      ApplyForce(new Vector2((float)GD.RandRange(-0.1f, 0.1f), 0.15f));
-    }
-  }
-
-  private SimpleParticleSystem particleSystem;
-
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
-    particleSystem = new SimpleParticleSystem();
+    var particleSystem = new SimpleParticleSystem();
     particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
+    particleSystem.SetCreateParticleFunction(CreateParticle);
     AddChild(particleSystem);
 
     var repeller = new SimpleRepeller();
@@ -30,12 +21,13 @@ public class C4Example7 : Node2D, IExample
     AddChild(repeller);
   }
 
-  public override void _Process(float delta)
+  private SimpleParticle CreateParticle()
   {
-    var particle = new EParticle();
-    particle.BodySize = new Vector2(10, 10);
-    particle.Lifespan = 4;
-    particle.Mass = 3;
-    particleSystem.AddParticle(particle);
+    var particle = new SimpleFallingParticle();
+    particle.IsSquare = true;
+    particle.BodySize = new Vector2(20, 20);
+    particle.Lifespan = 2;
+    particle.Mass = 2;
+    return particle;
   }
 }

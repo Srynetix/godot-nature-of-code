@@ -9,28 +9,19 @@ public class C4Example4 : Node2D, IExample
       + "Touch screen to spawn particle system";
   }
 
-  public class EParticle : SimpleSquareParticle
-  {
-    protected override void UpdateAcceleration()
-    {
-      Acceleration = new Vector2((float)GD.RandRange(-0.5f, 0.5f), 0.15f);
-      AngularAcceleration = Acceleration.x / 10f;
-    }
-  }
-
-  public void AddParticleSystem(Vector2 position)
+  private void AddParticleSystem(Vector2 position)
   {
     var ps = new SimpleParticleSystem();
-    ps.Emitting = true;
     ps.SetCreateParticleFunction(CreateParticle);
     ps.GlobalPosition = position;
     AddChild(ps);
   }
 
-  public SimpleParticle CreateParticle()
+  private SimpleParticle CreateParticle()
   {
-    var particle = new EParticle();
+    var particle = new SimpleFallingParticle();
     particle.Lifespan = 2;
+    particle.IsSquare = true;
     particle.BodySize = new Vector2(10, 10);
     return particle;
   }
@@ -43,6 +34,19 @@ public class C4Example4 : Node2D, IExample
       {
         AddParticleSystem(eventScreenTouch.Position);
       }
+    }
+  }
+
+  public override void _Ready()
+  {
+    // Initial systems
+    var size = GetViewportRect().Size;
+    int initialCount = 2;
+    float splitSize = size.x / initialCount;
+
+    for (int i = 0; i < initialCount; ++i)
+    {
+      AddParticleSystem(new Vector2(splitSize / 2 + splitSize * i, size.y / 4));
     }
   }
 }

@@ -162,7 +162,7 @@
     <Compile Include="scripts\common\SimpleZone.cs" />
     <Compile Include="scripts\common\variants\ConstantAccelerationMover.cs" />
     <Compile Include="scripts\common\variants\SimpleRepeller.cs" />
-    <Compile Include="scripts\common\variants\SimpleSquareParticle.cs" />
+    <Compile Include="scripts\common\variants\SimpleFallingParticle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

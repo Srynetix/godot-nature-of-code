@@ -8,15 +8,6 @@ public class C4Exercise3 : Node2D, IExample
       + "Dynamic Particle System";
   }
 
-  public class EParticle : SimpleSquareParticle
-  {
-    protected override void UpdateAcceleration()
-    {
-      AngularAcceleration = Acceleration.x / 10f;
-      ApplyForce(new Vector2((float)GD.RandRange(-0.5f, 0.5f), 0.15f));
-    }
-  }
-
   public class DynamicParticleSystem : SimpleParticleSystem
   {
     public DynamicParticleSystem() : base(WrapModeEnum.Bounce)
@@ -31,21 +22,22 @@ public class C4Exercise3 : Node2D, IExample
     }
   }
 
-  private SimpleParticleSystem particleSystem;
-
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
-    particleSystem = new DynamicParticleSystem();
+    var particleSystem = new DynamicParticleSystem();
     particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
+    particleSystem.SetCreateParticleFunction(CreateParticle);
     AddChild(particleSystem);
   }
 
-  public override void _Process(float delta)
+  private SimpleParticle CreateParticle()
   {
-    var particle = new EParticle();
-    particle.BodySize = new Vector2(10, 10);
+    var particle = new SimpleFallingParticle();
+    particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
+    particle.IsSquare = true;
+    particle.BodySize = new Vector2(20, 20);
     particle.Lifespan = 2;
-    particleSystem.AddParticle(new EParticle());
+    return particle;
   }
 }

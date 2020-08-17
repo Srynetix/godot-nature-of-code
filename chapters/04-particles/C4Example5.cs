@@ -8,55 +8,50 @@ public class C4Example5 : Node2D, IExample
       + "Multiple Particle Types";
   }
 
-  public class ERoundParticle : SimpleParticle
+  public class ERoundParticle : SimpleFallingParticle
   {
-    protected override void UpdateAcceleration()
+    public ERoundParticle()
     {
-      ApplyForce(new Vector2(Utils.RandRangef(-0.5f, 0.5f), 0.0981f));
+      WrapMode = WrapModeEnum.Bounce;
+      ForceRangeY = new Vector2(-0.15f, -0.15f);
+      BodySize = new Vector2(7.5f, 7.5f);
+      IsSquare = false;
     }
   }
 
-  public class ESquareParticle : SimpleSquareParticle
+  public class ESquareParticle : SimpleFallingParticle
   {
-    protected override void UpdateAcceleration()
+    public ESquareParticle()
     {
-      ApplyForce(new Vector2(Utils.RandRangef(-0.5f, 0.5f), -0.0981f));
+      WrapMode = WrapModeEnum.Bounce;
+      ForceRangeY = new Vector2(0.15f, 0.15f);
+      BodySize = new Vector2(20f, 20f);
+      IsSquare = true;
     }
   }
 
-  public class EParticleSystem : SimpleParticleSystem
+  private SimpleParticle CreateParticle()
   {
-    public override void _Ready()
-    {
-      base._Ready();
+    SimpleParticle particle = null;
 
-      SetCreateParticleFunction(CreateParticle);
-      Emitting = true;
+    if (Utils.RandRangef(0, 1) >= 0.5)
+    {
+      particle = new ERoundParticle();
+    }
+    else
+    {
+      particle = new ESquareParticle();
     }
 
-    public SimpleParticle CreateParticle()
-    {
-      SimpleParticle particle = null;
-      if (Utils.SignedRandf() > 0.5)
-      {
-        particle = new ERoundParticle();
-        particle.BodySize = new Vector2(7.5f, 7.5f);
-      }
-      else
-      {
-        particle = new ESquareParticle();
-        particle.BodySize = new Vector2(20, 20);
-      }
-
-      particle.Lifespan = 2;
-      return particle;
-    }
+    particle.Lifespan = 2;
+    return particle;
   }
 
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
-    var particleSystem = new EParticleSystem();
+    var particleSystem = new SimpleParticleSystem();
+    particleSystem.SetCreateParticleFunction(CreateParticle);
     particleSystem.Position = new Vector2(size.x / 2, size.y / 2);
     AddChild(particleSystem);
   }

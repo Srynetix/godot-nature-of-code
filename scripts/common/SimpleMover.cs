@@ -147,30 +147,30 @@ public class SimpleMover : Area2D
   protected void BounceOnEdges()
   {
     var size = GetViewportRect().Size;
-    var newPos = Position;
+    var newPos = GlobalPosition;
 
-    if (Position.y < BodySize.y / 2)
+    if (GlobalPosition.y < BodySize.y / 2)
     {
       Velocity.y *= -1;
       newPos.y = BodySize.y / 2;
     }
-    else if (Position.y > size.y - BodySize.y / 2)
+    else if (GlobalPosition.y > size.y - BodySize.y / 2)
     {
       Velocity.y *= -1;
       newPos.y = size.y - BodySize.y / 2;
     }
 
-    if (Position.x < BodySize.x / 2)
+    if (GlobalPosition.x < BodySize.x / 2)
     {
       Velocity.x *= -1;
       newPos.x = BodySize.x / 2;
     }
-    else if (Position.x > size.x - BodySize.x / 2)
+    else if (GlobalPosition.x > size.x - BodySize.x / 2)
     {
       Velocity.x *= -1;
       newPos.x = size.x - BodySize.x / 2;
     }
 
-    Position = newPos;
+    GlobalPosition = newPos;
   }
 }

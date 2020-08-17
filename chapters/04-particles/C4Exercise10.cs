@@ -8,52 +8,37 @@ public class C4Exercise10 : Node2D, IExample
       + "Responding Particles";
   }
 
-  public class EParticle : SimpleParticle
+  public class EParticle : SimpleFallingParticle
   {
     public override void _Ready()
     {
       base._Ready();
+      WrapMode = WrapModeEnum.Bounce;
+      ForceRangeX = new Vector2(-0.1f, 0.1f);
+      ForceRangeY = new Vector2(0.005f, 0.005f);
 
       // Every particle should attract each other
       var attractor = new SimpleAttractor();
-      attractor.Gravitation = 1f;
       attractor.Drawing = false;
       AddChild(attractor);
     }
-
-    protected override void UpdateAcceleration()
-    {
-      ApplyForce(new Vector2((float)GD.RandRange(-0.1f, 0.1f), 0.015f));
-    }
   }
 
-  public class EParticleSystem : SimpleParticleSystem
+  private SimpleParticle CreateParticle()
   {
-    public override void _Ready()
-    {
-      base._Ready();
-      SetCreateParticleFunction(CreateParticle);
-    }
-
-    public SimpleParticle CreateParticle()
-    {
-      var particle = new EParticle();
-      particle.BodySize = new Vector2(10, 10);
-      particle.Lifespan = 4;
-      particle.Mass = 4;
-      return particle;
-    }
+    var particle = new EParticle();
+    particle.BodySize = new Vector2(10, 10);
+    particle.Lifespan = 4;
+    particle.Mass = 4;
+    return particle;
   }
-
-  private SimpleParticleSystem particleSystem;
 
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
-    var particleSystem = new EParticleSystem();
-    particleSystem.ParticleSpawnFrameDelay = 4;
+    var particleSystem = new SimpleParticleSystem();
+    particleSystem.SetCreateParticleFunction(CreateParticle);
     particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
-    particleSystem.Emitting = true;
     AddChild(particleSystem);
   }
 }

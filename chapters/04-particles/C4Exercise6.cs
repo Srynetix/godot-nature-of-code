@@ -5,7 +5,8 @@ public class C4Exercise6 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 4.6:\n"
-      + "Shattering Object";
+      + "Shattering Objects\n\n"
+      + "Touch screen to break objects";
   }
 
   public class EParticle : SimpleParticle
@@ -16,6 +17,7 @@ public class C4Exercise6 : Node2D, IExample
     {
       BaseColor = Colors.White;
       BaseOutlineColor = Colors.LightBlue;
+      WrapMode = WrapModeEnum.Bounce;
     }
 
     public override void _Ready()
@@ -58,7 +60,7 @@ public class C4Exercise6 : Node2D, IExample
       AddChild(particleSystem);
     }
 
-    public SimpleParticle CreateParticle()
+    private SimpleParticle CreateParticle()
     {
       var particle = new EParticle();
       particle.BodySize = BodySize / 2;

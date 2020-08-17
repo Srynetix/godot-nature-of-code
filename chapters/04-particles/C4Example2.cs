@@ -10,15 +10,6 @@ public class C4Example2 : Node2D, IExample
       + "Particles List";
   }
 
-  public class EParticle : SimpleSquareParticle
-  {
-    protected override void UpdateAcceleration()
-    {
-      AngularAcceleration = Acceleration.x / 10f;
-      ApplyForce(new Vector2((float)GD.RandRange(-0.5f, 0.5f), 0.15f));
-    }
-  }
-
   public class ParticleList : Node2D
   {
     private List<SimpleParticle> particles;
@@ -30,9 +21,10 @@ public class C4Example2 : Node2D, IExample
 
     private void CreateParticle()
     {
-      var particle = new EParticle();
+      var particle = new SimpleFallingParticle();
       particle.BodySize = new Vector2(20, 20);
       particle.Lifespan = 2;
+      particle.IsSquare = true;
       particles.Add(particle);
       AddChild(particle);
     }

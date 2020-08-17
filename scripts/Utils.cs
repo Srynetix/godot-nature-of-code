@@ -33,18 +33,28 @@ public class Utils
     return (float)GD.RandRange(min, max);
   }
 
-  /**
-   * Return a random Vector2.
-   */
-  static public Vector2 RandVector2(Vector2 min, Vector2 max)
+  static public Vector2 RandRangeVector2X(float minX, float maxX, float y)
   {
-    return RandVector2(min.x, min.y, max.x, max.y);
+    return new Vector2(RandRangef(minX, maxX), y);
+  }
+
+  static public Vector2 RandRangeVector2Y(float x, float minY, float maxY)
+  {
+    return new Vector2(x, RandRangef(minY, maxY));
   }
 
   /**
    * Return a random Vector2.
    */
-  static public Vector2 RandVector2(float minX, float minY, float maxX, float maxY)
+  static public Vector2 RandVector2(Vector2 rangeX, Vector2 rangeY)
+  {
+    return RandVector2(rangeX.x, rangeX.y, rangeY.x, rangeY.y);
+  }
+
+  /**
+   * Return a random Vector2.
+   */
+  static public Vector2 RandVector2(float minX, float maxX, float minY, float maxY)
   {
     var vec = Vector2.Zero;
     vec.x = (float)GD.RandRange(minX, maxX);
