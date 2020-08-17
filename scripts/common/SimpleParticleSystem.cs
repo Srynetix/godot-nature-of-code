@@ -10,6 +10,8 @@ public class SimpleParticleSystem : SimpleMover
   public bool RemoveWhenEmptyParticles = false;
   public int ParticleCount = -1;
   public int ParticleSpawnFrameDelay = 4;
+  public bool LocalCoords = true;
+  public Node ParticlesContainer = null;
 
   private List<SimpleParticle> particles;
   private CreateParticleFunction particleFunction = null;
@@ -29,7 +31,17 @@ public class SimpleParticleSystem : SimpleMover
   public void AddParticle(SimpleParticle particle)
   {
     particles.Add(particle);
-    AddChild(particle);
+
+    if (LocalCoords)
+    {
+      AddChild(particle);
+    }
+    else
+    {
+      var container = ParticlesContainer ?? GetParent();
+      particle.GlobalPosition = GlobalPosition;
+      container.AddChild(particle);
+    }
   }
 
   private void UpdateParticles()

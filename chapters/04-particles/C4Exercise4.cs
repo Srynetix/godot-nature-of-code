@@ -17,9 +17,12 @@ public class C4Exercise4 : C3Exercise5, IExample
       base._Ready();
 
       particleSystem = new SimpleParticleSystem();
+      particleSystem.ParticlesContainer = GetParent();
       particleSystem.WrapMode = WrapModeEnum.None;
+      particleSystem.LocalCoords = false;
       particleSystem.Emitting = false;
       particleSystem.Position = new Vector2(0, Radius);
+      particleSystem.ParticleSpawnFrameDelay = 0;
       particleSystem.ShowBehindParent = true;
       particleSystem.SetCreateParticleFunction(CreateParticle);
       AddChild(particleSystem);
@@ -35,6 +38,10 @@ public class C4Exercise4 : C3Exercise5, IExample
     private SimpleParticle CreateParticle()
     {
       var particle = new SimpleFallingParticle();
+      particle.ForceRangeX = new Vector2(-0.15f, 0.15f);
+      particle.ForceRangeY = new Vector2(-0.15f, 0.15f);
+      particle.WrapMode = WrapModeEnum.None;
+      particle.IsSquare = true;
       particle.BodySize = new Vector2(10, 10);
       particle.Lifespan = 2;
       return particle;

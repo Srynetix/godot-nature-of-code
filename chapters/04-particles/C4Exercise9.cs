@@ -5,7 +5,7 @@ public class C4Exercise9 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 4.9:\n"
-      + "Particle System Multiple Repellers";
+      + "Particle Repellers";
   }
 
   public override void _Ready()
@@ -28,7 +28,8 @@ public class C4Exercise9 : Node2D, IExample
   private SimpleParticle CreateParticle()
   {
     var particle = new SimpleFallingParticle();
-    particle.BodySize = new Vector2(10, 10);
+    particle.IsSquare = true;
+    particle.BodySize = new Vector2(20, 20);
     particle.Lifespan = 2;
     particle.Mass = 2;
     return particle;

@@ -27,7 +27,8 @@ public class C4Exercise10 : Node2D, IExample
   private SimpleParticle CreateParticle()
   {
     var particle = new EParticle();
-    particle.BodySize = new Vector2(10, 10);
+    particle.BodySize = new Vector2(20, 20);
+    particle.IsSquare = true;
     particle.Lifespan = 4;
     particle.Mass = 4;
     return particle;

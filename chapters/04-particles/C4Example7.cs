@@ -5,7 +5,7 @@ public class C4Example7 : Node2D, IExample
   public string _Summary()
   {
     return "Example 4.7:\n"
-      + "Particle System and Repeller";
+      + "Particle Repeller";
   }
 
   public override void _Ready()
