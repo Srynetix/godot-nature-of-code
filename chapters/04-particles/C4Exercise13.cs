@@ -1,11 +1,11 @@
 using Godot;
 
-public class C4Exercise11 : Node2D, IExample
+public class C4Exercise13 : Node2D, IExample
 {
   public string _Summary()
   {
-    return "Exercise 4.11\n"
-      + "Fire!";
+    return "Exercise 4.13\n"
+      + "Rainbow!";
   }
 
   public override void _Ready()
@@ -18,9 +18,9 @@ public class C4Exercise11 : Node2D, IExample
       particle.WrapMode = SimpleMover.WrapModeEnum.None;
       particle.ParticleMesh = ParticleMeshEnum.Texture;
       particle.ParticleTextureChoice = ParticleTexture.Choice.WhiteDotBlur;
-      particle.BodySize = new Vector2(150, 150);
+      particle.BodySize = new Vector2(40, 40);
       particle.ForceRangeX = new Vector2(-0.25f, 0.25f);
-      particle.BaseColor = Colors.Firebrick;
+      particle.BaseColor = Utils.RandColor();
       particle.ForceRangeY = new Vector2(0, -0.15f);
       particle.Lifespan = 2;
       return particle;

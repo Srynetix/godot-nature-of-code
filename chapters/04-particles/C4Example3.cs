@@ -16,8 +16,7 @@ public class C4Example3 : Node2D, IExample
     {
       var particle = new SimpleFallingParticle();
       particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
-      particle.ParticleMesh = ParticleMeshEnum.Texture;
-      particle.ParticleTextureChoice = ParticleTexture.Choice.WhiteDotBlur;
+      particle.ParticleMesh = ParticleMeshEnum.Square;
       particle.BodySize = new Vector2(20, 20);
       particle.Lifespan = 2;
       return particle;

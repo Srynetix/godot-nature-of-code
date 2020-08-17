@@ -73,6 +73,7 @@ public class SimpleParticle : SimpleMover
       {
         sprite.Texture = ParticleTexture.WhiteDotBlurTexture;
       }
+      sprite.Modulate = BaseColor;
       sprite.Scale = BodySize / sprite.Texture.GetSize();
       sprite.Visible = true;
     }
