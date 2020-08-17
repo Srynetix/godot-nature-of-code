@@ -2,6 +2,8 @@ using Godot;
 
 public class Launcher : Control
 {
+  public static string VERSION = "1.0.0.beta";
+
   private VBoxContainer launcherUI;
   private ColorRect background;
   private Button backButton;
@@ -9,6 +11,7 @@ public class Launcher : Control
   private Button ecosystemButton;
   private Button quitButton;
   private Label fpsLabel;
+  private Label versionLabel;
   private RichTextLabel links;
   private Control drawSpace;
 
@@ -26,12 +29,16 @@ public class Launcher : Control
     links = GetNode<RichTextLabel>("Margin/VBox/Margin/Links");
     drawSpace = GetNode<Control>("DrawSpace");
     fpsLabel = GetNode<Label>("Margin/FPS");
+    versionLabel = GetNode<Label>("Margin/Version");
 
     examplesButton.Connect("pressed", this, nameof(LoadSceneExplorer));
     ecosystemButton.Connect("pressed", this, nameof(LoadEcosystem));
     quitButton.Connect("pressed", this, nameof(Quit));
     backButton.Connect("pressed", this, nameof(ReloadLauncher));
     links.Connect("meta_clicked", this, nameof(LinkClicked));
+
+    // Set version
+    versionLabel.Text = VERSION;
 
     if (OS.GetName() == "HTML5")
     {
@@ -62,6 +69,7 @@ public class Launcher : Control
 
   private void ToggleLauncherUI(bool state)
   {
+    versionLabel.Visible = state;
     launcherUI.Visible = state;
     background.Visible = state;
   }

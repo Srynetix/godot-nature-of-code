@@ -55,6 +55,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Version" type="Label" parent="Margin"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 108.0
+margin_bottom = 42.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "[VERSION]"
+
 [node name="BackButton" type="Button" parent="Margin"]
 margin_left = 1058.0
 margin_top = 20.0
