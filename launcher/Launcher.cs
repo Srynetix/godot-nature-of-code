@@ -38,7 +38,7 @@ public class Launcher : Control
     links.Connect("meta_clicked", this, nameof(LinkClicked));
 
     // Set version
-    versionLabel.Text = VERSION;
+    versionLabel.Text = "Version " + VERSION;
 
     if (OS.GetName() == "HTML5")
     {
