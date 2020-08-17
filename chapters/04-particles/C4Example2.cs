@@ -24,7 +24,7 @@ public class C4Example2 : Node2D, IExample
       var particle = new SimpleFallingParticle();
       particle.BodySize = new Vector2(20, 20);
       particle.Lifespan = 2;
-      particle.IsSquare = true;
+      particle.ParticleMesh = ParticleMeshEnum.Square;
       particles.Add(particle);
       AddChild(particle);
     }

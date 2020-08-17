@@ -33,7 +33,7 @@ public class C4Exercise3 : Node2D, IExample
     {
       var particle = new SimpleFallingParticle();
       particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
-      particle.IsSquare = true;
+      particle.ParticleMesh = ParticleMeshEnum.Square;
       particle.BodySize = new Vector2(20, 20);
       particle.Lifespan = 2;
       return particle;

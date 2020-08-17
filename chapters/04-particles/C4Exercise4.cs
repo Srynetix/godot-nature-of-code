@@ -32,7 +32,7 @@ public class C4Exercise4 : C3Exercise5, IExample
         particle.ForceRangeX = new Vector2(-0.15f, 0.15f);
         particle.ForceRangeY = new Vector2(-0.15f, 0.15f);
         particle.WrapMode = WrapModeEnum.None;
-        particle.IsSquare = true;
+        particle.ParticleMesh = ParticleMeshEnum.Square;
         particle.BodySize = new Vector2(10, 10);
         particle.Lifespan = 2;
         return particle;

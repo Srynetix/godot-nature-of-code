@@ -15,7 +15,7 @@ public class C4Example5 : Node2D, IExample
       WrapMode = WrapModeEnum.Bounce;
       ForceRangeY = new Vector2(-0.15f, -0.15f);
       BodySize = new Vector2(7.5f, 7.5f);
-      IsSquare = false;
+      ParticleMesh = ParticleMeshEnum.Round;
     }
   }
 
@@ -26,7 +26,7 @@ public class C4Example5 : Node2D, IExample
       WrapMode = WrapModeEnum.Bounce;
       ForceRangeY = new Vector2(0.15f, 0.15f);
       BodySize = new Vector2(20f, 20f);
-      IsSquare = true;
+      ParticleMesh = ParticleMeshEnum.Square;
     }
   }
 
