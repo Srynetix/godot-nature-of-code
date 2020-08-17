@@ -30,28 +30,26 @@ public class C4Example5 : Node2D, IExample
     }
   }
 
-  private SimpleParticle CreateParticle()
-  {
-    SimpleParticle particle = null;
-
-    if (Utils.RandRangef(0, 1) >= 0.5)
-    {
-      particle = new ERoundParticle();
-    }
-    else
-    {
-      particle = new ESquareParticle();
-    }
-
-    particle.Lifespan = 2;
-    return particle;
-  }
-
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
     var particleSystem = new SimpleParticleSystem();
-    particleSystem.SetCreateParticleFunction(CreateParticle);
+    particleSystem.SetCreateParticleFunction(() =>
+    {
+      SimpleParticle particle = null;
+
+      if (Utils.RandRangef(0, 1) >= 0.5)
+      {
+        particle = new ERoundParticle();
+      }
+      else
+      {
+        particle = new ESquareParticle();
+      }
+
+      particle.Lifespan = 2;
+      return particle;
+    });
     particleSystem.Position = new Vector2(size.x / 2, size.y / 2);
     AddChild(particleSystem);
   }

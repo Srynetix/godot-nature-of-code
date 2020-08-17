@@ -15,21 +15,16 @@ public class C0Example4 : Node2D, IExample
     generator = new RandomNumberGenerator();
     generator.Randomize();
 
-    var canvas = new DrawCanvas(CanvasDraw);
+    var canvas = new DrawCanvas((pen) =>
+    {
+      var size = GetViewportRect().Size;
+      float num = generator.Randfn(0, 1);  // Gaussian distribution
+      float sd = size.x / 8;
+      float mean = size.x / 2;
+      float x = sd * num + mean;
+      pen.DrawCircle(new Vector2(x, size.y / 2), 8, Colors.LightCyan.WithAlpha(10));
+    });
     canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
     AddChild(canvas);
-  }
-
-  public void CanvasDraw(Node2D pen)
-  {
-    var size = GetViewportRect().Size;
-
-    float num = generator.Randfn(0, 1);  // Gaussian distribution
-    float sd = size.x / 8;
-    float mean = size.x / 2;
-
-    float x = sd * num + mean;
-
-    pen.DrawCircle(new Vector2(x, size.y / 2), 8, Colors.LightCyan.WithAlpha(10));
   }
 }

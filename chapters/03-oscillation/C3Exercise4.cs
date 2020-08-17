@@ -19,28 +19,26 @@ public class C3Exercise4 : Node2D, IExample
   {
     GD.Randomize();
 
-    var canvas = new DrawCanvas(CanvasDraw);
+    var canvas = new DrawCanvas((pen) =>
+    {
+      // Stop when theta > MaxTheta
+      if (theta < MaxTheta)
+      {
+        for (int i = 0; i < Iterations; ++i)
+        {
+          float x = (Width + margin) * Mathf.Cos(theta);
+          float y = (Width + margin) * Mathf.Sin(theta);
+          var target = new Vector2(x, y);
+          var size = GetViewportRect().Size;
+
+          pen.DrawCircle(size / 2 + target, Width / 2, Utils.RandColor());
+
+          theta += 0.016f;
+          margin += 0.016f * 3;
+        }
+      }
+    });
     canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
     AddChild(canvas);
-  }
-
-  public void CanvasDraw(Node2D pen)
-  {
-    // Stop when theta > MaxTheta
-    if (theta < MaxTheta)
-    {
-      for (int i = 0; i < Iterations; ++i)
-      {
-        float x = (Width + margin) * Mathf.Cos(theta);
-        float y = (Width + margin) * Mathf.Sin(theta);
-        var target = new Vector2(x, y);
-        var size = GetViewportRect().Size;
-
-        pen.DrawCircle(size / 2 + target, Width / 2, Utils.RandColor());
-
-        theta += 0.016f;
-        margin += 0.016f * 3;
-      }
-    }
   }
 }

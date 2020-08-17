@@ -56,16 +56,14 @@ public class C4Exercise6 : Node2D, IExample
 
       particleSystem = new SimpleParticleSystem();
       particleSystem.Emitting = false;
-      particleSystem.SetCreateParticleFunction(CreateParticle);
+      particleSystem.SetCreateParticleFunction(() =>
+      {
+        var particle = new EParticle();
+        particle.BodySize = BodySize / 2;
+        particle.Lifespan = 4;
+        return particle;
+      });
       AddChild(particleSystem);
-    }
-
-    private SimpleParticle CreateParticle()
-    {
-      var particle = new EParticle();
-      particle.BodySize = BodySize / 2;
-      particle.Lifespan = 4;
-      return particle;
     }
 
     public void Explode()

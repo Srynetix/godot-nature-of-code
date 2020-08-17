@@ -43,13 +43,11 @@ public class C0Example3 : Node2D, IExample
     walker.SetXY(GetViewportRect().Size / 2);
     AddChild(walker);
 
-    var canvas = new DrawCanvas(CanvasDraw);
+    var canvas = new DrawCanvas((pen) =>
+    {
+      pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
+    });
     canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
     AddChild(canvas);
-  }
-
-  public void CanvasDraw(Node2D pen)
-  {
-    pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
   }
 }

@@ -14,18 +14,16 @@ public class C4Exercise5 : Node2D, IExample
     var ps = new SimpleParticleSystem();
     ps.ParticleCount = 200;
     ps.RemoveWhenEmptyParticles = true;
-    ps.SetCreateParticleFunction(CreateParticle);
+    ps.SetCreateParticleFunction(() =>
+    {
+      var particle = new SimpleFallingParticle();
+      particle.IsSquare = true;
+      particle.Lifespan = 2;
+      particle.BodySize = new Vector2(10, 10);
+      return particle;
+    });
     ps.GlobalPosition = position;
     AddChild(ps);
-  }
-
-  private SimpleParticle CreateParticle()
-  {
-    var particle = new SimpleFallingParticle();
-    particle.IsSquare = true;
-    particle.Lifespan = 2;
-    particle.BodySize = new Vector2(10, 10);
-    return particle;
   }
 
   public override void _Input(InputEvent @event)

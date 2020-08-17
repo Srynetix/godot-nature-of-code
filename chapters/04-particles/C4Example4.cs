@@ -12,18 +12,16 @@ public class C4Example4 : Node2D, IExample
   private void AddParticleSystem(Vector2 position)
   {
     var ps = new SimpleParticleSystem();
-    ps.SetCreateParticleFunction(CreateParticle);
+    ps.SetCreateParticleFunction(() =>
+    {
+      var particle = new SimpleFallingParticle();
+      particle.Lifespan = 2;
+      particle.IsSquare = true;
+      particle.BodySize = new Vector2(10, 10);
+      return particle;
+    });
     ps.GlobalPosition = position;
     AddChild(ps);
-  }
-
-  private SimpleParticle CreateParticle()
-  {
-    var particle = new SimpleFallingParticle();
-    particle.Lifespan = 2;
-    particle.IsSquare = true;
-    particle.BodySize = new Vector2(10, 10);
-    return particle;
   }
 
   public override void _Input(InputEvent @event)

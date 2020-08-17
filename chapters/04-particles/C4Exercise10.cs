@@ -24,21 +24,19 @@ public class C4Exercise10 : Node2D, IExample
     }
   }
 
-  private SimpleParticle CreateParticle()
-  {
-    var particle = new EParticle();
-    particle.BodySize = new Vector2(20, 20);
-    particle.IsSquare = true;
-    particle.Lifespan = 4;
-    particle.Mass = 4;
-    return particle;
-  }
-
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
     var particleSystem = new SimpleParticleSystem();
-    particleSystem.SetCreateParticleFunction(CreateParticle);
+    particleSystem.SetCreateParticleFunction(() =>
+    {
+      var particle = new EParticle();
+      particle.BodySize = new Vector2(20, 20);
+      particle.IsSquare = true;
+      particle.Lifespan = 4;
+      particle.Mass = 4;
+      return particle;
+    });
     particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
     AddChild(particleSystem);
   }

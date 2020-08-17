@@ -5,7 +5,9 @@ public class C4Exercise4 : C3Exercise5, IExample
   public new string _Summary()
   {
     return "Exercise 4.4:\n"
-      + "Asteroids with Particles";
+      + "Asteroids with Particles\n\n"
+      + "On desktop, use left and right arrow keys to turn, then up arrow key to thrust.\n"
+      + "On mobile, you can use the virtual controls.";
   }
 
   public class SpaceshipWithParticles : Spaceship
@@ -24,7 +26,17 @@ public class C4Exercise4 : C3Exercise5, IExample
       particleSystem.Position = new Vector2(0, Radius);
       particleSystem.ParticleSpawnFrameDelay = 0;
       particleSystem.ShowBehindParent = true;
-      particleSystem.SetCreateParticleFunction(CreateParticle);
+      particleSystem.SetCreateParticleFunction(() =>
+      {
+        var particle = new SimpleFallingParticle();
+        particle.ForceRangeX = new Vector2(-0.15f, 0.15f);
+        particle.ForceRangeY = new Vector2(-0.15f, 0.15f);
+        particle.WrapMode = WrapModeEnum.None;
+        particle.IsSquare = true;
+        particle.BodySize = new Vector2(10, 10);
+        particle.Lifespan = 2;
+        return particle;
+      });
       AddChild(particleSystem);
     }
 
@@ -33,18 +45,6 @@ public class C4Exercise4 : C3Exercise5, IExample
       base._Process(delta);
 
       particleSystem.Emitting = thrusting;
-    }
-
-    private SimpleParticle CreateParticle()
-    {
-      var particle = new SimpleFallingParticle();
-      particle.ForceRangeX = new Vector2(-0.15f, 0.15f);
-      particle.ForceRangeY = new Vector2(-0.15f, 0.15f);
-      particle.WrapMode = WrapModeEnum.None;
-      particle.IsSquare = true;
-      particle.BodySize = new Vector2(10, 10);
-      particle.Lifespan = 2;
-      return particle;
     }
   }
 
