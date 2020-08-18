@@ -12,6 +12,10 @@ Almost everything is created from scripts, using `_Draw` methods.
 
 ![screen](./docs/screen.gif)
 
+## Edits
+
+- The Physics Libraries chapter is using the Godot internal physics engine instead of Box2D
+
 ## Roadmap
 
 - [x] Add a dynamic scene loader to explore examples and exercises
