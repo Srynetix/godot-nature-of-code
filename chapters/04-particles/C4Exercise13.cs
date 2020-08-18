@@ -15,13 +15,14 @@ public class C4Exercise13 : Node2D, IExample
     particleSystem.SetCreateParticleFunction(() =>
     {
       var particle = new SimpleFallingParticle();
-      particle.WrapMode = SimpleMover.WrapModeEnum.None;
-      particle.ParticleMesh = ParticleMeshEnum.Texture;
-      particle.ParticleTextureChoice = ParticleTexture.Choice.WhiteDotBlur;
+      particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
       particle.BodySize = new Vector2(40, 40);
-      particle.ForceRangeX = new Vector2(-0.25f, 0.25f);
-      particle.BaseColor = Utils.RandColor();
-      particle.ForceRangeY = new Vector2(0, -0.15f);
+      particle.Mesh.MeshType = SimpleMeshTypeEnum.Texture;
+      particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotAlpha);
+      particle.Mesh.CustomTextureBlendMode = CanvasItemMaterial.BlendModeEnum.Add;
+      particle.Mesh.BaseColor = Utils.RandColor();
+      particle.ForceRangeX = new Vector2(-0.75f, 0.75f);
+      particle.ForceRangeY = new Vector2(0, -0.25f);
       particle.Lifespan = 2;
       return particle;
     });

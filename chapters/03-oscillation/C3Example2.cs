@@ -15,12 +15,7 @@ public class C3Example2 : Node2D, IExample
     public Square() : base(WrapModeEnum.Wrap)
     {
       MaxVelocity = 2.0f;
-    }
-
-    public override void _Draw()
-    {
-      DrawRect(new Rect2(Vector2.Zero, Vector2.One * (Radius + 1)), Colors.LightBlue);
-      DrawRect(new Rect2(Vector2.One, Vector2.One * (Radius - 1)), Colors.White);
+      Mesh.MeshType = SimpleMeshTypeEnum.Square;
     }
 
     protected override void UpdateAcceleration()
@@ -45,7 +40,7 @@ public class C3Example2 : Node2D, IExample
     foreach (int x in Enumerable.Range(0, squareCount))
     {
       var square = new Square();
-      var radius = (float)GD.RandRange(5, 20);
+      var radius = (float)GD.RandRange(20, 40);
       square.BodySize = new Vector2(radius, radius);
       square.Position = Utils.RandVector2(size.x / 8, size.x / 1.125f, size.y / 8, size.y / 1.125f);
       AddChild(square);

@@ -153,6 +153,7 @@
     <Compile Include="scripts\common\SimpleAttractor.cs" />
     <Compile Include="scripts\common\SimpleFrictionPocket.cs" />
     <Compile Include="scripts\common\SimpleLiquid.cs" />
+    <Compile Include="scripts\common\SimpleMesh.cs" />
     <Compile Include="scripts\common\SimpleMover.cs" />
     <Compile Include="scripts\common\SimpleNoiseTexture.cs" />
     <Compile Include="scripts\common\SimpleOscillator.cs" />

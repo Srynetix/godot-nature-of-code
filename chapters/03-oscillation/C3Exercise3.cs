@@ -12,7 +12,28 @@ public class C3Exercise3 : Control, IExample
 
   public class Car : SimpleMover
   {
-    public Car() : base(WrapModeEnum.Wrap) { }
+    public Car() : base(WrapModeEnum.Wrap)
+    {
+      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.CustomDrawMethod = (pen) =>
+      {
+        // Car body
+        var bodyLength = Radius * 2;
+        var bodyWidth = Radius;
+        var wheelRadius = Radius / 4;
+
+        pen.DrawCircle(new Vector2(-bodyLength / 2 + bodyLength / 4, -bodyWidth / 2), wheelRadius, Colors.Green);
+        pen.DrawCircle(new Vector2(bodyLength / 2 - bodyLength / 4, -bodyWidth / 2), wheelRadius, Colors.Green);
+        pen.DrawCircle(new Vector2(-bodyLength / 2 + bodyLength / 4, bodyWidth / 2), wheelRadius, Colors.Green);
+        pen.DrawCircle(new Vector2(bodyLength / 2 - bodyLength / 4, bodyWidth / 2), wheelRadius, Colors.Green);
+
+        pen.DrawRect(new Rect2(-bodyLength / 2, -bodyWidth / 2, bodyLength, bodyWidth), Colors.LightBlue);
+        pen.DrawRect(new Rect2(-bodyLength / 2 + 2, -bodyWidth / 2 + 2, bodyLength - 4, bodyWidth - 4), Colors.White);
+
+        // Front
+        pen.DrawRect(new Rect2(bodyLength / 2, -bodyWidth / 4, 2, bodyWidth / 2), Colors.Green);
+      };
+    }
 
     public void AccelerateAndTurn(float turnAmount, float accelAmount)
     {
@@ -22,25 +43,6 @@ public class C3Exercise3 : Control, IExample
     protected override void UpdateAcceleration()
     {
       ApplyFriction(0.15f);
-    }
-
-    public override void _Draw()
-    {
-      // Car body
-      var bodyLength = Radius * 2;
-      var bodyWidth = Radius;
-      var wheelRadius = Radius / 4;
-
-      DrawCircle(new Vector2(-bodyLength / 2 + bodyLength / 4, -bodyWidth / 2), wheelRadius, Colors.Green);
-      DrawCircle(new Vector2(bodyLength / 2 - bodyLength / 4, -bodyWidth / 2), wheelRadius, Colors.Green);
-      DrawCircle(new Vector2(-bodyLength / 2 + bodyLength / 4, bodyWidth / 2), wheelRadius, Colors.Green);
-      DrawCircle(new Vector2(bodyLength / 2 - bodyLength / 4, bodyWidth / 2), wheelRadius, Colors.Green);
-
-      DrawRect(new Rect2(-bodyLength / 2, -bodyWidth / 2, bodyLength, bodyWidth), Colors.LightBlue);
-      DrawRect(new Rect2(-bodyLength / 2 + 2, -bodyWidth / 2 + 2, bodyLength - 4, bodyWidth - 4), Colors.White);
-
-      // Front
-      DrawRect(new Rect2(bodyLength / 2, -bodyWidth / 4, 2, bodyWidth / 2), Colors.Green);
     }
 
     public override void _Process(float delta)

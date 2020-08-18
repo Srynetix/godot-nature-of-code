@@ -49,7 +49,7 @@ public class C2Exercise4 : Node2D, IExample
     foreach (var x in Enumerable.Range(0, 20))
     {
       var mover = new Mover();
-      var bodySize = (float)GD.RandRange(5, 20);
+      var bodySize = (float)GD.RandRange(20, 40);
       var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
       mover.BodySize = new Vector2(bodySize, bodySize);
       mover.Mass = (float)GD.RandRange(5, 10);

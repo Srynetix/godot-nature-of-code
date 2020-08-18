@@ -13,39 +13,59 @@ public class SimpleMover : Area2D
   public Vector2 Acceleration = Vector2.Zero;
   public float AngularVelocity = 0;
   public float AngularAcceleration = 0;
-  public Vector2 BodySize = new Vector2(20, 20);
   public float MaxVelocity = 10;
   public float MaxAngularVelocity = 0.1f;
   public float Mass = 1;
   public WrapModeEnum WrapMode;
   public bool DisableForces = false;
-  public bool Drawing = true;
+  public SimpleMesh Mesh;
+
+  public bool Drawing
+  {
+    get => Mesh.Drawing;
+    set
+    {
+      Mesh.Drawing = value;
+    }
+  }
+
+  public Vector2 BodySize
+  {
+    get => Mesh.BodySize;
+    set
+    {
+      Mesh.BodySize = value;
+    }
+  }
+
+  public float Radius
+  {
+    get => Mesh.BodySize.x / 2;
+    set
+    {
+      Mesh.BodySize = new Vector2(value * 2, value * 2);
+    }
+  }
 
   public SimpleMover(WrapModeEnum wrapMode = WrapModeEnum.Wrap)
   {
     WrapMode = wrapMode;
+    Mesh = new SimpleMesh();
   }
-
-  public float Radius => BodySize.x;
 
   public override void _Ready()
   {
     AddToGroup("movers");
 
+    // Add collision shape
     var collisionShape = new CollisionShape2D();
     var shape = new CircleShape2D();
     shape.Radius = Radius;
     collisionShape.Shape = shape;
     AddChild(collisionShape);
-  }
 
-  public override void _Draw()
-  {
-    if (Drawing)
-    {
-      DrawCircle(Vector2.Zero, Radius, Colors.LightBlue);
-      DrawCircle(Vector2.Zero, Radius - 2, Colors.White);
-    }
+    // Add mesh
+    AddChild(Mesh);
   }
 
   public override void _Process(float delta)

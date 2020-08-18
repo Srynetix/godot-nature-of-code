@@ -32,7 +32,7 @@ public class C4Exercise10 : Node2D, IExample
     {
       var particle = new EParticle();
       particle.BodySize = new Vector2(20, 20);
-      particle.ParticleMesh = ParticleMeshEnum.Square;
+      particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
       particle.Lifespan = 4;
       particle.Mass = 4;
       return particle;

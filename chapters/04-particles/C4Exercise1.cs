@@ -16,7 +16,6 @@ public class C4Exercise1 : Node2D, IExample
     particle.Position = size / 2;
     particle.BodySize = new Vector2(20, 20);
     particle.Lifespan = 4;
-
     AddChild(particle);
   }
 }

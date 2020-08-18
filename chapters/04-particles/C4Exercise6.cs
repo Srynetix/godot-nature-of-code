@@ -15,8 +15,6 @@ public class C4Exercise6 : Node2D, IExample
 
     public EParticle()
     {
-      BaseColor = Colors.White;
-      BaseOutlineColor = Colors.LightBlue;
       WrapMode = WrapModeEnum.Bounce;
     }
 
@@ -100,7 +98,7 @@ public class C4Exercise6 : Node2D, IExample
     {
       var shatteringObject = new ShatteringObject();
       shatteringObject.Position = new Vector2(widthSlice * i + widthSlice / 2, (float)GD.RandRange(widthSlice, size.y - widthSlice));
-      shatteringObject.BodySize = new Vector2(widthSlice / 2, widthSlice / 2) * (float)GD.RandRange(0.75f, 1.25f);
+      shatteringObject.BodySize = new Vector2(widthSlice, widthSlice) * (float)GD.RandRange(0.75f, 1.25f);
       AddChild(shatteringObject);
     }
   }

@@ -23,7 +23,7 @@ public class C4Exercise4 : C3Exercise5, IExample
       particleSystem.WrapMode = WrapModeEnum.None;
       particleSystem.LocalCoords = false;
       particleSystem.Emitting = false;
-      particleSystem.Position = new Vector2(0, Radius);
+      particleSystem.Position = new Vector2(0, BodySize.y + 10);
       particleSystem.ParticleSpawnFrameDelay = 0;
       particleSystem.ShowBehindParent = true;
       particleSystem.SetCreateParticleFunction(() =>
@@ -32,8 +32,8 @@ public class C4Exercise4 : C3Exercise5, IExample
         particle.ForceRangeX = new Vector2(-0.15f, 0.15f);
         particle.ForceRangeY = new Vector2(-0.15f, 0.15f);
         particle.WrapMode = WrapModeEnum.None;
-        particle.ParticleMesh = ParticleMeshEnum.Square;
         particle.BodySize = new Vector2(10, 10);
+        particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
         particle.Lifespan = 2;
         return particle;
       });

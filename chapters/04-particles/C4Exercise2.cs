@@ -12,10 +12,10 @@ public class C4Exercise2 : Node2D, IExample
   {
     var size = GetViewportRect().Size;
     var particle = new SimpleFallingParticle();
-    particle.ParticleMesh = ParticleMeshEnum.Square;
     particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
     particle.Position = size / 2;
     particle.BodySize = new Vector2(20, 20);
+    particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
     particle.Lifespan = 4;
     AddChild(particle);
   }

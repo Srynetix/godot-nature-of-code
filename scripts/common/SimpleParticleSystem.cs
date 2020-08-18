@@ -21,6 +21,7 @@ public class SimpleParticleSystem : SimpleMover
   {
     particles = new List<SimpleParticle>();
     DisableForces = true;
+    Drawing = false;
   }
 
   public void SetCreateParticleFunction(CreateParticleFunction fn)
@@ -92,10 +93,5 @@ public class SimpleParticleSystem : SimpleMover
     }
 
     UpdateParticles();
-  }
-
-  public override void _Draw()
-  {
-    // No draw
   }
 }

@@ -14,7 +14,30 @@ public class C3Exercise5 : Control, IExample
   {
     protected bool thrusting = false;
 
-    public Spaceship() : base(WrapModeEnum.Wrap) { }
+    public Spaceship() : base(WrapModeEnum.Wrap)
+    {
+      BodySize = new Vector2(20, 20);
+      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.CustomDrawMethod = (pen) =>
+      {
+        var outlineVec = new Vector2(pen.OutlineWidth, pen.OutlineWidth);
+
+        // Body
+        Vector2[] points = { new Vector2(-1, 1) * BodySize, new Vector2(1, 1) * BodySize, new Vector2(0, -1) * BodySize };
+        Color[] colors = { pen.OutlineColor, pen.OutlineColor, pen.OutlineColor };
+        pen.DrawPolygon(points, colors);
+        Vector2[] innerPoints = { new Vector2(-1, 1) * (BodySize - outlineVec), new Vector2(1, 1) * (BodySize - outlineVec), new Vector2(0, -1) * (BodySize - outlineVec) };
+
+        Color[] innerColors = { pen.BaseColor, pen.BaseColor, pen.BaseColor };
+        pen.DrawPolygon(innerPoints, innerColors);
+
+        // Thrusters
+        var thrusterColor = !thrusting ? Colors.White : Colors.Red;
+        var thrusterSize = BodySize / 3;
+        pen.DrawRect(new Rect2(-BodySize.x / 2 - thrusterSize.x / 2, BodySize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
+        pen.DrawRect(new Rect2(BodySize.x / 2 - thrusterSize.x / 2, BodySize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
+      };
+    }
 
     public void Accelerate(float amount)
     {
@@ -36,24 +59,6 @@ public class C3Exercise5 : Control, IExample
       thrusting = (Acceleration.LengthSquared() > 0.01);
 
       base._Process(delta);
-    }
-
-    public override void _Draw()
-    {
-      // Body
-      Vector2[] points = { new Vector2(-1, 1) * BodySize, new Vector2(1, 1) * BodySize, new Vector2(0, -1) * BodySize };
-      Color[] colors = { Colors.LightBlue, Colors.LightBlue, Colors.LightBlue };
-      DrawPolygon(points, colors);
-      Vector2[] innerPoints = { new Vector2(-1, 1) * (Radius - 2), new Vector2(1, 1) * (Radius - 2), new Vector2(0, -1) * (Radius - 2) };
-
-      Color[] innerColors = { Colors.White, Colors.White, Colors.White };
-      DrawPolygon(innerPoints, innerColors);
-
-      // Thrusters
-      var thrusterColor = !thrusting ? Colors.White : Colors.Red;
-      var thrusterSize = Radius / 3;
-      DrawRect(new Rect2(-Radius / 2 - thrusterSize / 2, Radius, thrusterSize, thrusterSize), thrusterColor);
-      DrawRect(new Rect2(Radius / 2 - thrusterSize / 2, Radius, thrusterSize, thrusterSize), thrusterColor);
     }
   }
 

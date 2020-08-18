@@ -10,7 +10,7 @@ public static class ColorExtensions
   }
 }
 
-public class Utils
+public static class Utils
 {
   /**
    * Map a value from one bound to another.

@@ -22,7 +22,7 @@ public class C2Example7 : Node2D, IExample
     foreach (var x in Enumerable.Range(0, 10))
     {
       var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
-      var bodySize = (float)GD.RandRange(5, 20);
+      var bodySize = (float)GD.RandRange(20, 40);
       mover.BodySize = new Vector2(bodySize, bodySize);
       mover.Mass = bodySize;
       var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);

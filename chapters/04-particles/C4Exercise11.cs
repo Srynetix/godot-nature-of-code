@@ -16,11 +16,13 @@ public class C4Exercise11 : Node2D, IExample
     {
       var particle = new SimpleFallingParticle();
       particle.WrapMode = SimpleMover.WrapModeEnum.None;
-      particle.ParticleMesh = ParticleMeshEnum.Texture;
-      particle.ParticleTextureChoice = ParticleTexture.Choice.WhiteDotBlur;
       particle.BodySize = new Vector2(150, 150);
+      particle.Mesh.MeshType = SimpleMeshTypeEnum.Texture;
+      particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotAlpha);
+      particle.Mesh.CustomTextureBlendMode = CanvasItemMaterial.BlendModeEnum.Add;
+      particle.Mesh.BaseColor = Colors.Firebrick;
+      particle.Mesh.OutlineColor = Colors.Firebrick;
       particle.ForceRangeX = new Vector2(-0.25f, 0.25f);
-      particle.BaseColor = Colors.Firebrick;
       particle.ForceRangeY = new Vector2(0, -0.15f);
       particle.Lifespan = 2;
       return particle;

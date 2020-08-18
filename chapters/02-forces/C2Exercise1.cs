@@ -29,13 +29,15 @@ public class C2Exercise1 : Node2D, IExample
       Position = new Vector2((float)GD.RandRange(halfSize.x / 2, halfSize.x + halfSize.x / 2), (float)GD.RandRange(halfSize.y / 2, halfSize.y + halfSize.y / 2));
       tNoise = (float)GD.RandRange(0, 1000);
       tRope = 0;
-    }
 
-    public override void _Draw()
-    {
-      DrawCircle(Vector2.Zero, Radius, Colors.White.WithAlpha(128));
-      DrawCircle(Vector2.Zero, Radius - 2, Colors.LightCyan.WithAlpha(128));
-      DrawLine(Vector2.Down * BodySize, (Vector2.Down * (BodySize * 2)).Rotated(Mathf.Sin(tRope) / 10), Colors.White.WithAlpha(128), 2);
+      // Set draw method
+      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.CustomDrawMethod = (pen) =>
+      {
+        pen.DrawCircle(Vector2.Zero, Radius, pen.OutlineColor.WithAlpha(128));
+        pen.DrawCircle(Vector2.Zero, Radius - pen.OutlineWidth, pen.BaseColor.WithAlpha(128));
+        pen.DrawLine(Vector2.Down * Radius, (Vector2.Down * (pen.BodySize * 2)).Rotated(Mathf.Sin(tRope) / 10), Colors.White.WithAlpha(128), 2);
+      };
     }
 
     protected override void UpdateAcceleration()

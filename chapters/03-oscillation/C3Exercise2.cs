@@ -77,12 +77,6 @@ public class C3Exercise2 : Node2D, IExample
       ApplyFriction(0.25f);
       ApplyAngularFriction(0.25f);
     }
-
-    public override void _Draw()
-    {
-      DrawRect(new Rect2(-Radius / 2, -Radius / 2, Radius, Radius), Colors.LightBlue);
-      DrawRect(new Rect2(-Radius / 2 + 2, -Radius / 2 + 2, Radius - 4, Radius - 4), Colors.White);
-    }
   }
 
   private Timer timer;

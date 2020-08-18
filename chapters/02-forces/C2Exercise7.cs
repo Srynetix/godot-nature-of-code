@@ -12,7 +12,10 @@ public class C2Exercise7 : Node2D, IExample
 
   public class Mover : SimpleMover
   {
-    public Mover() : base(WrapModeEnum.Bounce) { }
+    public Mover() : base(WrapModeEnum.Bounce)
+    {
+      Mesh.MeshType = SimpleMeshTypeEnum.Square;
+    }
 
     public override void ApplyDrag(float coef)
     {
@@ -33,12 +36,6 @@ public class C2Exercise7 : Node2D, IExample
       var gravity = new Vector2(0, 0.098f * Mass);
 
       ApplyForce(gravity);
-    }
-
-    public override void _Draw()
-    {
-      // Box
-      DrawRect(new Rect2(-Vector2.One * BodySize / 2, Vector2.One * BodySize), Colors.LightBlue.WithAlpha(200));
     }
   }
 
