@@ -120,6 +120,7 @@ public class Ecosystem : Control
     public float WingSize = 3f;
     public byte WingColorAlpha = 80;
 
+    protected SimpleParticleSystem particleSystem;
     private float tWings = 0;
 
     public NervousFly()
@@ -127,6 +128,27 @@ public class Ecosystem : Control
       BodySize = new Vector2(4f, 4f);
       MaxVelocity = 5f;
       MaxAngularVelocity = 0.01f;
+    }
+
+    public override void _Ready()
+    {
+      base._Ready();
+
+      particleSystem = new SimpleParticleSystem();
+      particleSystem.ShowBehindParent = true;
+      particleSystem.LocalCoords = false;
+      particleSystem.ParticlesContainer = GetParent();
+      particleSystem.SetCreateParticleFunction(() =>
+      {
+        var particle = new SimpleFallingParticle();
+        particle.BodySize = new Vector2(2.5f, 2.5f);
+        particle.WrapMode = SimpleMover.WrapModeEnum.None;
+        particle.ForceRangeX = new Vector2(-0.005f, 0.005f);
+        particle.ForceRangeY = new Vector2(-0.005f, 0.005f);
+        particle.Lifespan = 1;
+        return particle;
+      });
+      AddChild(particleSystem);
     }
 
     public override void _DrawLifeform(SimpleMesh mesh)
@@ -183,6 +205,9 @@ public class Ecosystem : Control
     public override void _Ready()
     {
       base._Ready();
+
+      RemoveChild(particleSystem);
+      particleSystem.QueueFree();
 
       var oscillatingLeftWing = new OscillatingWing();
       oscillatingLeftWing.Position = Vector2.Left * (Radius + 1);
