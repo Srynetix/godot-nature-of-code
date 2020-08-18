@@ -23,6 +23,9 @@ public class Ecosystem : Control
       base._Ready();
 
       SetAtRandomAngle();
+
+      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.CustomDrawMethod = _DrawLifeform;
     }
 
     public void SetAtRandomAngle()
@@ -36,14 +39,14 @@ public class Ecosystem : Control
       DrawLine(Vector2.Zero, Vector2.Right * 10, Colors.Blue);
     }
 
-    public virtual void _DrawLifeform()
+    public virtual void _DrawLifeform(SimpleMesh mesh)
     {
       // Nothing
     }
 
     public override void _Draw()
     {
-      _DrawLifeform();
+      base._Draw();
 
       if (DebugDraw)
       {
@@ -80,18 +83,18 @@ public class Ecosystem : Control
       AddChild(attractor);
     }
 
-    public override void _DrawLifeform()
+    public override void _DrawLifeform(SimpleMesh mesh)
     {
       // Body
-      DrawCircle(Vector2.Zero, Radius, BaseColor);
+      mesh.DrawCircle(Vector2.Zero, Radius, BaseColor);
 
       var leftWingPos = (Vector2.Up * (Radius + 1)).Rotated(Mathf.Sin(tWings) * WingRotationFactor);
       var rightWingPos = (Vector2.Up * -(Radius + 1)).Rotated(Mathf.Sin(-tWings) * WingRotationFactor);
 
       // Wings
       var wingsColor = BaseColor.WithAlpha(WingColorAlpha);
-      DrawCircle(leftWingPos, WingSize, wingsColor);
-      DrawCircle(rightWingPos, WingSize, wingsColor);
+      mesh.DrawCircle(leftWingPos, WingSize, wingsColor);
+      mesh.DrawCircle(rightWingPos, WingSize, wingsColor);
     }
 
     protected override void UpdateAcceleration()
@@ -126,18 +129,18 @@ public class Ecosystem : Control
       MaxAngularVelocity = 0.01f;
     }
 
-    public override void _DrawLifeform()
+    public override void _DrawLifeform(SimpleMesh mesh)
     {
       // Body
-      DrawCircle(Vector2.Zero, Radius, BaseColor);
+      mesh.DrawCircle(Vector2.Zero, Radius, BaseColor);
 
       var leftWingPos = (Vector2.Up * (Radius + 1)).Rotated(Mathf.Sin(tWings) * WingRotationFactor);
       var rightWingPos = (Vector2.Up * -(Radius + 1)).Rotated(Mathf.Sin(-tWings) * WingRotationFactor);
 
       // Wings
       var wingsColor = BaseColor.WithAlpha(WingColorAlpha);
-      DrawCircle(leftWingPos, WingSize, wingsColor);
-      DrawCircle(rightWingPos, WingSize, wingsColor);
+      mesh.DrawCircle(leftWingPos, WingSize, wingsColor);
+      mesh.DrawCircle(rightWingPos, WingSize, wingsColor);
     }
 
     protected override void UpdateAcceleration()
@@ -190,9 +193,9 @@ public class Ecosystem : Control
       AddChild(oscillatingRightWing);
     }
 
-    public override void _DrawLifeform()
+    public override void _DrawLifeform(SimpleMesh mesh)
     {
-      DrawCircle(Vector2.Zero, Radius, BaseColor);
+      mesh.DrawCircle(Vector2.Zero, Radius, BaseColor);
     }
   }
 
@@ -210,7 +213,7 @@ public class Ecosystem : Control
       MaxVelocity = 1f;
     }
 
-    public override void _DrawLifeform()
+    public override void _DrawLifeform(SimpleMesh mesh)
     {
       Color colorToUse = BaseColor;
 
@@ -222,19 +225,19 @@ public class Ecosystem : Control
       float tailAngle = Mathf.Sin(tTail);
 
       // Tail
-      DrawCircle((Vector2.Left * 2).Rotated(tailAngle), 2, highDarkenedColor);
-      DrawCircle(Vector2.Left.Rotated(tailAngle), 2, midDarkenedColor);
-      DrawCircle(Vector2.Right.Rotated(-tailAngle), 2, lowDarkenedColor);
+      mesh.DrawCircle((Vector2.Left * 2).Rotated(tailAngle), 2, highDarkenedColor);
+      mesh.DrawCircle(Vector2.Left.Rotated(tailAngle), 2, midDarkenedColor);
+      mesh.DrawCircle(Vector2.Right.Rotated(-tailAngle), 2, lowDarkenedColor);
 
       // Body
-      DrawCircle(Vector2.Right * 3, 3, colorToUse);
-      DrawCircle(Vector2.Right * 6, 4, colorToUse);
-      DrawCircle(Vector2.Right * 10, 5, colorToUse);
-      DrawCircle(Vector2.Right * 13, 4, colorToUse);
+      mesh.DrawCircle(Vector2.Right * 3, 3, colorToUse);
+      mesh.DrawCircle(Vector2.Right * 6, 4, colorToUse);
+      mesh.DrawCircle(Vector2.Right * 10, 5, colorToUse);
+      mesh.DrawCircle(Vector2.Right * 13, 4, colorToUse);
 
       // 'Wings'
-      DrawCircle(Vector2.Right * (10 + tailAngle) + Vector2.Up * 5, 1.5f, lightenedColor);
-      DrawCircle(Vector2.Right * (10 + tailAngle) + Vector2.Down * 5, 1.5f, lightenedColor);
+      mesh.DrawCircle(Vector2.Right * (10 + tailAngle) + Vector2.Up * 5, 1.5f, lightenedColor);
+      mesh.DrawCircle(Vector2.Right * (10 + tailAngle) + Vector2.Down * 5, 1.5f, lightenedColor);
     }
 
     protected override void UpdateAcceleration()
@@ -281,7 +284,7 @@ public class Ecosystem : Control
       tJump = (float)GD.RandRange(0f, 100f);
     }
 
-    public override void _DrawLifeform()
+    public override void _DrawLifeform(SimpleMesh mesh)
     {
       float tailAngle = Mathf.Sin(tTail) * TailRotationFactor;
       float earAngle = Mathf.Sin(tTail) * EarRotationFactor;
@@ -290,40 +293,40 @@ public class Ecosystem : Control
       Color darkenedColor = baseColor.Darkened(0.1f);
 
       // Body
-      DrawCircle(Vector2.Zero, 10, baseColor);
-      DrawCircle(Vector2.Right * 7.5f, 10, baseColor);
+      mesh.DrawCircle(Vector2.Zero, 10, baseColor);
+      mesh.DrawCircle(Vector2.Right * 7.5f, 10, baseColor);
 
       // Paws
-      DrawCircle(Vector2.Down * 9f + Vector2.Left, 2, darkenedColor);
-      DrawCircle(Vector2.Down * 9f + Vector2.Right * 2f, 2, darkenedColor);
-      DrawCircle(Vector2.Down * 9f + Vector2.Right * 10f, 2, darkenedColor);
-      DrawCircle(Vector2.Down * 9f + Vector2.Right * 12f, 2, darkenedColor);
+      mesh.DrawCircle(Vector2.Down * 9f + Vector2.Left, 2, darkenedColor);
+      mesh.DrawCircle(Vector2.Down * 9f + Vector2.Right * 2f, 2, darkenedColor);
+      mesh.DrawCircle(Vector2.Down * 9f + Vector2.Right * 10f, 2, darkenedColor);
+      mesh.DrawCircle(Vector2.Down * 9f + Vector2.Right * 12f, 2, darkenedColor);
 
       // Tail
-      DrawCircle((Vector2.Left * 10f + Vector2.Up * 6).Rotated(tailAngle), 4, darkenedColor);
+      mesh.DrawCircle((Vector2.Left * 10f + Vector2.Up * 6).Rotated(tailAngle), 4, darkenedColor);
 
       // Left ear
-      DrawCircle(Vector2.Right * 12f + Vector2.Up * 14, 3, darkenedColor);
-      DrawCircle(Vector2.Right * 12f + Vector2.Up * 16, 3, darkenedColor);
-      DrawCircle(Vector2.Right * 12f + Vector2.Up * 18, 3, darkenedColor);
-      DrawCircle((Vector2.Right * 12f + Vector2.Up * 20).Rotated(-earAngle), 3, darkenedColor);
-      DrawCircle((Vector2.Right * 13f + Vector2.Up * 22).Rotated(-earAngle), 3, darkenedColor);
+      mesh.DrawCircle(Vector2.Right * 12f + Vector2.Up * 14, 3, darkenedColor);
+      mesh.DrawCircle(Vector2.Right * 12f + Vector2.Up * 16, 3, darkenedColor);
+      mesh.DrawCircle(Vector2.Right * 12f + Vector2.Up * 18, 3, darkenedColor);
+      mesh.DrawCircle((Vector2.Right * 12f + Vector2.Up * 20).Rotated(-earAngle), 3, darkenedColor);
+      mesh.DrawCircle((Vector2.Right * 13f + Vector2.Up * 22).Rotated(-earAngle), 3, darkenedColor);
 
       // Head
-      DrawCircle(Vector2.Right * 8f + Vector2.Up * 8, 8, baseColor);
+      mesh.DrawCircle(Vector2.Right * 8f + Vector2.Up * 8, 8, baseColor);
 
       // Eye
-      DrawCircle(Vector2.Right * 12f + Vector2.Up * 10, 2, EyeColor);
+      mesh.DrawCircle(Vector2.Right * 12f + Vector2.Up * 10, 2, EyeColor);
 
       // Nose
-      DrawCircle(Vector2.Right * 16f + Vector2.Up * 8, 1.5f, baseColor);
+      mesh.DrawCircle(Vector2.Right * 16f + Vector2.Up * 8, 1.5f, baseColor);
 
       // Right ear
-      DrawCircle(Vector2.Right * 5f + Vector2.Up * 14, 3, darkenedColor);
-      DrawCircle(Vector2.Right * 5f + Vector2.Up * 16, 3, darkenedColor);
-      DrawCircle(Vector2.Right * 5f + Vector2.Up * 18, 3, darkenedColor);
-      DrawCircle((Vector2.Right * 5f + Vector2.Up * 20).Rotated(earAngle), 3, darkenedColor);
-      DrawCircle((Vector2.Right * 6f + Vector2.Up * 22).Rotated(earAngle), 3, darkenedColor);
+      mesh.DrawCircle(Vector2.Right * 5f + Vector2.Up * 14, 3, darkenedColor);
+      mesh.DrawCircle(Vector2.Right * 5f + Vector2.Up * 16, 3, darkenedColor);
+      mesh.DrawCircle(Vector2.Right * 5f + Vector2.Up * 18, 3, darkenedColor);
+      mesh.DrawCircle((Vector2.Right * 5f + Vector2.Up * 20).Rotated(earAngle), 3, darkenedColor);
+      mesh.DrawCircle((Vector2.Right * 6f + Vector2.Up * 22).Rotated(earAngle), 3, darkenedColor);
     }
 
     protected override void UpdateAcceleration()
