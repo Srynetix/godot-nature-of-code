@@ -141,8 +141,10 @@
     <Compile Include="chapters\04-particles\C4Exercise9.cs" />
     <Compile Include="chapters\05-physics\C5Example2.cs" />
     <Compile Include="chapters\05-physics\C5Example3.cs" />
+    <Compile Include="chapters\05-physics\C5Example4.cs" />
     <Compile Include="chapters\05-physics\C5Exercise2.cs" />
     <Compile Include="chapters\05-physics\C5Exercise3.cs" />
+    <Compile Include="chapters\05-physics\C5Exercise4.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="chapters\SceneLoader.cs" />
@@ -170,6 +172,7 @@
     <Compile Include="scripts\common\SimpleZone.cs" />
     <Compile Include="scripts\common\physics\SimpleBox.cs" />
     <Compile Include="scripts\common\physics\SimpleBall.cs" />
+    <Compile Include="scripts\common\physics\SimplePolygon.cs" />
     <Compile Include="scripts\common\physics\SimpleStaticChain.cs" />
     <Compile Include="scripts\common\physics\SimpleWall.cs" />
     <Compile Include="scripts\common\variants\ConstantAccelerationMover.cs" />

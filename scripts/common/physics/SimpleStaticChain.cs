@@ -32,7 +32,7 @@ public class SimpleStaticChain : StaticBody2D
   {
     foreach (var segment in segments)
     {
-      DrawLine(segment.A, segment.B, BaseColor, 1);
+      DrawLine(segment.A, segment.B, BaseColor, 2);
     }
   }
 
