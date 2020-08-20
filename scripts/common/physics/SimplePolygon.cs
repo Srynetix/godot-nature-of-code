@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 public class SimplePolygon : RigidBody2D
 {

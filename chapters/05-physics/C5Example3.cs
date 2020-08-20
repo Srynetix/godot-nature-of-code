@@ -42,7 +42,7 @@ public class C5Example3 : Node2D, IExample
     AddChild(ball);
   }
 
-  public override void _Input(InputEvent @event)
+  public override void _UnhandledInput(InputEvent @event)
   {
     if (@event is InputEventScreenTouch eventScreenTouch)
     {

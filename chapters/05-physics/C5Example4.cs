@@ -56,7 +56,7 @@ public class C5Example4 : Node2D, IExample
     AddChild(polygon);
   }
 
-  public override void _Input(InputEvent @event)
+  public override void _UnhandledInput(InputEvent @event)
   {
     if (@event is InputEventScreenTouch eventScreenTouch)
     {

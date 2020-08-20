@@ -23,7 +23,16 @@ font_data = ExtResource( 2 )
 [node name="SceneExplorer" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CurrentScene" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -31,16 +40,8 @@ __meta__ = {
 [node name="Container" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 custom_constants/margin_bottom = 20
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CurrentScene" type="MarginContainer" parent="Container"]
-margin_right = 1140.0
-margin_bottom = 520.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -48,6 +49,7 @@ __meta__ = {
 [node name="VBox" type="VBoxContainer" parent="Container"]
 margin_right = 1140.0
 margin_bottom = 520.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -55,6 +57,7 @@ __meta__ = {
 [node name="TopControl" type="MarginContainer" parent="Container/VBox"]
 margin_right = 1140.0
 margin_bottom = 376.0
+mouse_filter = 2
 size_flags_vertical = 3
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -78,6 +81,7 @@ margin_left = 20.0
 margin_top = 20.0
 margin_right = 1120.0
 margin_bottom = 356.0
+mouse_filter = 2
 size_flags_vertical = 3
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -89,6 +93,7 @@ margin_left = 20.0
 margin_top = 20.0
 margin_right = 1080.0
 margin_bottom = 316.0
+mouse_filter = 2
 custom_fonts/normal_font = SubResource( 1 )
 text = "[This is the summary text]"
 
@@ -110,6 +115,7 @@ __meta__ = {
 margin_top = 380.0
 margin_right = 1140.0
 margin_bottom = 520.0
+mouse_filter = 2
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -120,11 +126,13 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 1130.0
 margin_bottom = 130.0
+mouse_filter = 2
 
 [node name="LeftButtons" type="VBoxContainer" parent="Container/VBox/ButtonsMargin/Buttons"]
 margin_top = 18.0
 margin_right = 558.0
 margin_bottom = 102.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/separation = 20
@@ -154,6 +162,7 @@ text = "Toggle UI"
 margin_left = 562.0
 margin_right = 1120.0
 margin_bottom = 120.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 

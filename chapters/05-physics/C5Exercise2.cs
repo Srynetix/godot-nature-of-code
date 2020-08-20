@@ -39,7 +39,7 @@ public class C5Exercise2 : Node2D, IExample
     AddChild(box);
   }
 
-  public override void _Input(InputEvent @event)
+  public override void _UnhandledInput(InputEvent @event)
   {
     if (@event is InputEventScreenTouch eventScreenTouch)
     {

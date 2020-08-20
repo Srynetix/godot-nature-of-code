@@ -2,7 +2,7 @@ using Godot;
 
 public class SceneExplorer : Control
 {
-  private MarginContainer CurrentSceneContainer;
+  private Control CurrentSceneContainer;
   private Button PrevChapterButton;
   private Button NextChapterButton;
   private OptionButton SelectChapterButton;
@@ -170,7 +170,7 @@ public class SceneExplorer : Control
 
   async public override void _Ready()
   {
-    CurrentSceneContainer = GetNode<MarginContainer>("Container/CurrentScene");
+    CurrentSceneContainer = GetNode<Control>("CurrentScene");
     CodeLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Code");
     SummaryLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Summary");
     CodeBackground = GetNode<ColorRect>("Container/VBox/TopControl/CodeBackground");
