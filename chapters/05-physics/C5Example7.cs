@@ -1,0 +1,121 @@
+using Godot;
+
+public class C5Example7 : Node2D, IExample
+{
+  public string _Summary()
+  {
+    return "Example 5.7:\n"
+      + "Spinning Windmill\n\n"
+      + "Touch screen to spawn balls";
+  }
+
+  public class WindmillBase : StaticBody2D
+  {
+    public Vector2 Extents = new Vector2(20, 80);
+
+    private CollisionShape2D collisionShape2D;
+    private RectangleShape2D rectangleShape2D;
+
+    public override void _Ready()
+    {
+      rectangleShape2D = new RectangleShape2D();
+      rectangleShape2D.Extents = Extents;
+      collisionShape2D = new CollisionShape2D();
+      collisionShape2D.Shape = rectangleShape2D;
+      AddChild(collisionShape2D);
+    }
+
+    public override void _Draw()
+    {
+      DrawRect(new Rect2(-rectangleShape2D.Extents, rectangleShape2D.Extents * 2), Colors.Cornflower);
+    }
+  }
+
+  public class WindmillBlade : RigidBody2D
+  {
+    public float Torque = 400f;
+    public Vector2 Extents = new Vector2(160, 5);
+
+    private CollisionShape2D collisionShape2D;
+    private RectangleShape2D rectangleShape2D;
+
+    public override void _Ready()
+    {
+      Mass = 10;
+      rectangleShape2D = new RectangleShape2D();
+      rectangleShape2D.Extents = Extents;
+      collisionShape2D = new CollisionShape2D();
+      collisionShape2D.Shape = rectangleShape2D;
+      AddChild(collisionShape2D);
+    }
+
+    public override void _Draw()
+    {
+      DrawRect(new Rect2(-rectangleShape2D.Extents, rectangleShape2D.Extents * 2), Colors.Gray);
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+      ApplyTorqueImpulse(Torque);
+    }
+  }
+
+  public class Windmill : Node2D
+  {
+    public Vector2 BaseExtents = new Vector2(20, 80);
+    public Vector2 BladeExtents = new Vector2(160, 5);
+    public float BladeTorque = 6000f;
+
+    public override void _Ready()
+    {
+      var windmillBase = new WindmillBase();
+      windmillBase.Extents = BaseExtents;
+      AddChild(windmillBase);
+
+      var windmillBlade = new WindmillBlade();
+      windmillBlade.Extents = BladeExtents;
+      windmillBlade.Torque = BladeTorque;
+      windmillBlade.Position = windmillBase.Position - new Vector2(0, windmillBase.Extents.y);
+      AddChild(windmillBlade);
+
+      var joint = new PinJoint2D();
+      joint.NodeA = windmillBase.GetPath();
+      joint.NodeB = windmillBlade.GetPath();
+      joint.Softness = 0;
+      windmillBlade.AddChild(joint);
+    }
+  }
+
+  public override void _Ready()
+  {
+    var size = GetViewportRect().Size;
+    var windmill = new Windmill();
+    windmill.Position = new Vector2(size.x / 2, size.y - 100);
+    AddChild(windmill);
+  }
+
+  private void SpawnBody(Vector2 position)
+  {
+    var body = new SimpleBall();
+    body.Mass = 0.25f;
+    body.Radius = 10;
+    body.GlobalPosition = position;
+    AddChild(body);
+  }
+
+  public override void _UnhandledInput(InputEvent @event)
+  {
+    if (@event is InputEventScreenTouch eventScreenTouch)
+    {
+      if (eventScreenTouch.Pressed)
+      {
+        SpawnBody(eventScreenTouch.Position);
+      }
+    }
+
+    if (@event is InputEventScreenDrag eventScreenDrag)
+    {
+      SpawnBody(eventScreenDrag.Position);
+    }
+  }
+}
