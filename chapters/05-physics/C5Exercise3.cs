@@ -19,7 +19,7 @@ public class C5Exercise3 : Node2D, IExample
 
     public virtual float ComputeY(float t)
     {
-      return t;
+      return Mathf.Sin(t);
     }
 
     public override void _Ready()
