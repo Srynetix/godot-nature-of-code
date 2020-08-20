@@ -26,6 +26,16 @@ public class C5Exercise6 : Node2D, IExample
       AddChild(collisionShape2D);
     }
 
+    public override void _Draw()
+    {
+      DrawCircle(Vector2.Zero, Radius, Colors.LightGoldenrod);
+    }
+
+    public override void _Process(float delta)
+    {
+      Update();
+    }
+
     public void LinkTarget(PhysicsBody2D target, float softness = 0, float bias = 0)
     {
       var pinJoint = new PinJoint2D();
@@ -61,6 +71,16 @@ public class C5Exercise6 : Node2D, IExample
       pinJoint.Softness = softness;
       pinJoint.Bias = bias;
       parent.AddChild(pinJoint);
+    }
+
+    public override void _Draw()
+    {
+      DrawCircle(Vector2.Zero, Radius, Colors.LightGoldenrod);
+    }
+
+    public override void _Process(float delta)
+    {
+      Update();
     }
   }
 
