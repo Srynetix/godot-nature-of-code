@@ -14,12 +14,22 @@ namespace Physics
       _parent = (RigidBody2D)GetParent();
     }
 
+    public virtual Vector2 ComputeTargetPosition()
+    {
+      return GetViewport().GetMousePosition();
+    }
+
+    public virtual bool IsActive()
+    {
+      return _active;
+    }
+
     public override void _Process(float delta)
     {
-      if (_active)
+      if (IsActive())
       {
         // Apply to parent object
-        var r = GetViewport().GetMousePosition() - _parent.Position;
+        var r = ComputeTargetPosition() - _parent.Position;
         _parent.LinearVelocity = r * Speed;
       }
 
@@ -43,9 +53,9 @@ namespace Physics
 
     public override void _Draw()
     {
-      if (_active)
+      if (IsActive())
       {
-        DrawLine(Vector2.Zero, (GetViewport().GetMousePosition() - _parent.GlobalPosition).Rotated(-_parent.GlobalRotation), Colors.Gray, 2);
+        DrawLine(Vector2.Zero, (ComputeTargetPosition() - _parent.GlobalPosition).Rotated(-_parent.GlobalRotation), Colors.Gray, 2);
       }
     }
   }
