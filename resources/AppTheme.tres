@@ -76,7 +76,6 @@ font_data = ExtResource( 2 )
 [sub_resource type="StyleBoxFlat" id=12]
 
 [sub_resource type="DynamicFont" id=13]
-size = 18
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 1 )

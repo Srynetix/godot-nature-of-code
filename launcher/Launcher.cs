@@ -17,6 +17,8 @@ public class Launcher : Control
 
   public override void _Ready()
   {
+    // Adapt UI size depending on pixel ratio
+
     // Base default clear color
     VisualServer.SetDefaultClearColor(Color.Color8(45, 45, 45));
 

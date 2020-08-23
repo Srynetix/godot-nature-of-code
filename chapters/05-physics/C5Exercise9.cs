@@ -5,11 +5,13 @@ public class C5Exercise9 : Node2D, IExample
   public string _Summary()
   {
     return "Exercise 5.9:\n"
-      + "Perlin Kinematic";
+      + "Perlin Kinematic\n\n"
+      + "Touch screen to spawn more boxes";
   }
 
   public class PerlinKinematicBox : KinematicBody2D
   {
+    public float InitialTValue = 0;
     public C5Exercise8.PerlinWaveDrawing Drawing;
 
     public float OutlineWidth = 2;
@@ -74,11 +76,17 @@ public class C5Exercise9 : Node2D, IExample
     d.Position = size / 2 - new Vector2(d.Length / 2, 0);
     AddChild(d);
 
-    // Top left
-    var box = new PerlinKinematicBox();
-    box.Drawing = d;
-    box.BodySize = new Vector2(20, 20);
-    box.Position = new Vector2(10, 10);
-    AddChild(box);
+    var spawner = new Physics.SimpleTouchSpawner();
+    spawner.Spawner = (position) =>
+    {
+      var box = new PerlinKinematicBox();
+      box.Drawing = d;
+      box.BodySize = new Vector2(20, 20);
+      box.Position = position;
+      return box;
+    };
+    AddChild(spawner);
+
+    spawner.SpawnBody(new Vector2(10, 10));
   }
 }

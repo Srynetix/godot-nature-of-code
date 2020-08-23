@@ -146,6 +146,7 @@
     <Compile Include="chapters\05-physics\C5Example6.cs" />
     <Compile Include="chapters\05-physics\C5Example7.cs" />
     <Compile Include="chapters\05-physics\C5Example8.cs" />
+    <Compile Include="chapters\05-physics\C5Exercise10.cs" />
     <Compile Include="chapters\05-physics\C5Exercise2.cs" />
     <Compile Include="chapters\05-physics\C5Exercise3.cs" />
     <Compile Include="chapters\05-physics\C5Exercise4.cs" />
