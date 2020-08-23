@@ -6,13 +6,7 @@ help:
 	@echo "  - build"
 
 format:
-	@roslynator format 'Nature of Code.csproj'
-
-analyze:
-	@roslynator analyze 'Nature of Code.csproj'
-
-fix:
-	@roslynator fix 'Nature of Code.csproj'
+	@dotnet format 'Nature of Code.csproj'
 
 build:
 	@dotnet build
