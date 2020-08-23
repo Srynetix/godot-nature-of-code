@@ -160,6 +160,16 @@ public class C5Exercise6 : Node2D, IExample
     chain.EndPosition = new Vector2(size.x - offset, size.y / 2);
     AddChild(chain);
 
+    var spawner = new Physics.SimpleTouchSpawner();
+    spawner.Spawner = (position) =>
+    {
+      var ball = new Physics.SimpleBall();
+      ball.Radius = 20;
+      ball.GlobalPosition = position;
+      return ball;
+    };
+    AddChild(spawner);
+
     // Spawn balls
     var bodyCount = 10;
     var bodyLength = (size.x / 2) / bodyCount;
@@ -168,31 +178,7 @@ public class C5Exercise6 : Node2D, IExample
       var x = size.x / 4 + i * bodyLength;
       var y = size.y / 8;
 
-      SpawnBody(new Vector2(x, y));
-    }
-  }
-
-  private void SpawnBody(Vector2 position)
-  {
-    var body = new SimpleBall();
-    body.Radius = 20;
-    body.GlobalPosition = position;
-    AddChild(body);
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    if (@event is InputEventScreenTouch eventScreenTouch)
-    {
-      if (eventScreenTouch.Pressed)
-      {
-        SpawnBody(eventScreenTouch.Position);
-      }
-    }
-
-    if (@event is InputEventScreenDrag eventScreenDrag)
-    {
-      SpawnBody(eventScreenDrag.Position);
+      spawner.SpawnBody(new Vector2(x, y));
     }
   }
 }

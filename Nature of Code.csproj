@@ -182,6 +182,7 @@
     <Compile Include="scripts\common\physics\SimpleMouseJoint.cs" />
     <Compile Include="scripts\common\physics\SimplePolygon.cs" />
     <Compile Include="scripts\common\physics\SimpleStaticChain.cs" />
+    <Compile Include="scripts\common\physics\SimpleTouchSpawner.cs" />
     <Compile Include="scripts\common\physics\SimpleWall.cs" />
     <Compile Include="scripts\common\variants\ConstantAccelerationMover.cs" />
     <Compile Include="scripts\common\variants\SimpleFallingParticle.cs" />

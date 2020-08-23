@@ -9,7 +9,7 @@ public class C5Exercise7 : Node2D, IExample
       + "Touch screen to spawn balls";
   }
 
-  public class Wheel : SimpleBall
+  public class Wheel : Physics.SimpleBall
   {
     public float Torque = 20f;
 
@@ -24,7 +24,7 @@ public class C5Exercise7 : Node2D, IExample
     }
   }
 
-  public class CarBase : SimpleBox
+  public class CarBase : Physics.SimpleBox
   {
     public CarBase()
     {
@@ -73,30 +73,16 @@ public class C5Exercise7 : Node2D, IExample
     var car = new Car();
     car.Position = new Vector2(size.x / 8, size.y / 2);
     AddChild(car);
-  }
 
-  private void SpawnBody(Vector2 position)
-  {
-    var body = new SimpleBall();
-    body.Radius = 5;
-    body.Mass = 0.00001f;
-    body.GlobalPosition = position;
-    AddChild(body);
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    if (@event is InputEventScreenTouch eventScreenTouch)
+    var spawner = new Physics.SimpleTouchSpawner();
+    spawner.Spawner = (position) =>
     {
-      if (eventScreenTouch.Pressed)
-      {
-        SpawnBody(eventScreenTouch.Position);
-      }
-    }
-
-    if (@event is InputEventScreenDrag eventScreenDrag)
-    {
-      SpawnBody(eventScreenDrag.Position);
-    }
+      var body = new Physics.SimpleBall();
+      body.Radius = 5;
+      body.Mass = 0.00001f;
+      body.GlobalPosition = position;
+      return body;
+    };
+    AddChild(spawner);
   }
 }

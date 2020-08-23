@@ -9,7 +9,7 @@ public class C5Exercise4 : Node2D, IExample
       + "Touch screen to spawn random polygons";
   }
 
-  public class Polygon1 : SimplePolygon
+  public class Polygon1 : Physics.SimplePolygon
   {
     public Polygon1()
     {
@@ -24,7 +24,7 @@ public class C5Exercise4 : Node2D, IExample
     }
   }
 
-  public class Polygon2 : SimplePolygon
+  public class Polygon2 : Physics.SimplePolygon
   {
     public Polygon2()
     {
@@ -39,7 +39,7 @@ public class C5Exercise4 : Node2D, IExample
     }
   }
 
-  public class Polygon3 : SimplePolygon
+  public class Polygon3 : Physics.SimplePolygon
   {
     public Polygon3()
     {
@@ -54,56 +54,42 @@ public class C5Exercise4 : Node2D, IExample
     }
   }
 
-  private void SpawnRandomPolygon(Vector2 position)
-  {
-    var chance = Utils.RandRangef(0, 3);
-    SimplePolygon polygon = null;
-    if (chance < 1)
-    {
-      polygon = new Polygon1();
-    }
-    else if (chance < 2)
-    {
-      polygon = new Polygon2();
-    }
-    else
-    {
-      polygon = new Polygon3();
-    }
-
-    polygon.GlobalPosition = position;
-    AddChild(polygon);
-  }
-
   public override void _Ready()
   {
     var size = GetViewportRect().Size;
 
-    var wall = new SimpleWall();
+    var wall = new Physics.SimpleWall();
     wall.BodySize = new Vector2(size.x, 50);
     wall.Position = new Vector2(size.x / 2, size.y);
     AddChild(wall);
 
+    var spawner = new Physics.SimpleTouchSpawner();
+    spawner.Spawner = (position) =>
+    {
+      var chance = Utils.RandRangef(0, 3);
+      Physics.SimplePolygon polygon = null;
+      if (chance < 1)
+      {
+        polygon = new Polygon1();
+      }
+      else if (chance < 2)
+      {
+        polygon = new Polygon2();
+      }
+      else
+      {
+        polygon = new Polygon3();
+      }
+
+      polygon.GlobalPosition = position;
+      return polygon;
+    };
+    AddChild(spawner);
+
     int polygonCount = 10;
     for (int i = 0; i < polygonCount; ++i)
     {
-      SpawnRandomPolygon(Utils.RandVector2(0, size.x, 0, size.y));
-    }
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    if (@event is InputEventScreenTouch eventScreenTouch)
-    {
-      if (eventScreenTouch.Pressed)
-      {
-        SpawnRandomPolygon(eventScreenTouch.Position);
-      }
-    }
-
-    if (@event is InputEventScreenDrag eventScreenDrag)
-    {
-      SpawnRandomPolygon(eventScreenDrag.Position);
+      spawner.SpawnBody(Utils.RandVector2(0, size.x, 0, size.y));
     }
   }
 }

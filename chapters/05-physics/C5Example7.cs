@@ -92,30 +92,16 @@ public class C5Example7 : Node2D, IExample
     var windmill = new Windmill();
     windmill.Position = new Vector2(size.x / 2, size.y - 100);
     AddChild(windmill);
-  }
 
-  private void SpawnBody(Vector2 position)
-  {
-    var body = new SimpleBall();
-    body.Mass = 0.25f;
-    body.Radius = 10;
-    body.GlobalPosition = position;
-    AddChild(body);
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    if (@event is InputEventScreenTouch eventScreenTouch)
+    var spawner = new Physics.SimpleTouchSpawner();
+    spawner.Spawner = (position) =>
     {
-      if (eventScreenTouch.Pressed)
-      {
-        SpawnBody(eventScreenTouch.Position);
-      }
-    }
-
-    if (@event is InputEventScreenDrag eventScreenDrag)
-    {
-      SpawnBody(eventScreenDrag.Position);
-    }
+      var body = new Physics.SimpleBall();
+      body.Mass = 0.25f;
+      body.Radius = 10;
+      body.GlobalPosition = position;
+      return body;
+    };
+    AddChild(spawner);
   }
 }

@@ -9,7 +9,7 @@ public class C5Exercise3 : Node2D, IExample
       + "Touch screen to spawn balls";
   }
 
-  public class WaveWall : SimpleStaticChain
+  public class WaveWall : Physics.SimpleStaticLines
   {
     public float Frequency = 1f;
     public float Amplitude = 100f;
@@ -82,33 +82,19 @@ public class C5Exercise3 : Node2D, IExample
     rightWall.Length = size.x / 2;
     AddChild(rightWall);
 
+    var spawner = new Physics.SimpleTouchSpawner();
+    spawner.Spawner = (position) =>
+    {
+      var ball = new Physics.SimpleBall();
+      ball.GlobalPosition = position;
+      return ball;
+    };
+    AddChild(spawner);
+
     int ballCount = 10;
     for (int i = 0; i < ballCount; ++i)
     {
-      SpawnBall(Utils.RandVector2(0, size.x, 0, size.y / 2 - 100));
-    }
-  }
-
-  private void SpawnBall(Vector2 position)
-  {
-    var ball = new SimpleBall();
-    ball.GlobalPosition = position;
-    AddChild(ball);
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    if (@event is InputEventScreenTouch eventScreenTouch)
-    {
-      if (eventScreenTouch.Pressed)
-      {
-        SpawnBall(eventScreenTouch.Position);
-      }
-    }
-
-    if (@event is InputEventScreenDrag eventScreenDrag)
-    {
-      SpawnBall(eventScreenDrag.Position);
+      spawner.SpawnBody(Utils.RandVector2(0, size.x, 0, size.y / 2 - 100));
     }
   }
 }

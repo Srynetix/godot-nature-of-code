@@ -51,44 +51,30 @@ public class C5Example5 : Node2D, IExample
     var offset = 50;
 
     // Add left floor
-    var leftFloor = new SimpleWall();
+    var leftFloor = new Physics.SimpleWall();
     leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
     leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
     AddChild(leftFloor);
 
     // Add right floor
-    var rightFloor = new SimpleWall();
+    var rightFloor = new Physics.SimpleWall();
     rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
     rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
     AddChild(rightFloor);
 
+    var spawner = new Physics.SimpleTouchSpawner();
+    spawner.Spawner = (position) =>
+    {
+      var body = new MultiShapeBody();
+      body.GlobalPosition = position;
+      return body;
+    };
+    AddChild(spawner);
+
     int bodyCount = 10;
     for (int i = 0; i < bodyCount; ++i)
     {
-      SpawnBody(Utils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
-    }
-  }
-
-  private void SpawnBody(Vector2 position)
-  {
-    var body = new MultiShapeBody();
-    body.GlobalPosition = position;
-    AddChild(body);
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    if (@event is InputEventScreenTouch eventScreenTouch)
-    {
-      if (eventScreenTouch.Pressed)
-      {
-        SpawnBody(eventScreenTouch.Position);
-      }
-    }
-
-    if (@event is InputEventScreenDrag eventScreenDrag)
-    {
-      SpawnBody(eventScreenDrag.Position);
+      spawner.SpawnBody(Utils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
     }
   }
 }

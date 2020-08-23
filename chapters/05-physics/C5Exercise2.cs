@@ -9,7 +9,7 @@ public class C5Exercise2 : Node2D, IExample
       + "Touch screen to spawn boxes";
   }
 
-  public class AntigravityBox : SimpleBox
+  public class AntigravityBox : Physics.SimpleBox
   {
     public override void _Ready()
     {
@@ -24,34 +24,20 @@ public class C5Exercise2 : Node2D, IExample
   {
     var size = GetViewportRect().Size;
 
+    var spawner = new Physics.SimpleTouchSpawner();
+    spawner.Spawner = (position) =>
+    {
+      var box = new AntigravityBox();
+      box.BodySize = new Vector2(20, 20);
+      box.GlobalPosition = position;
+      return box;
+    };
+    AddChild(spawner);
+
     int boxCount = 10;
     for (int i = 0; i < boxCount; ++i)
     {
-      SpawnBox(Utils.RandVector2(0, size.x, 0, size.y));
-    }
-  }
-
-  private void SpawnBox(Vector2 position)
-  {
-    var box = new AntigravityBox();
-    box.BodySize = new Vector2(20, 20);
-    box.GlobalPosition = position;
-    AddChild(box);
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    if (@event is InputEventScreenTouch eventScreenTouch)
-    {
-      if (eventScreenTouch.Pressed)
-      {
-        SpawnBox(eventScreenTouch.Position);
-      }
-    }
-
-    if (@event is InputEventScreenDrag eventScreenDrag)
-    {
-      SpawnBox(eventScreenDrag.Position);
+      spawner.SpawnBody(Utils.RandVector2(0, size.x, 0, size.y));
     }
   }
 }
