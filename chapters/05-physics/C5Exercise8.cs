@@ -12,8 +12,8 @@ public class C5Exercise8 : Node2D, IExample
   {
     public float Length = 500;
     public float Amplitude = 200;
-    public float XSpeed = 20;
-    public float TimeSpeed = 20;
+    public float XSpeed = 2;
+    public float TimeSpeed = 1;
 
     public float CurrentX;
     public float CurrentY;
@@ -28,7 +28,7 @@ public class C5Exercise8 : Node2D, IExample
 
     public override void _Process(float delta)
     {
-      CurrentX += delta * XSpeed;
+      CurrentX += XSpeed;
       CurrentY = Utils.Map(noise.GetNoise1d(t), -1, 1, -Amplitude, Amplitude);
 
       if (CurrentX > Length)
@@ -37,7 +37,7 @@ public class C5Exercise8 : Node2D, IExample
         t = 0;
       }
 
-      t += delta * TimeSpeed;
+      t += TimeSpeed;
     }
 
     public override void _Draw()
@@ -48,11 +48,11 @@ public class C5Exercise8 : Node2D, IExample
       float curY = 0;
       float curT = 0;
 
-      for (float i = 0; i < Length; i += 0.016f * XSpeed)
+      for (float i = 0; i < Length; i += XSpeed)
       {
         curX = i;
         curY = Utils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
-        curT += 0.016f * TimeSpeed;
+        curT += TimeSpeed;
 
         DrawLine(new Vector2(prevX, prevY), new Vector2(curX, curY), Colors.Gray);
         prevX = curX;
