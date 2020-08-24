@@ -1,11 +1,12 @@
 using Godot;
 
-public class C5Example9 : Node2D, IExample
+public class C5Exercise12 : Node2D, IExample
 {
   public string _Summary()
   {
-    return "Example 5.9:\n"
-      + "Collision Listening\n\n"
+    return "Exercise 5.12:\n"
+      + "Disappear on Collision\n\n"
+      + "Balls will disappear when colliding with the floor\n"
       + "Touch screen to spawn balls";
   }
 
@@ -30,6 +31,12 @@ public class C5Example9 : Node2D, IExample
     public void OnBodyEntered(PhysicsBody2D body)
     {
       Colliding = true;
+
+      if (body is Physics.SimpleWall)
+      {
+        // Remove on wall
+        QueueFree();
+      }
     }
 
     public void OnBodyExited(PhysicsBody2D body)
