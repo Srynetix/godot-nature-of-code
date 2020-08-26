@@ -193,7 +193,10 @@
     <Compile Include="scripts\common\variants\ConstantAccelerationMover.cs" />
     <Compile Include="scripts\common\variants\SimpleFallingParticle.cs" />
     <Compile Include="scripts\common\variants\SimpleRepeller.cs" />
-    <Compile Include="scripts\common\verletphysics\Toolkit.cs" />
+    <Compile Include="scripts\common\verletphysics\VerletWorld.cs" />
+    <Compile Include="scripts\common\verletphysics\VerletPoint.cs" />
+    <Compile Include="scripts\common\verletphysics\VerletLink.cs" />
+    <Compile Include="scripts\common\verletphysics\VerletChainBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
