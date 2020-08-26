@@ -22,7 +22,12 @@ namespace VerletPhysics
       points = new List<VerletPoint>();
     }
 
-    public VerletChainBuilder AddPointAtPosition(Vector2 position)
+    public VerletChainBuilder AddPointAtPosition(float x, float y, PointConfigurator configurator = null)
+    {
+      return AddPointAtPosition(new Vector2(x, y), configurator);
+    }
+
+    public VerletChainBuilder AddPointAtPosition(Vector2 position, PointConfigurator configurator = null)
     {
       var point = world.CreatePoint();
       point.MoveToPosition(position);
@@ -39,17 +44,44 @@ namespace VerletPhysics
         }
       }
 
+      if (configurator != null)
+      {
+        configurator(point);
+      }
+
       points.Add(point);
       return this;
     }
 
-    public VerletChainBuilder AddPointAndConfigure(PointConfigurator configurator)
+    public VerletChainBuilder AddPointsAtOffset(int pointCount, float x, float y, PointConfigurator configurator = null)
     {
-      var point = world.CreatePoint();
-      configurator(point);
+      return AddPointsAtOffset(pointCount, new Vector2(x, y), configurator);
+    }
 
-      points.Add(point);
-      return this;
+    public VerletChainBuilder AddPointsAtOffset(int pointCount, Vector2 offset, PointConfigurator configurator = null)
+    {
+      var builder = this;
+      for (int i = 0; i < pointCount; ++i)
+      {
+        builder = builder.AddPointAtOffset(offset, configurator);
+      }
+      return builder;
+    }
+
+    public VerletChainBuilder AddPointAtOffset(float x, float y, PointConfigurator configurator = null)
+    {
+      return AddPointAtOffset(new Vector2(x, y), configurator);
+    }
+
+    public VerletChainBuilder AddPointAtOffset(Vector2 offset, PointConfigurator configurator = null)
+    {
+      Vector2 prevPosition = Vector2.Zero;
+      if (points.Count > 0)
+      {
+        prevPosition = points[points.Count - 1].GlobalPosition;
+      }
+
+      return AddPointAtPosition(prevPosition + offset, configurator);
     }
 
     public void Link(float restingDistance = 50, float tearSensitivity = 100, float stiffness = 1)
