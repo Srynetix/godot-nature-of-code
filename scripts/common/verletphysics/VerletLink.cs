@@ -28,11 +28,6 @@ namespace VerletPhysics
       }
     }
 
-    public override void _Process(float delta)
-    {
-      Update();
-    }
-
     public void Constraint()
     {
       var diff = A.GlobalPosition - B.GlobalPosition;
@@ -51,6 +46,8 @@ namespace VerletPhysics
 
       A.GlobalPosition += diff * scalarA * difference;
       B.GlobalPosition -= diff * scalarB * difference;
+
+      Update();
     }
   }
 }

@@ -30,9 +30,4 @@ public class SimpleZone : Area2D
   {
     DrawRect(new Rect2(Vector2.Zero - Size / 2, Size), color.WithAlpha(200));
   }
-
-  public override void _Process(float delta)
-  {
-    Update();
-  }
 }

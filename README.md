@@ -12,9 +12,12 @@ Almost everything is created from scripts, using `_Draw` methods.
 
 ![screen](./docs/screen.gif)
 
-## Edits
+## Features
 
+- Simple primitives are available in the scripts/common folder
+  - Examples: Canvas, Attractors, Zones, Springs, Particles, Waves, etc.
 - The Physics Libraries chapter is using the Godot internal physics engine instead of Box2D
+- A simple Verlet physics implementation can be found in the scripts/common/verletphysics
 
 ## Roadmap
 

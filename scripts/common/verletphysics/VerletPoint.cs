@@ -35,10 +35,6 @@ namespace VerletPhysics
       GlobalPosition = position;
       prevPosition = GlobalPosition;
     }
-    public override void _Process(float delta)
-    {
-      Update();
-    }
 
     public override void _Draw()
     {
@@ -181,6 +177,7 @@ namespace VerletPhysics
           {
             touchIndex = eventScreenTouch.Index;
             touched = true;
+            Update();
           }
         }
 
@@ -188,6 +185,7 @@ namespace VerletPhysics
         {
           touchIndex = -1;
           touched = false;
+          Update();
         }
       }
 
