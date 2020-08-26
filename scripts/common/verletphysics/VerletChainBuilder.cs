@@ -84,7 +84,7 @@ namespace VerletPhysics
       return AddPointAtPosition(prevPosition + offset, configurator);
     }
 
-    public void Link(float restingDistance = 50, float tearSensitivity = 100, float stiffness = 1)
+    public void Build(float restingDistance = 50, float tearSensitivity = 100, float stiffness = 1)
     {
       if (points.Count < 2)
       {

@@ -42,6 +42,11 @@ namespace VerletPhysics
       return new VerletChainBuilder(this, pinFirst, pinLast, drawIntermediatePoints);
     }
 
+    public VerletClothBuilder StartClothBuilder(VerletClothBuilder.PinModeEnum pinMode = VerletClothBuilder.PinModeEnum.TopCorners, bool drawPoints = false, float pointRadius = 10f)
+    {
+      return new VerletClothBuilder(this, pinMode, drawPoints, pointRadius);
+    }
+
     public void QueueLinkRemoval(VerletLink link)
     {
       if (!linksToRemove.Contains(link))

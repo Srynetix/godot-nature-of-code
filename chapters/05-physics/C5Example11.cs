@@ -8,7 +8,7 @@ public class C5Example11 : Node2D, IExample
     return "Example 5.11:\n"
       + "Verlet Soft Pendulum\n\n"
       + "You can move points by touching them\n"
-      + "If you drag points quick enough, points will break";
+      + "If you drag points quick enough, links will break";
   }
 
   public override void _Ready()
@@ -24,6 +24,6 @@ public class C5Example11 : Node2D, IExample
       {
         point.Radius = 30;
       })
-      .Link(stiffness: 0.5f);
+      .Build(stiffness: 0.5f);
   }
 }

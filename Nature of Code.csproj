@@ -151,6 +151,7 @@
     <Compile Include="chapters\05-physics\C5Example9.cs" />
     <Compile Include="chapters\05-physics\C5Exercise10.cs" />
     <Compile Include="chapters\05-physics\C5Exercise12.cs" />
+    <Compile Include="chapters\05-physics\C5Exercise13.cs" />
     <Compile Include="chapters\05-physics\C5Exercise2.cs" />
     <Compile Include="chapters\05-physics\C5Exercise3.cs" />
     <Compile Include="chapters\05-physics\C5Exercise4.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="scripts\common\verletphysics\VerletPoint.cs" />
     <Compile Include="scripts\common\verletphysics\VerletLink.cs" />
     <Compile Include="scripts\common\verletphysics\VerletChainBuilder.cs" />
+    <Compile Include="scripts\common\verletphysics\VerletClothBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,6 @@ public class C5Example10 : Node2D, IExample
     physics.StartChainBuilder()
       .AddPointAtPosition(new Vector2(size.x / 2, 0))
       .AddPointAtPosition(size / 2 + new Vector2(80, 0))
-      .Link(restingDistance: size.y / 2, tearSensitivity: -1, stiffness: 0.5f);
+      .Build(restingDistance: size.y / 2, tearSensitivity: -1, stiffness: 0.5f);
   }
 }
