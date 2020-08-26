@@ -13,6 +13,8 @@ namespace VerletPhysics
 
   public class VerletPoint : Node2D
   {
+    private const int mouseDetectionRadiusThreshold = 10;
+
     public float Radius = 8f;
     public Color BaseColor = Colors.LightBlue;
     public float Mass = 1;
@@ -20,14 +22,14 @@ namespace VerletPhysics
     public float Friction = 0.99f;
     public float GravityScale = 1;
     public Vector2 Acceleration;
-    public bool Touched = false;
+    public bool Drawing = true;
 
     private bool pinned = false;
     private Vector2 pinPosition;
     private Vector2 prevPosition;
     private VerletWorld world;
     private List<VerletLink> links;
-
+    private bool touched = false;
     private int touchIndex = -1;
 
     public VerletPoint(VerletWorld world)
@@ -48,13 +50,16 @@ namespace VerletPhysics
 
     public override void _Draw()
     {
-      var color = BaseColor;
-      if (Touched)
+      if (Drawing)
       {
-        color = Colors.LightGoldenrod;
-      }
+        var color = BaseColor;
+        if (touched)
+        {
+          color = Colors.LightGoldenrod;
+        }
 
-      DrawCircle(Vector2.Zero, Radius, color);
+        DrawCircle(Vector2.Zero, Radius, color);
+      }
     }
 
     private void FixVelocity(Vector2 velocity)
@@ -89,7 +94,7 @@ namespace VerletPhysics
 
     public void ApplyMovement(VerletEnvironment environment, float delta)
     {
-      if (!Touched)
+      if (!touched)
       {
         // Update acceleration
         ApplyGravity(environment);
@@ -106,12 +111,9 @@ namespace VerletPhysics
 
     public void ApplyConstraints(VerletEnvironment environment, Vector2 worldSize)
     {
-      if (!Touched)
+      foreach (VerletLink link in links)
       {
-        foreach (VerletLink link in links)
-        {
-          link.Constraint(environment);
-        }
+        link.Constraint(environment);
       }
 
       ConstraintPositionInVector(environment, worldSize);
@@ -183,23 +185,23 @@ namespace VerletPhysics
       {
         if (eventScreenTouch.Pressed && touchIndex == -1)
         {
-          if (GlobalPosition.DistanceSquaredTo(eventScreenTouch.Position) < Radius * Radius)
+          if (GlobalPosition.DistanceTo(eventScreenTouch.Position) < Radius + mouseDetectionRadiusThreshold)
           {
             touchIndex = eventScreenTouch.Index;
-            Touched = true;
+            touched = true;
           }
         }
 
         else if (!eventScreenTouch.Pressed && eventScreenTouch.Index == touchIndex)
         {
           touchIndex = -1;
-          Touched = false;
+          touched = false;
         }
       }
 
       else if (@event is InputEventScreenDrag eventScreenDrag)
       {
-        if (eventScreenDrag.Index == touchIndex && Touched)
+        if (eventScreenDrag.Index == touchIndex && touched)
         {
           prevPosition = GlobalPosition - eventScreenDrag.Relative;
         }
@@ -214,6 +216,7 @@ namespace VerletPhysics
     public float TearSensitivity = 200;
     public VerletPoint A;
     public VerletPoint B;
+    public bool Drawing = true;
 
     private VerletWorld world;
 
@@ -226,7 +229,10 @@ namespace VerletPhysics
 
     public override void _Draw()
     {
-      DrawLine(A.GlobalPosition, B.GlobalPosition, Colors.Gray, 2);
+      if (Drawing)
+      {
+        DrawLine(A.GlobalPosition, B.GlobalPosition, Colors.Gray, 2);
+      }
     }
 
     public override void _Process(float delta)
@@ -236,11 +242,6 @@ namespace VerletPhysics
 
     public void Constraint(VerletEnvironment environment)
     {
-      if (A.Touched || B.Touched)
-      {
-        return;
-      }
-
       var diff = A.GlobalPosition - B.GlobalPosition;
       var d = diff.Length();
       var difference = (RestingDistance - d) / d;
@@ -290,6 +291,43 @@ namespace VerletPhysics
       A.AddLink(link);
       AddChild(link);
       return link;
+    }
+
+    public VerletLink[] CreateChain(Vector2[] points, float restingDistance = 30, float tearSensitivity = 50, float stiffness = 1, bool drawIntermediatePoints = true)
+    {
+      if (points.Length < 2)
+      {
+        GD.PrintErr("Bad points length for chain. Need to be >= 2");
+        return null;
+      }
+
+      // First point is static
+      int linkCount = points.Length - 1;
+      var links = new VerletLink[linkCount];
+      VerletPoint prevPoint = CreatePoint();
+      prevPoint.MoveToPosition(points[0]);
+      prevPoint.PinToCurrentPosition();
+
+      for (int i = 1; i < points.Length; ++i)
+      {
+        var currPoint = CreatePoint();
+        currPoint.MoveToPosition(points[i]);
+
+        if (i != 1 && !drawIntermediatePoints)
+        {
+          prevPoint.Drawing = false;
+        }
+
+        var link = CreateLink(prevPoint, currPoint);
+        link.RestingDistance = restingDistance;
+        link.TearSensitivity = tearSensitivity;
+        link.Stiffness = stiffness;
+        links[i - 1] = link;
+
+        prevPoint = currPoint;
+      }
+
+      return links;
     }
 
     public void QueueLinkRemoval(VerletLink link)

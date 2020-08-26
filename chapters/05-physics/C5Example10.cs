@@ -16,17 +16,13 @@ public class C5Example10 : Node2D, IExample
     var physics = new VerletWorld();
     AddChild(physics);
 
-    var p1 = physics.CreatePoint();
-    p1.MoveToPosition(size / 2);
-    p1.PinToCurrentPosition();
-
-    var p2 = physics.CreatePoint();
-    p2.MoveToPosition(size / 2 + new Vector2(20, 20));
-
-    var p3 = physics.CreatePoint();
-    p3.MoveToPosition(size / 2 + new Vector2(40, 40));
-
-    var link1 = physics.CreateLink(p1, p2);
-    var link2 = physics.CreateLink(p2, p3);
+    var chain = physics.CreateChain(new Vector2[] {
+      size / 4,
+      size / 4 + new Vector2(20, 20),
+      size / 4 + new Vector2(40, 40),
+      size / 4 + new Vector2(60, 60),
+      size / 4 + new Vector2(80, 80),
+      size / 4 + new Vector2(100, 100)
+    }, restingDistance: 50, tearSensitivity: 100, stiffness: 0.5f, drawIntermediatePoints: false);
   }
 }
