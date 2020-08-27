@@ -16,24 +16,49 @@ public class SimpleCircleSprite : Sprite
       }
     }
   }
-  public Color BaseColor = Colors.White;
-  public bool OutlineOnly = false;
 
+  public bool Drawing
+  {
+    get => drawing;
+    set
+    {
+      drawing = value;
+      UpdateDrawing();
+    }
+  }
+
+  public Color BaseColor
+  {
+    get => baseColor;
+    set
+    {
+      baseColor = value;
+      UpdateDrawing();
+    }
+  }
+
+  private Color baseColor = Colors.White;
+  private bool drawing = true;
   private float radius = 10;
 
   public override void _Ready()
   {
-    if (OutlineOnly)
+    Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotAlphaWithOutline);
+
+    var targetSize = new Vector2(Radius * 2f, Radius * 2f);
+    Scale = targetSize / Texture.GetSize();
+    UpdateDrawing();
+  }
+
+  private void UpdateDrawing()
+  {
+    if (drawing)
     {
-      Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotOutlineOnly);
+      Modulate = baseColor;
     }
     else
     {
-      Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotAlphaWithOutline);
+      Modulate = Colors.Transparent;
     }
-
-    var targetSize = new Vector2(Radius * 1.5f, Radius * 1.5f);
-    Scale = targetSize / Texture.GetSize();
-    SelfModulate = BaseColor;
   }
 }

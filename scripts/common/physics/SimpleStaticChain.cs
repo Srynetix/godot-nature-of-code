@@ -5,15 +5,17 @@ namespace Physics
 {
   public class SimpleStaticLines : StaticBody2D
   {
-    public Color BaseColor = Colors.Olive;
+    public Color BaseColor = Colors.LightGoldenrod;
 
     private List<CollisionShape2D> shapes;
     private List<SegmentShape2D> segments;
+    private List<SimpleLineSprite> lineSprites;
 
     public SimpleStaticLines()
     {
       shapes = new List<CollisionShape2D>();
       segments = new List<SegmentShape2D>();
+      lineSprites = new List<SimpleLineSprite>();
     }
 
     public void AddSegment(Vector2 start, Vector2 end)
@@ -26,21 +28,15 @@ namespace Physics
 
       segments.Add(segment);
       shapes.Add(shape);
-
       AddChild(shape);
-    }
 
-    public override void _Draw()
-    {
-      foreach (var segment in segments)
-      {
-        DrawLine(segment.A, segment.B, BaseColor, 2);
-      }
-    }
-
-    public override void _Process(float delta)
-    {
-      Update();
+      var lineSprite = new SimpleLineSprite();
+      lineSprite.LineA = GlobalPosition + segment.A;
+      lineSprite.LineB = GlobalPosition + segment.B;
+      lineSprite.BaseColor = BaseColor;
+      lineSprite.Width = 2;
+      lineSprites.Add(lineSprite);
+      AddChild(lineSprite);
     }
   }
 }

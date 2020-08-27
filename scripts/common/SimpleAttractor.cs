@@ -1,14 +1,18 @@
 using Godot;
 
-public class SimpleAttractor : Node2D
+public class SimpleAttractor : SimpleCircleSprite
 {
-  public float Radius = 20.0f;
   public float Mass = 20.0f;
   public float Gravitation = 1.0f;
   public float MinForce = 5;
   public float MaxForce = 25;
-  public bool Drawing = true;
-  public Color BaseColor = Colors.LightGoldenrod;
+
+  public SimpleAttractor()
+  {
+    Radius = 20f;
+    BaseColor = Colors.LightGoldenrod;
+    Drawing = true;
+  }
 
   public virtual Vector2 Attract(SimpleMover mover)
   {
@@ -20,15 +24,8 @@ public class SimpleAttractor : Node2D
 
   public override void _Ready()
   {
+    base._Ready();
     AddToGroup("attractors");
-  }
-
-  public override void _Draw()
-  {
-    if (Drawing)
-    {
-      DrawCircle(Vector2.Zero, Radius, BaseColor);
-    }
   }
 
   protected void AttractNodes()

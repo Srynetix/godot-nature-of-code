@@ -37,18 +37,16 @@ public class C5Example9 : Node2D, IExample
       Colliding = false;
     }
 
-    public override void _Draw()
+    public override void _Process(float delta)
     {
-      // Detect if colliding
-      var color = BaseColor;
       if (Colliding)
       {
-        color = Colors.Red;
+        BaseColor = Colors.Red;
       }
-
-      var outlineVec = new Vector2(OutlineWidth, OutlineWidth);
-      DrawCircle(Vector2.Zero, Radius, OutlineColor);
-      DrawCircle(Vector2.Zero, Radius - OutlineWidth, color);
+      else
+      {
+        BaseColor = Colors.LightBlue;
+      }
     }
   }
 

@@ -16,6 +16,7 @@ public class C5Exercise6 : Node2D, IExample
 
     private CollisionShape2D collisionShape2D;
     private CircleShape2D circleShape2D;
+    private SimpleCircleSprite sprite;
 
     public override void _Ready()
     {
@@ -24,16 +25,11 @@ public class C5Exercise6 : Node2D, IExample
       collisionShape2D = new CollisionShape2D();
       collisionShape2D.Shape = circleShape2D;
       AddChild(collisionShape2D);
-    }
 
-    public override void _Draw()
-    {
-      DrawCircle(Vector2.Zero, Radius, Colors.LightGoldenrod);
-    }
-
-    public override void _Process(float delta)
-    {
-      Update();
+      sprite = new SimpleCircleSprite();
+      sprite.Radius = Radius;
+      sprite.BaseColor = Colors.LightGoldenrod;
+      AddChild(sprite);
     }
 
     public void LinkTarget(PhysicsBody2D target, float softness = 0, float bias = 0)
@@ -53,6 +49,7 @@ public class C5Exercise6 : Node2D, IExample
 
     private CollisionShape2D collisionShape2D;
     private CircleShape2D circleShape2D;
+    private SimpleCircleSprite sprite;
 
     public override void _Ready()
     {
@@ -61,6 +58,11 @@ public class C5Exercise6 : Node2D, IExample
       collisionShape2D = new CollisionShape2D();
       collisionShape2D.Shape = circleShape2D;
       AddChild(collisionShape2D);
+
+      sprite = new SimpleCircleSprite();
+      sprite.Radius = Radius;
+      sprite.BaseColor = Colors.LightGoldenrod;
+      AddChild(sprite);
     }
 
     public void LinkToParent(PhysicsBody2D parent, float softness = 0, float bias = 0)
@@ -71,16 +73,6 @@ public class C5Exercise6 : Node2D, IExample
       pinJoint.Softness = softness;
       pinJoint.Bias = bias;
       parent.AddChild(pinJoint);
-    }
-
-    public override void _Draw()
-    {
-      DrawCircle(Vector2.Zero, Radius, Colors.LightGoldenrod);
-    }
-
-    public override void _Process(float delta)
-    {
-      Update();
     }
   }
 
@@ -96,10 +88,16 @@ public class C5Exercise6 : Node2D, IExample
     private ChainAnchor startAnchor;
     private ChainAnchor endAnchor;
     private List<ChainLink> links;
+    private List<SimpleLineSprite> lineSprites;
+    private Node2D linksContainer;
+    private Node2D circleContainer;
 
     public SimpleChain()
     {
       links = new List<ChainLink>();
+      lineSprites = new List<SimpleLineSprite>();
+      linksContainer = new Node2D();
+      circleContainer = new Node2D();
     }
 
     public override void _Ready()
@@ -107,43 +105,58 @@ public class C5Exercise6 : Node2D, IExample
       var width = (EndPosition.x - StartPosition.x) / (LinkCount + 1);
       var height = (EndPosition.y - StartPosition.y) / (LinkCount + 1);
 
+      AddChild(linksContainer);
+      AddChild(circleContainer);
+
       startAnchor = new ChainAnchor();
       startAnchor.Position = StartPosition;
-      AddChild(startAnchor);
+      circleContainer.AddChild(startAnchor);
 
       PhysicsBody2D lastLink = startAnchor;
       for (int i = 0; i < LinkCount; ++i)
       {
         var link = new ChainLink();
         link.Position = StartPosition + new Vector2(width + i * width, height + i * height);
-        AddChild(link);
+        linksContainer.AddChild(link);
         link.LinkToParent(lastLink, Softness, Bias);
-        lastLink = link;
         links.Add(link);
+
+        var lineSprite = new SimpleLineSprite();
+        circleContainer.AddChild(lineSprite);
+        lineSprite.LineA = lastLink.Position;
+        lineSprite.LineB = link.Position;
+        lineSprites.Add(lineSprite);
+
+        lastLink = link;
       }
 
       endAnchor = new ChainAnchor();
       endAnchor.Position = EndPosition;
-      AddChild(endAnchor);
+      circleContainer.AddChild(endAnchor);
       endAnchor.LinkTarget(lastLink, Softness, Bias);
+
+      var lastLineSprite = new SimpleLineSprite();
+      linksContainer.AddChild(lastLineSprite);
+      lastLineSprite.LineA = lastLink.Position;
+      lastLineSprite.LineB = endAnchor.Position;
+      lineSprites.Add(lastLineSprite);
     }
 
-    public override void _Draw()
+    public override void _Process(float delta)
     {
       PhysicsBody2D lastLink = startAnchor;
 
       for (int i = 0; i < links.Count; ++i)
       {
-        DrawLine(lastLink.Position, links[i].Position, Colors.White, 2);
+        var lineSprite = lineSprites[i];
+        lineSprite.LineA = lastLink.Position;
+        lineSprite.LineB = links[i].Position;
         lastLink = links[i];
       }
 
-      DrawLine(lastLink.Position, endAnchor.Position, Colors.White, 2);
-    }
-
-    public override void _Process(float delta)
-    {
-      Update();
+      var lastLineSprite = lineSprites[lineSprites.Count - 1];
+      lastLineSprite.LineA = lastLink.Position;
+      lastLineSprite.LineB = endAnchor.Position;
     }
   }
 
@@ -164,7 +177,7 @@ public class C5Exercise6 : Node2D, IExample
     spawner.Spawner = (position) =>
     {
       var ball = new Physics.SimpleBall();
-      ball.Radius = 20;
+      ball.Radius = 15;
       ball.GlobalPosition = position;
       return ball;
     };

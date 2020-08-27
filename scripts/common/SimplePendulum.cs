@@ -11,12 +11,39 @@ public class SimplePendulum : Node2D
   public float Angle;
   public bool UserControllable = true;
 
+  private SimpleLineSprite lineSprite;
+  private SimpleCircleSprite circleSprite;
   private bool touched = false;
   private int touchIndex = -1;
+  private Node2D children;
+
+  public SimplePendulum()
+  {
+    circleSprite = new SimpleCircleSprite();
+    circleSprite.Radius = 30;
+    lineSprite = new SimpleLineSprite();
+    lineSprite.Width = 2;
+    children = new Node2D();
+  }
+
+  public override void _Ready()
+  {
+    AddChild(lineSprite);
+    AddChild(circleSprite);
+    AddChild(children);
+
+    lineSprite.LineA = GlobalPosition;
+    lineSprite.LineB = GlobalPosition + GetBallPosition();
+  }
 
   public Vector2 GetBallPosition()
   {
     return new Vector2(RopeLength * Mathf.Sin(Angle), RopeLength * Mathf.Cos(Angle));
+  }
+
+  public void AddPendulumChild(SimplePendulum pendulum)
+  {
+    children.AddChild(pendulum);
   }
 
   public override void _UnhandledInput(InputEvent @event)
@@ -59,24 +86,24 @@ public class SimplePendulum : Node2D
       Angle += AngularVelocity;
 
       AngularVelocity *= Damping;
+
+      circleSprite.BaseColor = Colors.LightBlue;
     }
+    else
+    {
+      circleSprite.BaseColor = Colors.LightGoldenrod;
+    }
+
+    // Update sprites
+    var ballPos = GetBallPosition();
+    circleSprite.GlobalPosition = GlobalPosition + ballPos;
+    lineSprite.LineA = GlobalPosition;
+    lineSprite.LineB = GlobalPosition + ballPos;
 
     // Update child pendulum positions
-    foreach (Node2D child in GetChildren())
+    foreach (Node2D child in children.GetChildren())
     {
-      child.Position = GetBallPosition();
+      child.Position = ballPos;
     }
-
-    Update();
-  }
-
-  public override void _Draw()
-  {
-    var target = GetBallPosition();
-    DrawLine(Vector2.Zero, target, Colors.LightGray);
-    DrawCircle(target, Radius, Colors.LightBlue);
-
-    var ballColor = touched ? Colors.LightGoldenrod : Colors.White;
-    DrawCircle(target, Radius - 2, ballColor);
   }
 }

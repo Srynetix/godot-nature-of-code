@@ -12,23 +12,7 @@ namespace VerletPhysics
     public float Friction = 0.99f;
     public float GravityScale = 1;
     public Vector2 Acceleration;
-    public bool Drawing
-    {
-      get => drawing;
-      set
-      {
-        if (value)
-        {
-          Modulate = Colors.White;
-        }
-        else
-        {
-          Modulate = Colors.Transparent;
-        }
-      }
-    }
 
-    private bool drawing = true;
     private bool pinned = false;
     private Vector2 pinPosition;
     private Vector2 prevPosition;
@@ -51,20 +35,6 @@ namespace VerletPhysics
       GlobalPosition = position;
       prevPosition = GlobalPosition;
     }
-
-    // public override void _Draw()
-    // {
-    //   if (Drawing)
-    //   {
-    //     var color = BaseColor;
-    //     if (touched)
-    //     {
-    //       color = Colors.LightGoldenrod;
-    //     }
-
-    //     DrawCircle(Vector2.Zero, Radius, color);
-    //   }
-    // }
 
     private void FixVelocity(Vector2 velocity)
     {

@@ -31,11 +31,31 @@ public class SimpleLineSprite : Sprite
       Scale = new Vector2(width, Scale.y);
     }
   }
-  public Color BaseColor = Colors.White;
-  public bool OutlineOnly = false;
+
+  public bool Drawing
+  {
+    get => drawing;
+    set
+    {
+      drawing = value;
+      UpdateDrawing();
+    }
+  }
+
+  public Color BaseColor
+  {
+    get => baseColor;
+    set
+    {
+      baseColor = value;
+      UpdateDrawing();
+    }
+  }
 
   private Vector2 lineA = Vector2.Zero;
   private Vector2 lineB = Vector2.Zero;
+  private Color baseColor = Colors.White;
+  private bool drawing = true;
   private float width = 1;
 
   public override void _Ready()
@@ -58,6 +78,18 @@ public class SimpleLineSprite : Sprite
     if (updatePosition)
     {
       GlobalPosition = lineA + dir / 2;
+    }
+  }
+
+  private void UpdateDrawing()
+  {
+    if (drawing)
+    {
+      Modulate = baseColor;
+    }
+    else
+    {
+      Modulate = Colors.Transparent;
     }
   }
 }

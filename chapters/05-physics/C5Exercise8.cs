@@ -26,6 +26,32 @@ public class C5Exercise8 : Node2D, IExample
       noise = new OpenSimplexNoise();
     }
 
+    public override void _Ready()
+    {
+      float prevX = 0;
+      float prevY = 0;
+      float curX = 0;
+      float curY = 0;
+      float curT = 0;
+
+      for (float i = 0; i < Length; i += XSpeed)
+      {
+        curX = i;
+        curY = Utils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
+        curT += TimeSpeed;
+
+        var lineSprite = new SimpleLineSprite();
+        lineSprite.LineA = GlobalPosition + new Vector2(prevX, prevY);
+        lineSprite.LineB = GlobalPosition + new Vector2(curX, curY);
+        lineSprite.BaseColor = Colors.Gray;
+        lineSprite.Width = 2;
+        AddChild(lineSprite);
+
+        prevX = curX;
+        prevY = curY;
+      }
+    }
+
     public override void _Process(float delta)
     {
       CurrentX += XSpeed;
@@ -40,25 +66,25 @@ public class C5Exercise8 : Node2D, IExample
       t += TimeSpeed;
     }
 
-    public override void _Draw()
-    {
-      float prevX = 0;
-      float prevY = 0;
-      float curX = 0;
-      float curY = 0;
-      float curT = 0;
+    // public override void _Draw()
+    // {
+    //   float prevX = 0;
+    //   float prevY = 0;
+    //   float curX = 0;
+    //   float curY = 0;
+    //   float curT = 0;
 
-      for (float i = 0; i < Length; i += XSpeed)
-      {
-        curX = i;
-        curY = Utils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
-        curT += TimeSpeed;
+    //   for (float i = 0; i < Length; i += XSpeed)
+    //   {
+    //     curX = i;
+    //     curY = Utils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
+    //     curT += TimeSpeed;
 
-        DrawLine(new Vector2(prevX, prevY), new Vector2(curX, curY), Colors.Gray);
-        prevX = curX;
-        prevY = curY;
-      }
-    }
+    //     DrawLine(new Vector2(prevX, prevY), new Vector2(curX, curY), Colors.Gray);
+    //     prevX = curX;
+    //     prevY = curY;
+    //   }
+    // }
   }
 
   public class PerlinMouseJoint : Physics.SimpleMouseJoint

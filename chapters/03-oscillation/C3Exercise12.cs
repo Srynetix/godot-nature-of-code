@@ -47,7 +47,7 @@ public class C3Exercise12 : Node2D, IExample
             plm.ShowBehindParent = true;
             plm.RopeLength = ropeLength;
             plm.Angle = angleStep * cIndex;
-            parents[pIndex].AddChild(plm);
+            parents[pIndex].AddPendulumChild(plm);
             newParents.Add(plm);
           }
         }

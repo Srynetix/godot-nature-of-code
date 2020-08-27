@@ -2,37 +2,36 @@ using Godot;
 
 public class SimpleOscillator : Node2D
 {
-  public float Radius = 30;
   public bool ShowLine = true;
 
+  public float Radius = 30;
   public Vector2 Angle;
-  public Vector2 Offset;
+  public Vector2 PositionOffset;
   public Vector2 Velocity;
   public Vector2 Amplitude;
   public Vector2 AngularAcceleration;
 
   public Color LineColor = Colors.LightGray;
-  public Color BallOutlineColor = Colors.LightBlue;
   public Color BallColor = Colors.White;
+
+  private SimpleCircleSprite circleSprite;
+  private SimpleLineSprite lineSprite;
 
   public SimpleOscillator()
   {
     Velocity = new Vector2((float)GD.RandRange(-0.05f, 0.05f), (float)GD.RandRange(-0.05f, 0.05f));
+    circleSprite = new SimpleCircleSprite();
+    lineSprite = new SimpleLineSprite();
   }
 
-  public override void _Draw()
+  public override void _Ready()
   {
-    float x = Offset.x + Mathf.Sin(Angle.x) * Amplitude.x;
-    float y = Offset.y + Mathf.Sin(Angle.y) * Amplitude.y;
-    var target = new Vector2(x, y);
-
-    if (ShowLine)
-    {
-      DrawLine(Vector2.Zero, target, LineColor, 2);
-    }
-
-    DrawCircle(target, Radius, BallOutlineColor);
-    DrawCircle(target, Radius - 2, BallColor);
+    circleSprite.Radius = Radius;
+    circleSprite.BaseColor = BallColor;
+    lineSprite.Drawing = ShowLine;
+    lineSprite.BaseColor = LineColor;
+    AddChild(lineSprite);
+    AddChild(circleSprite);
   }
 
   public override void _Process(float delta)
@@ -41,6 +40,12 @@ public class SimpleOscillator : Node2D
     Angle += Velocity;
     AngularAcceleration = Vector2.Zero;
 
-    Update();
+    float x = PositionOffset.x + Mathf.Sin(Angle.x) * Amplitude.x;
+    float y = PositionOffset.y + Mathf.Sin(Angle.y) * Amplitude.y;
+    var target = new Vector2(x, y);
+
+    lineSprite.LineA = GlobalPosition;
+    lineSprite.LineB = GlobalPosition + target;
+    circleSprite.Position = target;
   }
 }

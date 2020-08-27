@@ -151,6 +151,11 @@ public class SimpleMesh : Node2D
       {
         sprite.Visible = value && MeshType == SimpleMeshTypeEnum.Texture;
       }
+
+      if (circleSprite != null)
+      {
+        circleSprite.Visible = value && MeshType == SimpleMeshTypeEnum.Round;
+      }
     }
   }
 
@@ -169,7 +174,7 @@ public class SimpleMesh : Node2D
 
   private CanvasItemMaterial material;
   private Sprite sprite;
-
+  private SimpleCircleSprite circleSprite;
   private Color _baseColor = Colors.White;
   private bool _drawing = true;
 
@@ -184,6 +189,10 @@ public class SimpleMesh : Node2D
     sprite.Visible = false;
     AddChild(sprite);
 
+    circleSprite = new SimpleCircleSprite();
+    circleSprite.Visible = false;
+    AddChild(circleSprite);
+
     if (MeshType == SimpleMeshTypeEnum.Texture)
     {
       if (CustomTexture != null)
@@ -192,6 +201,12 @@ public class SimpleMesh : Node2D
         sprite.Scale = BodySize / sprite.Texture.GetSize();
         sprite.Visible = _drawing;
       }
+    }
+
+    else if (MeshType == SimpleMeshTypeEnum.Round)
+    {
+      circleSprite.Radius = BodySize.x / 2;
+      circleSprite.Visible = _drawing;
     }
   }
 
@@ -202,13 +217,7 @@ public class SimpleMesh : Node2D
       return;
     }
 
-    if (MeshType == SimpleMeshTypeEnum.Round)
-    {
-      DrawCircle(Vector2.Zero, BodySize.x / 2, OutlineColor);
-      DrawCircle(Vector2.Zero, BodySize.x / 2 - OutlineWidth, BaseColor);
-    }
-
-    else if (MeshType == SimpleMeshTypeEnum.Square)
+    if (MeshType == SimpleMeshTypeEnum.Square)
     {
       var outlineVec = new Vector2(OutlineWidth, OutlineWidth);
       DrawRect(new Rect2(-BodySize / 2, BodySize / 2), OutlineColor);

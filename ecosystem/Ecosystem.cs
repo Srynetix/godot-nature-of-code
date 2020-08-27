@@ -191,7 +191,7 @@ public class Ecosystem : Control
         Velocity = new Vector2(0f, 0.75f);
         Amplitude = new Vector2(1, 7);
         ShowLine = false;
-        BallOutlineColor = Colors.Green;
+        BallColor = Colors.Green;
 
         ShowBehindParent = true;
       }
