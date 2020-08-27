@@ -11,13 +11,47 @@ public enum SimpleMeshTypeEnum
 public enum SimpleDefaultTextureEnum
 {
   WhiteDot,
-  WhiteDotAlpha
+  WhiteDotAlpha,
+  WhiteDotBlur
+}
+
+public enum SimpleDefaultMaterialEnum
+{
+  Add
+}
+
+public static class SimpleDefaultMaterial
+{
+  private static Material AddMaterial;
+
+  public static void Initialize()
+  {
+    if (AddMaterial == null)
+    {
+      var material = new CanvasItemMaterial();
+      material.BlendMode = CanvasItemMaterial.BlendModeEnum.Add;
+      AddMaterial = material;
+    }
+  }
+
+  public static Material FromEnum(SimpleDefaultMaterialEnum value)
+  {
+    Initialize();
+
+    if (value == SimpleDefaultMaterialEnum.Add)
+    {
+      return AddMaterial;
+    }
+
+    return null;
+  }
 }
 
 public static class SimpleDefaultTexture
 {
-  public static Texture WhiteDotTexture;
-  public static Texture WhiteDotAlphaTexture;
+  private static Texture WhiteDotTexture;
+  private static Texture WhiteDotAlphaTexture;
+  private static Texture WhiteDotBlurTexture;
 
   public static void Initialize()
   {
@@ -26,9 +60,14 @@ public static class SimpleDefaultTexture
       WhiteDotTexture = (Texture)GD.Load("res://assets/textures/white-dot-on-black.png");
     }
 
+    if (WhiteDotBlurTexture == null)
+    {
+      WhiteDotBlurTexture = (Texture)GD.Load("res://assets/textures/white-dot-blur.png");
+    }
+
     if (WhiteDotAlphaTexture == null)
     {
-      WhiteDotAlphaTexture = (Texture)GD.Load("res://assets/textures/white-dot-blur.png");
+      WhiteDotAlphaTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha.png");
     }
   }
 
@@ -39,6 +78,11 @@ public static class SimpleDefaultTexture
     if (value == SimpleDefaultTextureEnum.WhiteDot)
     {
       return WhiteDotTexture;
+    }
+
+    else if (value == SimpleDefaultTextureEnum.WhiteDotBlur)
+    {
+      return WhiteDotBlurTexture;
     }
 
     else

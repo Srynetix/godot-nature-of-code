@@ -18,7 +18,7 @@ public class C4Exercise13 : Node2D, IExample
       particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
       particle.BodySize = new Vector2(40, 40);
       particle.Mesh.MeshType = SimpleMeshTypeEnum.Texture;
-      particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotAlpha);
+      particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotBlur);
       particle.Mesh.CustomTextureBlendMode = CanvasItemMaterial.BlendModeEnum.Add;
       particle.Mesh.BaseColor = Utils.RandColor();
       particle.ForceRangeX = new Vector2(-0.75f, 0.75f);

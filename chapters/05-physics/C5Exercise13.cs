@@ -24,7 +24,7 @@ public class C5Exercise13 : Node2D, IExample
 
     physics.StartClothBuilder(
       pinMode: VerletClothBuilder.PinModeEnum.TopCorners,
-      drawPoints: false,
+      drawPoints: true,
       pointRadius: 4f
     )
       .AddPointsInRectangle(

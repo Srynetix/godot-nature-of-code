@@ -3,19 +3,32 @@ using System.Collections.Generic;
 
 namespace VerletPhysics
 {
-  public class VerletPoint : Node2D
+  public class VerletPoint : SimpleCircleSprite
   {
     private const int mouseDetectionRadiusThreshold = 10;
 
-    public float Radius = 15f;
-    public Color BaseColor = Colors.LightBlue;
     public float Mass = 1;
     public float Bounce = 0.9f;
     public float Friction = 0.99f;
     public float GravityScale = 1;
     public Vector2 Acceleration;
-    public bool Drawing = true;
+    public bool Drawing
+    {
+      get => drawing;
+      set
+      {
+        if (value)
+        {
+          Modulate = Colors.White;
+        }
+        else
+        {
+          Modulate = Colors.Transparent;
+        }
+      }
+    }
 
+    private bool drawing = true;
     private bool pinned = false;
     private Vector2 pinPosition;
     private Vector2 prevPosition;
@@ -26,6 +39,9 @@ namespace VerletPhysics
 
     public VerletPoint(VerletWorld world)
     {
+      Radius = 15f;
+      BaseColor = Colors.LightBlue;
+
       this.world = world;
       links = new List<VerletLink>();
     }
@@ -36,19 +52,19 @@ namespace VerletPhysics
       prevPosition = GlobalPosition;
     }
 
-    public override void _Draw()
-    {
-      if (Drawing)
-      {
-        var color = BaseColor;
-        if (touched)
-        {
-          color = Colors.LightGoldenrod;
-        }
+    // public override void _Draw()
+    // {
+    //   if (Drawing)
+    //   {
+    //     var color = BaseColor;
+    //     if (touched)
+    //     {
+    //       color = Colors.LightGoldenrod;
+    //     }
 
-        DrawCircle(Vector2.Zero, Radius, color);
-      }
-    }
+    //     DrawCircle(Vector2.Zero, Radius, color);
+    //   }
+    // }
 
     private void FixVelocity(Vector2 velocity)
     {

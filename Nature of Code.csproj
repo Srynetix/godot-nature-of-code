@@ -172,6 +172,7 @@
     <Compile Include="scripts\SyntaxHighlighter.cs" />
     <Compile Include="scripts\common\DrawCanvas.cs" />
     <Compile Include="scripts\common\SimpleAttractor.cs" />
+    <Compile Include="scripts\common\SimpleCircleSprite.cs" />
     <Compile Include="scripts\common\SimpleFrictionPocket.cs" />
     <Compile Include="scripts\common\SimpleLiquid.cs" />
     <Compile Include="scripts\common\SimpleMesh.cs" />
