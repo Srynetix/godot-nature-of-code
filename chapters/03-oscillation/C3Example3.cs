@@ -10,12 +10,8 @@ public class C3Example3 : Node2D, IExample
 
   public class Mover : SimpleMover
   {
-    protected override void UpdateAcceleration()
+    public Mover()
     {
-      var mousePos = GetViewport().GetMousePosition();
-      var dir = (mousePos - Position).Normalized();
-
-      Acceleration = dir * 0.5f;
       Mesh.MeshType = SimpleMeshTypeEnum.Custom;
       Mesh.CustomDrawMethod = (pen) =>
       {
@@ -25,6 +21,14 @@ public class C3Example3 : Node2D, IExample
         pen.DrawRect(new Rect2(-length / 2, -width / 2, length, width), pen.OutlineColor);
         pen.DrawRect(new Rect2(-length / 2 + pen.OutlineWidth, -width / 2 + 2, length - 4, width - 4), pen.BaseColor);
       };
+    }
+
+    protected override void UpdateAcceleration()
+    {
+      var mousePos = GetViewport().GetMousePosition();
+      var dir = (mousePos - Position).Normalized();
+
+      Acceleration = dir * 0.5f;
     }
 
     public override void _Process(float delta)

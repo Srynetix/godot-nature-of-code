@@ -169,6 +169,11 @@ public class SimpleMesh : Node2D
       {
         sprite.Modulate = value;
       }
+
+      if (sprite != null)
+      {
+        circleSprite.BaseColor = value;
+      }
     }
   }
 

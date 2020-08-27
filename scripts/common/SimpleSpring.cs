@@ -13,6 +13,20 @@ public class SimpleSpring : Node2D
   private SimpleMover currentMover = null;
   private int touchIndex = -1;
   private bool touched = false;
+  private SimpleLineSprite lineSprite;
+
+  public SimpleSpring()
+  {
+    lineSprite = new SimpleLineSprite();
+    lineSprite.Width = 2;
+  }
+
+  public override void _Ready()
+  {
+    lineSprite.LineA = GlobalPosition;
+    lineSprite.LineB = GlobalPosition;
+    AddChild(lineSprite);
+  }
 
   public virtual Vector2 ComputeForce(SimpleMover mover)
   {
@@ -51,14 +65,14 @@ public class SimpleSpring : Node2D
     }
   }
 
-  public override void _Draw()
-  {
-    if (currentMover != null)
-    {
-      var color = touched ? Colors.LightGoldenrod : Colors.LightGray;
-      DrawLine(Vector2.Zero, currentMover.Position, color, 2, true);
-    }
-  }
+  // public override void _Draw()
+  // {
+  //   if (currentMover != null)
+  //   {
+  //     var color = touched ? Colors.LightGoldenrod : Colors.LightGray;
+  //     DrawLine(Vector2.Zero, currentMover.Position, color, 2, true);
+  //   }
+  // }
 
   public override void _UnhandledInput(InputEvent @event)
   {
@@ -104,7 +118,15 @@ public class SimpleSpring : Node2D
     }
 
     ConstrainLength();
-    Update();
+
+    if (currentMover != null)
+    {
+      // Update line
+      var color = touched ? Colors.LightGoldenrod : Colors.LightGray;
+      lineSprite.LineA = GlobalPosition;
+      lineSprite.LineB = currentMover.GlobalPosition;
+      lineSprite.BaseColor = color;
+    }
   }
 
   public void SetMover(SimpleMover mover, Vector2 initialPosition)
