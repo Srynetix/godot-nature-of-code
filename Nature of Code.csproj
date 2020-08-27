@@ -172,7 +172,6 @@
     <Compile Include="scripts\SyntaxHighlighter.cs" />
     <Compile Include="scripts\common\DrawCanvas.cs" />
     <Compile Include="scripts\common\SimpleAttractor.cs" />
-    <Compile Include="scripts\common\SimpleCircleSprite.cs" />
     <Compile Include="scripts\common\SimpleFrictionPocket.cs" />
     <Compile Include="scripts\common\SimpleLiquid.cs" />
     <Compile Include="scripts\common\SimpleMesh.cs" />
@@ -186,6 +185,8 @@
     <Compile Include="scripts\common\SimpleTrail.cs" />
     <Compile Include="scripts\common\SimpleWalker.cs" />
     <Compile Include="scripts\common\SimpleZone.cs" />
+    <Compile Include="scripts\common\drawing\SimpleCircleSprite.cs" />
+    <Compile Include="scripts\common\drawing\SimpleLineSprite.cs" />
     <Compile Include="scripts\common\physics\SimpleBox.cs" />
     <Compile Include="scripts\common\physics\SimpleBall.cs" />
     <Compile Include="scripts\common\physics\SimpleMouseJoint.cs" />

@@ -2,7 +2,7 @@ using Godot;
 
 namespace VerletPhysics
 {
-  public class VerletLink : Node2D
+  public class VerletLink : SimpleLineSprite
   {
     public float RestingDistance = 100;
     public float Stiffness = 1;
@@ -18,14 +18,15 @@ namespace VerletPhysics
       A = a;
       B = b;
       this.world = world;
+
+      LineA = A.GlobalPosition;
+      LineB = B.GlobalPosition;
     }
 
-    public override void _Draw()
+    public override void _Process(float delta)
     {
-      if (Drawing)
-      {
-        DrawLine(A.GlobalPosition, B.GlobalPosition, Colors.Gray, 2);
-      }
+      LineA = A.GlobalPosition;
+      LineB = B.GlobalPosition;
     }
 
     public void Constraint()
@@ -47,7 +48,8 @@ namespace VerletPhysics
       A.GlobalPosition += diff * scalarA * difference;
       B.GlobalPosition -= diff * scalarB * difference;
 
-      Update();
+      LineA = A.GlobalPosition;
+      LineB = B.GlobalPosition;
     }
   }
 }
