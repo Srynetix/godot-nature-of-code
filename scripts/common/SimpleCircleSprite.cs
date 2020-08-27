@@ -17,12 +17,21 @@ public class SimpleCircleSprite : Sprite
     }
   }
   public Color BaseColor = Colors.White;
+  public bool OutlineOnly = false;
 
   private float radius = 10;
 
   public override void _Ready()
   {
-    Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotAlpha);
+    if (OutlineOnly)
+    {
+      Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotOutlineOnly);
+    }
+    else
+    {
+      Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotAlphaWithOutline);
+    }
+
     var targetSize = new Vector2(Radius * 1.5f, Radius * 1.5f);
     Scale = targetSize / Texture.GetSize();
     SelfModulate = BaseColor;
