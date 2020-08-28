@@ -59,7 +59,7 @@ public class SimpleLineSprite : Sprite
 
   public override void _Ready()
   {
-    Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.Line);
+    Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.Line);
     UpdateTransform();
   }
 

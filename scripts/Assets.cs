@@ -1,25 +1,37 @@
 using Godot;
 
-public enum SimpleDefaultTextureEnum
-{
-  WhiteDot,
-  WhiteDotAlpha,
-  WhiteDotAlphaWithOutline,
-  WhiteDotOutlineOnly,
-  WhiteDotBlur,
-  Line
-}
-
-public enum SimpleDefaultMaterialEnum
-{
-  Add
-}
-
+/// <summary>
+/// Contains lazy-loaded materials to use.
+/// </summary>
 public static class SimpleDefaultMaterial
 {
+  /// <summary>
+  /// Material types.
+  /// </summary>
+  public enum Enum
+  {
+    /// <summary>Default material with BlendMode.Add</summary>
+    Add
+  }
+
   private static Material AddMaterial;
 
-  public static void Initialize()
+  /// <summary>
+  /// Get or create a default material from an enum value.
+  /// </summary>
+  public static Material FromEnum(Enum value)
+  {
+    Initialize();
+
+    if (value == Enum.Add)
+    {
+      return AddMaterial;
+    }
+
+    return null;
+  }
+
+  private static void Initialize()
   {
     if (AddMaterial == null)
     {
@@ -28,22 +40,32 @@ public static class SimpleDefaultMaterial
       AddMaterial = material;
     }
   }
-
-  public static Material FromEnum(SimpleDefaultMaterialEnum value)
-  {
-    Initialize();
-
-    if (value == SimpleDefaultMaterialEnum.Add)
-    {
-      return AddMaterial;
-    }
-
-    return null;
-  }
 }
 
+/// <summary>
+/// Contains lazy-loaded textures to use.
+/// </summary>
 public static class SimpleDefaultTexture
 {
+  /// <summary>
+  /// Texture types.
+  /// </summary>
+  public enum Enum
+  {
+    /// <summary>Default white circle texture with black background.</summary>
+    WhiteDot,
+    /// <summary>Default white circle texture with alpha background.</summary>
+    WhiteDotAlpha,
+    /// <summary>Default white circle texture with outline and alpha background.</summary>
+    WhiteDotAlphaWithOutline,
+    /// <summary>Default white circle outline with alpha background.</summary>
+    WhiteDotOutlineOnly,
+    /// <summary>Default white blurry circle with alpha background.</summary>
+    WhiteDotBlur,
+    /// <summary>Default vertical line texture.</summary>
+    Line
+  }
+
   private static Texture WhiteDotTexture;
   private static Texture WhiteDotAlphaTexture;
   private static Texture WhiteDotAlphaWithOutlineTexture;
@@ -51,7 +73,47 @@ public static class SimpleDefaultTexture
   private static Texture WhiteDotBlurTexture;
   private static Texture LineTexture;
 
-  public static void Initialize()
+  /// <summary>
+  /// Get or create a default texture from an enum value.
+  /// </summary>
+  public static Texture FromEnum(Enum value)
+  {
+    Initialize();
+
+    if (value == Enum.WhiteDot)
+    {
+      return WhiteDotTexture;
+    }
+
+    else if (value == Enum.WhiteDotBlur)
+    {
+      return WhiteDotBlurTexture;
+    }
+
+    else if (value == Enum.WhiteDotOutlineOnly)
+    {
+      return WhiteDotOutlineOnlyTexture;
+    }
+
+    else if (value == Enum.WhiteDotAlphaWithOutline)
+    {
+      return WhiteDotAlphaWithOutlineTexture;
+    }
+
+    else if (value == Enum.WhiteDotAlpha)
+    {
+      return WhiteDotAlphaTexture;
+    }
+
+    else if (value == Enum.Line)
+    {
+      return LineTexture;
+    }
+
+    return null;
+  }
+
+  private static void Initialize()
   {
     if (WhiteDotTexture == null)
     {
@@ -83,49 +145,18 @@ public static class SimpleDefaultTexture
       LineTexture = (Texture)GD.Load("res://assets/textures/line.png");
     }
   }
-
-  public static Texture FromEnum(SimpleDefaultTextureEnum value)
-  {
-    Initialize();
-
-    if (value == SimpleDefaultTextureEnum.WhiteDot)
-    {
-      return WhiteDotTexture;
-    }
-
-    else if (value == SimpleDefaultTextureEnum.WhiteDotBlur)
-    {
-      return WhiteDotBlurTexture;
-    }
-
-    else if (value == SimpleDefaultTextureEnum.WhiteDotOutlineOnly)
-    {
-      return WhiteDotOutlineOnlyTexture;
-    }
-
-    else if (value == SimpleDefaultTextureEnum.WhiteDotAlphaWithOutline)
-    {
-      return WhiteDotAlphaWithOutlineTexture;
-    }
-
-    else if (value == SimpleDefaultTextureEnum.WhiteDotAlpha)
-    {
-      return WhiteDotAlphaTexture;
-    }
-
-    else if (value == SimpleDefaultTextureEnum.Line)
-    {
-      return LineTexture;
-    }
-
-    return null;
-  }
 }
 
+/// <summary>
+/// Contains lazy-loaded fonts to use.
+/// </summary>
 public static class SimpleDefaultFont
 {
   private static Font Regular = null;
 
+  /// <summary>
+  /// Get or create default font.
+  /// </summary>
   static public Font LoadDefaultFont()
   {
     if (Regular == null)

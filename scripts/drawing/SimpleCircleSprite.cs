@@ -32,7 +32,7 @@ public class SimpleCircleSprite : Sprite
 
   public override void _Ready()
   {
-    Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTextureEnum.WhiteDotAlphaWithOutline);
+    Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotAlphaWithOutline);
     UpdateScale();
   }
 
