@@ -1,4 +1,5 @@
 using Godot;
+using Drawing;
 
 public class C0Exercise7 : Node2D, IExample
 {
@@ -16,7 +17,7 @@ public class C0Exercise7 : Node2D, IExample
       DrawCircle(Vector2.Zero, 18, Colors.LightGray);
     }
 
-    public override void Step()
+    protected override void Step()
     {
       RandomStep();
 

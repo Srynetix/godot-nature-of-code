@@ -1,4 +1,5 @@
 using Godot;
+using Drawing;
 
 public class C5Exercise8 : Node2D, IExample
 {
@@ -91,7 +92,7 @@ public class C5Exercise8 : Node2D, IExample
   {
     public PerlinWaveDrawing Drawing = null;
 
-    public override Vector2 ComputeTargetPosition()
+    protected override Vector2 ComputeTargetPosition()
     {
       return Drawing.GlobalPosition + new Vector2(Drawing.CurrentX, Drawing.CurrentY);
     }

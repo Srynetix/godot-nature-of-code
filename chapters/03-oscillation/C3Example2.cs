@@ -1,6 +1,7 @@
 using System.Linq;
-
 using Godot;
+using Drawing;
+using Forces;
 
 public class C3Example2 : Node2D, IExample
 {
@@ -15,7 +16,7 @@ public class C3Example2 : Node2D, IExample
     public Square() : base(WrapModeEnum.Wrap)
     {
       MaxVelocity = 2.0f;
-      Mesh.MeshType = SimpleMeshTypeEnum.Square;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Square;
     }
 
     protected override void UpdateAcceleration()

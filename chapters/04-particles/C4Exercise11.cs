@@ -1,4 +1,8 @@
 using Godot;
+using Assets;
+using Drawing;
+using Forces;
+using Particles;
 
 public class C4Exercise11 : Node2D, IExample
 {
@@ -12,12 +16,12 @@ public class C4Exercise11 : Node2D, IExample
   {
     var size = GetViewportRect().Size;
     var particleSystem = new SimpleParticleSystem();
-    particleSystem.SetCreateParticleFunction(() =>
+    particleSystem.ParticleCreationFunction = () =>
     {
       var particle = new SimpleFallingParticle();
       particle.WrapMode = SimpleMover.WrapModeEnum.None;
       particle.MeshSize = new Vector2(150, 150);
-      particle.Mesh.MeshType = SimpleMeshTypeEnum.Texture;
+      particle.Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
       particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotBlur);
       particle.Mesh.CustomTextureBlendMode = CanvasItemMaterial.BlendModeEnum.Add;
       particle.Mesh.Modulate = Colors.Firebrick;
@@ -25,7 +29,7 @@ public class C4Exercise11 : Node2D, IExample
       particle.ForceRangeY = new Vector2(0, -0.15f);
       particle.Lifespan = 2;
       return particle;
-    });
+    };
     particleSystem.ParticleSpawnFrameDelay = 2;
     particleSystem.Position = new Vector2(size.x / 2, size.y / 1.5f);
     AddChild(particleSystem);

@@ -1,7 +1,15 @@
 using Godot;
 
+/// <summary>
+/// Color extension methods
+/// </summary>
 public static class ColorExtensions
 {
+  /// <summary>
+  /// Clone a color with an alpha value.
+  /// </summary>
+  /// <param name="alpha">Alpha value (0-255)</param>
+  /// <returns>Color with alpha</returns>
   public static Color WithAlpha(this Color color, byte alpha)
   {
     Color clone = color;

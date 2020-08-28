@@ -1,4 +1,5 @@
 using Godot;
+using Oscillation;
 
 public class C3Exercise11 : Node2D, IExample
 {
@@ -17,7 +18,7 @@ public class C3Exercise11 : Node2D, IExample
       noise = new OpenSimplexNoise();
     }
 
-    public override float ComputeY(float angle)
+    protected override float ComputeY(float angle)
     {
       var n1 = MathUtils.Map(noise.GetNoise1d(angle * 10f), -1, 1, -Amplitude * 0.75f, Amplitude * 0.75f);
       var n2 = MathUtils.Map(Mathf.Sin(angle), -1, 1, -Amplitude * 0.25f, Amplitude * 0.25f);

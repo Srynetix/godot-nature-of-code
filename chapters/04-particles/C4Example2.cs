@@ -1,6 +1,7 @@
 using Godot;
-
 using System.Collections.Generic;
+using Drawing;
+using Particles;
 
 public class C4Example2 : Node2D, IExample
 {
@@ -24,7 +25,7 @@ public class C4Example2 : Node2D, IExample
       var particle = new SimpleFallingParticle();
       particle.MeshSize = new Vector2(20, 20);
       particle.Lifespan = 2;
-      particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
+      particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
       particles.Add(particle);
       AddChild(particle);
     }

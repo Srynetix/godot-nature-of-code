@@ -1,4 +1,6 @@
 using Godot;
+using Forces;
+using Oscillation;
 
 public class C3Exercise16 : Node2D, IExample
 {

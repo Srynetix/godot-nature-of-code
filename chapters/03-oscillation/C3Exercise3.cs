@@ -1,4 +1,6 @@
 using Godot;
+using Drawing;
+using Forces;
 
 public class C3Exercise3 : Control, IExample
 {
@@ -14,7 +16,7 @@ public class C3Exercise3 : Control, IExample
   {
     public Car() : base(WrapModeEnum.Wrap)
     {
-      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
       Mesh.CustomDrawMethod = (pen) =>
       {
         // Car body

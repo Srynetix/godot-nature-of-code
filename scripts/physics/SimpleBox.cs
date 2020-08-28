@@ -2,21 +2,25 @@ using Godot;
 
 namespace Physics
 {
+  /// <summary>
+  /// Simple physics box.
+  /// </summary>
   public class SimpleBox : RigidBody2D
   {
+    /// <summary>Outline width</summary>
     public float OutlineWidth = 2;
+    /// <summary>Outline color</summary>
     public Color OutlineColor = Colors.LightBlue;
+    /// <summary>Base color</summary>
     public Color BaseColor = Colors.White;
+
+    /// <summary>Mesh size</summary>
     public Vector2 MeshSize
     {
-      get => bodySize;
+      get => rectangleShape2D.Extents;
       set
       {
-        bodySize = value;
-        if (rectangleShape2D != null)
-        {
-          rectangleShape2D.Extents = bodySize;
-        }
+        rectangleShape2D.Extents = bodySize;
       }
     }
 
@@ -24,12 +28,21 @@ namespace Physics
     private CollisionShape2D collisionShape2D;
     private RectangleShape2D rectangleShape2D;
 
-    public override void _Ready()
+    /// <summary>
+    /// Create a simple box.
+    /// </summary>
+    public SimpleBox()
     {
       rectangleShape2D = new RectangleShape2D();
-      rectangleShape2D.Extents = bodySize / 2;
+      rectangleShape2D.Extents = new Vector2(10, 10);
       collisionShape2D = new CollisionShape2D();
       collisionShape2D.Shape = rectangleShape2D;
+    }
+
+    #region Lifecycle methods
+
+    public override void _Ready()
+    {
       AddChild(collisionShape2D);
     }
 
@@ -44,5 +57,7 @@ namespace Physics
     {
       Update();
     }
+
+    #endregion
   }
 }

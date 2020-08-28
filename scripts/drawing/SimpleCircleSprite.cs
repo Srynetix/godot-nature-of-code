@@ -1,47 +1,59 @@
 using Godot;
+using Assets;
 
-/// <summary>
-/// Use this to draw a circle.
-/// Instead of DrawCircle, it can be batched.
-/// </summary>
-public class SimpleCircleSprite : Sprite
+namespace Drawing
 {
   /// <summary>
-  /// Circle radius.
+  /// Use this to draw a circle.
+  /// Instead of DrawCircle, it can be batched.
   /// </summary>
-  public float Radius
+  public class SimpleCircleSprite : Sprite
   {
-    get => radius;
-    set
+    /// <summary>
+    /// Circle radius.
+    /// </summary>
+    public float Radius
     {
-      radius = value;
+      get => radius;
+      set
+      {
+        radius = value;
+        UpdateScale();
+      }
+    }
+
+    private float radius = 10;
+
+    /// <summary>
+    /// Create a light blue circle with radius 10.
+    /// </summary>
+    public SimpleCircleSprite()
+    {
+      Radius = 10;
+      Modulate = Colors.LightBlue;
+    }
+
+    #region Lifecycle methods
+
+    public override void _Ready()
+    {
+      Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotAlphaWithOutline);
       UpdateScale();
     }
-  }
 
-  private float radius = 10;
+    #endregion
 
-  /// <summary>
-  /// Create a light blue circle with radius 10.
-  /// </summary>
-  public SimpleCircleSprite()
-  {
-    Radius = 10;
-    Modulate = Colors.LightBlue;
-  }
+    #region Private methods
 
-  public override void _Ready()
-  {
-    Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotAlphaWithOutline);
-    UpdateScale();
-  }
-
-  private void UpdateScale()
-  {
-    if (Texture != null)
+    private void UpdateScale()
     {
-      var targetSize = new Vector2(Radius * 2f, Radius * 2f);
-      Scale = targetSize / Texture.GetSize();
+      if (Texture != null)
+      {
+        var targetSize = new Vector2(Radius * 2f, Radius * 2f);
+        Scale = targetSize / Texture.GetSize();
+      }
     }
+
+    #endregion
   }
 }

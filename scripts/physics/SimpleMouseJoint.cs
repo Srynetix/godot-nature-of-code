@@ -2,26 +2,40 @@ using Godot;
 
 namespace Physics
 {
+  /// <summary>
+  /// Simple simulated mouse joint.
+  /// </summary>
   public class SimpleMouseJoint : Node2D
   {
+    /// <summary>Joint speed</summary>
     public float Speed = 2;
 
-    private bool _active = false;
-    private RigidBody2D _parent;
+    private bool active = false;
+    private RigidBody2D parent = null;
 
-    public override void _Ready()
+    /// <summary>
+    /// Is joint active?
+    /// </summary>
+    /// <returns>True/False</returns>
+    public virtual bool IsActive()
     {
-      _parent = (RigidBody2D)GetParent();
+      return active;
     }
 
-    public virtual Vector2 ComputeTargetPosition()
+    /// <summary>
+    /// Compute target position.
+    /// </summary>
+    /// <returns>Position vector</returns>
+    protected virtual Vector2 ComputeTargetPosition()
     {
       return GetViewport().GetMousePosition();
     }
 
-    public virtual bool IsActive()
+    #region Lifecycle methods
+
+    public override void _Ready()
     {
-      return _active;
+      parent = (RigidBody2D)GetParent();
     }
 
     public override void _Process(float delta)
@@ -29,8 +43,8 @@ namespace Physics
       if (IsActive())
       {
         // Apply to parent object
-        var r = ComputeTargetPosition() - _parent.Position;
-        _parent.LinearVelocity = r * Speed;
+        var r = ComputeTargetPosition() - parent.Position;
+        parent.LinearVelocity = r * Speed;
       }
 
       Update();
@@ -42,11 +56,11 @@ namespace Physics
       {
         if (eventScreenTouch.Pressed)
         {
-          _active = true;
+          active = true;
         }
         else
         {
-          _active = false;
+          active = false;
         }
       }
     }
@@ -55,8 +69,10 @@ namespace Physics
     {
       if (IsActive())
       {
-        DrawLine(Vector2.Zero, (ComputeTargetPosition() - _parent.GlobalPosition).Rotated(-_parent.GlobalRotation), Colors.Gray, 2);
+        DrawLine(Vector2.Zero, (ComputeTargetPosition() - parent.GlobalPosition).Rotated(-parent.GlobalRotation), Colors.Gray, 2);
       }
     }
+
+    #endregion
   }
 }

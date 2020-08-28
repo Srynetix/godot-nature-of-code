@@ -1,4 +1,5 @@
 using Godot;
+using Particles;
 
 public class C4Example1 : Node2D, IExample
 {

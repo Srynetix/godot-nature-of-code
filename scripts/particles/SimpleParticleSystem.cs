@@ -1,97 +1,118 @@
 using Godot;
-
+using Forces;
 using System.Collections.Generic;
 
-public class SimpleParticleSystem : SimpleMover
+namespace Particles
 {
-  public delegate SimpleParticle CreateParticleFunction();
-
-  public bool Emitting = true;
-  public bool RemoveWhenEmptyParticles = false;
-  public int ParticleCount = -1;
-  public int ParticleSpawnFrameDelay = 4;
-  public bool LocalCoords = true;
-  public Node ParticlesContainer = null;
-
-  private List<SimpleParticle> particles;
-  private CreateParticleFunction particleFunction = null;
-  private int elapsedFrames = 0;
-
-  public SimpleParticleSystem(WrapModeEnum wrapMode = WrapModeEnum.Wrap) : base(wrapMode)
+  /// <summary>
+  /// Simple particle system.
+  /// </summary>
+  public class SimpleParticleSystem : SimpleMover
   {
-    particles = new List<SimpleParticle>();
-    DisableForces = true;
-    Drawing = false;
-  }
+    /// <summary>Particle creation function definition</summary>
+    public delegate SimpleParticle ParticleCreationFunc();
 
-  public void SetCreateParticleFunction(CreateParticleFunction fn)
-  {
-    particleFunction = fn;
-  }
+    /// <summary>System is emitting</summary>
+    public bool Emitting = true;
+    /// <summary>Remove system when particle list is empty</summary>
+    public bool RemoveWhenEmptyParticles = false;
+    /// <summary>Particle count. Use -1 for "unlimited" particles</summary>
+    public int ParticleCount = -1;
+    /// <summary>Particle spawn frame delay</summary>
+    public int ParticleSpawnFrameDelay = 4;
+    /// <summary>Draw in local coords</summary>
+    public bool LocalCoords = true;
+    /// <summary>Particles container. Use Parent by default.
+    public Node ParticlesContainer = null;
+    /// <summary>Particles creation function</summary>
+    public ParticleCreationFunc ParticleCreationFunction = null;
 
-  public void AddParticle(SimpleParticle particle)
-  {
-    particles.Add(particle);
+    private List<SimpleParticle> particles;
+    private int elapsedFrames = 0;
 
-    if (LocalCoords)
+    /// <summary>
+    /// Create a default particle system.
+    /// </summary>
+    /// <param name="wrapMode">Wrapping mode</param>
+    public SimpleParticleSystem(WrapModeEnum wrapMode = WrapModeEnum.None) : base(wrapMode)
     {
-      AddChild(particle);
-    }
-    else
-    {
-      var container = ParticlesContainer ?? GetParent();
-      particle.GlobalPosition = GlobalPosition;
-      container.AddChild(particle);
-    }
-  }
-
-  private void UpdateParticles()
-  {
-    List<SimpleParticle> newParticles = new List<SimpleParticle>();
-    foreach (SimpleParticle part in particles)
-    {
-      if (part.IsDead())
-      {
-        part.QueueFree();
-      }
-      else
-      {
-        newParticles.Add(part);
-      }
+      particles = new List<SimpleParticle>();
+      DisableForces = true;
+      Drawing = false;
     }
 
-    particles = newParticles;
-  }
+    #region Lifecycle methods
 
-  public override void _Process(float delta)
-  {
-    base._Process(delta);
-
-    if (Emitting && particleFunction != null && ParticleCount != 0)
+    public override void _Process(float delta)
     {
-      if (elapsedFrames == 0)
-      {
-        var particle = particleFunction();
-        AddParticle(particle);
+      base._Process(delta);
 
-        if (ParticleCount > 0)
+      if (Emitting && ParticleCreationFunction != null && ParticleCount != 0)
+      {
+        if (elapsedFrames == 0)
         {
-          ParticleCount--;
-        }
+          var particle = ParticleCreationFunction();
+          AddParticle(particle);
 
-        elapsedFrames = ParticleSpawnFrameDelay;
+          if (ParticleCount > 0)
+          {
+            ParticleCount--;
+          }
+
+          elapsedFrames = ParticleSpawnFrameDelay;
+        }
+        else
+        {
+          elapsedFrames--;
+        }
+      }
+
+      if (RemoveWhenEmptyParticles && particles.Count == 0)
+      {
+        QueueFree();
+      }
+
+      UpdateParticles();
+    }
+
+    #endregion
+
+    #region Private lifecycle
+
+    private void AddParticle(SimpleParticle particle)
+    {
+      particles.Add(particle);
+
+      if (LocalCoords)
+      {
+        AddChild(particle);
       }
       else
       {
-        elapsedFrames--;
+        var container = ParticlesContainer ?? GetParent();
+        particle.GlobalPosition = GlobalPosition;
+        container.AddChild(particle);
       }
     }
 
-    if (RemoveWhenEmptyParticles && particles.Count == 0)
+    private void UpdateParticles()
     {
-      QueueFree();
+      List<SimpleParticle> newParticles = new List<SimpleParticle>();
+      foreach (SimpleParticle part in particles)
+      {
+        if (part.IsDead())
+        {
+          part.QueueFree();
+        }
+        else
+        {
+          newParticles.Add(part);
+        }
+      }
+
+      particles = newParticles;
     }
 
-    UpdateParticles();
+    #endregion
   }
 }

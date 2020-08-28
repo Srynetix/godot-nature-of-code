@@ -2,36 +2,17 @@ using System.Text.RegularExpressions;
 
 using Godot;
 
-/**
-Adapted from https://codingvision.net/interface/c-simple-syntax-highlighting
-*/
-
+/// <summary>
+/// Super simple C# syntax highlighter.
+/// Adapted from https://codingvision.net/interface/c-simple-syntax-highlighting
+/// </summary>
 public class SyntaxHighlighter
 {
-
-  private string ColorizeMatches(string source, MatchCollection collection, Color color)
-  {
-    int currentOffset = 0;
-    var outputCode = source;
-
-    foreach (Match m in collection)
-    {
-      int startIndex = m.Index + currentOffset;
-      int endIndex = m.Index + m.Length + currentOffset;
-
-      string stringTag = "[color=#" + color.ToHtml(false) + "]";
-      string endTag = "[/color]";
-
-      var newOutputCode = outputCode.Insert(startIndex, stringTag);
-      newOutputCode = newOutputCode.Insert(endIndex + stringTag.Length, endTag);
-
-      outputCode = newOutputCode;
-      currentOffset += stringTag.Length + endTag.Length;
-    }
-
-    return outputCode;
-  }
-
+  /// <summary>
+  /// Highlight C# code with BBCode tags.
+  /// </summary>
+  /// <param name="code">C# code string</param>
+  /// <returns>Input string with BBCode tags.</returns>
   public string HighlightWithBBCode(string code)
   {
     string outputCode = code;
@@ -60,6 +41,29 @@ public class SyntaxHighlighter
     comments = @"(\/\*.+?\*\/)";
     commentMatches = Regex.Matches(outputCode, comments, RegexOptions.Multiline | RegexOptions.Singleline);
     outputCode = ColorizeMatches(outputCode, commentMatches, Colors.Green);
+
+    return outputCode;
+  }
+
+  private string ColorizeMatches(string source, MatchCollection collection, Color color)
+  {
+    int currentOffset = 0;
+    var outputCode = source;
+
+    foreach (Match m in collection)
+    {
+      int startIndex = m.Index + currentOffset;
+      int endIndex = m.Index + m.Length + currentOffset;
+
+      string stringTag = "[color=#" + color.ToHtml(false) + "]";
+      string endTag = "[/color]";
+
+      var newOutputCode = outputCode.Insert(startIndex, stringTag);
+      newOutputCode = newOutputCode.Insert(endIndex + stringTag.Length, endTag);
+
+      outputCode = newOutputCode;
+      currentOffset += stringTag.Length + endTag.Length;
+    }
 
     return outputCode;
   }

@@ -1,6 +1,7 @@
 using System.Linq;
-
 using Godot;
+using Drawing;
+using Forces;
 
 public class C2Exercise1 : Node2D, IExample
 {
@@ -31,7 +32,7 @@ public class C2Exercise1 : Node2D, IExample
       tRope = 0;
 
       // Set draw method
-      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
       Mesh.CustomDrawMethod = (pen) =>
       {
         pen.DrawCircle(Vector2.Zero, Radius, pen.Modulate.WithAlpha(128));

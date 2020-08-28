@@ -1,11 +1,18 @@
 using Godot;
 
-public class ConstantAccelerationMover : SimpleMover
+namespace Forces
 {
-  public Vector2 ConstantAcceleration = Vector2.Zero;
-
-  protected override void UpdateAcceleration()
+  /// <summary>
+  /// Simple mover with constant acceleration.
+  /// </summary>
+  public class ConstantAccelerationMover : SimpleMover
   {
-    Acceleration = ConstantAcceleration;
+    /// <summary>Constant acceleration value</summary>
+    public Vector2 ConstantAcceleration = Vector2.Zero;
+
+    protected override void UpdateAcceleration()
+    {
+      Acceleration = ConstantAcceleration;
+    }
   }
 }

@@ -1,48 +1,72 @@
 using Godot;
+using Forces;
 
-public class SimpleParticle : SimpleMover
+namespace Particles
 {
-  public float Lifespan = 2;
-  public bool LifespanAsAlpha = true;
-
-  private float initialLifespan;
-
-  public SimpleParticle()
+  /// <summary>
+  /// Simple particle, based on mover.
+  /// </summary>
+  public class SimpleParticle : SimpleMover
   {
-    WrapMode = WrapModeEnum.None;
-  }
+    /// <summary>Lifespan</summary>
+    public float Lifespan = 2;
+    /// <summary>Lifespan as alpha</summary>
+    public bool LifespanAsAlpha = true;
 
-  public override void _Ready()
-  {
-    base._Ready();
-    initialLifespan = Lifespan;
-  }
+    private float initialLifespan;
 
-  public override void _Process(float delta)
-  {
-    if (IsDead())
+    /// <summary>
+    /// Create a default non-wrapping particle.
+    /// </summary>
+    public SimpleParticle()
     {
-      return;
+      WrapMode = WrapModeEnum.None;
     }
 
-    base._Process(delta);
-
-    Lifespan -= delta;
-
-    if (LifespanAsAlpha)
+    /// <summary>
+    /// Check if the particle is dead.
+    /// </summary>
+    /// <returns>True/False</returns>
+    public bool IsDead()
     {
-      var alpha = GetLifespanAlphaValue();
-      Mesh.Modulate = Mesh.Modulate.WithAlpha(alpha);
+      return Lifespan <= 0;
     }
-  }
 
-  protected byte GetLifespanAlphaValue()
-  {
-    return (byte)Mathf.Clamp(((Lifespan / initialLifespan) * 255), 0, 255);
-  }
+    /// <summary>
+    /// Get lifespan alpha value.
+    /// </summary>
+    /// <returns>Alpha byte value</returns>
+    protected byte GetLifespanAlphaValue()
+    {
+      return (byte)Mathf.Clamp(((Lifespan / initialLifespan) * 255), 0, 255);
+    }
 
-  public bool IsDead()
-  {
-    return Lifespan <= 0;
+    #region Lifecycle methods
+
+    public override void _Ready()
+    {
+      base._Ready();
+      initialLifespan = Lifespan;
+    }
+
+    public override void _Process(float delta)
+    {
+      if (IsDead())
+      {
+        return;
+      }
+
+      base._Process(delta);
+
+      Lifespan -= delta;
+
+      if (LifespanAsAlpha)
+      {
+        var alpha = GetLifespanAlphaValue();
+        Mesh.Modulate = Mesh.Modulate.WithAlpha(alpha);
+      }
+    }
+
+    #endregion
   }
 }

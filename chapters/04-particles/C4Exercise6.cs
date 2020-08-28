@@ -1,4 +1,6 @@
 using Godot;
+using Forces;
+using Particles;
 
 public class C4Exercise6 : Node2D, IExample
 {
@@ -54,13 +56,13 @@ public class C4Exercise6 : Node2D, IExample
 
       particleSystem = new SimpleParticleSystem();
       particleSystem.Emitting = false;
-      particleSystem.SetCreateParticleFunction(() =>
+      particleSystem.ParticleCreationFunction = () =>
       {
         var particle = new EParticle();
         particle.MeshSize = MeshSize / 2;
         particle.Lifespan = 4;
         return particle;
-      });
+      };
       AddChild(particleSystem);
     }
 

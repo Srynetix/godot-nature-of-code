@@ -1,4 +1,6 @@
 using Godot;
+using Drawing;
+using Forces;
 
 public class C3Example3 : Node2D, IExample
 {
@@ -12,7 +14,7 @@ public class C3Example3 : Node2D, IExample
   {
     public Mover()
     {
-      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
       Mesh.CustomDrawMethod = (pen) =>
       {
         var length = Radius * 2;

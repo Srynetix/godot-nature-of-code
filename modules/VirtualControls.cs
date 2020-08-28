@@ -1,4 +1,5 @@
 using Godot;
+using Assets;
 
 // Adapted from https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot/blob/master/Joystick/Joystick.gd
 

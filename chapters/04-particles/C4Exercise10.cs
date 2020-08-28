@@ -1,4 +1,7 @@
 using Godot;
+using Drawing;
+using Forces;
+using Particles;
 
 public class C4Exercise10 : Node2D, IExample
 {
@@ -28,15 +31,15 @@ public class C4Exercise10 : Node2D, IExample
   {
     var size = GetViewportRect().Size;
     var particleSystem = new SimpleParticleSystem();
-    particleSystem.SetCreateParticleFunction(() =>
+    particleSystem.ParticleCreationFunction = () =>
     {
       var particle = new EParticle();
       particle.MeshSize = new Vector2(20, 20);
-      particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
+      particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
       particle.Lifespan = 4;
       particle.Mass = 4;
       return particle;
-    });
+    };
     particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
     AddChild(particleSystem);
   }

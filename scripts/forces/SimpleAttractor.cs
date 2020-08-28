@@ -1,53 +1,80 @@
 using Godot;
+using Drawing;
 
-public class SimpleAttractor : SimpleCircleSprite
+namespace Forces
 {
-  public float Mass = 20.0f;
-  public float Gravitation = 1.0f;
-  public float MinForce = 5;
-  public float MaxForce = 25;
-
-  public SimpleAttractor()
+  /// <summary>
+  /// Simple mover attractor.
+  /// </summary>
+  public class SimpleAttractor : SimpleCircleSprite
   {
-    Radius = 20f;
-    Modulate = Colors.LightGoldenrod;
-    Visible = true;
-  }
+    /// <summary>Attractor mass</summary>
+    public float Mass = 20.0f;
+    /// <summary>Gravitaton</summary>
+    public float Gravitation = 1.0f;
+    /// <summary>Minimum force</summary>
+    public float MinForce = 5;
+    /// <summary>Maximum force</summary>
+    public float MaxForce = 25;
 
-  public virtual Vector2 Attract(SimpleMover mover)
-  {
-    var force = GlobalPosition - mover.GlobalPosition;
-    var length = Mathf.Clamp(force.Length(), MinForce, MaxForce);
-    float strength = (Gravitation * Mass * mover.Mass) / (length * length);
-    return force.Normalized() * strength;
-  }
-
-  public override void _Ready()
-  {
-    base._Ready();
-    AddToGroup("attractors");
-  }
-
-  protected void AttractNodes()
-  {
-    // For each mover
-    foreach (var n in GetTree().GetNodesInGroup("movers"))
+    /// <summary>
+    /// Create a default attractor with a 20px radius.
+    /// </summary> 
+    public SimpleAttractor()
     {
-      // Ignore parent mover
-      var parent = GetParent();
-      if (parent != null && parent == n)
-      {
-        continue;
-      }
-
-      var mover = (SimpleMover)n;
-      var force = Attract(mover);
-      mover.ApplyForce(force);
+      Radius = 20f;
+      Modulate = Colors.LightGoldenrod;
+      Visible = true;
     }
-  }
 
-  public override void _Process(float delta)
-  {
-    AttractNodes();
+    /// <summary>
+    /// Generate attraction force depending on a mover.
+    /// <summary>
+    /// <param name="mover">Mover instance</param>
+    /// <returns>Attraction force vector</returns>
+    public virtual Vector2 Attract(SimpleMover mover)
+    {
+      var force = GlobalPosition - mover.GlobalPosition;
+      var length = Mathf.Clamp(force.Length(), MinForce, MaxForce);
+      float strength = (Gravitation * Mass * mover.Mass) / (length * length);
+      return force.Normalized() * strength;
+    }
+
+    #region Lifecycle methods
+
+    public override void _Ready()
+    {
+      base._Ready();
+      AddToGroup("attractors");
+    }
+
+    public override void _Process(float delta)
+    {
+      AttractNodes();
+    }
+
+    #endregion
+
+    #region Private methods
+
+    private void AttractNodes()
+    {
+      // For each mover
+      foreach (var n in GetTree().GetNodesInGroup("movers"))
+      {
+        // Ignore parent mover
+        var parent = GetParent();
+        if (parent != null && parent == n)
+        {
+          continue;
+        }
+
+        var mover = (SimpleMover)n;
+        var force = Attract(mover);
+        mover.ApplyForce(force);
+      }
+    }
+
+    #endregion
   }
 }

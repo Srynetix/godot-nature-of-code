@@ -1,4 +1,6 @@
 using Godot;
+using Drawing;
+using Particles;
 
 public class C4Example5 : Node2D, IExample
 {
@@ -15,7 +17,7 @@ public class C4Example5 : Node2D, IExample
       WrapMode = WrapModeEnum.Bounce;
       ForceRangeY = new Vector2(-0.15f, -0.15f);
       MeshSize = new Vector2(7.5f, 7.5f);
-      Mesh.MeshType = SimpleMeshTypeEnum.Round;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Circle;
     }
   }
 
@@ -26,7 +28,7 @@ public class C4Example5 : Node2D, IExample
       WrapMode = WrapModeEnum.Bounce;
       ForceRangeY = new Vector2(0.15f, 0.15f);
       MeshSize = new Vector2(20f, 20f);
-      Mesh.MeshType = SimpleMeshTypeEnum.Round;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Square;
     }
   }
 
@@ -34,7 +36,7 @@ public class C4Example5 : Node2D, IExample
   {
     var size = GetViewportRect().Size;
     var particleSystem = new SimpleParticleSystem();
-    particleSystem.SetCreateParticleFunction(() =>
+    particleSystem.ParticleCreationFunction = () =>
     {
       SimpleParticle particle = null;
 
@@ -49,7 +51,7 @@ public class C4Example5 : Node2D, IExample
 
       particle.Lifespan = 2;
       return particle;
-    });
+    };
     particleSystem.Position = new Vector2(size.x / 2, size.y / 2);
     AddChild(particleSystem);
   }

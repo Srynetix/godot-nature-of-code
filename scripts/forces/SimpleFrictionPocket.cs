@@ -1,34 +1,45 @@
 using Godot;
 
-public class SimpleFrictionPocket : SimpleZone
+namespace Forces
 {
-  public float Coeff = 0;
-
-  public override void _Draw()
+  /// <summary>
+  /// Simple friction pocket. Apply friction in a delimited zone.
+  /// </summary>
+  public class SimpleFrictionPocket : SimpleZone
   {
-    Color color;
-    if (Coeff > 0)
+    /// <summary>Friction coefficient</summary>
+    public float Coeff = 0;
+
+    #region Lifecycle methods
+
+    public override void _Draw()
     {
-      color = Colors.DarkRed;
-    }
-    else
-    {
-      color = Colors.LightBlue;
+      Color color;
+      if (Coeff > 0)
+      {
+        color = Colors.DarkRed;
+      }
+      else
+      {
+        color = Colors.LightBlue;
+      }
+
+      DrawZone(color);
+
+      var strToDraw = "Friction: " + Coeff.ToString();
+      var strSize = defaultFont.GetStringSize(strToDraw);
+      DrawString(defaultFont, Vector2.Left * strSize / 2, strToDraw);
     }
 
-    DrawZone(color);
-
-    var strToDraw = "Friction: " + Coeff.ToString();
-    var strSize = defaultFont.GetStringSize(strToDraw);
-    DrawString(defaultFont, Vector2.Left * strSize / 2, strToDraw);
-  }
-
-  public override void _Process(float delta)
-  {
-    foreach (var area in GetOverlappingAreas())
+    public override void _Process(float delta)
     {
-      var mover = (SimpleMover)area;
-      mover.ApplyFriction(Coeff);
+      foreach (var area in GetOverlappingAreas())
+      {
+        var mover = (SimpleMover)area;
+        mover.ApplyFriction(Coeff);
+      }
     }
+
+    #endregion
   }
 }

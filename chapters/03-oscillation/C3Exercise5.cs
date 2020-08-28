@@ -1,4 +1,6 @@
 using Godot;
+using Drawing;
+using Forces;
 
 public class C3Exercise5 : Control, IExample
 {
@@ -17,7 +19,7 @@ public class C3Exercise5 : Control, IExample
     public Spaceship() : base(WrapModeEnum.Wrap)
     {
       MeshSize = new Vector2(20, 20);
-      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
       Mesh.CustomDrawMethod = (pen) =>
       {
         // Body

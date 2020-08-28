@@ -1,4 +1,5 @@
 using Godot;
+using Drawing;
 
 public class C0Exercise8 : Node2D, IExample
 {

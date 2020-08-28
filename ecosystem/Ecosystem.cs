@@ -1,6 +1,10 @@
 using System.Linq;
 
 using Godot;
+using Drawing;
+using Forces;
+using Oscillation;
+using Particles;
 
 public class Ecosystem : Control
 {
@@ -24,7 +28,7 @@ public class Ecosystem : Control
 
       SetAtRandomAngle();
 
-      Mesh.MeshType = SimpleMeshTypeEnum.Custom;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
       Mesh.CustomDrawMethod = _DrawLifeform;
     }
 
@@ -138,7 +142,7 @@ public class Ecosystem : Control
       particleSystem.ShowBehindParent = true;
       particleSystem.LocalCoords = false;
       particleSystem.ParticlesContainer = GetParent();
-      particleSystem.SetCreateParticleFunction(() =>
+      particleSystem.ParticleCreationFunction = () =>
       {
         var particle = new SimpleFallingParticle();
         particle.MeshSize = new Vector2(2.5f, 2.5f);
@@ -147,7 +151,7 @@ public class Ecosystem : Control
         particle.ForceRangeY = new Vector2(-0.005f, 0.005f);
         particle.Lifespan = 1;
         return particle;
-      });
+      };
       AddChild(particleSystem);
     }
 

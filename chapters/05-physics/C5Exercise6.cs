@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using Drawing;
 
 public class C5Exercise6 : Node2D, IExample
 {

@@ -1,4 +1,5 @@
 using Godot;
+using Drawing;
 
 public class C0Example1 : Node2D, IExample
 {
@@ -10,7 +11,7 @@ public class C0Example1 : Node2D, IExample
 
   public class Walker : SimpleWalker
   {
-    public override void Step()
+    protected override void Step()
     {
       var stepX = (float)GD.RandRange(-1.0, 1.0);
       var stepY = (float)GD.RandRange(-1.0, 1.0);

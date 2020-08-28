@@ -1,4 +1,6 @@
 using Godot;
+using Drawing;
+using Particles;
 
 public class C4Exercise5 : Node2D, IExample
 {
@@ -14,14 +16,14 @@ public class C4Exercise5 : Node2D, IExample
     var ps = new SimpleParticleSystem();
     ps.ParticleCount = 200;
     ps.RemoveWhenEmptyParticles = true;
-    ps.SetCreateParticleFunction(() =>
+    ps.ParticleCreationFunction = () =>
     {
       var particle = new SimpleFallingParticle();
       particle.Lifespan = 2;
       particle.MeshSize = new Vector2(10, 10);
-      particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
+      particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
       return particle;
-    });
+    };
     ps.GlobalPosition = position;
     AddChild(ps);
   }

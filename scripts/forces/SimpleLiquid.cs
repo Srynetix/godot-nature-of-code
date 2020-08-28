@@ -1,24 +1,35 @@
 using Godot;
 
-public class SimpleLiquid : SimpleZone
+namespace Forces
 {
-  public float Coeff = 0.25f;
-
-  public override void _Draw()
+  /// <summary>
+  /// Simple liquid pocket. Apply drag in a delimited zone.
+  /// </summary>
+  public class SimpleLiquid : SimpleZone
   {
-    DrawZone(Colors.DarkViolet);
+    /// <summary>Drag coefficient</summary>
+    public float Coeff = 0.25f;
 
-    var strToDraw = "Liquid: " + Coeff.ToString();
-    var strSize = defaultFont.GetStringSize(strToDraw);
-    DrawString(defaultFont, Vector2.Left * strSize / 2, strToDraw);
-  }
+    #region Lifecycle methods
 
-  public override void _Process(float delta)
-  {
-    foreach (var area in GetOverlappingAreas())
+    public override void _Draw()
     {
-      var mover = (SimpleMover)area;
-      mover.ApplyDrag(Coeff);
+      DrawZone(Colors.DarkViolet);
+
+      var strToDraw = "Liquid: " + Coeff.ToString();
+      var strSize = defaultFont.GetStringSize(strToDraw);
+      DrawString(defaultFont, Vector2.Left * strSize / 2, strToDraw);
     }
+
+    public override void _Process(float delta)
+    {
+      foreach (var area in GetOverlappingAreas())
+      {
+        var mover = (SimpleMover)area;
+        mover.ApplyDrag(Coeff);
+      }
+    }
+
+    #endregion
   }
 }

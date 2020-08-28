@@ -1,6 +1,7 @@
 using System.Linq;
-
 using Godot;
+using Drawing;
+using Forces;
 
 public class C2Exercise6 : Node2D, IExample
 {
@@ -14,7 +15,7 @@ public class C2Exercise6 : Node2D, IExample
   {
     public Mover() : base(WrapModeEnum.Bounce)
     {
-      Mesh.MeshType = SimpleMeshTypeEnum.Square;
+      Mesh.MeshType = SimpleMesh.TypeEnum.Square;
     }
 
     public override void ApplyDrag(float coef)

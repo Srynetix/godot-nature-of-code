@@ -1,4 +1,5 @@
 using Godot;
+using Oscillation;
 
 public class C3Exercise9 : Node2D, IExample
 {
@@ -19,7 +20,7 @@ public class C3Exercise9 : Node2D, IExample
       StartAngleFactor = 10f;
     }
 
-    public override float ComputeY(float angle)
+    protected override float ComputeY(float angle)
     {
       return MathUtils.Map(noise.GetNoise1d(angle), -1, 1, -Amplitude, Amplitude);
     }

@@ -1,4 +1,7 @@
 using Godot;
+using Drawing;
+using Forces;
+using Particles;
 
 public class C4Exercise2 : Node2D, IExample
 {
@@ -15,7 +18,7 @@ public class C4Exercise2 : Node2D, IExample
     particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
     particle.Position = size / 2;
     particle.MeshSize = new Vector2(20, 20);
-    particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
+    particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
     particle.Lifespan = 4;
     AddChild(particle);
   }

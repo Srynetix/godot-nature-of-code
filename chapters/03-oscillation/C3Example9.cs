@@ -1,4 +1,5 @@
 using Godot;
+using Oscillation;
 
 public class C3Example9 : Node2D, IExample
 {

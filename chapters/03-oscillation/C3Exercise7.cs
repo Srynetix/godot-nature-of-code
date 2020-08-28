@@ -1,5 +1,6 @@
 using Godot;
 using System.Linq;
+using Oscillation;
 
 public class C3Exercise7 : Node2D, IExample
 {

@@ -1,4 +1,5 @@
 using Godot;
+using Drawing;
 
 public class C0Exercise6 : Node2D, IExample
 {
@@ -25,7 +26,7 @@ public class C0Exercise6 : Node2D, IExample
       }
     }
 
-    public override void Step()
+    protected override void Step()
     {
       float stepsize = ComputeStepSize();
 

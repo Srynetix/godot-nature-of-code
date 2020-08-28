@@ -167,7 +167,9 @@
     <Compile Include="launcher\BootScreen.cs" />
     <Compile Include="launcher\Launcher.cs" />
     <Compile Include="modules\VirtualControls.cs" />
-    <Compile Include="scripts\Assets.cs" />
+    <Compile Include="scripts\assets\SimpleDefaultFont.cs" />
+    <Compile Include="scripts\assets\SimpleDefaultMaterial.cs" />
+    <Compile Include="scripts\assets\SimpleDefaultTexture.cs" />
     <Compile Include="scripts\drawing\DrawCanvas.cs" />
     <Compile Include="scripts\drawing\SimpleCircleSprite.cs" />
     <Compile Include="scripts\drawing\SimpleLineSprite.cs" />

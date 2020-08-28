@@ -1,4 +1,6 @@
 using Godot;
+using Forces;
+using Particles;
 
 public class C4Exercise1 : Node2D, IExample
 {

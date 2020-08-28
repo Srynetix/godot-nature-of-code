@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using Oscillation;
 
 public class C3Exercise12 : Node2D, IExample
 {

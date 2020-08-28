@@ -1,4 +1,5 @@
 using Godot;
+using Drawing;
 
 public class C0Exercise5 : Node2D, IExample
 {
@@ -10,7 +11,7 @@ public class C0Exercise5 : Node2D, IExample
 
   public class Walker : SimpleWalker
   {
-    public override void Step()
+    protected override void Step()
     {
       float chance = (float)GD.RandRange(0, 1);
       float amount = generator.Randfn(0, 1) * StepSize;  // Gaussian
