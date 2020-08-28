@@ -32,8 +32,7 @@ public class SimpleParticle : SimpleMover
     if (LifespanAsAlpha)
     {
       var alpha = GetLifespanAlphaValue();
-      Mesh.BaseColor = Mesh.BaseColor.WithAlpha(alpha);
-      Mesh.OutlineColor = Mesh.OutlineColor.WithAlpha(alpha);
+      Mesh.Modulate = Mesh.Modulate.WithAlpha(alpha);
     }
   }
 

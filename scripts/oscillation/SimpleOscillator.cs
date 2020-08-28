@@ -27,9 +27,9 @@ public class SimpleOscillator : Node2D
   public override void _Ready()
   {
     circleSprite.Radius = Radius;
-    circleSprite.BaseColor = BallColor;
-    lineSprite.Drawing = ShowLine;
-    lineSprite.BaseColor = LineColor;
+    circleSprite.Modulate = BallColor;
+    lineSprite.Visible = ShowLine;
+    lineSprite.Modulate = LineColor;
     AddChild(lineSprite);
     AddChild(circleSprite);
   }
@@ -44,8 +44,8 @@ public class SimpleOscillator : Node2D
     float y = PositionOffset.y + Mathf.Sin(Angle.y) * Amplitude.y;
     var target = new Vector2(x, y);
 
-    lineSprite.LineA = GlobalPosition;
-    lineSprite.LineB = GlobalPosition + target;
+    lineSprite.PositionA = GlobalPosition;
+    lineSprite.PositionB = GlobalPosition + target;
     circleSprite.Position = target;
   }
 }

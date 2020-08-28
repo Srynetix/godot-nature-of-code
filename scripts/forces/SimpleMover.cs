@@ -22,28 +22,28 @@ public class SimpleMover : Area2D
 
   public bool Drawing
   {
-    get => Mesh.Drawing;
+    get => Mesh.Visible;
     set
     {
-      Mesh.Drawing = value;
+      Mesh.Visible = value;
     }
   }
 
-  public Vector2 BodySize
+  public Vector2 MeshSize
   {
-    get => Mesh.BodySize;
+    get => Mesh.MeshSize;
     set
     {
-      Mesh.BodySize = value;
+      Mesh.MeshSize = value;
     }
   }
 
   public float Radius
   {
-    get => Mesh.BodySize.x / 2;
+    get => Mesh.MeshSize.x / 2;
     set
     {
-      Mesh.BodySize = new Vector2(value * 2, value * 2);
+      Mesh.MeshSize = new Vector2(value * 2, value * 2);
     }
   }
 
@@ -169,26 +169,26 @@ public class SimpleMover : Area2D
     var size = GetViewportRect().Size;
     var newPos = GlobalPosition;
 
-    if (GlobalPosition.y < BodySize.y / 2)
+    if (GlobalPosition.y < MeshSize.y / 2)
     {
       Velocity.y *= -1;
-      newPos.y = BodySize.y / 2;
+      newPos.y = MeshSize.y / 2;
     }
-    else if (GlobalPosition.y > size.y - BodySize.y / 2)
+    else if (GlobalPosition.y > size.y - MeshSize.y / 2)
     {
       Velocity.y *= -1;
-      newPos.y = size.y - BodySize.y / 2;
+      newPos.y = size.y - MeshSize.y / 2;
     }
 
-    if (GlobalPosition.x < BodySize.x / 2)
+    if (GlobalPosition.x < MeshSize.x / 2)
     {
       Velocity.x *= -1;
-      newPos.x = BodySize.x / 2;
+      newPos.x = MeshSize.x / 2;
     }
-    else if (GlobalPosition.x > size.x - BodySize.x / 2)
+    else if (GlobalPosition.x > size.x - MeshSize.x / 2)
     {
       Velocity.x *= -1;
-      newPos.x = size.x - BodySize.x / 2;
+      newPos.x = size.x - MeshSize.x / 2;
     }
 
     GlobalPosition = newPos;

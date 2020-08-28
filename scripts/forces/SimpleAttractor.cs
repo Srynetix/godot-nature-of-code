@@ -10,8 +10,8 @@ public class SimpleAttractor : SimpleCircleSprite
   public SimpleAttractor()
   {
     Radius = 20f;
-    BaseColor = Colors.LightGoldenrod;
-    Drawing = true;
+    Modulate = Colors.LightGoldenrod;
+    Visible = true;
   }
 
   public virtual Vector2 Attract(SimpleMover mover)

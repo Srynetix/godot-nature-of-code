@@ -26,8 +26,8 @@ public class C0Example5 : Node2D, IExample
   {
     float nx = noise.GetNoise1d(tx);
     float ny = noise.GetNoise1d(ty);
-    float x = Utils.Map(nx, 0, 1, 0, GetViewportRect().Size.x / 4);
-    float y = Utils.Map(ny, 0, 1, 0, GetViewportRect().Size.y / 4);
+    float x = MathUtils.Map(nx, 0, 1, 0, GetViewportRect().Size.x / 4);
+    float y = MathUtils.Map(ny, 0, 1, 0, GetViewportRect().Size.y / 4);
 
     var newPosition = position + new Vector2(x, y);
 

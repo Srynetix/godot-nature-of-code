@@ -19,7 +19,7 @@ public class C3Exercise10 : Node2D, IExample
 
     public override float ComputeY(float angle)
     {
-      return Utils.Map(noise.GetNoise1d(angle * 10f), -1, 1, -Amplitude, Amplitude);
+      return MathUtils.Map(noise.GetNoise1d(angle * 10f), -1, 1, -Amplitude, Amplitude);
     }
   }
 

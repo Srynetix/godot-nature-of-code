@@ -31,7 +31,7 @@ public class C2Example4 : Node2D, IExample
     {
       var mover = new Mover();
       var bodySize = (float)GD.RandRange(20, 40);
-      mover.BodySize = new Vector2(bodySize, bodySize);
+      mover.MeshSize = new Vector2(bodySize, bodySize);
       mover.Mass = (float)GD.RandRange(5, 10);
 
       var size = GetViewportRect().Size;

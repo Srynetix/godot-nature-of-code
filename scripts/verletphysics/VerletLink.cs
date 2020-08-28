@@ -9,7 +9,6 @@ namespace VerletPhysics
     public float TearSensitivity = 200;
     public VerletPoint A;
     public VerletPoint B;
-    public bool Drawing = true;
 
     private VerletWorld world;
 
@@ -19,14 +18,14 @@ namespace VerletPhysics
       B = b;
       this.world = world;
 
-      LineA = A.GlobalPosition;
-      LineB = B.GlobalPosition;
+      PositionA = A.GlobalPosition;
+      PositionB = B.GlobalPosition;
     }
 
     public override void _Process(float delta)
     {
-      LineA = A.GlobalPosition;
-      LineB = B.GlobalPosition;
+      PositionA = A.GlobalPosition;
+      PositionB = B.GlobalPosition;
     }
 
     public void Constraint()
@@ -48,8 +47,8 @@ namespace VerletPhysics
       A.GlobalPosition += diff * scalarA * difference;
       B.GlobalPosition -= diff * scalarB * difference;
 
-      LineA = A.GlobalPosition;
-      LineB = B.GlobalPosition;
+      PositionA = A.GlobalPosition;
+      PositionB = B.GlobalPosition;
     }
   }
 }

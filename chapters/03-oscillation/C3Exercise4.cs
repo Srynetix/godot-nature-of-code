@@ -31,7 +31,7 @@ public class C3Exercise4 : Node2D, IExample
           var target = new Vector2(x, y);
           var size = GetViewportRect().Size;
 
-          pen.DrawCircle(size / 2 + target, Width / 2, Utils.RandColor());
+          pen.DrawCircle(size / 2 + target, Width / 2, MathUtils.RandColor());
 
           theta += 0.016f;
           margin += 0.016f * 3;

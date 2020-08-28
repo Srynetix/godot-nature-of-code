@@ -19,7 +19,7 @@ public class C3Example8 : Node2D, IExample
 
     for (int x = 0; x <= size.x; x += 5)
     {
-      float y = Utils.Map(Mathf.Sin(angle), -1, 1, size.y / 4, size.y / 2 + size.y / 4);
+      float y = MathUtils.Map(Mathf.Sin(angle), -1, 1, size.y / 4, size.y / 2 + size.y / 4);
 
       // Ignore first point
       if (x != 0)

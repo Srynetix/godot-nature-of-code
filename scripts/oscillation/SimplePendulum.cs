@@ -32,8 +32,8 @@ public class SimplePendulum : Node2D
     AddChild(circleSprite);
     AddChild(children);
 
-    lineSprite.LineA = GlobalPosition;
-    lineSprite.LineB = GlobalPosition + GetBallPosition();
+    lineSprite.PositionA = GlobalPosition;
+    lineSprite.PositionB = GlobalPosition + GetBallPosition();
   }
 
   public Vector2 GetBallPosition()
@@ -87,18 +87,18 @@ public class SimplePendulum : Node2D
 
       AngularVelocity *= Damping;
 
-      circleSprite.BaseColor = Colors.LightBlue;
+      circleSprite.Modulate = Colors.LightBlue;
     }
     else
     {
-      circleSprite.BaseColor = Colors.LightGoldenrod;
+      circleSprite.Modulate = Colors.LightGoldenrod;
     }
 
     // Update sprites
     var ballPos = GetBallPosition();
     circleSprite.GlobalPosition = GlobalPosition + ballPos;
-    lineSprite.LineA = GlobalPosition;
-    lineSprite.LineB = GlobalPosition + ballPos;
+    lineSprite.PositionA = GlobalPosition;
+    lineSprite.PositionB = GlobalPosition + ballPos;
 
     // Update child pendulum positions
     foreach (Node2D child in children.GetChildren())

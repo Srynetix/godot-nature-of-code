@@ -26,10 +26,10 @@ public class C5Exercise3 : Node2D, IExample
     {
       float t = 0;
 
-      var otherPoint = new Vector2(-Length / 2, Utils.Map(ComputeY(t), -1, 1, -Amplitude, Amplitude) + YOffset);
+      var otherPoint = new Vector2(-Length / 2, MathUtils.Map(ComputeY(t), -1, 1, -Amplitude, Amplitude) + YOffset);
       for (float x = -Length / 2; x <= Length / 2; x += Separation)
       {
-        var yCoord = Utils.Map(ComputeY(t), -1, 1, -Amplitude, Amplitude);
+        var yCoord = MathUtils.Map(ComputeY(t), -1, 1, -Amplitude, Amplitude);
         var point = new Vector2(x, yCoord + YOffset);
 
         AddSegment(otherPoint, point);
@@ -94,7 +94,7 @@ public class C5Exercise3 : Node2D, IExample
     int ballCount = 10;
     for (int i = 0; i < ballCount; ++i)
     {
-      spawner.SpawnBody(Utils.RandVector2(0, size.x, 0, size.y / 2 - 100));
+      spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y / 2 - 100));
     }
   }
 }

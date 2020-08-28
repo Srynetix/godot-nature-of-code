@@ -16,7 +16,7 @@ public class C4Exercise9 : Node2D, IExample
     particleSystem.SetCreateParticleFunction(() =>
     {
       var particle = new SimpleFallingParticle();
-      particle.BodySize = new Vector2(20, 20);
+      particle.MeshSize = new Vector2(20, 20);
       particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
       particle.Lifespan = 2;
       particle.Mass = 2;

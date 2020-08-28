@@ -57,13 +57,13 @@ public class C5Example6 : Node2D, IExample
 
     // Add left floor
     var leftFloor = new Physics.SimpleWall();
-    leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
+    leftFloor.MeshSize = new Vector2(size.x / 2.5f, floorHeight);
     leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
     AddChild(leftFloor);
 
     // Add right floor
     var rightFloor = new Physics.SimpleWall();
-    rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
+    rightFloor.MeshSize = new Vector2(size.x / 2.5f, floorHeight);
     rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
     AddChild(rightFloor);
 
@@ -73,7 +73,7 @@ public class C5Example6 : Node2D, IExample
       var body = new DoubleBall();
       body.Distance = 20;
       body.Radius = 10;
-      body.RotationDegrees = Utils.RandRangef(0, 360);
+      body.RotationDegrees = MathUtils.RandRangef(0, 360);
       body.GlobalPosition = position;
       return body;
     };
@@ -82,7 +82,7 @@ public class C5Example6 : Node2D, IExample
     int bodyCount = 10;
     for (int i = 0; i < bodyCount; ++i)
     {
-      spawner.SpawnBody(Utils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
+      spawner.SpawnBody(MathUtils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
     }
   }
 }

@@ -22,7 +22,7 @@ public class C4Example2 : Node2D, IExample
     private void CreateParticle()
     {
       var particle = new SimpleFallingParticle();
-      particle.BodySize = new Vector2(20, 20);
+      particle.MeshSize = new Vector2(20, 20);
       particle.Lifespan = 2;
       particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
       particles.Add(particle);

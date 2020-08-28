@@ -17,7 +17,7 @@ public class C5Exercise9 : Node2D, IExample
     public float OutlineWidth = 2;
     public Color OutlineColor = Colors.LightBlue;
     public Color BaseColor = Colors.White;
-    public Vector2 BodySize
+    public Vector2 MeshSize
     {
       get => bodySize;
       set
@@ -81,7 +81,7 @@ public class C5Exercise9 : Node2D, IExample
     {
       var box = new PerlinKinematicBox();
       box.Drawing = d;
-      box.BodySize = new Vector2(20, 20);
+      box.MeshSize = new Vector2(20, 20);
       box.Position = position;
       return box;
     };

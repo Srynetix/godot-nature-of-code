@@ -1,16 +1,6 @@
 using Godot;
 
-public static class ColorExtensions
-{
-  public static Color WithAlpha(this Color color, byte alpha)
-  {
-    Color clone = color;
-    clone.a8 = alpha;
-    return clone;
-  }
-}
-
-public static class Utils
+public static class MathUtils
 {
   /**
    * Map a value from one bound to another.
@@ -66,24 +56,5 @@ public static class Utils
   static public Color RandColor()
   {
     return new Color((float)GD.RandRange(0, 1), (float)GD.RandRange(0, 1), (float)GD.RandRange(0, 1));
-  }
-
-  static private Font DEFAULT_FONT = null;
-
-  static public Font LoadDefaultFont()
-  {
-    if (DEFAULT_FONT == null)
-    {
-      var fontData = GD.Load("res://assets/fonts/Raleway-Regular.ttf");
-      var dynamicFont = new DynamicFont();
-      dynamicFont.FontData = (DynamicFontData)fontData;
-      dynamicFont.Size = 16;
-      dynamicFont.UseFilter = true;
-      dynamicFont.OutlineSize = 1;
-      dynamicFont.OutlineColor = Colors.Black;
-      DEFAULT_FONT = dynamicFont;
-    }
-
-    return DEFAULT_FONT;
   }
 }

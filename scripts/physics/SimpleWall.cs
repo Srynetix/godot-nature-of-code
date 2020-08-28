@@ -2,12 +2,10 @@ using Godot;
 
 namespace Physics
 {
-  public class SimpleBox : RigidBody2D
+  public class SimpleWall : StaticBody2D
   {
-    public float OutlineWidth = 2;
-    public Color OutlineColor = Colors.LightBlue;
-    public Color BaseColor = Colors.White;
-    public Vector2 BodySize
+    public Color BaseColor = Colors.Olive;
+    public Vector2 MeshSize
     {
       get => bodySize;
       set
@@ -20,7 +18,7 @@ namespace Physics
       }
     }
 
-    private Vector2 bodySize = new Vector2(20, 20);
+    private Vector2 bodySize = new Vector2(10, 10);
     private CollisionShape2D collisionShape2D;
     private RectangleShape2D rectangleShape2D;
 
@@ -35,9 +33,7 @@ namespace Physics
 
     public override void _Draw()
     {
-      var outlineVec = new Vector2(OutlineWidth, OutlineWidth);
-      DrawRect(new Rect2(-bodySize / 2, bodySize), OutlineColor);
-      DrawRect(new Rect2(-bodySize / 2 + outlineVec / 2, bodySize - outlineVec / 2), BaseColor);
+      DrawRect(new Rect2(-bodySize / 2, bodySize), BaseColor);
     }
 
     public override void _Process(float delta)

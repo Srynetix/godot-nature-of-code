@@ -14,7 +14,7 @@ public class C4Exercise1 : Node2D, IExample
     var particle = new SimpleFallingParticle();
     particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
     particle.Position = size / 2;
-    particle.BodySize = new Vector2(20, 20);
+    particle.MeshSize = new Vector2(20, 20);
     particle.Lifespan = 4;
     AddChild(particle);
   }

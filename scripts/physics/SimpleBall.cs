@@ -12,7 +12,7 @@ namespace Physics
         baseColor = value;
         if (sprite != null)
         {
-          sprite.BaseColor = value;
+          sprite.Modulate = value;
         }
       }
     }
@@ -46,7 +46,7 @@ namespace Physics
 
       sprite = new SimpleCircleSprite();
       sprite.Radius = Radius;
-      sprite.BaseColor = BaseColor;
+      sprite.Modulate = BaseColor;
       AddChild(sprite);
     }
   }

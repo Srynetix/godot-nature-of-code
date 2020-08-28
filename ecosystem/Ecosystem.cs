@@ -30,7 +30,7 @@ public class Ecosystem : Control
 
     public void SetAtRandomAngle()
     {
-      Rotation = Utils.Map((float)GD.RandRange(0, 1), 0, 1, 0, 2 * Mathf.Pi);
+      Rotation = MathUtils.Map((float)GD.RandRange(0, 1), 0, 1, 0, 2 * Mathf.Pi);
     }
 
     public void _DebugDraw()
@@ -69,7 +69,7 @@ public class Ecosystem : Control
 
     public AttractedFly()
     {
-      BodySize = new Vector2(4, 4);
+      MeshSize = new Vector2(4, 4);
       MaxVelocity = 5f;
       MaxAngularVelocity = 0.01f;
     }
@@ -79,7 +79,7 @@ public class Ecosystem : Control
       base._Ready();
 
       var attractor = new SimpleAttractor();
-      attractor.Drawing = false;
+      attractor.Visible = false;
       AddChild(attractor);
     }
 
@@ -99,7 +99,7 @@ public class Ecosystem : Control
 
     protected override void UpdateAcceleration()
     {
-      AngularAcceleration = Utils.SignedRandf() * AngularAccelerationFactor;
+      AngularAcceleration = MathUtils.SignedRandf() * AngularAccelerationFactor;
     }
 
     public override void _Process(float delta)
@@ -125,7 +125,7 @@ public class Ecosystem : Control
 
     public NervousFly()
     {
-      BodySize = new Vector2(4f, 4f);
+      MeshSize = new Vector2(4f, 4f);
       MaxVelocity = 5f;
       MaxAngularVelocity = 0.01f;
     }
@@ -141,7 +141,7 @@ public class Ecosystem : Control
       particleSystem.SetCreateParticleFunction(() =>
       {
         var particle = new SimpleFallingParticle();
-        particle.BodySize = new Vector2(2.5f, 2.5f);
+        particle.MeshSize = new Vector2(2.5f, 2.5f);
         particle.WrapMode = SimpleMover.WrapModeEnum.None;
         particle.ForceRangeX = new Vector2(-0.005f, 0.005f);
         particle.ForceRangeY = new Vector2(-0.005f, 0.005f);
@@ -167,10 +167,10 @@ public class Ecosystem : Control
 
     protected override void UpdateAcceleration()
     {
-      AngularAcceleration = Utils.SignedRandf() * AngularAccelerationFactor;
+      AngularAcceleration = MathUtils.SignedRandf() * AngularAccelerationFactor;
       Acceleration = new Vector2(
-          Utils.SignedRandf(),
-          Utils.SignedRandf()
+          MathUtils.SignedRandf(),
+          MathUtils.SignedRandf()
       ) * AccelerationFactor;
     }
 
@@ -268,7 +268,7 @@ public class Ecosystem : Control
     protected override void UpdateAcceleration()
     {
       var forward = Vector2.Right.Rotated(Rotation).Normalized() * ForwardAcceleration;
-      var offset = new Vector2(Utils.SignedRandf(), Utils.SignedRandf()) * SideOffsetAcceleration;
+      var offset = new Vector2(MathUtils.SignedRandf(), MathUtils.SignedRandf()) * SideOffsetAcceleration;
       Acceleration = forward + offset;
     }
 
@@ -382,7 +382,7 @@ public class Ecosystem : Control
     var zoneLowerLimit = size.y - (zoneMargin + zoneIdx * zoneSplit);
     var zoneUpperLimit = zoneLowerLimit - zoneSplit;
 
-    var xPosition = (float)GD.RandRange(lifeform.BodySize.x, size.x - lifeform.BodySize.x);
+    var xPosition = (float)GD.RandRange(lifeform.MeshSize.x, size.x - lifeform.MeshSize.x);
     var yPosition = (float)GD.RandRange(zoneLowerLimit, zoneUpperLimit);
 
     lifeform.Position = new Vector2(xPosition, yPosition);

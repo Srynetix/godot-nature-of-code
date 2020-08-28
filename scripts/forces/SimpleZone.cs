@@ -8,7 +8,7 @@ public class SimpleZone : Area2D
 
   public override void _Ready()
   {
-    defaultFont = Utils.LoadDefaultFont();
+    defaultFont = SimpleDefaultFont.LoadDefaultFont();
     CreateCollisionShape();
   }
 

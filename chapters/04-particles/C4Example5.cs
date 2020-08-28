@@ -14,7 +14,7 @@ public class C4Example5 : Node2D, IExample
     {
       WrapMode = WrapModeEnum.Bounce;
       ForceRangeY = new Vector2(-0.15f, -0.15f);
-      BodySize = new Vector2(7.5f, 7.5f);
+      MeshSize = new Vector2(7.5f, 7.5f);
       Mesh.MeshType = SimpleMeshTypeEnum.Round;
     }
   }
@@ -25,7 +25,7 @@ public class C4Example5 : Node2D, IExample
     {
       WrapMode = WrapModeEnum.Bounce;
       ForceRangeY = new Vector2(0.15f, 0.15f);
-      BodySize = new Vector2(20f, 20f);
+      MeshSize = new Vector2(20f, 20f);
       Mesh.MeshType = SimpleMeshTypeEnum.Round;
     }
   }
@@ -38,7 +38,7 @@ public class C4Example5 : Node2D, IExample
     {
       SimpleParticle particle = null;
 
-      if (Utils.RandRangef(0, 1) >= 0.5)
+      if (MathUtils.RandRangef(0, 1) >= 0.5)
       {
         particle = new ERoundParticle();
       }

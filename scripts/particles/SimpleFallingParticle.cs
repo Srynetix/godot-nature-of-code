@@ -7,7 +7,7 @@ public class SimpleFallingParticle : SimpleParticle
 
   protected override void UpdateAcceleration()
   {
-    ApplyForce(Utils.RandVector2(ForceRangeX, ForceRangeY));
+    ApplyForce(MathUtils.RandVector2(ForceRangeX, ForceRangeY));
     AngularAcceleration = Acceleration.x / 10f;
   }
 }

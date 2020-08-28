@@ -37,13 +37,13 @@ public class C5Exercise8 : Node2D, IExample
       for (float i = 0; i < Length; i += XSpeed)
       {
         curX = i;
-        curY = Utils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
+        curY = MathUtils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
         curT += TimeSpeed;
 
         var lineSprite = new SimpleLineSprite();
-        lineSprite.LineA = GlobalPosition + new Vector2(prevX, prevY);
-        lineSprite.LineB = GlobalPosition + new Vector2(curX, curY);
-        lineSprite.BaseColor = Colors.Gray;
+        lineSprite.PositionA = GlobalPosition + new Vector2(prevX, prevY);
+        lineSprite.PositionB = GlobalPosition + new Vector2(curX, curY);
+        lineSprite.Modulate = Colors.Gray;
         lineSprite.Width = 2;
         AddChild(lineSprite);
 
@@ -55,7 +55,7 @@ public class C5Exercise8 : Node2D, IExample
     public override void _Process(float delta)
     {
       CurrentX += XSpeed;
-      CurrentY = Utils.Map(noise.GetNoise1d(t), -1, 1, -Amplitude, Amplitude);
+      CurrentY = MathUtils.Map(noise.GetNoise1d(t), -1, 1, -Amplitude, Amplitude);
 
       if (CurrentX > Length)
       {
@@ -77,7 +77,7 @@ public class C5Exercise8 : Node2D, IExample
     //   for (float i = 0; i < Length; i += XSpeed)
     //   {
     //     curX = i;
-    //     curY = Utils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
+    //     curY = MathUtils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
     //     curT += TimeSpeed;
 
     //     DrawLine(new Vector2(prevX, prevY), new Vector2(curX, curY), Colors.Gray);

@@ -62,16 +62,16 @@ public class C2Exercise10 : Node2D, IExample
       var bodySize = (float)GD.RandRange(20, 40);
       var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
       var yPos = (float)GD.RandRange(bodySize, size.y - bodySize);
-      mover.BodySize = new Vector2(bodySize, bodySize);
+      mover.MeshSize = new Vector2(bodySize, bodySize);
       mover.Mass = bodySize;
       mover.Position = new Vector2(xPos, yPos);
 
       var repulsor = new Repulsor();
-      repulsor.Drawing = false;
+      repulsor.Visible = false;
       mover.AddChild(repulsor);
 
       var mouseAttractor = new MouseAttractor();
-      mouseAttractor.Drawing = false;
+      mouseAttractor.Visible = false;
       AddChild(mouseAttractor);
 
       AddChild(mover);

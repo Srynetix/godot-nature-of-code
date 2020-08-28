@@ -23,8 +23,8 @@ public class SimpleSpring : Node2D
 
   public override void _Ready()
   {
-    lineSprite.LineA = GlobalPosition;
-    lineSprite.LineB = GlobalPosition;
+    lineSprite.PositionA = GlobalPosition;
+    lineSprite.PositionB = GlobalPosition;
     AddChild(lineSprite);
   }
 
@@ -123,9 +123,9 @@ public class SimpleSpring : Node2D
     {
       // Update line
       var color = touched ? Colors.LightGoldenrod : Colors.LightGray;
-      lineSprite.LineA = GlobalPosition;
-      lineSprite.LineB = currentMover.GlobalPosition;
-      lineSprite.BaseColor = color;
+      lineSprite.PositionA = GlobalPosition;
+      lineSprite.PositionB = currentMover.GlobalPosition;
+      lineSprite.Modulate = color;
     }
   }
 

@@ -28,7 +28,7 @@ public class C5Exercise6 : Node2D, IExample
 
       sprite = new SimpleCircleSprite();
       sprite.Radius = Radius;
-      sprite.BaseColor = Colors.LightGoldenrod;
+      sprite.Modulate = Colors.LightGoldenrod;
       AddChild(sprite);
     }
 
@@ -61,7 +61,7 @@ public class C5Exercise6 : Node2D, IExample
 
       sprite = new SimpleCircleSprite();
       sprite.Radius = Radius;
-      sprite.BaseColor = Colors.LightGoldenrod;
+      sprite.Modulate = Colors.LightGoldenrod;
       AddChild(sprite);
     }
 
@@ -123,8 +123,8 @@ public class C5Exercise6 : Node2D, IExample
 
         var lineSprite = new SimpleLineSprite();
         circleContainer.AddChild(lineSprite);
-        lineSprite.LineA = lastLink.Position;
-        lineSprite.LineB = link.Position;
+        lineSprite.PositionA = lastLink.Position;
+        lineSprite.PositionB = link.Position;
         lineSprites.Add(lineSprite);
 
         lastLink = link;
@@ -137,8 +137,8 @@ public class C5Exercise6 : Node2D, IExample
 
       var lastLineSprite = new SimpleLineSprite();
       linksContainer.AddChild(lastLineSprite);
-      lastLineSprite.LineA = lastLink.Position;
-      lastLineSprite.LineB = endAnchor.Position;
+      lastLineSprite.PositionA = lastLink.Position;
+      lastLineSprite.PositionB = endAnchor.Position;
       lineSprites.Add(lastLineSprite);
     }
 
@@ -149,14 +149,14 @@ public class C5Exercise6 : Node2D, IExample
       for (int i = 0; i < links.Count; ++i)
       {
         var lineSprite = lineSprites[i];
-        lineSprite.LineA = lastLink.Position;
-        lineSprite.LineB = links[i].Position;
+        lineSprite.PositionA = lastLink.Position;
+        lineSprite.PositionB = links[i].Position;
         lastLink = links[i];
       }
 
       var lastLineSprite = lineSprites[lineSprites.Count - 1];
-      lastLineSprite.LineA = lastLink.Position;
-      lastLineSprite.LineB = endAnchor.Position;
+      lastLineSprite.PositionA = lastLink.Position;
+      lastLineSprite.PositionB = endAnchor.Position;
     }
   }
 

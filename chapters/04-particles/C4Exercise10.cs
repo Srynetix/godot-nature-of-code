@@ -19,7 +19,7 @@ public class C4Exercise10 : Node2D, IExample
 
       // Every particle should attract each other
       var attractor = new SimpleAttractor();
-      attractor.Drawing = false;
+      attractor.Visible = false;
       AddChild(attractor);
     }
   }
@@ -31,7 +31,7 @@ public class C4Exercise10 : Node2D, IExample
     particleSystem.SetCreateParticleFunction(() =>
     {
       var particle = new EParticle();
-      particle.BodySize = new Vector2(20, 20);
+      particle.MeshSize = new Vector2(20, 20);
       particle.Mesh.MeshType = SimpleMeshTypeEnum.Square;
       particle.Lifespan = 4;
       particle.Mass = 4;

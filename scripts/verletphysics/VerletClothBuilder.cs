@@ -41,7 +41,7 @@ namespace VerletPhysics
           var position = topLeftPosition + new Vector2(separation.x * i, separation.y * j);
           var point = world.CreatePoint();
           point.Radius = pointRadius;
-          point.Drawing = drawPoints;
+          point.Visible = drawPoints;
           point.MoveToPosition(position);
 
           if (pinMode == PinModeEnum.AllCorners)

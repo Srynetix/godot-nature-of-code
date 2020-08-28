@@ -25,7 +25,7 @@ public class C4Exercise6 : Node2D, IExample
       // Initial velocity
       var offset = 16;
       Velocity = new Vector2((float)GD.RandRange(-offset, offset), (float)GD.RandRange(-offset, offset));
-      BodySize = BodySize * (float)GD.RandRange(0.5f, 1.5f);
+      MeshSize = MeshSize * (float)GD.RandRange(0.5f, 1.5f);
     }
 
     protected override void UpdateAcceleration()
@@ -57,7 +57,7 @@ public class C4Exercise6 : Node2D, IExample
       particleSystem.SetCreateParticleFunction(() =>
       {
         var particle = new EParticle();
-        particle.BodySize = BodySize / 2;
+        particle.MeshSize = MeshSize / 2;
         particle.Lifespan = 4;
         return particle;
       });
@@ -98,7 +98,7 @@ public class C4Exercise6 : Node2D, IExample
     {
       var shatteringObject = new ShatteringObject();
       shatteringObject.Position = new Vector2(widthSlice * i + widthSlice / 2, (float)GD.RandRange(widthSlice, size.y - widthSlice));
-      shatteringObject.BodySize = new Vector2(widthSlice, widthSlice) * (float)GD.RandRange(0.75f, 1.25f);
+      shatteringObject.MeshSize = new Vector2(widthSlice, widthSlice) * (float)GD.RandRange(0.75f, 1.25f);
       AddChild(shatteringObject);
     }
   }

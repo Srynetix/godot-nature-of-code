@@ -23,7 +23,7 @@ public class C2Example7 : Node2D, IExample
     {
       var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
       var bodySize = (float)GD.RandRange(20, 40);
-      mover.BodySize = new Vector2(bodySize, bodySize);
+      mover.MeshSize = new Vector2(bodySize, bodySize);
       mover.Mass = bodySize;
       var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
       var yPos = (float)GD.RandRange(bodySize, size.y - bodySize);

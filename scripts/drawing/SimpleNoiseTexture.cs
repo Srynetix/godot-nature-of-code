@@ -49,8 +49,8 @@ public class SimpleNoiseTexture : Node2D
     {
       for (int y = 0; y < imageSize.y; ++y)
       {
-        float n = Utils.Map(ComputeNoise(x, y), -1, 1, 0, 1);
-        byte tint = (byte)Utils.Map(n, 0, 1, 0, 255);
+        float n = MathUtils.Map(ComputeNoise(x, y), -1, 1, 0, 1);
+        byte tint = (byte)MathUtils.Map(n, 0, 1, 0, 255);
         image.SetPixel(x, y, Color.Color8(tint, tint, tint));
       }
     }

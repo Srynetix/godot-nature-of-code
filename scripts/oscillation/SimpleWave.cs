@@ -8,7 +8,7 @@ public class SimpleWave : Node2D
     public WaveComponent()
     {
       Radius = 30;
-      BaseColor = Colors.LightBlue.WithAlpha(200);
+      Modulate = Colors.LightBlue.WithAlpha(200);
     }
   }
 
@@ -46,7 +46,7 @@ public class SimpleWave : Node2D
 
   public virtual float ComputeY(float angle)
   {
-    return Utils.Map(Mathf.Sin(angle), -1, 1, -Amplitude, Amplitude);
+    return MathUtils.Map(Mathf.Sin(angle), -1, 1, -Amplitude, Amplitude);
   }
 
   private void UpdatePositions()

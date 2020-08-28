@@ -26,7 +26,7 @@ public class C0Exercise7 : Node2D, IExample
 
     public float ComputeStepSize(float t)
     {
-      return Utils.Map(noise.GetNoise1d(t), -1, 1, -1, 1);
+      return MathUtils.Map(noise.GetNoise1d(t), -1, 1, -1, 1);
     }
 
     public void RandomStep()

@@ -23,8 +23,8 @@ public class C2Exercise6 : Node2D, IExample
       float mag = coef * speedSqr;
 
       var drag = Velocity.Normalized() * mag * -1;
-      // Add surface area = BodySize
-      drag *= BodySize / 10;
+      // Add surface area = MeshSize
+      drag *= MeshSize / 10;
 
       ApplyForce(drag);
     }
@@ -55,7 +55,7 @@ public class C2Exercise6 : Node2D, IExample
       var bodySize = (float)GD.RandRange(10, 40);
       var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
 
-      mover.BodySize = new Vector2(bodySize, bodySize);
+      mover.MeshSize = new Vector2(bodySize, bodySize);
       mover.Mass = (float)GD.RandRange(5, 10);
       mover.Position = new Vector2(xPos, size.y / 2 + (float)GD.RandRange(-100, 100));
 

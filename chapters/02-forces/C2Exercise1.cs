@@ -34,9 +34,8 @@ public class C2Exercise1 : Node2D, IExample
       Mesh.MeshType = SimpleMeshTypeEnum.Custom;
       Mesh.CustomDrawMethod = (pen) =>
       {
-        pen.DrawCircle(Vector2.Zero, Radius, pen.OutlineColor.WithAlpha(128));
-        pen.DrawCircle(Vector2.Zero, Radius - pen.OutlineWidth, pen.BaseColor.WithAlpha(128));
-        pen.DrawLine(Vector2.Down * Radius, (Vector2.Down * (pen.BodySize * 2)).Rotated(Mathf.Sin(tRope) / 10), Colors.White.WithAlpha(128), 2);
+        pen.DrawCircle(Vector2.Zero, Radius, pen.Modulate.WithAlpha(128));
+        pen.DrawLine(Vector2.Down * Radius, (Vector2.Down * (pen.MeshSize * 2)).Rotated(Mathf.Sin(tRope) / 10), Colors.White.WithAlpha(128), 2);
       };
     }
 

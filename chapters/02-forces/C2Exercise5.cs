@@ -39,7 +39,7 @@ public class C2Exercise5 : Node2D, IExample
       var mover = new Mover();
       var bodySize = (float)GD.RandRange(20, 40);
       var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
-      mover.BodySize = new Vector2(bodySize, bodySize);
+      mover.MeshSize = new Vector2(bodySize, bodySize);
       mover.Mass = (float)GD.RandRange(5, 10);
       mover.Position = new Vector2(xPos, size.y / 2 + (float)GD.RandRange(-100, 100));
       AddChild(mover);

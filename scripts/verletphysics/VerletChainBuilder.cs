@@ -40,7 +40,7 @@ namespace VerletPhysics
       {
         if (!drawIntermediatePoints)
         {
-          point.Drawing = false;
+          point.Visible = false;
         }
       }
 
@@ -100,7 +100,7 @@ namespace VerletPhysics
       }
 
       // Show last
-      lastPoint.Drawing = true;
+      lastPoint.Visible = true;
 
       int linkCount = points.Count - 1;
       VerletPoint prevPoint = points[0];

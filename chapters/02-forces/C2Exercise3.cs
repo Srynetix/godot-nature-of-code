@@ -76,7 +76,7 @@ public class C2Exercise3 : Node2D, IExample
       var bodySize = (float)GD.RandRange(20, 40);
       var size = GetViewportRect().Size;
       var xPos = (float)GD.RandRange(bodySize * 4, size.x - bodySize * 4);
-      mover.BodySize = new Vector2(bodySize, bodySize);
+      mover.MeshSize = new Vector2(bodySize, bodySize);
       mover.Mass = (float)GD.RandRange(5, 10);
       mover.Position = new Vector2(xPos, size.y / 2);
       AddChild(mover);

@@ -32,13 +32,13 @@ public class C5Example4 : Node2D, IExample
 
     // Add left floor
     var leftFloor = new Physics.SimpleWall();
-    leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
+    leftFloor.MeshSize = new Vector2(size.x / 2.5f, floorHeight);
     leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
     AddChild(leftFloor);
 
     // Add right floor
     var rightFloor = new Physics.SimpleWall();
-    rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
+    rightFloor.MeshSize = new Vector2(size.x / 2.5f, floorHeight);
     rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
     AddChild(rightFloor);
 
@@ -54,7 +54,7 @@ public class C5Example4 : Node2D, IExample
     int polygonCount = 10;
     for (int i = 0; i < polygonCount; ++i)
     {
-      spawner.SpawnBody(Utils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
+      spawner.SpawnBody(MathUtils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
     }
   }
 }

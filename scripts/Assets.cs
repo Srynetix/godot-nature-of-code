@@ -1,13 +1,5 @@
 using Godot;
 
-public enum SimpleMeshTypeEnum
-{
-  Round,
-  Square,
-  Custom,
-  Texture
-}
-
 public enum SimpleDefaultTextureEnum
 {
   WhiteDot,
@@ -130,116 +122,24 @@ public static class SimpleDefaultTexture
   }
 }
 
-public class SimpleMesh : Node2D
+public static class SimpleDefaultFont
 {
-  public delegate void CustomDraw(SimpleMesh pen);
+  private static Font Regular = null;
 
-  public Color OutlineColor = Colors.LightBlue;
-  public float OutlineWidth = 2f;
-  public Vector2 BodySize = new Vector2(40, 40);
-  public SimpleMeshTypeEnum MeshType = SimpleMeshTypeEnum.Round;
-  public CustomDraw CustomDrawMethod = null;
-  public Texture CustomTexture = null;
-  public CanvasItemMaterial.BlendModeEnum CustomTextureBlendMode = CanvasItemMaterial.BlendModeEnum.Mix;
-  public bool Drawing
+  static public Font LoadDefaultFont()
   {
-    get => _drawing;
-    set
+    if (Regular == null)
     {
-      _drawing = value;
-      if (sprite != null)
-      {
-        sprite.Visible = value && MeshType == SimpleMeshTypeEnum.Texture;
-      }
-
-      if (circleSprite != null)
-      {
-        circleSprite.Visible = value && MeshType == SimpleMeshTypeEnum.Round;
-      }
-    }
-  }
-
-  public Color BaseColor
-  {
-    get => _baseColor;
-    set
-    {
-      _baseColor = value;
-      if (sprite != null)
-      {
-        sprite.Modulate = value;
-      }
-
-      if (sprite != null)
-      {
-        circleSprite.BaseColor = value;
-      }
-    }
-  }
-
-  private CanvasItemMaterial material;
-  private Sprite sprite;
-  private SimpleCircleSprite circleSprite;
-  private Color _baseColor = Colors.White;
-  private bool _drawing = true;
-
-  public override void _Ready()
-  {
-    material = new CanvasItemMaterial();
-    material.BlendMode = CustomTextureBlendMode;
-
-    sprite = new Sprite();
-    sprite.Material = material;
-    sprite.Modulate = BaseColor;
-    sprite.Visible = false;
-    AddChild(sprite);
-
-    circleSprite = new SimpleCircleSprite();
-    circleSprite.Visible = false;
-    AddChild(circleSprite);
-
-    if (MeshType == SimpleMeshTypeEnum.Texture)
-    {
-      if (CustomTexture != null)
-      {
-        sprite.Texture = CustomTexture;
-        sprite.Scale = BodySize / sprite.Texture.GetSize();
-        sprite.Visible = _drawing;
-      }
+      var fontData = GD.Load("res://assets/fonts/Raleway-Regular.ttf");
+      var dynamicFont = new DynamicFont();
+      dynamicFont.FontData = (DynamicFontData)fontData;
+      dynamicFont.Size = 16;
+      dynamicFont.UseFilter = true;
+      dynamicFont.OutlineSize = 1;
+      dynamicFont.OutlineColor = Colors.Black;
+      Regular = dynamicFont;
     }
 
-    else if (MeshType == SimpleMeshTypeEnum.Round)
-    {
-      circleSprite.Radius = BodySize.x / 2;
-      circleSprite.Visible = _drawing;
-    }
-  }
-
-  public override void _Draw()
-  {
-    if (!Drawing)
-    {
-      return;
-    }
-
-    if (MeshType == SimpleMeshTypeEnum.Square)
-    {
-      var outlineVec = new Vector2(OutlineWidth, OutlineWidth);
-      DrawRect(new Rect2(-BodySize / 2, BodySize / 2), OutlineColor);
-      DrawRect(new Rect2(-BodySize / 2 + outlineVec / 2, BodySize / 2 - outlineVec / 2), OutlineColor);
-    }
-
-    else if (MeshType == SimpleMeshTypeEnum.Custom)
-    {
-      if (CustomDrawMethod != null)
-      {
-        CustomDrawMethod(this);
-      }
-    }
-  }
-
-  public override void _Process(float delta)
-  {
-    Update();
+    return Regular;
   }
 }

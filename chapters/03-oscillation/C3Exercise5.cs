@@ -16,26 +16,20 @@ public class C3Exercise5 : Control, IExample
 
     public Spaceship() : base(WrapModeEnum.Wrap)
     {
-      BodySize = new Vector2(20, 20);
+      MeshSize = new Vector2(20, 20);
       Mesh.MeshType = SimpleMeshTypeEnum.Custom;
       Mesh.CustomDrawMethod = (pen) =>
       {
-        var outlineVec = new Vector2(pen.OutlineWidth, pen.OutlineWidth);
-
         // Body
-        Vector2[] points = { new Vector2(-1, 1) * BodySize, new Vector2(1, 1) * BodySize, new Vector2(0, -1) * BodySize };
-        Color[] colors = { pen.OutlineColor, pen.OutlineColor, pen.OutlineColor };
+        Vector2[] points = { new Vector2(-1, 1) * MeshSize, new Vector2(1, 1) * MeshSize, new Vector2(0, -1) * MeshSize };
+        Color[] colors = { pen.Modulate, pen.Modulate, pen.Modulate };
         pen.DrawPolygon(points, colors);
-        Vector2[] innerPoints = { new Vector2(-1, 1) * (BodySize - outlineVec), new Vector2(1, 1) * (BodySize - outlineVec), new Vector2(0, -1) * (BodySize - outlineVec) };
-
-        Color[] innerColors = { pen.BaseColor, pen.BaseColor, pen.BaseColor };
-        pen.DrawPolygon(innerPoints, innerColors);
 
         // Thrusters
         var thrusterColor = !thrusting ? Colors.White : Colors.Red;
-        var thrusterSize = BodySize / 3;
-        pen.DrawRect(new Rect2(-BodySize.x / 2 - thrusterSize.x / 2, BodySize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
-        pen.DrawRect(new Rect2(BodySize.x / 2 - thrusterSize.x / 2, BodySize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
+        var thrusterSize = MeshSize / 3;
+        pen.DrawRect(new Rect2(-MeshSize.x / 2 - thrusterSize.x / 2, MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
+        pen.DrawRect(new Rect2(MeshSize.x / 2 - thrusterSize.x / 2, MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
       };
     }
 

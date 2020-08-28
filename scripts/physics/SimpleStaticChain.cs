@@ -31,9 +31,9 @@ namespace Physics
       AddChild(shape);
 
       var lineSprite = new SimpleLineSprite();
-      lineSprite.LineA = GlobalPosition + segment.A;
-      lineSprite.LineB = GlobalPosition + segment.B;
-      lineSprite.BaseColor = BaseColor;
+      lineSprite.PositionA = GlobalPosition + segment.A;
+      lineSprite.PositionB = GlobalPosition + segment.B;
+      lineSprite.Modulate = BaseColor;
       lineSprite.Width = 2;
       lineSprites.Add(lineSprite);
       AddChild(lineSprite);

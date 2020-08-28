@@ -40,7 +40,7 @@ public class C5Example3 : Node2D, IExample
     int ballCount = 10;
     for (int i = 0; i < ballCount; ++i)
     {
-      spawner.SpawnBody(Utils.RandVector2(0, size.x, 0, size.y / 2));
+      spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y / 2));
     }
   }
 }

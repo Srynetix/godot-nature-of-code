@@ -28,7 +28,7 @@ public class C5Exercise2 : Node2D, IExample
     spawner.Spawner = (position) =>
     {
       var box = new AntigravityBox();
-      box.BodySize = new Vector2(20, 20);
+      box.MeshSize = new Vector2(20, 20);
       box.GlobalPosition = position;
       return box;
     };
@@ -37,7 +37,7 @@ public class C5Exercise2 : Node2D, IExample
     int boxCount = 10;
     for (int i = 0; i < boxCount; ++i)
     {
-      spawner.SpawnBody(Utils.RandVector2(0, size.x, 0, size.y));
+      spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y));
     }
   }
 }

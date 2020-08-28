@@ -20,13 +20,13 @@ public class C2Example8 : Node2D, IExample
       var bodySize = (float)GD.RandRange(20, 40);
       var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
       var yPos = (float)GD.RandRange(bodySize, size.y - bodySize);
-      mover.BodySize = new Vector2(bodySize, bodySize);
+      mover.MeshSize = new Vector2(bodySize, bodySize);
       mover.Mass = bodySize;
       mover.Position = new Vector2(xPos, yPos);
 
       // Add attractor on mover
       var attractor = new SimpleAttractor();
-      attractor.Drawing = false;
+      attractor.Visible = false;
       mover.AddChild(attractor);
 
       AddChild(mover);

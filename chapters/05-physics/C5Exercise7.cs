@@ -28,7 +28,7 @@ public class C5Exercise7 : Node2D, IExample
   {
     public CarBase()
     {
-      BodySize = new Vector2(80, 20);
+      MeshSize = new Vector2(80, 20);
     }
   }
 
@@ -40,7 +40,7 @@ public class C5Exercise7 : Node2D, IExample
       AddChild(carBase);
 
       var carLeftWheel = new Wheel();
-      carLeftWheel.Position = carBase.Position + new Vector2(-carBase.BodySize.x / 2 + carLeftWheel.Radius, carBase.BodySize.y);
+      carLeftWheel.Position = carBase.Position + new Vector2(-carBase.MeshSize.x / 2 + carLeftWheel.Radius, carBase.MeshSize.y);
       AddChild(carLeftWheel);
       var leftJoint = new PinJoint2D();
       leftJoint.NodeA = carBase.GetPath();
@@ -49,7 +49,7 @@ public class C5Exercise7 : Node2D, IExample
       carLeftWheel.AddChild(leftJoint);
 
       var carRightWheel = new Wheel();
-      carRightWheel.Position = carBase.Position + new Vector2(carBase.BodySize.x / 2 - carRightWheel.Radius, carBase.BodySize.y);
+      carRightWheel.Position = carBase.Position + new Vector2(carBase.MeshSize.x / 2 - carRightWheel.Radius, carBase.MeshSize.y);
       AddChild(carRightWheel);
       var rightJoint = new PinJoint2D();
       rightJoint.NodeA = carBase.GetPath();

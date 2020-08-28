@@ -18,8 +18,7 @@ public class C3Example3 : Node2D, IExample
         var length = Radius * 2;
         var width = Radius;
 
-        pen.DrawRect(new Rect2(-length / 2, -width / 2, length, width), pen.OutlineColor);
-        pen.DrawRect(new Rect2(-length / 2 + pen.OutlineWidth, -width / 2 + 2, length - 4, width - 4), pen.BaseColor);
+        pen.DrawRect(new Rect2(-length / 2, -width / 2, length, width), pen.Modulate);
       };
     }
 

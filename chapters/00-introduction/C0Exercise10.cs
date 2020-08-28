@@ -29,7 +29,7 @@ public class C0Exercise10 : Node2D, IExample
 
     for (float x = 0; x < size.x; x += stepSize)
     {
-      nValue = Utils.Map(noise.GetNoise1d(tx), -1, 1, -100, 100);
+      nValue = MathUtils.Map(noise.GetNoise1d(tx), -1, 1, -100, 100);
       DrawLine(new Vector2(x, prevY), new Vector2(x + stepSize, prevY + nValue), Colors.LightCyan, 2, true);
 
       tx += 100f;

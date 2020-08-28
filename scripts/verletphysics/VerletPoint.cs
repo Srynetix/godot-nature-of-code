@@ -24,7 +24,7 @@ namespace VerletPhysics
     public VerletPoint(VerletWorld world)
     {
       Radius = 15f;
-      BaseColor = Colors.LightBlue;
+      Modulate = Colors.LightBlue;
 
       this.world = world;
       links = new List<VerletLink>();

@@ -19,7 +19,7 @@ public class C5Example8 : Node2D, IExample
     box.AddChild(new Physics.SimpleMouseJoint());
 
     var floor = new Physics.SimpleWall();
-    floor.BodySize = new Vector2(size.x, 100);
+    floor.MeshSize = new Vector2(size.x, 100);
     floor.Position = new Vector2(size.x / 2, size.y);
     AddChild(floor);
   }
