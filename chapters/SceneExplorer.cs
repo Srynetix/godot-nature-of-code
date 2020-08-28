@@ -66,6 +66,11 @@ public class SceneExplorer : Control
     {
       SelectExampleFromId(prevPos);
     }
+    else
+    {
+      SelectPrevChapter();
+      SelectExampleFromId(sceneLoader.GetCurrentChapterSamplesCount() - 1);
+    }
   }
 
   public void SelectNextExample()
@@ -74,6 +79,10 @@ public class SceneExplorer : Control
     if (nextPos != -1)
     {
       SelectExampleFromId(nextPos);
+    }
+    else
+    {
+      SelectNextChapter();
     }
   }
 

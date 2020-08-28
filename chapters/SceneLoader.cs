@@ -88,6 +88,16 @@ public class SceneLoader : Node
     currentChapter = name;
   }
 
+  public int GetCurrentChapterSamplesCount()
+  {
+    if (currentChapter != "")
+    {
+      return scenesDict[currentChapter].Count;
+    }
+
+    return -1;
+  }
+
   public int GetNextSampleId()
   {
     if (currentChapter != "" && currentScene != "")
@@ -95,7 +105,7 @@ public class SceneLoader : Node
       var scenePos = scenesList[currentChapter].IndexOf(currentScene);
       if (scenePos == scenesList[currentChapter].Count - 1)
       {
-        return 0;
+        return -1;
       }
       else
       {
@@ -113,7 +123,7 @@ public class SceneLoader : Node
       var scenePos = scenesList[currentChapter].IndexOf(currentScene);
       if (scenePos == 0)
       {
-        return scenesList[currentChapter].Count - 1;
+        return -1;
       }
       else
       {
