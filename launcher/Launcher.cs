@@ -1,8 +1,15 @@
 using Godot;
 
+/// <summary>
+/// Main launcher.
+/// </summary>
 public class Launcher : Control
 {
-  public static string VERSION = "1.0.0.beta";
+  /// <summary>Current app version</summary>
+  public const string VERSION = "1.0.0.beta";
+
+  /// <summary>Default clear color</summary>
+  public static Color DefaultClearColor = Color.Color8(45, 45, 45);
 
   private VBoxContainer launcherUI;
   private ColorRect background;
@@ -15,12 +22,12 @@ public class Launcher : Control
   private RichTextLabel links;
   private Control drawSpace;
 
+  #region Lifecycle methods
+
   public override void _Ready()
   {
-    // Adapt UI size depending on pixel ratio
-
     // Base default clear color
-    VisualServer.SetDefaultClearColor(Color.Color8(45, 45, 45));
+    VisualServer.SetDefaultClearColor(DefaultClearColor);
 
     background = GetNode<ColorRect>("Background");
     launcherUI = GetNode<VBoxContainer>("Margin/VBox");
@@ -49,6 +56,15 @@ public class Launcher : Control
 
     ToggleBackUI(false);
   }
+
+  public override void _Process(float delta)
+  {
+    fpsLabel.Text = "FPS: " + Engine.GetFramesPerSecond();
+  }
+
+  #endregion
+
+  #region Private methods
 
   private void LoadSceneExplorer()
   {
@@ -99,8 +115,5 @@ public class Launcher : Control
     GetTree().Quit();
   }
 
-  public override void _Process(float delta)
-  {
-    fpsLabel.Text = "FPS: " + Engine.GetFramesPerSecond();
-  }
+  #endregion
 }

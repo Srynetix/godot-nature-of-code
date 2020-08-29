@@ -19,7 +19,7 @@ Almost everything is created from scripts.
   - Examples: Canvas, Attractors, Zones, Springs, Particles, Waves, etc.
 - The Physics Libraries chapter is using the Godot internal physics engine instead of Box2D
 - A simple Verlet physics implementation can be found in `scripts/verletphysics`
-- Most C# code is documented, you can use the included Doxyfile to generate documentation
+- Most C# code is documented with Doxygen, you can use the included Doxyfile to generate documentation
 - Drawing is often batched (using GLES2 batching) to ensure correct performance on mobile and web targets
 
 ## Roadmap
