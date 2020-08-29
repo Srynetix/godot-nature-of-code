@@ -27,6 +27,7 @@ namespace Physics
       get => circleShape2D.Radius;
       set
       {
+        sprite.Radius = value;
         circleShape2D.Radius = value;
       }
     }
