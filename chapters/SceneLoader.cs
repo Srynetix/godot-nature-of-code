@@ -260,7 +260,7 @@ public class SceneLoader : Node
   private void ScanSamples()
   {
     Regex rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
-    Regex prettyRgx = new Regex(@"(?<category>(Exam\.|Exer\.)) (?<idx>\d+)");
+    Regex prettyRgx = new Regex(@"(?<idx>\d+)");
 
     foreach (string chapterName in chaptersList)
     {
@@ -285,7 +285,9 @@ public class SceneLoader : Node
           string sceneFileName = elem.Substr(0, elem.Length - 5);
 
           var groups = rgx.Match(sceneFileName).Groups;
-          string sceneName = groups["category"].Value.Substring(0, 4) + ". " + groups["idx"].Value;
+          var category = groups["category"].Value;
+          var exampleId = groups["idx"].Value;
+          string sceneName = category == "Exercise" ? exampleId + "x" : exampleId;
 
           var scene = (PackedScene)GD.Load(chapterPath + "/" + elem);
           var descr = ExtractSceneSummary(scene);
