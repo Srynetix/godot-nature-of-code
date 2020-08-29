@@ -28,6 +28,7 @@ namespace VerletPhysics
     private VerletWorld world;
     private List<VerletPoint> points;
     private Vector2 pointCount;
+    private float separation;
     private float pointRadius;
 
     public VerletClothBuilder(VerletWorld world, PinModeEnum pinMode = PinModeEnum.TopCorners, bool drawPoints = false, float pointRadius = 10f)
@@ -40,22 +41,23 @@ namespace VerletPhysics
     }
 
     /// <summary>
-    /// Generate points from a top-left position, using X/Y point count and X/Y separation to create a verlet points rectangle. 
+    /// Generate points from a top-left position, using X/Y point count and separation to create a verlet points rectangle. 
     /// </summary>
     /// <param name="topLeftPosition">Top-left position</param>
     /// <param name="pointCount">X/Y point count</param>
-    /// <param name="separation">X/Y separation</param>
+    /// <param name="separation">Separation</param>
     /// <returns>Builder</returns>
-    public VerletClothBuilder GeneratePointsFromPosition(Vector2 topLeftPosition, Vector2 pointCount, Vector2 separation)
+    public VerletClothBuilder GeneratePointsFromPosition(Vector2 topLeftPosition, Vector2 pointCount, float separation)
     {
       this.pointCount = pointCount;
+      this.separation = separation;
       points.Clear();
 
       for (int j = 0; j < pointCount.y; ++j)
       {
         for (int i = 0; i < pointCount.x; ++i)
         {
-          var position = topLeftPosition + new Vector2(separation.x * i, separation.y * j);
+          var position = topLeftPosition + new Vector2(separation * i, separation * j);
           var point = world.CreatePoint();
           point.Radius = pointRadius;
           point.Visible = drawPoints;
@@ -95,10 +97,9 @@ namespace VerletPhysics
     /// <summary>
     /// Build the verlet cloth.
     /// </summary>
-    /// <param name="restingDistance">Resting distance</param>
-    /// <param name="tearSensitivity">Distance required to break the cloth. Use `-1` to create an unbreakable cloth.</param>
+    /// <param name="tearSensitivityFactor">Distance factor required to break the cloth. Use `-1` to create an unbreakable cloth.</param>
     /// <param name="stiffness">Stiffness of the cloth</param>
-    public void Build(float restingDistance = 50, float tearSensitivity = 100, float stiffness = 1)
+    public void Build(float tearSensitivityFactor = 2, float stiffness = 1)
     {
       if (points.Count == 0)
       {
@@ -117,8 +118,8 @@ namespace VerletPhysics
             int pBIdx = i + j * (int)pointCount.x;
 
             var link = world.CreateLink(points[pAIdx], points[pBIdx]);
-            link.RestingDistance = restingDistance;
-            link.TearSensitivity = tearSensitivity;
+            link.RestingDistance = separation;
+            link.TearSensitivity = separation * tearSensitivityFactor;
             link.Stiffness = stiffness;
           }
 
@@ -129,8 +130,8 @@ namespace VerletPhysics
             int pBIdx = i + j * (int)pointCount.x;
 
             var link = world.CreateLink(points[pAIdx], points[pBIdx]);
-            link.RestingDistance = restingDistance;
-            link.TearSensitivity = tearSensitivity;
+            link.RestingDistance = separation;
+            link.TearSensitivity = separation * tearSensitivityFactor;
             link.Stiffness = stiffness;
           }
         }

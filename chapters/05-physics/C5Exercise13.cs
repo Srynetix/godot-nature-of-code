@@ -30,7 +30,7 @@ public class C5Exercise13 : Node2D, IExample
       .GeneratePointsFromPosition(
         topLeftPosition: topLeftPosition,
         pointCount: pointCount,
-        separation: new Vector2(separation, separation))
-      .Build(restingDistance: separation, tearSensitivity: separation * 2f, stiffness: 1f);
+        separation: separation)
+      .Build(tearSensitivityFactor: 2f, stiffness: 1f);
   }
 }

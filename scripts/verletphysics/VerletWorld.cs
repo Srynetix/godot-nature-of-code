@@ -80,6 +80,17 @@ namespace VerletPhysics
     }
 
     /// <summary>
+    /// Start a verlet cluster builder.
+    /// </summary>
+    /// <param name="drawPoints">Draw verlet points</param>
+    /// <param name="pointRadius">Verlet point radius</param>
+    /// <returns>Verlet cluster builder</returns>
+    public VerletClusterBuilder StartClusterBuilder(bool drawPoints = false, float pointRadius = 10f)
+    {
+      return new VerletClusterBuilder(this, drawPoints, pointRadius);
+    }
+
+    /// <summary>
     /// Mark a link to be removed next frame.
     /// </summary>
     /// <param name="link">Verlet link</param>

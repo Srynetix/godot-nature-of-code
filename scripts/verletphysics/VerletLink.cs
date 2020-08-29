@@ -39,7 +39,7 @@ namespace VerletPhysics
       var d = diff.Length();
       var difference = (RestingDistance - d) / d;
 
-      if (TearSensitivity != -1 && d > TearSensitivity)
+      if (TearSensitivity > 0 && d > TearSensitivity)
       {
         world.QueueLinkRemoval(this);
       }
