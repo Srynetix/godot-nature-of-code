@@ -30,10 +30,6 @@ namespace VerletPhysics
     private bool touched = false;
     private int touchIndex = -1;
 
-    /// <summary>
-    /// Create a default verlet point of 15px radius.
-    /// </summary>
-    /// <param name="world">Verlet world</param>
     public VerletPoint(VerletWorld world)
     {
       Radius = 15f;

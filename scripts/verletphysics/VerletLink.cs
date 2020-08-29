@@ -20,12 +20,6 @@ namespace VerletPhysics
 
     private VerletWorld world;
 
-    /// <summary>
-    /// Create a default verlet link.
-    /// </summary>
-    /// <param name="world">Verlet world</param>
-    /// <param name="a">First verlet point</param>
-    /// <param name="b">Second verlet point</param>
     public VerletLink(VerletWorld world, VerletPoint a, VerletPoint b)
     {
       A = a;

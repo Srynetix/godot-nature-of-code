@@ -213,11 +213,11 @@ public class SceneExplorer : Control
     ToggleUIButton.Visible = false;
 
     sceneLoader = new SceneLoader();
-    sceneLoader.Connect("scenes_loaded", this, nameof(_OnScenesLoaded));
+    sceneLoader.Connect(nameof(SceneLoader.ScenesLoaded), this, nameof(_OnScenesLoaded));
 
     // Force min size for exercise selection
     var font = SelectChapterButton.GetFont("font");
-    SelectExampleButton.RectMinSize = font.GetCharSize('w') * new Vector2(sceneLoader.SampleNameMaxLength, 1);
+    SelectExampleButton.RectMinSize = font.GetCharSize('w') * new Vector2(SceneLoader.SampleNameMaxLength, 1);
 
     await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
     AddChild(sceneLoader);

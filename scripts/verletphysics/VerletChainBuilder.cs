@@ -21,13 +21,6 @@ namespace VerletPhysics
     private VerletWorld world;
     private List<VerletPoint> points;
 
-    /// <summary>
-    /// Create a default verlet chain builder.
-    /// </summary>
-    /// <param name="world">Verlet world</param>
-    /// <param name="pinFirst">Pin first chain point</param>
-    /// <param name="pinLast">Pin last chain point</param>
-    /// <param name="drawIntermediatePoints">Draw chain intermediate points</param>
     public VerletChainBuilder(VerletWorld world, bool pinFirst = true, bool pinLast = false, bool drawIntermediatePoints = false)
     {
       this.world = world;

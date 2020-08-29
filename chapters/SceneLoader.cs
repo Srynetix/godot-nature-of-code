@@ -2,12 +2,18 @@ using Godot;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// Dynamic scene loader.
+/// </summary>
 public class SceneLoader : Node
 {
-  // Sent when all scenes are loaded
-  [Signal] public delegate void scenes_loaded();
+  /// <summary>
+  /// Signal sent when all scenes are loaded
+  /// </summary>
+  [Signal] public delegate void ScenesLoaded();
 
-  public int SampleNameMaxLength = 30;
+  /// <summary>Sample name max length</summary>
+  public const int SampleNameMaxLength = 30;
 
   private List<string> chaptersList;
   private Dictionary<string, string> chaptersDict;
@@ -26,31 +32,10 @@ public class SceneLoader : Node
     currentScene = "";
   }
 
-  public override void _Ready()
-  {
-    // Scan on ready
-    ScanScenes();
-  }
-
-  public void ScanScenes()
-  {
-    ScanChapters();
-    ScanSamples();
-
-    if (chaptersList.Count > 0)
-    {
-      currentChapter = chaptersList[0];
-    }
-
-    if (currentChapter != "" && scenesList[currentChapter].Count > 0)
-    {
-      currentScene = scenesList[currentChapter][0];
-    }
-
-    // Send event
-    EmitSignal(nameof(scenes_loaded));
-  }
-
+  /// <summary>
+  /// Get current chapter sample names.
+  /// </summary>
+  /// <returns>Sample names</returns>
   public List<string> GetCurrentChapterSampleNames()
   {
     if (currentChapter != "")
@@ -63,31 +48,10 @@ public class SceneLoader : Node
     }
   }
 
-  public List<string> GetChapterNames()
-  {
-    return chaptersList;
-  }
-
-  public PackedScene GetCurrentSample()
-  {
-    if (currentChapter != "" && currentScene != "")
-    {
-      return scenesDict[currentChapter][currentScene];
-    }
-
-    return null;
-  }
-
-  public void SetCurrentSample(string name)
-  {
-    currentScene = name;
-  }
-
-  public void SetCurrentChapter(string name)
-  {
-    currentChapter = name;
-  }
-
+  /// <summary>
+  /// Get current chapter sample count.
+  /// </summary>
+  /// <returns>Sample count</returns>
   public int GetCurrentChapterSamplesCount()
   {
     if (currentChapter != "")
@@ -98,6 +62,52 @@ public class SceneLoader : Node
     return -1;
   }
 
+  /// <summary>
+  /// Get chapter names.
+  /// </summary>
+  /// <returns>Chapter names</returns>
+  public List<string> GetChapterNames()
+  {
+    return chaptersList;
+  }
+
+  /// <summary>
+  /// Get current sample scene.
+  /// </summary>
+  /// <returns>Sample scene</returns>
+  public PackedScene GetCurrentSample()
+  {
+    if (currentChapter != "" && currentScene != "")
+    {
+      return scenesDict[currentChapter][currentScene];
+    }
+
+    return null;
+  }
+
+  /// <summary>
+  /// Set current sample from name.
+  /// </summary>
+  /// <param name="name">Sample name</param>
+  public void SetCurrentSample(string name)
+  {
+    currentScene = name;
+  }
+
+  /// <summary>
+  /// Set current chapter from name.
+  /// </summary>
+  /// <param name="name">Chapter name</param>
+  public void SetCurrentChapter(string name)
+  {
+    currentChapter = name;
+  }
+
+  /// <summary>
+  /// Get next sample index.
+  /// Returns '-1' if next sample does not exist.
+  /// </summary>
+  /// <returns>Sample index</returns>
   public int GetNextSampleId()
   {
     if (currentChapter != "" && currentScene != "")
@@ -116,6 +126,11 @@ public class SceneLoader : Node
     return -1;
   }
 
+  /// <summary>
+  /// Get previous sample index.
+  /// Returns '-1' if previous sample does not exist.
+  /// </summary>
+  /// <returns>Sample index</returns>
   public int GetPrevSampleId()
   {
     if (currentChapter != "" && currentScene != "")
@@ -134,6 +149,11 @@ public class SceneLoader : Node
     return -1;
   }
 
+  /// <summary>
+  /// Get next chapter index.
+  /// Returns '-1' if next chapter does not exist.
+  /// </summary>
+  /// <returns>Chapter index</returns>
   public int GetNextChapterId()
   {
     if (currentChapter != "")
@@ -152,6 +172,11 @@ public class SceneLoader : Node
     return -1;
   }
 
+  /// <summary>
+  /// Get previous chapter index.
+  /// Returns '-1' if previous chapter does not exist.
+  /// </summary>
+  /// <returns>Chapter index</returns>
   public int GetPrevChapterId()
   {
     if (currentChapter != "")
@@ -168,6 +193,36 @@ public class SceneLoader : Node
     }
 
     return -1;
+  }
+
+  #region Lifecycle methods
+
+  public override void _Ready()
+  {
+    ScanScenes();
+  }
+
+  #endregion
+
+  #region Private methods
+
+  private void ScanScenes()
+  {
+    ScanChapters();
+    ScanSamples();
+
+    if (chaptersList.Count > 0)
+    {
+      currentChapter = chaptersList[0];
+    }
+
+    if (currentChapter != "" && scenesList[currentChapter].Count > 0)
+    {
+      currentScene = scenesList[currentChapter][0];
+    }
+
+    // Send event
+    EmitSignal(nameof(ScenesLoaded));
   }
 
   private void ScanChapters()
@@ -288,4 +343,6 @@ public class SceneLoader : Node
     }
     return secondLine;
   }
+
+  #endregion
 }

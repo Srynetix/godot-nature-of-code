@@ -30,13 +30,6 @@ namespace VerletPhysics
     private Vector2 pointCount;
     private float pointRadius;
 
-    /// <summary>
-    /// Create a default verlet cloth builder.
-    /// </summary>
-    /// <param name="world">Verlet world</param>
-    /// <param name="pinMode">Pin mode</param>
-    /// <param name="drawPoints">Draw verlet points</param>
-    /// <param name="pointRadius">Verlet point radius</param>
     public VerletClothBuilder(VerletWorld world, PinModeEnum pinMode = PinModeEnum.TopCorners, bool drawPoints = false, float pointRadius = 10f)
     {
       this.world = world;
