@@ -2,29 +2,36 @@ using Godot;
 
 namespace Physics
 {
+  /// <summary>
+  /// Touch spawner.
+  /// Touch anywhere and spawn something.
+  /// Can also spawn on demand using `SpawnBody`.
+  /// </summary>
   public class SimpleTouchSpawner : Node2D
   {
-    public delegate Node2D SpawnFunction(Vector2 position);
+    /// <summary>Spawn function definition</summary>
+    public delegate Node2D SpawnFuncDef(Vector2 position);
 
-    public SpawnFunction Spawner = null;
+    /// <summary>Spawn function</summary>
+    public SpawnFuncDef SpawnFunction = null;
+    /// <summary>Target container. Defaults to parent.
     public Node Container = null;
 
+    /// <summary>
+    /// Spawn body at position.
+    /// </summary>
+    /// <param name="position">Target position</param>
     public void SpawnBody(Vector2 position)
     {
-      if (Spawner != null)
+      if (SpawnFunction != null)
       {
-        var body = Spawner(position);
-
-        if (Container == null)
-        {
-          GetParent().AddChild(body);
-        }
-        else
-        {
-          Container.AddChild(body);
-        }
+        var body = SpawnFunction(position);
+        var container = Container ?? GetParent();
+        container.AddChild(body);
       }
     }
+
+    #region Lifecycle methods
 
     public override void _UnhandledInput(InputEvent @event)
     {
@@ -41,5 +48,7 @@ namespace Physics
         SpawnBody(eventScreenDrag.Position);
       }
     }
+
+    #endregion
   }
 }

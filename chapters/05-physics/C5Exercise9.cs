@@ -77,7 +77,7 @@ public class C5Exercise9 : Node2D, IExample
     AddChild(d);
 
     var spawner = new Physics.SimpleTouchSpawner();
-    spawner.Spawner = (position) =>
+    spawner.SpawnFunction = (position) =>
     {
       var box = new PerlinKinematicBox();
       box.Drawing = d;

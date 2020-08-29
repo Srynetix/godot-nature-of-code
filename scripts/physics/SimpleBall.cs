@@ -1,6 +1,9 @@
 using Godot;
 using Drawing;
 
+/// <summary>
+/// Physics-related primitives.
+/// </summary>
 namespace Physics
 {
   /// <summary>

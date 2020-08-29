@@ -15,16 +15,15 @@ namespace Physics
     public Color BaseColor = Colors.White;
 
     /// <summary>Mesh size</summary>
-    public Vector2 MeshSize
+    public Vector2 BodySize
     {
-      get => rectangleShape2D.Extents;
+      get => rectangleShape2D.Extents * 2;
       set
       {
-        rectangleShape2D.Extents = bodySize;
+        rectangleShape2D.Extents = value / 2;
       }
     }
 
-    private Vector2 bodySize = new Vector2(20, 20);
     private CollisionShape2D collisionShape2D;
     private RectangleShape2D rectangleShape2D;
 
@@ -49,8 +48,8 @@ namespace Physics
     public override void _Draw()
     {
       var outlineVec = new Vector2(OutlineWidth, OutlineWidth);
-      DrawRect(new Rect2(-bodySize / 2, bodySize), OutlineColor);
-      DrawRect(new Rect2(-bodySize / 2 + outlineVec / 2, bodySize - outlineVec / 2), BaseColor);
+      DrawRect(new Rect2(-BodySize / 2, BodySize), OutlineColor);
+      DrawRect(new Rect2(-BodySize / 2 + outlineVec / 2, BodySize - outlineVec / 2), BaseColor);
     }
 
     public override void _Process(float delta)

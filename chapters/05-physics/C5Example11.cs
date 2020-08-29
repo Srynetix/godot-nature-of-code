@@ -19,8 +19,8 @@ public class C5Example11 : Node2D, IExample
 
     physics.StartChainBuilder()
       .AddPointAtPosition(x: size.x / 2, y: 0)
-      .AddPointsAtOffset(pointCount: 8, x: 10, y: 10)
-      .AddPointAtOffset(x: 10, y: 10, configurator: (point) =>
+      .AddPointsWithOffset(pointCount: 8, x: 10, y: 10)
+      .AddPointWithOffset(x: 10, y: 10, configurator: (point) =>
       {
         point.Radius = 30;
       })

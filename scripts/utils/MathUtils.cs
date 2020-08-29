@@ -43,7 +43,7 @@ public static class MathUtils
   /// Return a Vector with X in a random range.
   /// </summary>
   /// <param name="minX">X lower bound</param>
-  /// <param name="minY">X upper bound</param>
+  /// <param name="maxX">X upper bound</param>
   /// <param name="y">Fixed Y value</param>
   /// <returns>Random vector</returns>
   static public Vector2 RandRangeVector2X(float minX, float maxX, float y)

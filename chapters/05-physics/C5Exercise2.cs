@@ -25,10 +25,10 @@ public class C5Exercise2 : Node2D, IExample
     var size = GetViewportRect().Size;
 
     var spawner = new Physics.SimpleTouchSpawner();
-    spawner.Spawner = (position) =>
+    spawner.SpawnFunction = (position) =>
     {
       var box = new AntigravityBox();
-      box.MeshSize = new Vector2(20, 20);
+      box.BodySize = new Vector2(20, 20);
       box.GlobalPosition = position;
       return box;
     };

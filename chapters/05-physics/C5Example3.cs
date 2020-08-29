@@ -29,7 +29,7 @@ public class C5Example3 : Node2D, IExample
     AddChild(wall);
 
     var spawner = new Physics.SimpleTouchSpawner();
-    spawner.Spawner = (position) =>
+    spawner.SpawnFunction = (position) =>
     {
       var ball = new Physics.SimpleBall();
       ball.GlobalPosition = position;

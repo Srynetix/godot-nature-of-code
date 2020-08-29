@@ -1,5 +1,8 @@
 using Godot;
 
+/// <summary>
+/// Draw primitives.
+/// </summary>
 namespace Drawing
 {
   /// <summary>

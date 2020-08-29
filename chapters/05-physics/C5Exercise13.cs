@@ -27,7 +27,7 @@ public class C5Exercise13 : Node2D, IExample
       drawPoints: true,
       pointRadius: 8f
     )
-      .AddPointsInRectangle(
+      .GeneratePointsFromPosition(
         topLeftPosition: topLeftPosition,
         pointCount: pointCount,
         separation: new Vector2(separation, separation))

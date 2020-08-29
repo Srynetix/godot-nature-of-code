@@ -3,13 +3,23 @@ using System.Collections.Generic;
 
 namespace VerletPhysics
 {
+  /// <summary>
+  /// Simple verlet cloth builder.
+  /// </summary>
   public class VerletClothBuilder
   {
+    /// <summary>
+    /// Pin mode enum.
+    /// </summary>
     public enum PinModeEnum
     {
+      /// <summary>No pin</summary>
       None,
+      /// <summary>Pin top corners</summary>
       TopCorners,
+      /// <summary>Pin all top points</summary>
       Top,
+      /// <summary>Pin all corners</summary>
       AllCorners
     }
 
@@ -20,6 +30,13 @@ namespace VerletPhysics
     private Vector2 pointCount;
     private float pointRadius;
 
+    /// <summary>
+    /// Create a default verlet cloth builder.
+    /// </summary>
+    /// <param name="world">Verlet world</param>
+    /// <param name="pinMode">Pin mode</param>
+    /// <param name="drawPoints">Draw verlet points</param>
+    /// <param name="pointRadius">Verlet point radius</param>
     public VerletClothBuilder(VerletWorld world, PinModeEnum pinMode = PinModeEnum.TopCorners, bool drawPoints = false, float pointRadius = 10f)
     {
       this.world = world;
@@ -29,7 +46,14 @@ namespace VerletPhysics
       points = new List<VerletPoint>();
     }
 
-    public VerletClothBuilder AddPointsInRectangle(Vector2 topLeftPosition, Vector2 pointCount, Vector2 separation)
+    /// <summary>
+    /// Generate points from a top-left position, using X/Y point count and X/Y separation to create a verlet points rectangle. 
+    /// </summary>
+    /// <param name="topLeftPosition">Top-left position</param>
+    /// <param name="pointCount">X/Y point count</param>
+    /// <param name="separation">X/Y separation</param>
+    /// <returns>Builder</returns>
+    public VerletClothBuilder GeneratePointsFromPosition(Vector2 topLeftPosition, Vector2 pointCount, Vector2 separation)
     {
       this.pointCount = pointCount;
       points.Clear();
@@ -75,6 +99,12 @@ namespace VerletPhysics
       return this;
     }
 
+    /// <summary>
+    /// Build the verlet cloth.
+    /// </summary>
+    /// <param name="restingDistance">Resting distance</param>
+    /// <param name="tearSensitivity">Distance required to break the cloth. Use `-1` to create an unbreakable cloth.</param>
+    /// <param name="stiffness">Stiffness of the cloth</param>
     public void Build(float restingDistance = 50, float tearSensitivity = 100, float stiffness = 1)
     {
       if (points.Count == 0)

@@ -59,12 +59,12 @@ public class C5Exercise4 : Node2D, IExample
     var size = GetViewportRect().Size;
 
     var wall = new Physics.SimpleWall();
-    wall.MeshSize = new Vector2(size.x, 50);
+    wall.BodySize = new Vector2(size.x, 50);
     wall.Position = new Vector2(size.x / 2, size.y);
     AddChild(wall);
 
     var spawner = new Physics.SimpleTouchSpawner();
-    spawner.Spawner = (position) =>
+    spawner.SpawnFunction = (position) =>
     {
       var chance = MathUtils.RandRangef(0, 3);
       Physics.SimplePolygon polygon = null;

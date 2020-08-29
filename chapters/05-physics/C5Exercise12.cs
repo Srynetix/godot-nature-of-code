@@ -61,12 +61,12 @@ public class C5Exercise12 : Node2D, IExample
   {
     var size = GetViewportRect().Size;
     var floor = new Physics.SimpleWall();
-    floor.MeshSize = new Vector2(size.x, 100);
+    floor.BodySize = new Vector2(size.x, 100);
     floor.Position = new Vector2(size.x / 2, size.y);
     AddChild(floor);
 
     var spawner = new Physics.SimpleTouchSpawner();
-    spawner.Spawner = (position) =>
+    spawner.SpawnFunction = (position) =>
     {
       var ball = new CollisionBall();
       ball.GlobalPosition = position;

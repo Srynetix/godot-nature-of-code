@@ -1,6 +1,9 @@
 using Godot;
 using Forces;
 
+/// <summary>
+/// Particle-related primitives.
+/// </summary>
 namespace Particles
 {
   /// <summary>

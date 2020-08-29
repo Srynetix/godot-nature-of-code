@@ -4,14 +4,22 @@ using Drawing;
 
 namespace Physics
 {
+  /// <summary>
+  /// Simple static lines.
+  /// Can be used to draw physics outlines.
+  /// </summary>
   public class SimpleStaticLines : StaticBody2D
   {
+    /// <summary>Color</summary>
     public Color BaseColor = Colors.LightGoldenrod;
 
     private List<CollisionShape2D> shapes;
     private List<SegmentShape2D> segments;
     private List<SimpleLineSprite> lineSprites;
 
+    /// <summary>
+    /// Create empty outline.
+    /// </summary>
     public SimpleStaticLines()
     {
       shapes = new List<CollisionShape2D>();
@@ -19,6 +27,11 @@ namespace Physics
       lineSprites = new List<SimpleLineSprite>();
     }
 
+    /// <summary>
+    /// Add a line segment.
+    /// </summary>
+    /// <param name="start">Start position</param>
+    /// <param name="end">End position</param>
     public void AddSegment(Vector2 start, Vector2 end)
     {
       var shape = new CollisionShape2D();

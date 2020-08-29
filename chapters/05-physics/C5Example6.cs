@@ -57,18 +57,18 @@ public class C5Example6 : Node2D, IExample
 
     // Add left floor
     var leftFloor = new Physics.SimpleWall();
-    leftFloor.MeshSize = new Vector2(size.x / 2.5f, floorHeight);
+    leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
     leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
     AddChild(leftFloor);
 
     // Add right floor
     var rightFloor = new Physics.SimpleWall();
-    rightFloor.MeshSize = new Vector2(size.x / 2.5f, floorHeight);
+    rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
     rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
     AddChild(rightFloor);
 
     var spawner = new Physics.SimpleTouchSpawner();
-    spawner.Spawner = (position) =>
+    spawner.SpawnFunction = (position) =>
     {
       var body = new DoubleBall();
       body.Distance = 20;

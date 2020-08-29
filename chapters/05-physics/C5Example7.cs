@@ -94,7 +94,7 @@ public class C5Example7 : Node2D, IExample
     AddChild(windmill);
 
     var spawner = new Physics.SimpleTouchSpawner();
-    spawner.Spawner = (position) =>
+    spawner.SpawnFunction = (position) =>
     {
       var body = new Physics.SimpleBall();
       body.Mass = 0.25f;

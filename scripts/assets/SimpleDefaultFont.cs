@@ -1,5 +1,8 @@
 using Godot;
 
+/// <summary>
+/// Lazy-loaded assets.
+/// </summary>
 namespace Assets
 {
   /// <summary>

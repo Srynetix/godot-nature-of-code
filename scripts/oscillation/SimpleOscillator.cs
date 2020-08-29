@@ -1,6 +1,9 @@
 using Godot;
 using Drawing;
 
+/// <summary>
+/// Oscillation-related primitives
+/// </summary>
 namespace Oscillation
 {
   /// <summary>

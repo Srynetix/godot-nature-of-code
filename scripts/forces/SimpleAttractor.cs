@@ -1,6 +1,9 @@
 using Godot;
 using Drawing;
 
+/// <summary>
+/// Force-related primitives.
+/// </summary>
 namespace Forces
 {
   /// <summary>

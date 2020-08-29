@@ -69,7 +69,7 @@ public class C5Exercise10 : Node2D, IExample
     AddChild(attractor);
 
     var spawner = new Physics.SimpleTouchSpawner();
-    spawner.Spawner = (position) =>
+    spawner.SpawnFunction = (position) =>
     {
       var body = new Physics.SimpleBall();
       body.AddToGroup("rigidbody");
