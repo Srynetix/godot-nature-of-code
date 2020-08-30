@@ -153,6 +153,8 @@
     <Compile Include="chapters\05-physics\C5Exercise10.cs" />
     <Compile Include="chapters\05-physics\C5Exercise12.cs" />
     <Compile Include="chapters\05-physics\C5Exercise13.cs" />
+    <Compile Include="chapters\05-physics\C5Exercise14.cs" />
+    <Compile Include="chapters\05-physics\C5Exercise15.cs" />
     <Compile Include="chapters\05-physics\C5Exercise2.cs" />
     <Compile Include="chapters\05-physics\C5Exercise3.cs" />
     <Compile Include="chapters\05-physics\C5Exercise4.cs" />
@@ -202,10 +204,11 @@
     <Compile Include="scripts\utils\MathUtils.cs" />
     <Compile Include="scripts\utils\SyntaxHighlighter.cs" />
     <Compile Include="scripts\verletphysics\VerletChainBuilder.cs" />
-    <Compile Include="scripts\verletphysics\VerletClothBuilder.cs" />
-    <Compile Include="scripts\verletphysics\VerletClusterBuilder.cs" />
+    <Compile Include="scripts\verletphysics\VerletCloth.cs" />
+    <Compile Include="scripts\verletphysics\VerletCluster.cs" />
     <Compile Include="scripts\verletphysics\VerletLink.cs" />
     <Compile Include="scripts\verletphysics\VerletPoint.cs" />
+    <Compile Include="scripts\verletphysics\VerletRagdoll.cs" />
     <Compile Include="scripts\verletphysics\VerletWorld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

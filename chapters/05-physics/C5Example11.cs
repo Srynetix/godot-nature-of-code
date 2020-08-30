@@ -17,7 +17,7 @@ public class C5Example11 : Node2D, IExample
     var physics = new VerletWorld();
     AddChild(physics);
 
-    physics.StartChainBuilder()
+    new VerletChainBuilder(physics)
       .AddPointAtPosition(x: size.x / 2, y: 0)
       .AddPointsWithOffset(pointCount: 8, x: 10, y: 10)
       .AddPointWithOffset(x: 10, y: 10, configurator: (point) =>

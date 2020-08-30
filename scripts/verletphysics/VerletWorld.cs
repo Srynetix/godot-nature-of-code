@@ -22,21 +22,35 @@ namespace VerletPhysics
     /// <summary>
     /// Create a default verlet world.
     /// </summary>
-    public VerletWorld()
+    public VerletWorld(Vector2? gravity = null)
     {
       points = new List<VerletPoint>();
       linksToRemove = new List<VerletLink>();
+      Gravity = gravity ?? Gravity;
     }
 
     /// <summary>
     /// Create a verlet point.
     /// </summary>
+    /// <param name="initialPosition">Initial position</param>
+    /// <param name="mass">Mass</param>
+    /// <param name="radius">Radius</param>
+    /// <param name="visible">Show point</param>
     /// <returns>Verlet point</returns>
-    public VerletPoint CreatePoint()
+    public VerletPoint CreatePoint(Vector2? initialPosition = null, float? mass = null, float? radius = null, bool? visible = null)
     {
       var point = new VerletPoint(this);
       points.Add(point);
       AddChild(point);
+
+      point.Mass = mass ?? point.Mass;
+      point.Radius = radius ?? point.Radius;
+      point.Visible = visible ?? point.Visible;
+
+      if (initialPosition.HasValue)
+      {
+        point.MoveToPosition(initialPosition.Value);
+      }
 
       return point;
     }
@@ -46,48 +60,31 @@ namespace VerletPhysics
     /// </summary>
     /// <param name="a">First verlet point</param>
     /// <param name="b">First verlet point</param>
+    /// <param name="restingDistance">Resting distance</param>
+    /// <param name="tearSensitivity">Distance required to break the link. Use `-1` to create an unbreakable link.</param>
+    /// <param name="tearSensitivityFactor">Distance factor required to break the link. Use `-1` to create an unbreakable link.</param>
+    /// <param name="stiffness">Stiffness of the link</param>
+    /// <param name="color">Link color</param>
+    /// <param name="visible">Show link</param>
     /// <returns>Verlet link</returns>
-    public VerletLink CreateLink(VerletPoint a, VerletPoint b)
+    public VerletLink CreateLink(VerletPoint a, VerletPoint b, float? restingDistance = null, float? tearSensitivity = null, float? tearSensitivityFactor = null, float? stiffness = null, Color? color = null, bool? visible = null)
     {
       var link = new VerletLink(this, a, b);
       a.AddLink(link);
       AddChild(link);
+
+      link.Visible = visible ?? link.Visible;
+      link.RestingDistance = restingDistance ?? link.RestingDistance;
+      link.TearSensitivity = tearSensitivity ?? link.TearSensitivity;
+      link.Stiffness = stiffness ?? link.Stiffness;
+      link.Modulate = color ?? link.Modulate;
+
+      if (tearSensitivityFactor.HasValue)
+      {
+        link.TearSensitivity = link.RestingDistance * tearSensitivityFactor.Value;
+      }
+
       return link;
-    }
-
-    /// <summary>
-    /// Start a verlet chain builder.
-    /// </summary>
-    /// <param name="pinFirst">Pin first chain point</param>
-    /// <param name="pinLast">Pin last chain point</param>
-    /// <param name="drawIntermediatePoints">Draw chain intermediate points</param>
-    /// <returns>Verlet chain builder</returns>
-    public VerletChainBuilder StartChainBuilder(bool pinFirst = true, bool pinLast = false, bool drawIntermediatePoints = false)
-    {
-      return new VerletChainBuilder(this, pinFirst, pinLast, drawIntermediatePoints);
-    }
-
-    /// <summary>
-    /// Start a verlet cloth builder.
-    /// </summary>
-    /// <param name="pinMode">Pin mode</param>
-    /// <param name="drawPoints">Draw verlet points</param>
-    /// <param name="pointRadius">Verlet point radius</param>
-    /// <returns>Verlet cloth builder</returns>
-    public VerletClothBuilder StartClothBuilder(VerletClothBuilder.PinModeEnum pinMode = VerletClothBuilder.PinModeEnum.TopCorners, bool drawPoints = false, float pointRadius = 10f)
-    {
-      return new VerletClothBuilder(this, pinMode, drawPoints, pointRadius);
-    }
-
-    /// <summary>
-    /// Start a verlet cluster builder.
-    /// </summary>
-    /// <param name="drawPoints">Draw verlet points</param>
-    /// <param name="pointRadius">Verlet point radius</param>
-    /// <returns>Verlet cluster builder</returns>
-    public VerletClusterBuilder StartClusterBuilder(bool drawPoints = false, float pointRadius = 10f)
-    {
-      return new VerletClusterBuilder(this, drawPoints, pointRadius);
     }
 
     /// <summary>

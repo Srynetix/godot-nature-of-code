@@ -18,7 +18,7 @@ public class C5Example10 : Node2D, IExample
     var physics = new VerletWorld();
     AddChild(physics);
 
-    physics.StartChainBuilder()
+    new VerletChainBuilder(physics)
       .AddPointAtPosition(new Vector2(size.x / 2, 0))
       .AddPointAtPosition(size / 2 + new Vector2(80, 0))
       .Build(restingDistance: size.y / 2, tearSensitivity: -1, stiffness: 0.5f);

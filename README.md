@@ -26,3 +26,8 @@ Almost everything is created from scripts.
 
 - [ ] Implement missing examples and exercises.
 - [ ] Implement the full Ecosystem project
+
+## Generate documentation
+
+Documentation is generated with Doxygen from C# XML comments.
+Use the included Doxyfile to generate HTML documentation in the ./html folder.

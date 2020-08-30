@@ -22,15 +22,16 @@ public class C5Exercise13 : Node2D, IExample
     var totalSize = pointCount * separation;
     var topLeftPosition = size / 2 - totalSize / 2;
 
-    physics.StartClothBuilder(
-      pinMode: VerletClothBuilder.PinModeEnum.TopCorners,
+    var cloth = new VerletCloth(
+      physics,
+      topLeftPosition: topLeftPosition,
+      pointCount: pointCount,
+      separation: separation,
+      pinMode: VerletCloth.PinModeEnum.TopCorners,
+      tearSensitivityFactor: 2f,
+      stiffness: 1f,
       drawPoints: true,
       pointRadius: 8f
-    )
-      .GeneratePointsFromPosition(
-        topLeftPosition: topLeftPosition,
-        pointCount: pointCount,
-        separation: separation)
-      .Build(tearSensitivityFactor: 2f, stiffness: 1f);
+    );
   }
 }

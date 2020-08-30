@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace VerletPhysics
 {
   /// <summary>
-  /// Simple verlet cloth builder.
+  /// Simple verlet cloth.
   /// </summary>
-  public class VerletClothBuilder
+  public class VerletCloth
   {
     /// <summary>
     /// Pin mode enum.
@@ -23,35 +23,23 @@ namespace VerletPhysics
       AllCorners
     }
 
-    private PinModeEnum pinMode;
-    private bool drawPoints;
-    private VerletWorld world;
     private List<VerletPoint> points;
-    private Vector2 pointCount;
-    private float separation;
-    private float pointRadius;
-
-    public VerletClothBuilder(VerletWorld world, PinModeEnum pinMode = PinModeEnum.TopCorners, bool drawPoints = false, float pointRadius = 10f)
-    {
-      this.world = world;
-      this.pinMode = pinMode;
-      this.drawPoints = drawPoints;
-      this.pointRadius = pointRadius;
-      points = new List<VerletPoint>();
-    }
 
     /// <summary>
-    /// Generate points from a top-left position, using X/Y point count and separation to create a verlet points rectangle. 
+    /// Create a verlet cloth.
     /// </summary>
+    /// <param name="world">Verlet world</param>
     /// <param name="topLeftPosition">Top-left position</param>
     /// <param name="pointCount">X/Y point count</param>
     /// <param name="separation">Separation</param>
-    /// <returns>Builder</returns>
-    public VerletClothBuilder GeneratePointsFromPosition(Vector2 topLeftPosition, Vector2 pointCount, float separation)
+    /// <param name="pinMode">Pin mode</param>
+    /// <param name="tearSensitivityFactor">Distance factor required to break the cloth. Use `-1` to create an unbreakable cloth.</param>
+    /// <param name="stiffness">Stiffness of the cloth</param>
+    /// <param name="drawPoints">Draw verlet points</param>
+    /// <param name="pointRadius">Verlet point radius</param>
+    public VerletCloth(VerletWorld world, Vector2 topLeftPosition, Vector2 pointCount, float separation, PinModeEnum pinMode = PinModeEnum.TopCorners, float tearSensitivityFactor = 2, float stiffness = 1, bool drawPoints = false, float pointRadius = 10f)
     {
-      this.pointCount = pointCount;
-      this.separation = separation;
-      points.Clear();
+      points = new List<VerletPoint>();
 
       for (int j = 0; j < pointCount.y; ++j)
       {
@@ -91,16 +79,6 @@ namespace VerletPhysics
         }
       }
 
-      return this;
-    }
-
-    /// <summary>
-    /// Build the verlet cloth.
-    /// </summary>
-    /// <param name="tearSensitivityFactor">Distance factor required to break the cloth. Use `-1` to create an unbreakable cloth.</param>
-    /// <param name="stiffness">Stiffness of the cloth</param>
-    public void Build(float tearSensitivityFactor = 2, float stiffness = 1)
-    {
       if (points.Count == 0)
       {
         GD.PrintErr("Bad points length for cloth. Need to be > 0");
