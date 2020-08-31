@@ -48,5 +48,5 @@ You can also access the generated C# documentation here: [C# Documentation](http
 
 ## Generate documentation
 
-Documentation is generated with Doxygen from C# XML comments.
+Documentation is generated with Doxygen from C# XML comments.  
 Use the included Doxyfile to generate HTML documentation in the ../gnoc-html folder.
