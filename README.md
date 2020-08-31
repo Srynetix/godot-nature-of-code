@@ -1,6 +1,7 @@
 # Nature of Code in Godot
 
 Official book: https://natureofcode.com/book/
+
 Godot Engine: https://godotengine.org
 
 ## Summary
