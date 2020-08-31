@@ -31,6 +31,7 @@ namespace VerletPhysics
     /// <param name="initialPosition">Initial position</param>
     /// <param name="mass">Mass</param>
     /// <param name="radius">Radius</param>
+    /// <param name="color">Color</param>
     /// <param name="visible">Show point</param>
     /// <returns>Verlet point</returns>
     public VerletPoint CreatePoint(Vector2? initialPosition = null, float? mass = null, float? radius = null, Color? color = null, bool? visible = null)
