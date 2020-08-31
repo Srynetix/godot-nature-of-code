@@ -1,9 +1,6 @@
 using Godot;
 using System.Collections.Generic;
 
-// Inspired from:
-// https://gamedevelopment.tutsplus.com/tutorials/simulate-tearable-cloth-and-ragdolls-with-simple-verlet-integration--gamedev-519
-
 namespace VerletPhysics
 {
   /// <summary>
@@ -13,20 +10,19 @@ namespace VerletPhysics
   {
     /// <summary>Constraint resolution accuracy</summary>
     public int ConstraintAccuracy = 2;
-    /// <summary>World gravity</summary>
-    public Vector2 Gravity = new Vector2(0, 9.81f);
 
+    private List<IBehavior> behaviors;
     private List<VerletPoint> points;
     private List<VerletLink> linksToRemove;
 
     /// <summary>
     /// Create a default verlet world.
     /// </summary>
-    public VerletWorld(Vector2? gravity = null)
+    public VerletWorld()
     {
       points = new List<VerletPoint>();
       linksToRemove = new List<VerletLink>();
-      Gravity = gravity ?? Gravity;
+      behaviors = new List<IBehavior>();
     }
 
     /// <summary>
@@ -37,7 +33,7 @@ namespace VerletPhysics
     /// <param name="radius">Radius</param>
     /// <param name="visible">Show point</param>
     /// <returns>Verlet point</returns>
-    public VerletPoint CreatePoint(Vector2? initialPosition = null, float? mass = null, float? radius = null, bool? visible = null)
+    public VerletPoint CreatePoint(Vector2? initialPosition = null, float? mass = null, float? radius = null, Color? color = null, bool? visible = null)
     {
       var point = new VerletPoint(this);
       points.Add(point);
@@ -46,6 +42,7 @@ namespace VerletPhysics
       point.Mass = mass ?? point.Mass;
       point.Radius = radius ?? point.Radius;
       point.Visible = visible ?? point.Visible;
+      point.Modulate = color ?? point.Modulate;
 
       if (initialPosition.HasValue)
       {
@@ -61,13 +58,25 @@ namespace VerletPhysics
     /// <param name="a">First verlet point</param>
     /// <param name="b">First verlet point</param>
     /// <param name="restingDistance">Resting distance</param>
+    /// <param name="minimalDistance">Minimal link distance. Use `-1` to disable.</param>
+    /// <param name="maximalDistance">Maximal link distance. Use `-1` to disable.</param>
     /// <param name="tearSensitivity">Distance required to break the link. Use `-1` to create an unbreakable link.</param>
     /// <param name="tearSensitivityFactor">Distance factor required to break the link. Use `-1` to create an unbreakable link.</param>
     /// <param name="stiffness">Stiffness of the link</param>
     /// <param name="color">Link color</param>
     /// <param name="visible">Show link</param>
     /// <returns>Verlet link</returns>
-    public VerletLink CreateLink(VerletPoint a, VerletPoint b, float? restingDistance = null, float? tearSensitivity = null, float? tearSensitivityFactor = null, float? stiffness = null, Color? color = null, bool? visible = null)
+    public VerletLink CreateLink(
+      VerletPoint a,
+      VerletPoint b,
+      float? restingDistance = null,
+      float? minimalDistance = null,
+      float? maximalDistance = null,
+      float? tearSensitivity = null,
+      float? tearSensitivityFactor = null,
+      float? stiffness = null,
+      Color? color = null,
+      bool? visible = null)
     {
       var link = new VerletLink(this, a, b);
       a.AddLink(link);
@@ -75,6 +84,8 @@ namespace VerletPhysics
 
       link.Visible = visible ?? link.Visible;
       link.RestingDistance = restingDistance ?? link.RestingDistance;
+      link.MinimalDistance = minimalDistance ?? link.MinimalDistance;
+      link.MaximalDistance = maximalDistance ?? link.MaximalDistance;
       link.TearSensitivity = tearSensitivity ?? link.TearSensitivity;
       link.Stiffness = stiffness ?? link.Stiffness;
       link.Modulate = color ?? link.Modulate;
@@ -97,6 +108,24 @@ namespace VerletPhysics
       {
         linksToRemove.Add(link);
       }
+    }
+
+    /// <summary>
+    /// Add a new behavior.
+    /// </summary>
+    /// <param name="behavior">Behavior</param>
+    public void AddBehavior(IBehavior behavior)
+    {
+      behaviors.Add(behavior);
+    }
+
+    /// <summary>
+    /// Remove an existing behavior.
+    /// </summary>
+    /// <param name="behavior">Behavior</param>
+    public void RemoveBehavior(IBehavior behavior)
+    {
+      behaviors.Remove(behavior);
     }
 
     #region Lifecycle methods
@@ -130,6 +159,7 @@ namespace VerletPhysics
     {
       var size = GetViewportRect().Size;
 
+      // Apply constraints
       for (int i = 0; i < ConstraintAccuracy; ++i)
       {
         foreach (VerletPoint point in points)
@@ -138,9 +168,19 @@ namespace VerletPhysics
         }
       }
 
+      // Apply behaviors
+      foreach (IBehavior behavior in behaviors)
+      {
+        foreach (VerletPoint point in points)
+        {
+          behavior.ApplyBehavior(point, delta);
+        }
+      }
+
+      // Update point positions
       foreach (VerletPoint point in points)
       {
-        point.UpdateMovement(Gravity, delta);
+        point.UpdateMovement(delta);
       }
     }
 

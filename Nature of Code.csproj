@@ -142,6 +142,7 @@
     <Compile Include="chapters\05-physics\C5Example10.cs" />
     <Compile Include="chapters\05-physics\C5Example11.cs" />
     <Compile Include="chapters\05-physics\C5Example12.cs" />
+    <Compile Include="chapters\05-physics\C5Example13.cs" />
     <Compile Include="chapters\05-physics\C5Example2.cs" />
     <Compile Include="chapters\05-physics\C5Example3.cs" />
     <Compile Include="chapters\05-physics\C5Example4.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="chapters\05-physics\C5Exercise13.cs" />
     <Compile Include="chapters\05-physics\C5Exercise14.cs" />
     <Compile Include="chapters\05-physics\C5Exercise15.cs" />
+    <Compile Include="chapters\05-physics\C5Exercise16.cs" />
     <Compile Include="chapters\05-physics\C5Exercise2.cs" />
     <Compile Include="chapters\05-physics\C5Exercise3.cs" />
     <Compile Include="chapters\05-physics\C5Exercise4.cs" />
@@ -203,6 +205,10 @@
     <Compile Include="scripts\utils\ColorExtensions.cs" />
     <Compile Include="scripts\utils\MathUtils.cs" />
     <Compile Include="scripts\utils\SyntaxHighlighter.cs" />
+    <Compile Include="scripts\utils\VectorExtensions.cs" />
+    <Compile Include="scripts\verletphysics\AttractionBehavior.cs" />
+    <Compile Include="scripts\verletphysics\GravityBehavior.cs" />
+    <Compile Include="scripts\verletphysics\IBehavior.cs" />
     <Compile Include="scripts\verletphysics\VerletChainBuilder.cs" />
     <Compile Include="scripts\verletphysics\VerletCloth.cs" />
     <Compile Include="scripts\verletphysics\VerletCluster.cs" />

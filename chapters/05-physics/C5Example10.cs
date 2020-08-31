@@ -16,6 +16,7 @@ public class C5Example10 : Node2D, IExample
     var size = GetViewportRect().Size;
 
     var physics = new VerletWorld();
+    physics.AddBehavior(new GravityBehavior());
     AddChild(physics);
 
     new VerletChainBuilder(physics)

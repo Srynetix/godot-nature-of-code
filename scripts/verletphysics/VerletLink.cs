@@ -1,3 +1,4 @@
+using Godot;
 using Drawing;
 
 namespace VerletPhysics
@@ -8,11 +9,15 @@ namespace VerletPhysics
   public class VerletLink : SimpleLineSprite
   {
     /// <summary>Resting distance</summary>
-    public float RestingDistance = 100;
-    /// <summary>Stiffness of the link</summary>
+    public float RestingDistance;
+    /// <summary>Minimal distance. Use `-1` to disable.</summary>
+    public float MinimalDistance = -1;
+    /// <summary>Maximal distance. Use `-1` to disable.</summary>
+    public float MaximalDistance = -1;
+    /// <summary>Stiffness of the link, between 0 and 1.</summary>
     public float Stiffness = 1;
     /// <summary>Distance required to break the link. Use `-1` to create an unbreakable link.</summary>
-    public float TearSensitivity = 200;
+    public float TearSensitivity = -1;
     /// <summary>First verlet point</summary>
     public VerletPoint A;
     /// <summary>Second verlet point</summary>
@@ -28,6 +33,12 @@ namespace VerletPhysics
 
       PositionA = A.GlobalPosition;
       PositionB = B.GlobalPosition;
+
+      if (RestingDistance == 0)
+      {
+        // Calculate resting distance from points position
+        RestingDistance = (PositionB - PositionA).Length();
+      }
     }
 
     /// <summary>
@@ -39,9 +50,17 @@ namespace VerletPhysics
       var d = diff.Length();
       var difference = (RestingDistance - d) / d;
 
+      // Check for tear
       if (TearSensitivity > 0 && d > TearSensitivity)
       {
         world.QueueLinkRemoval(this);
+      }
+
+      // Check for min value
+      if (MinimalDistance > 0 && d >= MinimalDistance)
+      {
+        // Do nothing
+        return;
       }
 
       var imA = 1 / A.Mass;
@@ -49,8 +68,21 @@ namespace VerletPhysics
       var scalarA = (imA / (imA + imB)) * Stiffness;
       var scalarB = Stiffness - scalarA;
 
-      A.GlobalPosition += diff * scalarA * difference;
-      B.GlobalPosition -= diff * scalarB * difference;
+      Vector2 computeMovement(float scalar)
+      {
+        var movement = diff * difference * scalar;
+        if (MaximalDistance > 0)
+        {
+          return movement.Clamped(MaximalDistance);
+        }
+        else
+        {
+          return movement;
+        }
+      }
+
+      A.GlobalPosition += computeMovement(scalarA);
+      B.GlobalPosition -= computeMovement(scalarB);
 
       PositionA = A.GlobalPosition;
       PositionB = B.GlobalPosition;

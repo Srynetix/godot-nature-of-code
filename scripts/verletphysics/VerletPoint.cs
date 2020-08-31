@@ -20,6 +20,12 @@ namespace VerletPhysics
     /// <summary>Current acceleration</summary>
     public Vector2 Acceleration;
 
+    /// <summary>Point touched?</summary>
+    public bool Touched
+    {
+      get => touched;
+    }
+
     private const int mouseDetectionRadiusThreshold = 10;
 
     private bool pinned = false;
@@ -79,16 +85,9 @@ namespace VerletPhysics
     /// <summary>
     /// Update movement using current forces and gravity.
     /// </summary>
-    /// <param name="gravity">Gravity force</param>
     /// <param name="delta">Delta time</param>
-    public void UpdateMovement(Vector2 gravity, float delta)
+    public void UpdateMovement(float delta)
     {
-      if (!touched)
-      {
-        // Update acceleration
-        ApplyGravity(gravity);
-      }
-
       var velocity = ComputeVelocity() * Friction;
       var nextPosition = GlobalPosition + velocity + Acceleration * delta;
 
@@ -185,11 +184,6 @@ namespace VerletPhysics
     private Vector2 ComputeVelocity()
     {
       return (GlobalPosition - prevPosition);
-    }
-
-    private void ApplyGravity(Vector2 gravity)
-    {
-      ApplyForce(gravity * GravityScale);
     }
 
     private void ConstraintPinning()

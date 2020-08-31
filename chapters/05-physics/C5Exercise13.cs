@@ -15,6 +15,7 @@ public class C5Exercise13 : Node2D, IExample
   {
     var size = GetViewportRect().Size;
     var physics = new VerletWorld();
+    physics.AddBehavior(new GravityBehavior());
     AddChild(physics);
 
     var pointCount = new Vector2(12, 10);

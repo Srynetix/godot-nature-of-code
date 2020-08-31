@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Verlet physics implementation.
+/// Inspired from `toxiclibs` and https://gamedevelopment.tutsplus.com/tutorials/simulate-tearable-cloth-and-ragdolls-with-simple-verlet-integration--gamedev-519
 /// </summary>
 namespace VerletPhysics
 {

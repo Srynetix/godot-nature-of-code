@@ -20,9 +20,18 @@ public static class MathUtils
   }
 
   /// <summary>
+  /// Return a random floating number between 0 and 1.
+  /// </summary>
+  /// <returns>Random floating number</returns>
+  static public float Randf()
+  {
+    return (float)GD.RandRange(0, 1);
+  }
+
+  /// <summary>
   /// Return a signed Randf, between -1 and 1.
   /// </summary>
-  /// <returns>Signed random float</returns>
+  /// <returns>Signed random floating number</returns>
   static public float SignedRandf()
   {
     return Map((float)GD.RandRange(0, 1), 0, 1, -1, 1);

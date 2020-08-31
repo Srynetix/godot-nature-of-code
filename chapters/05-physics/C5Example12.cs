@@ -15,7 +15,6 @@ public class C5Example12 : Node2D, IExample
   {
     var size = GetViewportRect().Size;
     var physics = new VerletWorld();
-    physics.Gravity = Vector2.Zero;
     AddChild(physics);
 
     var center = size / 2;
