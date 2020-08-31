@@ -12,9 +12,17 @@ namespace Oscillation
   public class SimpleOscillator : Node2D
   {
     /// <summary>Show line</summary>
-    public bool ShowLine = true;
+    public bool ShowLine
+    {
+      get => lineSprite.Visible;
+      set => lineSprite.Visible = value;
+    }
     /// <summary>Oscillator radius</summary>
-    public float Radius = 30;
+    public float Radius
+    {
+      get => circleSprite.Radius;
+      set => circleSprite.Radius = value;
+    }
     /// <summary>Oscillator angle</summary>
     public Vector2 Angle;
     /// <summary>Position offset</summary>
@@ -56,10 +64,10 @@ namespace Oscillation
     {
       Velocity = new Vector2((float)GD.RandRange(-0.05f, 0.05f), (float)GD.RandRange(-0.05f, 0.05f));
       circleSprite = new SimpleCircleSprite();
-      circleSprite.Radius = Radius;
+      circleSprite.Radius = 30;
       circleSprite.Modulate = Colors.LightCyan;
       lineSprite = new SimpleLineSprite();
-      lineSprite.Visible = ShowLine;
+      lineSprite.Visible = true;
       lineSprite.Modulate = Colors.LightGray;
     }
 

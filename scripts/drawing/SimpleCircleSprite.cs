@@ -23,21 +23,24 @@ namespace Drawing
     }
 
     private float radius = 10;
+    private SimpleDefaultTexture.Enum textureEnum;
 
     /// <summary>
     /// Create a light blue circle with radius 10.
     /// </summary>
-    public SimpleCircleSprite()
+    public SimpleCircleSprite(SimpleDefaultTexture.Enum textureEnum = SimpleDefaultTexture.Enum.WhiteDotAlphaWithOutline)
     {
       Radius = 10;
       Modulate = Colors.LightBlue;
+
+      this.textureEnum = textureEnum;
     }
 
     #region Lifecycle methods
 
     public override void _Ready()
     {
-      Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotAlphaWithOutline);
+      Texture = SimpleDefaultTexture.FromEnum(textureEnum);
       UpdateScale();
     }
 
