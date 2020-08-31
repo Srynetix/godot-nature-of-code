@@ -23,7 +23,7 @@ namespace VerletPhysics
     /// <param name="stiffness">Stiffness of the cloth</param>
     /// <param name="drawPoints">Draw points</param>
     /// <param name="pointRadius">Verlet point radius</param>
-    public VerletCluster(VerletWorld world, Vector2 centerPosition, int pointCount, float diameter, float gravityScale = 1, float tearSensitivityFactor = 2, float stiffness = 1, bool drawPoints = true, float pointRadius = 10f)
+    public VerletCluster(VerletWorld world, Vector2 centerPosition, int pointCount, float diameter, float gravityScale = 1, float tearSensitivityFactor = -1, float stiffness = 0.1f, bool drawPoints = true, float pointRadius = 10f)
     {
       Points = new List<VerletPoint>();
 
