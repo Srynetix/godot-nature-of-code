@@ -4,47 +4,50 @@ using Forces;
 
 namespace Examples
 {
-  /// <summary>
-  /// Example 2.4 - Friction.
-  /// </summary>
-  /// Uses SimpleMover ApplyFriction method.
-  public class C2Example4 : Node2D, IExample
+  namespace Chapter2
   {
-    public string _Summary()
+    /// <summary>
+    /// Example 2.4 - Friction.
+    /// </summary>
+    /// Uses SimpleMover ApplyFriction method.
+    public class C2Example4 : Node2D, IExample
     {
-      return "Example 2.4:\n"
-        + "Friction";
-    }
-
-    private class Mover : SimpleMover
-    {
-      public Mover() : base(WrapModeEnum.Bounce) { }
-
-      protected override void UpdateAcceleration()
+      public string _Summary()
       {
-        var wind = new Vector2(0.01f, 0);
-        var gravity = new Vector2(0, 0.09f * Mass);
-
-        ApplyForce(wind);
-        ApplyForce(gravity);
-        ApplyFriction(0.1f);
+        return "Example 2.4:\n"
+          + "Friction";
       }
-    }
 
-    public override void _Ready()
-    {
-      foreach (var x in Enumerable.Range(0, 20))
+      private class Mover : SimpleMover
       {
-        var mover = new Mover();
-        var bodySize = (float)GD.RandRange(20, 40);
-        mover.MeshSize = new Vector2(bodySize, bodySize);
-        mover.Mass = (float)GD.RandRange(5, 10);
+        public Mover() : base(WrapModeEnum.Bounce) { }
 
-        var size = GetViewportRect().Size;
-        var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
-        mover.Position = new Vector2(xPos, size.y / 2);
+        protected override void UpdateAcceleration()
+        {
+          var wind = new Vector2(0.01f, 0);
+          var gravity = new Vector2(0, 0.09f * Mass);
 
-        AddChild(mover);
+          ApplyForce(wind);
+          ApplyForce(gravity);
+          ApplyFriction(0.1f);
+        }
+      }
+
+      public override void _Ready()
+      {
+        foreach (var x in Enumerable.Range(0, 20))
+        {
+          var mover = new Mover();
+          var bodySize = (float)GD.RandRange(20, 40);
+          mover.MeshSize = new Vector2(bodySize, bodySize);
+          mover.Mass = (float)GD.RandRange(5, 10);
+
+          var size = GetViewportRect().Size;
+          var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
+          mover.Position = new Vector2(xPos, size.y / 2);
+
+          AddChild(mover);
+        }
       }
     }
   }

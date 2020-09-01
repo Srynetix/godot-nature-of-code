@@ -2,94 +2,104 @@ using Godot;
 using Drawing;
 using Forces;
 
-public class C3Exercise5 : Control, IExample
+namespace Examples
 {
-  public string _Summary()
+  namespace Chapter3
   {
-    return "Exercise 3.5:\n"
-      + "Asteroids\n\n"
-      + "On desktop, use left and right arrow keys to turn, then up arrow key to thrust.\n"
-      + "On mobile, you can use the virtual controls.";
-  }
-
-  public class Spaceship : SimpleMover
-  {
-    protected bool thrusting = false;
-
-    public Spaceship() : base(WrapModeEnum.Wrap)
+    /// <summary>
+    /// Exercise 3.5 - Asteroids.
+    /// </summary>
+    /// Drive spaceship using arrow keys or VirtualControls.
+    public class C3Exercise5 : Control, IExample
     {
-      MeshSize = new Vector2(20, 20);
-      Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
-      Mesh.CustomDrawMethod = (pen) =>
+      public string _Summary()
       {
-        // Body
-        Vector2[] points = { new Vector2(-1, 1) * MeshSize, new Vector2(1, 1) * MeshSize, new Vector2(0, -1) * MeshSize };
-        Color[] colors = { pen.Modulate, pen.Modulate, pen.Modulate };
-        pen.DrawPolygon(points, colors);
+        return "Exercise 3.5:\n"
+          + "Asteroids\n\n"
+          + "On desktop, use left and right arrow keys to turn, then up arrow key to thrust.\n"
+          + "On mobile, you can use the virtual controls.";
+      }
 
-        // Thrusters
-        var thrusterColor = !thrusting ? Colors.White : Colors.Red;
-        var thrusterSize = MeshSize / 3;
-        pen.DrawRect(new Rect2(-MeshSize.x / 2 - thrusterSize.x / 2, MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
-        pen.DrawRect(new Rect2(MeshSize.x / 2 - thrusterSize.x / 2, MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
-      };
-    }
+      public class Spaceship : SimpleMover
+      {
+        protected bool thrusting = false;
 
-    public void Accelerate(float amount)
-    {
-      Acceleration += Vector2.Right.Rotated(Rotation - Mathf.Pi / 2) * amount;
-    }
+        public Spaceship() : base(WrapModeEnum.Wrap)
+        {
+          MeshSize = new Vector2(20, 20);
+          Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
+          Mesh.CustomDrawMethod = (pen) =>
+          {
+            // Body
+            Vector2[] points = { new Vector2(-1, 1) * MeshSize, new Vector2(1, 1) * MeshSize, new Vector2(0, -1) * MeshSize };
+            Color[] colors = { pen.Modulate, pen.Modulate, pen.Modulate };
+            pen.DrawPolygon(points, colors);
 
-    public void Turn(float amount)
-    {
-      Rotation += amount;
-    }
+            // Thrusters
+            var thrusterColor = !thrusting ? Colors.White : Colors.Red;
+            var thrusterSize = MeshSize / 3;
+            pen.DrawRect(new Rect2(-MeshSize.x / 2 - thrusterSize.x / 2, MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
+            pen.DrawRect(new Rect2(MeshSize.x / 2 - thrusterSize.x / 2, MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
+          };
+        }
 
-    protected override void UpdateAcceleration()
-    {
-      ApplyFriction(0.05f);
-    }
+        public void Accelerate(float amount)
+        {
+          Acceleration += Vector2.Right.Rotated(Rotation - Mathf.Pi / 2) * amount;
+        }
 
-    public override void _Process(float delta)
-    {
-      thrusting = (Acceleration.LengthSquared() > 0.01);
+        public void Turn(float amount)
+        {
+          Rotation += amount;
+        }
 
-      base._Process(delta);
-    }
-  }
+        protected override void UpdateAcceleration()
+        {
+          ApplyFriction(0.05f);
+        }
 
-  protected VirtualControls controls;
-  protected Spaceship spaceship;
+        public override void _Process(float delta)
+        {
+          thrusting = (Acceleration.LengthSquared() > 0.01);
 
-  public override void _Ready()
-  {
-    // Add virtual controls
-    controls = new VirtualControls();
-    AddChild(controls);
+          base._Process(delta);
+        }
+      }
 
-    spaceship = new Spaceship();
-    spaceship.Position = GetViewportRect().Size / 2;
-    AddChild(spaceship);
-  }
+      protected VirtualControls controls;
+      protected Spaceship spaceship;
 
-  public override void _Process(float delta)
-  {
-    var accelFactor = 0.25f;
-    var turnFactor = 0.05f;
+      public override void _Ready()
+      {
+        // Add virtual controls
+        controls = new VirtualControls();
+        AddChild(controls);
 
-    if (controls.JoystickOutput.y < -0.5f || Input.IsActionPressed("ui_up"))
-    {
-      spaceship.Accelerate(accelFactor);
-    }
+        spaceship = new Spaceship();
+        spaceship.Position = GetViewportRect().Size / 2;
+        AddChild(spaceship);
+      }
 
-    if (controls.JoystickOutput.x < -0.5f || Input.IsActionPressed("ui_left"))
-    {
-      spaceship.Turn(-turnFactor);
-    }
+      public override void _Process(float delta)
+      {
+        var accelFactor = 0.25f;
+        var turnFactor = 0.05f;
 
-    if (controls.JoystickOutput.x > 0.5f || Input.IsActionPressed("ui_right"))
-    {
-      spaceship.Turn(turnFactor);
+        if (controls.JoystickOutput.y < -0.5f || Input.IsActionPressed("ui_up"))
+        {
+          spaceship.Accelerate(accelFactor);
+        }
+
+        if (controls.JoystickOutput.x < -0.5f || Input.IsActionPressed("ui_left"))
+        {
+          spaceship.Turn(-turnFactor);
+        }
+
+        if (controls.JoystickOutput.x > 0.5f || Input.IsActionPressed("ui_right"))
+        {
+          spaceship.Turn(turnFactor);
+        }
+      }
     }
   }
 }

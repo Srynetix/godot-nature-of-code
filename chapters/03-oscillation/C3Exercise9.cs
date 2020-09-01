@@ -1,40 +1,50 @@
 using Godot;
 using Oscillation;
 
-public class C3Exercise9 : Node2D, IExample
+namespace Examples
 {
-  public string _Summary()
+  namespace Chapter3
   {
-    return "Exercise 3.9:\n" +
-      "Perlin Wave";
-  }
-
-  public class NoiseWave : SimpleWave
-  {
-    private OpenSimplexNoise noise;
-
-    public NoiseWave()
+    /// <summary>
+    /// Exercise 3.9 - Perlin Wave.
+    /// </summary>
+    /// Uses a custom SimpleWave with OpenSimplexNoise to draw a perlin wave.
+    public class C3Exercise9 : Node2D, IExample
     {
-      noise = new OpenSimplexNoise();
-      AngularVelocity = 4f;
-      StartAngleFactor = 10f;
+      public string _Summary()
+      {
+        return "Exercise 3.9:\n" +
+          "Perlin Wave";
+      }
+
+      private class NoiseWave : SimpleWave
+      {
+        private OpenSimplexNoise noise;
+
+        public NoiseWave()
+        {
+          noise = new OpenSimplexNoise();
+          AngularVelocity = 4f;
+          StartAngleFactor = 10f;
+        }
+
+        protected override float ComputeY(float angle)
+        {
+          return MathUtils.Map(noise.GetNoise1d(angle), -1, 1, -Amplitude, Amplitude);
+        }
+      }
+
+      public override void _Ready()
+      {
+        var size = GetViewportRect().Size;
+
+        var wave = new NoiseWave();
+        wave.Separation = 24;
+        wave.Length = size.x;
+        wave.Position = new Vector2(size.x, size.y) / 2;
+        wave.Amplitude = size.y / 2;
+        AddChild(wave);
+      }
     }
-
-    protected override float ComputeY(float angle)
-    {
-      return MathUtils.Map(noise.GetNoise1d(angle), -1, 1, -Amplitude, Amplitude);
-    }
-  }
-
-  public override void _Draw()
-  {
-    var size = GetViewportRect().Size;
-
-    var wave = new NoiseWave();
-    wave.Separation = 24;
-    wave.Length = size.x;
-    wave.Position = new Vector2(size.x, size.y) / 2;
-    wave.Amplitude = size.y / 2;
-    AddChild(wave);
   }
 }

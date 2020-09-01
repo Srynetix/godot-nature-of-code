@@ -3,32 +3,35 @@ using Drawing;
 
 namespace Examples
 {
-  /// <summary>
-  /// Exercise 0.8 - Noise visual effects.
-  /// </summary>
-  /// Play with SimpleNoiseTexture noise function to apply effects.
-  public class C0Exercise8 : Node2D, IExample
+  namespace Chapter0
   {
-    public string _Summary()
+    /// <summary>
+    /// Exercise 0.8 - Noise visual effects.
+    /// </summary>
+    /// Play with SimpleNoiseTexture noise function to apply effects.
+    public class C0Exercise8 : Node2D, IExample
     {
-      return "Exercise I.8:\n"
-        + "Noise visual effects";
-    }
-
-    private class NoiseTextureEffects : SimpleNoiseTexture
-    {
-      protected override float ComputeNoise(float x, float y)
+      public string _Summary()
       {
-        return noise.GetNoise2d(x + (float)GD.RandRange(0, 1) * 10, y + (float)GD.RandRange(0, 1) * 10);
+        return "Exercise I.8:\n"
+          + "Noise visual effects";
       }
-    }
 
-    public override void _Ready()
-    {
-      var noiseTexture = new NoiseTextureEffects();
-      noiseTexture.Factor = 3;
-      noiseTexture.Octaves = 8;
-      AddChild(noiseTexture);
+      private class NoiseTextureEffects : SimpleNoiseTexture
+      {
+        protected override float ComputeNoise(float x, float y)
+        {
+          return noise.GetNoise2d(x + (float)GD.RandRange(0, 1) * 10, y + (float)GD.RandRange(0, 1) * 10);
+        }
+      }
+
+      public override void _Ready()
+      {
+        var noiseTexture = new NoiseTextureEffects();
+        noiseTexture.Factor = 3;
+        noiseTexture.Octaves = 8;
+        AddChild(noiseTexture);
+      }
     }
   }
 }

@@ -2,7 +2,7 @@ using Godot;
 using Drawing;
 using Particles;
 
-public class C4Exercise4 : C3Exercise5, IExample
+public class C4Exercise4 : Examples.Chapter3.C3Exercise5, IExample
 {
   public new string _Summary()
   {

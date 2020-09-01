@@ -1,45 +1,55 @@
 using Godot;
 using Drawing;
 
-public class C3Exercise4 : Node2D, IExample
+namespace Examples
 {
-  public string _Summary()
+  namespace Chapter3
   {
-    return "Exercise 3.4:\n"
-      + "Spiral Path";
-  }
-
-  public float Width = 10;
-  public float Iterations = 20;
-  public float MaxTheta = 200;
-
-  private float theta = 0;
-  private float margin = 0;
-
-  public override void _Ready()
-  {
-    GD.Randomize();
-
-    var canvas = new DrawCanvas((pen) =>
+    /// <summary>
+    /// Exercise 3.4 - Spiral Path.
+    /// </summary>
+    /// Uses DrawCanvas and polar coordinates to draw a spiral.
+    public class C3Exercise4 : Node2D, IExample
     {
-      // Stop when theta > MaxTheta
-      if (theta < MaxTheta)
+      public string _Summary()
       {
-        for (int i = 0; i < Iterations; ++i)
-        {
-          float x = (Width + margin) * Mathf.Cos(theta);
-          float y = (Width + margin) * Mathf.Sin(theta);
-          var target = new Vector2(x, y);
-          var size = GetViewportRect().Size;
-
-          pen.DrawCircle(size / 2 + target, Width / 2, MathUtils.RandColor());
-
-          theta += 0.016f;
-          margin += 0.016f * 3;
-        }
+        return "Exercise 3.4:\n"
+          + "Spiral Path";
       }
-    });
-    canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
-    AddChild(canvas);
+
+      public float Width = 10;
+      public float Iterations = 20;
+      public float MaxTheta = 200;
+
+      private float theta = 0;
+      private float margin = 0;
+
+      public override void _Ready()
+      {
+        GD.Randomize();
+
+        var canvas = new DrawCanvas((pen) =>
+        {
+          // Stop when theta > MaxTheta
+          if (theta < MaxTheta)
+          {
+            for (int i = 0; i < Iterations; ++i)
+            {
+              float x = (Width + margin) * Mathf.Cos(theta);
+              float y = (Width + margin) * Mathf.Sin(theta);
+              var target = new Vector2(x, y);
+              var size = GetViewportRect().Size;
+
+              pen.DrawCircle(size / 2 + target, Width / 2, MathUtils.RandColor());
+
+              theta += 0.016f;
+              margin += 0.016f * 3;
+            }
+          }
+        });
+        canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
+        AddChild(canvas);
+      }
+    }
   }
 }

@@ -3,59 +3,62 @@ using Drawing;
 
 namespace Examples
 {
-  /// <summary>
-  /// Exercise 0.1 - Walker moving down and right.
-  /// </summary>
-  /// SimpleWalker with tuned probabilities to go down and right more often.
-  public class C0Exercise1 : Node2D, IExample
+  namespace Chapter0
   {
-    public string _Summary()
+    /// <summary>
+    /// Exercise 0.1 - Walker moving down and right.
+    /// </summary>
+    /// SimpleWalker with tuned probabilities to go down and right more often.
+    public class C0Exercise1 : Node2D, IExample
     {
-      return "Exercise I.1:\n"
-        + "Walker moving down and right";
-    }
-
-    private class Walker : SimpleWalker
-    {
-      protected override void Step()
+      public string _Summary()
       {
-        float chance = (float)GD.RandRange(0, 1);
+        return "Exercise I.1:\n"
+          + "Walker moving down and right";
+      }
 
-        if (chance < 0.1)
+      private class Walker : SimpleWalker
+      {
+        protected override void Step()
         {
-          x -= StepSize;
-        }
-        else if (chance < 0.2)
-        {
-          y -= StepSize;
-        }
-        else if (chance < 0.6)
-        {
-          x += StepSize;
-        }
-        else
-        {
-          y += StepSize;
+          float chance = (float)GD.RandRange(0, 1);
+
+          if (chance < 0.1)
+          {
+            x -= StepSize;
+          }
+          else if (chance < 0.2)
+          {
+            y -= StepSize;
+          }
+          else if (chance < 0.6)
+          {
+            x += StepSize;
+          }
+          else
+          {
+            y += StepSize;
+          }
         }
       }
-    }
 
-    private Walker walker;
+      private Walker walker;
 
-    public override void _Ready()
-    {
-      GD.Randomize();
-
-      walker = new Walker();
-      walker.SetXY(GetViewportRect().Size / 2);
-      AddChild(walker);
-
-      var canvas = new DrawCanvas((pen) =>
+      public override void _Ready()
       {
-        pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-      });
-      canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
-      AddChild(canvas);
+        GD.Randomize();
+
+        walker = new Walker();
+        walker.SetXY(GetViewportRect().Size / 2);
+        AddChild(walker);
+
+        var canvas = new DrawCanvas((pen) =>
+        {
+          pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
+        });
+        canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
+        AddChild(canvas);
+      }
     }
   }
 }
