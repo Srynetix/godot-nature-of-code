@@ -1,55 +1,62 @@
 using Godot;
 using Drawing;
 
-public class C0Exercise5 : Node2D, IExample
+namespace Examples
 {
-  public string _Summary()
+  /// <summary>
+  /// Exercise 0.5 - Gaussian random walk.
+  /// </summary>
+  /// SimpleWalker with Gaussian random distribution step.
+  public class C0Exercise5 : Node2D, IExample
   {
-    return "Exercise I.5:\n"
-      + "Gaussian random walk";
-  }
-
-  public class Walker : SimpleWalker
-  {
-    protected override void Step()
+    public string _Summary()
     {
-      float chance = (float)GD.RandRange(0, 1);
-      float amount = generator.Randfn(0, 1) * StepSize;  // Gaussian
+      return "Exercise I.5:\n"
+        + "Gaussian random walk";
+    }
 
-      if (chance < 0.25)
+    private class Walker : SimpleWalker
+    {
+      protected override void Step()
       {
-        x += amount;
-      }
-      else if (chance < 0.5)
-      {
-        x -= amount;
-      }
-      else if (chance < 0.75)
-      {
-        y += amount;
-      }
-      else
-      {
-        y -= amount;
+        float chance = (float)GD.RandRange(0, 1);
+        float amount = generator.Randfn(0, 1) * StepSize;  // Gaussian
+
+        if (chance < 0.25)
+        {
+          x += amount;
+        }
+        else if (chance < 0.5)
+        {
+          x -= amount;
+        }
+        else if (chance < 0.75)
+        {
+          y += amount;
+        }
+        else
+        {
+          y -= amount;
+        }
       }
     }
-  }
 
-  private Walker walker;
+    private Walker walker;
 
-  public override void _Ready()
-  {
-    GD.Randomize();
-
-    walker = new Walker();
-    walker.SetXY(GetViewportRect().Size / 2);
-    AddChild(walker);
-
-    var canvas = new DrawCanvas((pen) =>
+    public override void _Ready()
     {
-      pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-    });
-    canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
-    AddChild(canvas);
+      GD.Randomize();
+
+      walker = new Walker();
+      walker.SetXY(GetViewportRect().Size / 2);
+      AddChild(walker);
+
+      var canvas = new DrawCanvas((pen) =>
+      {
+        pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
+      });
+      canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
+      AddChild(canvas);
+    }
   }
 }
