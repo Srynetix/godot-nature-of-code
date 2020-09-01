@@ -1,80 +1,90 @@
 using Godot;
 
-public class C5Example5 : Node2D, IExample
+namespace Examples
 {
-  public string _Summary()
+  namespace Chapter5
   {
-    return "Example 5.5:\n"
-      + "Multiple Shapes / One Body\n\n"
-      + "Touch screen to spawn bodies";
-  }
-
-  public class MultiShapeBody : RigidBody2D
-  {
-    private CollisionShape2D bodyCollisionShape;
-    private RectangleShape2D bodyShape;
-    private CollisionShape2D headCollisionShape;
-    private CircleShape2D headShape;
-
-    public override void _Ready()
+    /// <summary>
+    /// Example 5.5 - Multiple Shapes / One Body.
+    /// </summary>
+    /// Combine shapes using CollisionShape2D.
+    public class C5Example5 : Node2D, IExample
     {
-      bodyCollisionShape = new CollisionShape2D();
-      bodyShape = new RectangleShape2D();
-      bodyShape.Extents = new Vector2(10, 20);
-      bodyCollisionShape.Shape = bodyShape;
-      AddChild(bodyCollisionShape);
+      public string _Summary()
+      {
+        return "Example 5.5:\n"
+          + "Multiple Shapes / One Body\n\n"
+          + "Touch screen to spawn bodies";
+      }
 
-      headCollisionShape = new CollisionShape2D();
-      headShape = new CircleShape2D();
-      headShape.Radius = 15;
-      headCollisionShape.Position = new Vector2(0, -30);
-      headCollisionShape.Shape = headShape;
-      AddChild(headCollisionShape);
-    }
+      private class MultiShapeBody : RigidBody2D
+      {
+        private CollisionShape2D bodyCollisionShape;
+        private RectangleShape2D bodyShape;
+        private CollisionShape2D headCollisionShape;
+        private CircleShape2D headShape;
 
-    public override void _Draw()
-    {
-      DrawRect(new Rect2(-bodyShape.Extents, bodyShape.Extents * 2), Colors.White);
-      DrawCircle(headCollisionShape.Position, headShape.Radius, Colors.LightBlue);
-    }
+        public override void _Ready()
+        {
+          bodyCollisionShape = new CollisionShape2D();
+          bodyShape = new RectangleShape2D();
+          bodyShape.Extents = new Vector2(10, 20);
+          bodyCollisionShape.Shape = bodyShape;
+          AddChild(bodyCollisionShape);
 
-    public override void _Process(float delta)
-    {
-      Update();
-    }
-  }
+          headCollisionShape = new CollisionShape2D();
+          headShape = new CircleShape2D();
+          headShape.Radius = 15;
+          headCollisionShape.Position = new Vector2(0, -30);
+          headCollisionShape.Shape = headShape;
+          AddChild(headCollisionShape);
+        }
 
-  public override void _Ready()
-  {
-    var size = GetViewportRect().Size;
-    var floorHeight = 25;
-    var offset = 50;
+        public override void _Draw()
+        {
+          DrawRect(new Rect2(-bodyShape.Extents, bodyShape.Extents * 2), Colors.White);
+          DrawCircle(headCollisionShape.Position, headShape.Radius, Colors.LightBlue);
+        }
 
-    // Add left floor
-    var leftFloor = new Physics.SimpleWall();
-    leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
-    leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
-    AddChild(leftFloor);
+        public override void _Process(float delta)
+        {
+          Update();
+        }
+      }
 
-    // Add right floor
-    var rightFloor = new Physics.SimpleWall();
-    rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
-    rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
-    AddChild(rightFloor);
+      public override void _Ready()
+      {
+        var size = GetViewportRect().Size;
+        var floorHeight = 25;
+        var offset = 50;
 
-    var spawner = new Physics.SimpleTouchSpawner();
-    spawner.SpawnFunction = (position) =>
-    {
-      var body = new MultiShapeBody();
-      body.GlobalPosition = position;
-      return body;
-    };
-    AddChild(spawner);
+        // Add left floor
+        var leftFloor = new Physics.SimpleWall();
+        leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
+        leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
+        AddChild(leftFloor);
 
-    int bodyCount = 10;
-    for (int i = 0; i < bodyCount; ++i)
-    {
-      spawner.SpawnBody(MathUtils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
+        // Add right floor
+        var rightFloor = new Physics.SimpleWall();
+        rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
+        rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
+        AddChild(rightFloor);
+
+        var spawner = new Physics.SimpleTouchSpawner();
+        spawner.SpawnFunction = (position) =>
+        {
+          var body = new MultiShapeBody();
+          body.GlobalPosition = position;
+          return body;
+        };
+        AddChild(spawner);
+
+        int bodyCount = 10;
+        for (int i = 0; i < bodyCount; ++i)
+        {
+          spawner.SpawnBody(MathUtils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
+        }
+      }
     }
   }
 }

@@ -1,60 +1,70 @@
 using Godot;
 
-public class C5Example4 : Node2D, IExample
+namespace Examples
 {
-  public string _Summary()
+  namespace Chapter5
   {
-    return "Example 5.4:\n"
-      + "Polygon shapes\n\n"
-      + "Touch screen to spawn polygons";
-  }
-
-  public class Polygon : Physics.SimplePolygon
-  {
-    public Polygon()
+    /// <summary>
+    /// Example 5.4 - Polygon shapes.
+    /// </summary>
+    /// Uses SimplePolygon to quickly define polygons.
+    public class C5Example4 : Node2D, IExample
     {
-      Points = new Vector2[] {
-        new Vector2(-15, 25),
-        new Vector2(15, 0),
-        new Vector2(20, -15),
-        new Vector2(-10, -10),
-      };
+      public string _Summary()
+      {
+        return "Example 5.4:\n"
+          + "Polygon shapes\n\n"
+          + "Touch screen to spawn polygons";
+      }
 
-      BaseColor = Colors.White;
-    }
-  }
+      private class Polygon : Physics.SimplePolygon
+      {
+        public Polygon()
+        {
+          Points = new Vector2[] {
+            new Vector2(-15, 25),
+            new Vector2(15, 0),
+            new Vector2(20, -15),
+            new Vector2(-10, -10),
+          };
 
-  public override void _Ready()
-  {
-    var size = GetViewportRect().Size;
-    var floorHeight = 25;
-    var offset = 50;
+          BaseColor = Colors.White;
+        }
+      }
 
-    // Add left floor
-    var leftFloor = new Physics.SimpleWall();
-    leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
-    leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
-    AddChild(leftFloor);
+      public override void _Ready()
+      {
+        var size = GetViewportRect().Size;
+        var floorHeight = 25;
+        var offset = 50;
 
-    // Add right floor
-    var rightFloor = new Physics.SimpleWall();
-    rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
-    rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
-    AddChild(rightFloor);
+        // Add left floor
+        var leftFloor = new Physics.SimpleWall();
+        leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
+        leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
+        AddChild(leftFloor);
 
-    var spawner = new Physics.SimpleTouchSpawner();
-    spawner.SpawnFunction = (position) =>
-    {
-      var polygon = new Polygon();
-      polygon.GlobalPosition = position;
-      return polygon;
-    };
-    AddChild(spawner);
+        // Add right floor
+        var rightFloor = new Physics.SimpleWall();
+        rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
+        rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
+        AddChild(rightFloor);
 
-    int polygonCount = 10;
-    for (int i = 0; i < polygonCount; ++i)
-    {
-      spawner.SpawnBody(MathUtils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
+        var spawner = new Physics.SimpleTouchSpawner();
+        spawner.SpawnFunction = (position) =>
+        {
+          var polygon = new Polygon();
+          polygon.GlobalPosition = position;
+          return polygon;
+        };
+        AddChild(spawner);
+
+        int polygonCount = 10;
+        for (int i = 0; i < polygonCount; ++i)
+        {
+          spawner.SpawnBody(MathUtils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
+        }
+      }
     }
   }
 }

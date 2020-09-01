@@ -8,7 +8,7 @@ namespace Examples
     /// <summary>
     /// Example 1.11 - Movers towards mouse.
     /// </summary>
-    /// Reuse same principle as Example 1.10 mover but with multiple occurences.
+    /// Uses same principle as Example 1.10 mover but with multiple occurences.
     public class C1Example11 : Node2D, IExample
     {
       public string _Summary()

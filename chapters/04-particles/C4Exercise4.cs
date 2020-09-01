@@ -9,7 +9,7 @@ namespace Examples
     /// <summary>
     /// Exercise 4.4 - Asteroids with Particles.
     /// </summary>
-    /// Reuse Asteroid from Exercise 3.5 with a SimpleParticleSystem.
+    /// Reuses Asteroid from Exercise 3.5 with a SimpleParticleSystem.
     public class C4Exercise4 : Chapter3.C3Exercise5, IExample
     {
       public new string _Summary()

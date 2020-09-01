@@ -1,43 +1,53 @@
 using Godot;
 
-public class C5Exercise2 : Node2D, IExample
+namespace Examples
 {
-  public string _Summary()
+  namespace Chapter5
   {
-    return "Exercise 5.2:\n"
-      + "Anti-Gravity Boxes\n\n"
-      + "Touch screen to spawn boxes";
-  }
-
-  public class AntigravityBox : Physics.SimpleBox
-  {
-    public override void _Ready()
+    /// <summary>
+    /// Exercise 5.2 - Anti-Gravity Boxes.
+    /// </summary>
+    /// Custom SimpleBox without gravity.
+    public class C5Exercise2 : Node2D, IExample
     {
-      base._Ready();
+      public string _Summary()
+      {
+        return "Exercise 5.2:\n"
+          + "Anti-Gravity Boxes\n\n"
+          + "Touch screen to spawn boxes";
+      }
 
-      // Remove gravity
-      GravityScale = 0;
-    }
-  }
+      private class AntigravityBox : Physics.SimpleBox
+      {
+        public override void _Ready()
+        {
+          base._Ready();
 
-  public override void _Ready()
-  {
-    var size = GetViewportRect().Size;
+          // Remove gravity
+          GravityScale = 0;
+        }
+      }
 
-    var spawner = new Physics.SimpleTouchSpawner();
-    spawner.SpawnFunction = (position) =>
-    {
-      var box = new AntigravityBox();
-      box.BodySize = new Vector2(20, 20);
-      box.GlobalPosition = position;
-      return box;
-    };
-    AddChild(spawner);
+      public override void _Ready()
+      {
+        var size = GetViewportRect().Size;
 
-    int boxCount = 10;
-    for (int i = 0; i < boxCount; ++i)
-    {
-      spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y));
+        var spawner = new Physics.SimpleTouchSpawner();
+        spawner.SpawnFunction = (position) =>
+        {
+          var box = new AntigravityBox();
+          box.BodySize = new Vector2(20, 20);
+          box.GlobalPosition = position;
+          return box;
+        };
+        AddChild(spawner);
+
+        int boxCount = 10;
+        for (int i = 0; i < boxCount; ++i)
+        {
+          spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y));
+        }
+      }
     }
   }
 }
