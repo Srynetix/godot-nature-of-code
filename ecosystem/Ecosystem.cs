@@ -142,7 +142,7 @@ public class Ecosystem : Control
 
   /// <summary>
   /// Attracted fly.
-  /// Use SimpleAttractor.
+  /// Uses SimpleAttractor.
   /// </summary>
   public class AttractedFly : BaseFly
   {
@@ -175,7 +175,7 @@ public class Ecosystem : Control
 
   /// <summary>
   /// Nervous fly. Fly everywhere nervously spawning particles.
-  /// Use ParticleSystem.
+  /// Uses ParticleSystem.
   /// </summary>
   public class NervousFly : BaseFly
   {
@@ -228,7 +228,7 @@ public class Ecosystem : Control
 
   /// <summary>
   /// Nervous butterfly. Same behavior than nervous fly.
-  /// Use multiple SimpleOscillator.
+  /// Uses multiple SimpleOscillator.
   /// </summary>
   public class NervousButterfly : BaseFly
   {

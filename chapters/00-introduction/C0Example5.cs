@@ -5,7 +5,7 @@ namespace Examples
   /// <summary>
   /// Example 0.5 - Perlin noise walker.
   /// </summary>
-  /// Use SimpleWalker, mixed with Godot's OpenSimplexNoise.
+  /// Uses SimpleWalker, mixed with Godot's OpenSimplexNoise.
   public class C0Example5 : Node2D, IExample
   {
     public string _Summary()

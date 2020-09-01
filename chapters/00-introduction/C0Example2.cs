@@ -5,7 +5,7 @@ namespace Examples
   /// <summary>
   /// Example 0.2 - Random number distribution.
   /// </summary>
-  /// Use the Node2D _Draw function to draw bars.
+  /// Uses the Node2D _Draw function to draw bars.
   public class C0Example2 : Node2D, IExample
   {
     public string _Summary()

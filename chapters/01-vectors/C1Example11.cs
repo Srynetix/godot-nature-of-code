@@ -1,36 +1,43 @@
 using Godot;
 using Forces;
 
-public class C1Example11 : Node2D, IExample
+namespace Examples
 {
-  public string _Summary()
+  /// <summary>
+  /// Example 1.11 - Movers towards mouse.
+  /// </summary>
+  /// Reuse same principle as Example 1.10 mover but with multiple occurences.
+  public class C1Example11 : Node2D, IExample
   {
-    return "Example 1.11:\n"
-      + "Movers towards mouse";
-  }
-
-  public class Mover : SimpleMover
-  {
-    protected override void UpdateAcceleration()
+    public string _Summary()
     {
-      var mousePos = GetViewport().GetMousePosition();
-      var dir = (mousePos - Position).Normalized();
-
-      Acceleration = dir * 0.5f;
+      return "Example 1.11:\n"
+        + "Movers towards mouse";
     }
-  }
 
-  public override void _Ready()
-  {
-    GD.Randomize();
-    var size = GetViewportRect().Size;
-
-    var moverCount = 20;
-    for (int i = 0; i < moverCount; ++i)
+    private class Mover : SimpleMover
     {
-      var mover = new Mover();
-      mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
-      AddChild(mover);
+      protected override void UpdateAcceleration()
+      {
+        var mousePos = GetViewport().GetMousePosition();
+        var dir = (mousePos - Position).Normalized();
+
+        Acceleration = dir * 0.5f;
+      }
+    }
+
+    public override void _Ready()
+    {
+      GD.Randomize();
+      var size = GetViewportRect().Size;
+
+      var moverCount = 20;
+      for (int i = 0; i < moverCount; ++i)
+      {
+        var mover = new Mover();
+        mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
+        AddChild(mover);
+      }
     }
   }
 }

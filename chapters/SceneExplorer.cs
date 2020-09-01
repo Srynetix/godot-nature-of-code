@@ -2,7 +2,7 @@ using Godot;
 
 /// <summary>
 /// Scene explorer screen.
-/// Use `SceneLoader` to dynamically load examples.
+/// Uses `SceneLoader` to dynamically load examples.
 /// </summary>
 public class SceneExplorer : Control
 {

@@ -9,7 +9,7 @@ namespace VerletPhysics
 {
   /// <summary>
   /// Simple verlet chain builder.
-  /// Use a `PointConfiguratorFunc` to configure `VerletPoints` on creation.
+  /// Uses a `PointConfiguratorFunc` to configure `VerletPoints` on creation.
   /// </summary>
   public class VerletChainBuilder
   {

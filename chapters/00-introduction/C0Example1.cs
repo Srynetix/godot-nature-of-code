@@ -10,7 +10,7 @@ namespace Examples
   /// Example 0.1 - Traditional random walk.
   /// </summary>
   /// Define a custom walker based on SimpleWalker with a custom step function.
-  /// Use a DrawCanvas to draw without clearing the viewport. 
+  /// Uses a DrawCanvas to draw without clearing the viewport. 
   public class C0Example1 : Node2D, IExample
   {
     public string _Summary()
