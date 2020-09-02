@@ -22,37 +22,21 @@ namespace Examples
       {
         public Mover()
         {
-          Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
-          Mesh.CustomDrawMethod = (pen) =>
-          {
-            var length = Radius * 2;
-            var width = Radius;
-
-            pen.DrawRect(new Rect2(-length / 2, -width / 2, length, width), pen.Modulate);
-          };
+          Mesh.MeshType = SimpleMesh.TypeEnum.Square;
+          Mesh.MeshSize = new Vector2(80, 40);
+          SyncRotationOnVelocity = true;
         }
 
         protected override void UpdateAcceleration()
         {
           var mousePos = GetViewport().GetMousePosition();
           var dir = (mousePos - Position).Normalized();
-
           Acceleration = dir * 0.5f;
-        }
-
-        public override void _Process(float delta)
-        {
-          base._Process(delta);
-
-          // Update angle from velocity
-          float angle = Mathf.Atan2(Velocity.y, Velocity.x);
-          Rotation = angle;
         }
       }
 
       public override void _Ready()
       {
-        GD.Randomize();
         var size = GetViewportRect().Size;
 
         var mover = new Mover();

@@ -26,8 +26,6 @@ namespace Examples
 
       public override void _Ready()
       {
-        GD.Randomize();
-
         var canvas = new DrawCanvas((pen) =>
         {
           // Stop when theta > MaxTheta

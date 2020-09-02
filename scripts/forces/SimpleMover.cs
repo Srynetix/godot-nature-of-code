@@ -39,6 +39,8 @@ namespace Forces
     public WrapModeEnum WrapMode;
     /// <summary>Disable forces</summary>
     public bool DisableForces = false;
+    /// <summary>Synchronize rotation on velocity</summary>
+    public bool SyncRotationOnVelocity = false;
     /// <summary>Mesh</summary>
     public SimpleMesh Mesh;
 
@@ -168,6 +170,12 @@ namespace Forces
       {
         UpdateAcceleration();
         ApplyMovement();
+      }
+
+      if (SyncRotationOnVelocity)
+      {
+        var angle = Mathf.Atan2(Velocity.y, Velocity.x);
+        Rotation = angle;
       }
 
       Update();

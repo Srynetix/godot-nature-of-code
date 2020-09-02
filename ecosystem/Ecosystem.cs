@@ -634,7 +634,6 @@ public class Ecosystem : Control
 
   public override void _Ready()
   {
-    GD.Randomize();
     drawZone = GetNode<Control>("DrawZone");
 
     foreach (int x in Enumerable.Range(0, CountPerSpecies))

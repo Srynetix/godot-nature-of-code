@@ -50,7 +50,6 @@ namespace Examples
 
       public override void _Ready()
       {
-        GD.Randomize();
         walker = new Walker();
         walker.SetXY(GetViewportRect().Size / 2);
         AddChild(walker);

@@ -27,7 +27,6 @@ namespace Examples
 
       public override void _Ready()
       {
-        GD.Randomize();
         var size = GetViewportRect().Size;
 
         var mover = new Mover();

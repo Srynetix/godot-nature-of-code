@@ -20,7 +20,6 @@ namespace Examples
 
       public override void _Ready()
       {
-        GD.Randomize();
         randomCounts = new int[20];
       }
 
