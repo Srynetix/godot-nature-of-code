@@ -192,6 +192,7 @@
     <Compile Include="scripts\forces\SimpleLiquid.cs" />
     <Compile Include="scripts\forces\SimpleMover.cs" />
     <Compile Include="scripts\forces\SimpleRepeller.cs" />
+    <Compile Include="scripts\forces\SimpleVehicle.cs" />
     <Compile Include="scripts\forces\SimpleZone.cs" />
     <Compile Include="scripts\oscillation\SimpleOscillator.cs" />
     <Compile Include="scripts\oscillation\SimplePendulum.cs" />

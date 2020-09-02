@@ -19,33 +19,13 @@ namespace Examples
 
       private SimpleMover targetMover;
 
-      private class Vehicle : SimpleMover
+      private class Vehicle : SimpleVehicle
       {
-        public SimpleMover Target;
-        public float MaxForce = 0.8f;
-
-        public Vehicle(SimpleMover target)
-        {
-          Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-          Mesh.MeshSize = new Vector2(40, 20);
-
-          SyncRotationOnVelocity = true;
-          MaxVelocity = 8;
-          Target = target;
-        }
-
-        public void Seek(Vector2 target)
-        {
-          var targetForce = (target - GlobalPosition).Normalized() * MaxVelocity;
-          var steerForce = (targetForce - Velocity).Clamped(MaxForce);
-          ApplyForce(steerForce);
-        }
-
         protected override void UpdateAcceleration()
         {
           MaxVelocity = Mathf.Max(GlobalPosition.DistanceTo(Target.GlobalPosition) / 10, 4f);
           MaxForce = Mathf.Max(GlobalPosition.DistanceTo(Target.GlobalPosition) / 100, 0.1f);
-          Seek(Target.GlobalPosition + Target.Velocity);
+          SeekTarget();
         }
       }
 
@@ -62,23 +42,15 @@ namespace Examples
         AddChild(targetMover);
 
         // Create vehicle
-        var vehicle = new Vehicle(targetMover);
+        var vehicle = new Vehicle();
+        vehicle.Target = targetMover;
         vehicle.Position = size / 4;
         AddChild(vehicle);
       }
 
       public override void _Process(float delta)
       {
-        UpdateTargetPosition(GetViewport().GetMousePosition());
-      }
-
-      #endregion
-
-      #region Private methods
-
-      private void UpdateTargetPosition(Vector2 targetPosition)
-      {
-        targetMover.GlobalPosition = targetPosition;
+        targetMover.GlobalPosition = GetViewport().GetMousePosition();
       }
 
       #endregion

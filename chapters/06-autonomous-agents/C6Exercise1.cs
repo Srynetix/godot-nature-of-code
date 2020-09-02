@@ -19,34 +19,18 @@ namespace Examples
 
       private SimpleMover targetMover;
 
-      private class Vehicle : SimpleMover
+      private class Vehicle : SimpleVehicle
       {
-        public Node2D Target;
         public float FleeDistance = 200;
-        public float MaxForce = 0.1f;
 
-        public Vehicle(Node2D target)
+        public void FleeTarget()
         {
-          Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-          Mesh.MeshSize = new Vector2(40, 20);
-
-          SyncRotationOnVelocity = true;
-          MaxVelocity = 4;
-          Target = target;
-        }
-
-        public void Flee(Vector2 target)
-        {
-          var targetForce = (target - GlobalPosition).Normalized() * MaxVelocity;
-          var steerForce = (-targetForce - Velocity).Clamped(MaxForce);
-          ApplyForce(steerForce);
-        }
-
-        public void Seek(Vector2 target)
-        {
-          var targetForce = (target - GlobalPosition).Normalized() * MaxVelocity;
-          var steerForce = (targetForce - Velocity).Clamped(MaxForce);
-          ApplyForce(steerForce);
+          if (Target != null)
+          {
+            var targetForce = (Target.GlobalPosition - GlobalPosition).Normalized() * MaxVelocity;
+            var steerForce = (-targetForce - Velocity).Clamped(MaxForce);
+            ApplyForce(steerForce);
+          }
         }
 
         protected override void UpdateAcceleration()
@@ -54,11 +38,11 @@ namespace Examples
           // Depending on the distance, use a different behavior
           if (GlobalPosition.DistanceSquaredTo(Target.GlobalPosition) > FleeDistance * FleeDistance)
           {
-            Seek(Target.GlobalPosition);
+            SeekTarget();
           }
           else
           {
-            Flee(Target.GlobalPosition);
+            FleeTarget();
           }
         }
       }
@@ -76,23 +60,15 @@ namespace Examples
         AddChild(targetMover);
 
         // Create vehicle
-        var vehicle = new Vehicle(targetMover);
+        var vehicle = new Vehicle();
+        vehicle.Target = targetMover;
         vehicle.Position = size / 4;
         AddChild(vehicle);
       }
 
       public override void _Process(float delta)
       {
-        UpdateTargetPosition(GetViewport().GetMousePosition());
-      }
-
-      #endregion
-
-      #region Private methods
-
-      private void UpdateTargetPosition(Vector2 targetPosition)
-      {
-        targetMover.GlobalPosition = targetPosition;
+        targetMover.GlobalPosition = GetViewport().GetMousePosition();
       }
 
       #endregion
