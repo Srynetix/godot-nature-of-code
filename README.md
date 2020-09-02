@@ -1,38 +1,42 @@
-# Nature of Code in Godot
+# The Nature of Code in Godot
 
-Official book: https://natureofcode.com/book/
+**Official book website**: https://natureofcode.com/book/
 
-Godot Engine: https://godotengine.org
+**Godot Engine website**: https://godotengine.org
 
-## Summary
+## Summary :page_facing_up:
 
-Each interactive example and interactive exercise will be implemented with Godot Engine 3.2.3-rc3, using C# for the scripting.
+Each interactive example and interactive exercise will be implemented with **Godot Engine 3.2.3-rc3**, using **C#** for the scripting.
 
-The project contain a launcher, with a **scene explorer** to navigate examples and exercises, and the **ecosystem simulation** scene.
+The project contain a **launcher**, with a **scene explorer** to navigate examples and exercises, and the **ecosystem simulation** scene.
 
 Almost everything is created from scripts.
 
 ![screen](./docs/screen.gif)
 
-## Try it online
+## Try it online :joystick:
 
-You can access the HTML5 version on my `github.io` here: [Godot Nature of Code](https://srynetix.github.io/gamedev/godot-nature-of-code/index.html)
+You can access the HTML5 version on my `github.io` here: [Godot Nature of Code](https://srynetix.github.io/gamedev/godot-nature-of-code/index.html)  
 
+## Features :sparkles:
+
+- :joystick: Dynamic scene loader to explore examples and exercises
+- :art: Simple reusable primitives are available in the `scripts` folder
+  - Examples: Canvas, Attractors, Zones, Springs, Particles, Waves, etc.
+- :gear:: The `Physics Libraries` chapter is using the Godot internal physics engine instead of `Box2D`
+- :alembic: A simple custom Verlet physics implementation based on `toxiclibs` can be found in `scripts/verletphysics`
+- :zap: Drawing is often batched (using GLES2 batching) to ensure correct performance on mobile and web targets
+- :book: Most C# code is documented with Doxygen, you can use the included Doxyfile to generate documentation
+
+## Documentation :book:
+
+Documentation is generated with Doxygen from C# XML comments.  
+Use the included Doxyfile to generate HTML documentation in the `../gnoc-html` folder.  
 You can also access the generated C# documentation here: [C# Documentation](https://srynetix.github.io/gamedev/godot-nature-of-code/docs/annotated.html)
 
-## Features
+## Roadmap :date:
 
-- Dynamic scene loader to explore examples and exercises
-- Simple reusable primitives are available in the `scripts` folder
-  - Examples: Canvas, Attractors, Zones, Springs, Particles, Waves, etc.
-- The `Physics Libraries` chapter is using the Godot internal physics engine instead of `Box2D`
-- A simple Verlet physics implementation based on `toxiclibs` can be found in `scripts/verletphysics`
-- Most C# code is documented with Doxygen, you can use the included Doxyfile to generate documentation
-- Drawing is often batched (using GLES2 batching) to ensure correct performance on mobile and web targets
-
-## Roadmap
-
-- [ ] Implement missing examples and exercises.
+- [ ] :joystick: Implement missing examples and exercises.
   - [x] 00. Introduction
   - [x] 01. Vectors
   - [x] 02. Forces
@@ -44,9 +48,12 @@ You can also access the generated C# documentation here: [C# Documentation](http
   - [ ] 08. Fractals
   - [ ] 09. The evolution of code
   - [ ] 10. Neural networks
-- [ ] Implement the full Ecosystem project
+- [ ] :bug: Implement the full Ecosystem project
 
-## Generate documentation
+## Contributing :mage:
 
-Documentation is generated with Doxygen from C# XML comments.  
-Use the included Doxyfile to generate HTML documentation in the ../gnoc-html folder.
+- :memo: File rules: It also uses an .editorconfig file.    
+- :pencil2: Formatting: This project use `dotnet-format` to automatically format the C# code, without specific configuration.
+- :dark_sunglasses: Lint: I am still looking for a command-line utility to lint the code (like `flake8` in the Python world or `clippy` in the Rust world).
+
+If you want to contribute, do not hesitate to create Pull Requests or file Issues on GitHub :github: :wink:. 
