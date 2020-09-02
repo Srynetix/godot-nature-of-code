@@ -7,39 +7,32 @@ namespace Examples
   namespace Chapter6
   {
     /// <summary>
-    /// Exercise 6.1 - Fleeing a target.
+    /// Exercise 6.2: Pursuit.
     /// </summary>
-    /// Same principle than Example 6.1, but with a flee behavior.
-    public class C6Exercise1 : Node2D, IExample
+    /// Same principle as Example 6.1, but using the target velocity to predict its position.
+    public class C6Exercise2 : Node2D
     {
       public string _Summary()
       {
-        return "Exercise 6.1:\n Fleeing a target.";
+        return "Exercise 6.2:\nPursuit.";
       }
 
       private SimpleMover targetMover;
 
       private class Vehicle : SimpleMover
       {
-        public Node2D Target;
+        public SimpleMover Target;
         public float FleeDistance = 200;
-        public float MaxForce = 0.1f;
+        public float MaxForce = 0.8f;
 
-        public Vehicle(Node2D target)
+        public Vehicle(SimpleMover target)
         {
           Mesh.MeshType = SimpleMesh.TypeEnum.Square;
           Mesh.MeshSize = new Vector2(40, 20);
 
           SyncRotationOnVelocity = true;
-          MaxVelocity = 4;
+          MaxVelocity = 8;
           Target = target;
-        }
-
-        public void Flee(Vector2 target)
-        {
-          var targetForce = (target - GlobalPosition).Normalized() * MaxVelocity;
-          var steerForce = (-targetForce - Velocity).Clamped(MaxForce);
-          ApplyForce(steerForce);
         }
 
         public void Seek(Vector2 target)
@@ -51,15 +44,7 @@ namespace Examples
 
         protected override void UpdateAcceleration()
         {
-          // Depending on the distance, use a different behavior
-          if (GlobalPosition.DistanceSquaredTo(Target.GlobalPosition) > FleeDistance * FleeDistance)
-          {
-            Seek(Target.GlobalPosition);
-          }
-          else
-          {
-            Flee(Target.GlobalPosition);
-          }
+          Seek(Target.GlobalPosition + Target.Velocity);
         }
       }
 

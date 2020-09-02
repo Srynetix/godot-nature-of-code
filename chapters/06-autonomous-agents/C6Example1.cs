@@ -12,6 +12,7 @@ namespace Examples
     /// <summary>
     /// Example 6.1 - Seeking a target.
     /// </summary>
+    /// Update SimpleMover acceleration depending on mouse position.
     public class C6Example1 : Node2D, IExample
     {
       public string _Summary()
