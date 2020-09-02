@@ -22,7 +22,6 @@ You can access the HTML5 version on my `github.io` here: [Godot Nature of Code](
 
 - :joystick: Dynamic scene loader to explore examples and exercises
 - :art: Simple reusable primitives are available in the `scripts` folder
-  - Examples: Canvas, Attractors, Zones, Springs, Particles, Waves, etc.
 - :gear: The `Physics Libraries` chapter is using the Godot internal physics engine instead of `Box2D`
 - :alembic: A simple custom Verlet physics implementation based on `toxiclibs` can be found in `scripts/verletphysics`
 - :zap: Drawing is often batched (using GLES2 batching) to ensure correct performance on mobile and web targets
