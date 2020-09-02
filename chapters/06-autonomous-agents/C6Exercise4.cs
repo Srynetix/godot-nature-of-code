@@ -8,6 +8,7 @@ namespace Examples
     /// <summary>
     /// Exercise 6.4: Reynolds' Wandering Behavior.
     /// </summary>
+    /// Use a child node containing angle information.
     public class C6Exercise4 : Node2D, IExample
     {
       public string _Summary()
