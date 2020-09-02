@@ -4,19 +4,16 @@ using Drawing;
 
 namespace Examples
 {
-  /// <summary>
-  /// Chapter 6 - Autonomous Agents.
-  /// </summary>
   namespace Chapter6
   {
     /// <summary>
-    /// Example 6.1 - Seeking a target.
+    /// Exercise 6.1 - Fleeing a target.
     /// </summary>
-    public class C6Example1 : Node2D, IExample
+    public class C6Exercise1 : Node2D, IExample
     {
       public string _Summary()
       {
-        return "Example 6.1:\nSeeking a target.";
+        return "Exercise 6.1:\n Fleeing a target.";
       }
 
       private SimpleMover targetMover;
@@ -24,6 +21,7 @@ namespace Examples
       private class Vehicle : SimpleMover
       {
         public Node2D Target;
+        public float FleeDistance = 200;
         public float MaxForce = 0.1f;
 
         public Vehicle(Node2D target)
@@ -36,6 +34,13 @@ namespace Examples
           Target = target;
         }
 
+        public void Flee(Vector2 target)
+        {
+          var targetForce = (target - GlobalPosition).Normalized() * MaxVelocity;
+          var steerForce = (-targetForce - Velocity).Clamped(MaxForce);
+          ApplyForce(steerForce);
+        }
+
         public void Seek(Vector2 target)
         {
           var targetForce = (target - GlobalPosition).Normalized() * MaxVelocity;
@@ -45,7 +50,15 @@ namespace Examples
 
         protected override void UpdateAcceleration()
         {
-          Seek(Target.GlobalPosition);
+          // Depending on the distance, use a different behavior
+          if (GlobalPosition.DistanceSquaredTo(Target.GlobalPosition) > FleeDistance * FleeDistance)
+          {
+            Seek(Target.GlobalPosition);
+          }
+          else
+          {
+            Flee(Target.GlobalPosition);
+          }
         }
       }
 

@@ -166,6 +166,7 @@
     <Compile Include="chapters\05-physics\C5Exercise8.cs" />
     <Compile Include="chapters\05-physics\C5Exercise9.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Example1.cs" />
+    <Compile Include="chapters\06-autonomous-agents\C6Exercise1.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="chapters\SceneLoader.cs" />
