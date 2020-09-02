@@ -51,7 +51,7 @@ You can also access the generated C# documentation here: [C# Documentation](http
 
 ## :mage: Contributing
 
-- :memo: File rules: It also uses an .editorconfig file.    
+- :memo: File rules: An .editorconfig file is provided.    
 - :pencil2: Formatting: This project use `dotnet-format` to automatically format the C# code, without specific configuration.
 - :dark_sunglasses: Lint: I am still looking for a command-line utility to lint the code (like `flake8` in the Python world or `clippy` in the Rust world).
 
