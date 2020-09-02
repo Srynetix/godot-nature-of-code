@@ -26,11 +26,9 @@ namespace Examples
           MaxForce = 0.8f;
         }
 
-        protected override void SeekTarget()
+        protected override void UpdateAcceleration()
         {
-          var targetForce = (Target.GlobalPosition + Target.Velocity - GlobalPosition).Normalized() * MaxVelocity;
-          var steerForce = (targetForce - Velocity).Clamped(MaxForce);
-          ApplyForce(steerForce);
+          Seek(Target.GlobalPosition + Target.Velocity);
         }
       }
 

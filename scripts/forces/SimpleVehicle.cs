@@ -31,26 +31,35 @@ namespace Forces
     /// <summary>
     /// Drive and steer towards target.
     /// </summary>
-    protected virtual void SeekTarget()
+    protected void SeekTarget()
     {
       if (Target != null)
       {
-        var targetDiff = Target.GlobalPosition - GlobalPosition;
-        var targetDist = targetDiff.Length();
-        targetDiff = targetDiff.Normalized();
-
-        if (ArriveDistance > 0 && targetDist < ArriveDistance)
-        {
-          targetDiff *= MathUtils.Map(targetDist, 0, ArriveDistance, 0, MaxVelocity);
-        }
-        else
-        {
-          targetDiff *= MaxVelocity;
-        }
-
-        var steerForce = (targetDiff - Velocity).Clamped(MaxForce);
-        ApplyForce(steerForce);
+        Seek(Target.GlobalPosition);
       }
+    }
+
+    /// <summary>
+    /// Drive and steer towards target position.
+    /// </summary>
+    /// <param name="position">Target position</param>
+    protected virtual void Seek(Vector2 position)
+    {
+      var targetDiff = position - GlobalPosition;
+      var targetDist = targetDiff.Length();
+      targetDiff = targetDiff.Normalized();
+
+      if (ArriveDistance > 0 && targetDist < ArriveDistance)
+      {
+        targetDiff *= MathUtils.Map(targetDist, 0, ArriveDistance, 0, MaxVelocity);
+      }
+      else
+      {
+        targetDiff *= MaxVelocity;
+      }
+
+      var steerForce = (targetDiff - Velocity).Clamped(MaxForce);
+      ApplyForce(steerForce);
     }
 
     protected override void UpdateAcceleration()
