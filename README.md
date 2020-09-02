@@ -18,7 +18,7 @@ Almost everything is created from scripts.
 
 You can access the HTML5 version on my `github.io` here: [Godot Nature of Code](https://srynetix.github.io/gamedev/godot-nature-of-code/index.html)  
 
-## Features :sparkles:
+## :sparkles: Features
 
 - :joystick: Dynamic scene loader to explore examples and exercises
 - :art: Simple reusable primitives are available in the `scripts` folder
