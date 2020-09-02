@@ -1,6 +1,5 @@
 using Godot;
 using Forces;
-using Drawing;
 
 namespace Examples
 {

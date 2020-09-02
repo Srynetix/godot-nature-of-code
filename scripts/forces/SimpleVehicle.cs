@@ -13,6 +13,8 @@ namespace Forces
     public SimpleMover Target;
     /// <summary>Max force</summary>
     public float MaxForce = 0.1f;
+    /// <summary>Arrive distance. Use `-1` to disable.</summary>
+    public float ArriveDistance = -1;
 
     /// <summary>
     /// Create a default vehicle.
@@ -33,8 +35,20 @@ namespace Forces
     {
       if (Target != null)
       {
-        var targetForce = (Target.GlobalPosition - GlobalPosition).Normalized() * MaxVelocity;
-        var steerForce = (targetForce - Velocity).Clamped(MaxForce);
+        var targetDiff = Target.GlobalPosition - GlobalPosition;
+        var targetDist = targetDiff.Length();
+        targetDiff = targetDiff.Normalized();
+
+        if (ArriveDistance > 0 && targetDist < ArriveDistance)
+        {
+          targetDiff *= MathUtils.Map(targetDist, 0, ArriveDistance, 0, MaxVelocity);
+        }
+        else
+        {
+          targetDiff *= MaxVelocity;
+        }
+
+        var steerForce = (targetDiff - Velocity).Clamped(MaxForce);
         ApplyForce(steerForce);
       }
     }

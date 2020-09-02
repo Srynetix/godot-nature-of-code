@@ -6,27 +6,17 @@ namespace Examples
   namespace Chapter6
   {
     /// <summary>
-    /// Exercise 6.3: Variable maximum speed.
+    /// Example 6.2: Arrive steering behavior.
     /// </summary>
-    /// Use the distance between the mouse cursor and the vehicle to compute max speed and max force.
-    public class C6Exercise3 : Node2D, IExample
+    /// Use SimpleVehicle's ArriveDistance property.
+    public class C6Example2 : Node2D, IExample
     {
       public string _Summary()
       {
-        return "Exercise 6.3:\nVariable maximum speed";
+        return "Example 6.2:\nArrive steering behavior";
       }
 
       private SimpleMover targetMover;
-
-      private class Vehicle : SimpleVehicle
-      {
-        protected override void UpdateAcceleration()
-        {
-          MaxVelocity = Mathf.Max(GlobalPosition.DistanceTo(Target.GlobalPosition) / 10, 4f);
-          MaxForce = Mathf.Max(GlobalPosition.DistanceTo(Target.GlobalPosition) / 100, 0.1f);
-          SeekTarget();
-        }
-      }
 
       #region Lifecycle methods
 
@@ -41,9 +31,10 @@ namespace Examples
         AddChild(targetMover);
 
         // Create vehicle
-        var vehicle = new Vehicle();
+        var vehicle = new SimpleVehicle();
         vehicle.Target = targetMover;
         vehicle.Position = size / 4;
+        vehicle.ArriveDistance = 100;
         AddChild(vehicle);
       }
 
