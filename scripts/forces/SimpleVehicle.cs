@@ -11,6 +11,8 @@ namespace Forces
   {
     /// <summary>Target</summary>
     public SimpleMover Target;
+    /// <summary>Flow target</summary>
+    public SimpleFlowField TargetFlow;
     /// <summary>Max force</summary>
     public float MaxForce = 0.1f;
     /// <summary>Arrive distance. Use `-1` to disable.</summary>
@@ -33,10 +35,7 @@ namespace Forces
     /// </summary>
     protected void SeekTarget()
     {
-      if (Target != null)
-      {
-        Seek(Target.GlobalPosition);
-      }
+      Seek(Target.GlobalPosition);
     }
 
     /// <summary>
@@ -62,9 +61,27 @@ namespace Forces
       ApplyForce(steerForce);
     }
 
+    /// <summary>
+    /// Drive and steer following a flow field.
+    /// </summary>
+    protected void FollowFlow()
+    {
+      var target = TargetFlow.Lookup(GlobalPosition) * MaxVelocity;
+      var steer = (target - Velocity).Clamped(MaxForce);
+      ApplyForce(steer);
+    }
+
     protected override void UpdateAcceleration()
     {
-      SeekTarget();
+      if (Target != null)
+      {
+        SeekTarget();
+      }
+
+      if (TargetFlow != null)
+      {
+        FollowFlow();
+      }
     }
   }
 }

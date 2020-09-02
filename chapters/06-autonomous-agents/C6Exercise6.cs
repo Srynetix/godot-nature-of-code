@@ -8,6 +8,7 @@ namespace Examples
     /// <summary>
     /// Exercise 6.6: Radial Flow Field.
     /// </summary>
+    /// Uses SimpleFlowField.
     public class C6Exercise6 : Node2D, IExample
     {
       public string _Summary()
