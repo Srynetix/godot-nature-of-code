@@ -244,7 +244,7 @@ public class SceneLoader : Node
       if (!elem.Contains("."))
       {
         var groups = rgx.Match(elem).Groups;
-        var chapterName = groups["idx"] + " - " + groups["name"].Value.Capitalize();
+        var chapterName = groups["idx"] + " - " + groups["name"].Value.Replace("-", " ").Capitalize();
 
         chaptersList.Add(chapterName);
         chaptersDict.Add(chapterName, "res://chapters/" + elem);

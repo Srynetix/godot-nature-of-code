@@ -4,36 +4,33 @@ using Drawing;
 
 namespace Examples
 {
-  /// <summary>
-  /// Chapter 6 - Autonomous Agents.
-  /// </summary>
   namespace Chapter6
   {
     /// <summary>
-    /// Example 6.1 - Seeking a target.
+    /// Exercise 6.3: Variable maximum speed.
     /// </summary>
-    /// Update SimpleMover acceleration depending on mouse position.
-    public class C6Example1 : Node2D, IExample
+    /// Use the distance between the mouse cursor and the vehicle to compute max speed and max force.
+    public class C6Exercise3 : Node2D, IExample
     {
       public string _Summary()
       {
-        return "Example 6.1:\nSeeking a target";
+        return "Exercise 6.3:\nVariable maximum speed";
       }
 
       private SimpleMover targetMover;
 
       private class Vehicle : SimpleMover
       {
-        public Node2D Target;
-        public float MaxForce = 0.1f;
+        public SimpleMover Target;
+        public float MaxForce = 0.8f;
 
-        public Vehicle(Node2D target)
+        public Vehicle(SimpleMover target)
         {
           Mesh.MeshType = SimpleMesh.TypeEnum.Square;
           Mesh.MeshSize = new Vector2(40, 20);
 
           SyncRotationOnVelocity = true;
-          MaxVelocity = 4;
+          MaxVelocity = 8;
           Target = target;
         }
 
@@ -46,7 +43,9 @@ namespace Examples
 
         protected override void UpdateAcceleration()
         {
-          Seek(Target.GlobalPosition);
+          MaxVelocity = Mathf.Max(GlobalPosition.DistanceTo(Target.GlobalPosition) / 10, 4f);
+          MaxForce = Mathf.Max(GlobalPosition.DistanceTo(Target.GlobalPosition) / 100, 0.1f);
+          Seek(Target.GlobalPosition + Target.Velocity);
         }
       }
 

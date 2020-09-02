@@ -14,7 +14,7 @@ namespace Examples
     {
       public string _Summary()
       {
-        return "Exercise 6.1:\n Fleeing a target.";
+        return "Exercise 6.1:\n Fleeing a target";
       }
 
       private SimpleMover targetMover;

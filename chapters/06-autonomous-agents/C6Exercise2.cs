@@ -10,11 +10,11 @@ namespace Examples
     /// Exercise 6.2: Pursuit.
     /// </summary>
     /// Same principle as Example 6.1, but using the target velocity to predict its position.
-    public class C6Exercise2 : Node2D
+    public class C6Exercise2 : Node2D, IExample
     {
       public string _Summary()
       {
-        return "Exercise 6.2:\nPursuit.";
+        return "Exercise 6.2:\nPursuit";
       }
 
       private SimpleMover targetMover;
@@ -22,7 +22,6 @@ namespace Examples
       private class Vehicle : SimpleMover
       {
         public SimpleMover Target;
-        public float FleeDistance = 200;
         public float MaxForce = 0.8f;
 
         public Vehicle(SimpleMover target)
