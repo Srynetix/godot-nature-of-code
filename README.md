@@ -4,7 +4,7 @@
 
 **Godot Engine website**: https://godotengine.org
 
-## Summary :page_facing_up:
+## :page_facing_up: Summary
 
 Each interactive example and interactive exercise will be implemented with **Godot Engine 3.2.3-rc3**, using **C#** for the scripting.
 
@@ -14,7 +14,7 @@ Almost everything is created from scripts.
 
 ![screen](./docs/screen.gif)
 
-## Try it online :joystick:
+## :joystick: Try it online
 
 You can access the HTML5 version on my `github.io` here: [Godot Nature of Code](https://srynetix.github.io/gamedev/godot-nature-of-code/index.html)  
 
@@ -23,18 +23,18 @@ You can access the HTML5 version on my `github.io` here: [Godot Nature of Code](
 - :joystick: Dynamic scene loader to explore examples and exercises
 - :art: Simple reusable primitives are available in the `scripts` folder
   - Examples: Canvas, Attractors, Zones, Springs, Particles, Waves, etc.
-- :gear:: The `Physics Libraries` chapter is using the Godot internal physics engine instead of `Box2D`
+- :gear: The `Physics Libraries` chapter is using the Godot internal physics engine instead of `Box2D`
 - :alembic: A simple custom Verlet physics implementation based on `toxiclibs` can be found in `scripts/verletphysics`
 - :zap: Drawing is often batched (using GLES2 batching) to ensure correct performance on mobile and web targets
 - :book: Most C# code is documented with Doxygen, you can use the included Doxyfile to generate documentation
 
-## Documentation :book:
+## :book: Documentation
 
 Documentation is generated with Doxygen from C# XML comments.  
 Use the included Doxyfile to generate HTML documentation in the `../gnoc-html` folder.  
 You can also access the generated C# documentation here: [C# Documentation](https://srynetix.github.io/gamedev/godot-nature-of-code/docs/annotated.html)
 
-## Roadmap :date:
+## :date: Roadmap
 
 - [ ] :joystick: Implement missing examples and exercises.
   - [x] 00. Introduction
@@ -50,10 +50,10 @@ You can also access the generated C# documentation here: [C# Documentation](http
   - [ ] 10. Neural networks
 - [ ] :bug: Implement the full Ecosystem project
 
-## Contributing :mage:
+## :mage: Contributing
 
 - :memo: File rules: It also uses an .editorconfig file.    
 - :pencil2: Formatting: This project use `dotnet-format` to automatically format the C# code, without specific configuration.
 - :dark_sunglasses: Lint: I am still looking for a command-line utility to lint the code (like `flake8` in the Python world or `clippy` in the Rust world).
 
-If you want to contribute, do not hesitate to create Pull Requests or file Issues on GitHub :github: :wink:. 
+If you want to contribute, do not hesitate to create Pull Requests or file Issues on GitHub :octocat: :wink:. 
