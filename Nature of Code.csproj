@@ -169,6 +169,7 @@
     <Compile Include="chapters\06-autonomous-agents\C6Example2.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Example3.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Example4.cs" />
+    <Compile Include="chapters\06-autonomous-agents\C6Example5.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise1.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise2.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise3.cs" />
@@ -184,6 +185,10 @@
     <Compile Include="launcher\BootScreen.cs" />
     <Compile Include="launcher\Launcher.cs" />
     <Compile Include="modules\VirtualControls.cs" />
+    <Compile Include="scripts\agents\ImageFlowField.cs" />
+    <Compile Include="scripts\agents\SimpleFlowField.cs" />
+    <Compile Include="scripts\agents\SimplePath.cs" />
+    <Compile Include="scripts\agents\SimpleVehicle.cs" />
     <Compile Include="scripts\assets\SimpleDefaultFont.cs" />
     <Compile Include="scripts\assets\SimpleDefaultMaterial.cs" />
     <Compile Include="scripts\assets\SimpleDefaultTexture.cs" />
@@ -195,14 +200,11 @@
     <Compile Include="scripts\drawing\SimpleTrail.cs" />
     <Compile Include="scripts\drawing\SimpleWalker.cs" />
     <Compile Include="scripts\forces\ConstantAccelerationMover.cs" />
-    <Compile Include="scripts\forces\ImageFlowField.cs" />
     <Compile Include="scripts\forces\SimpleAttractor.cs" />
-    <Compile Include="scripts\forces\SimpleFlowField.cs" />
     <Compile Include="scripts\forces\SimpleFrictionPocket.cs" />
     <Compile Include="scripts\forces\SimpleLiquid.cs" />
     <Compile Include="scripts\forces\SimpleMover.cs" />
     <Compile Include="scripts\forces\SimpleRepeller.cs" />
-    <Compile Include="scripts\forces\SimpleVehicle.cs" />
     <Compile Include="scripts\forces\SimpleZone.cs" />
     <Compile Include="scripts\oscillation\SimpleOscillator.cs" />
     <Compile Include="scripts\oscillation\SimplePendulum.cs" />

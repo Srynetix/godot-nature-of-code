@@ -1,7 +1,11 @@
 using Godot;
 using Drawing;
+using Forces;
 
-namespace Forces
+/// <summary>
+/// Autonomous agents related primitives.
+/// </summary>
+namespace Agents
 {
   /// <summary>
   /// Vehicle with force and steering.
@@ -13,6 +17,8 @@ namespace Forces
     public SimpleMover Target;
     /// <summary>Flow target</summary>
     public SimpleFlowField TargetFlow;
+    /// <summary>Path target</summary>
+    public SimplePath TargetPath;
     /// <summary>Max force</summary>
     public float MaxForce = 0.1f;
     /// <summary>Arrive distance. Use `-1` to disable.</summary>
@@ -78,6 +84,29 @@ namespace Forces
       ApplyForce(steer);
     }
 
+    /// <summary>
+    /// Drive and steer following a path.
+    /// </summary>
+    protected void FollowPath()
+    {
+      var predictFactor = 25;
+      var dirFactor = 10;
+
+      var predict = Velocity.Normalized() * predictFactor;
+      var predictPos = GlobalPosition + predict;
+      var a = TargetPath.Start;
+      var b = TargetPath.End;
+      var normalPoint = predictPos.GetNormalPoint(a, b);
+      var dir = (a - b).Normalized() * dirFactor;
+      var target = normalPoint + dir;
+
+      var dist = normalPoint.DistanceTo(predictPos);
+      if (dist > TargetPath.Radius)
+      {
+        Seek(target);
+      }
+    }
+
     protected override void UpdateAcceleration()
     {
       if (Target != null)
@@ -88,6 +117,11 @@ namespace Forces
       if (TargetFlow != null)
       {
         FollowFlow();
+      }
+
+      if (TargetPath != null)
+      {
+        FollowPath();
       }
     }
   }

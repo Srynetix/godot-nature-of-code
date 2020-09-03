@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Forces
+namespace Agents
 {
   /// <summary>
   /// Flow field based on a texture.

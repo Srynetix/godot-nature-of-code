@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Forces
+namespace Agents
 {
   /// <summary>
   /// Simple flow field.

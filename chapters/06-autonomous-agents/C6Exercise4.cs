@@ -1,5 +1,5 @@
 using Godot;
-using Forces;
+using Agents;
 
 namespace Examples
 {
