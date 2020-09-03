@@ -1,6 +1,7 @@
 using Godot;
 using Drawing;
 using Forces;
+using System.Collections.Generic;
 
 /// <summary>
 /// Autonomous agents related primitives.
@@ -34,6 +35,34 @@ namespace Agents
 
       SyncRotationOnVelocity = true;
       MaxVelocity = 4;
+    }
+
+    /// <summary>
+    /// Separate from other vehicles.
+    /// </summary>
+    /// <param name="vehicles">Other vehicles</param>
+    public void Separate(List<SimpleVehicle> vehicles)
+    {
+      float desiredSeparation = Radius * 4;
+      var sum = Vector2.Zero;
+      int count = 0;
+
+      foreach (var vehicle in vehicles)
+      {
+        float d = GlobalPosition.DistanceTo(vehicle.GlobalPosition);
+        if (d > 0 && d < desiredSeparation)
+        {
+          sum += (GlobalPosition - vehicle.GlobalPosition).Normalized() / d;
+          count++;
+        }
+      }
+
+      if (count > 0)
+      {
+        sum = (sum / count).Normalized() * MaxVelocity;
+        var steer = (sum - Velocity).Clamped(MaxForce);
+        ApplyForce(steer);
+      }
     }
 
     /// <summary>
