@@ -6,7 +6,7 @@
 
 ## :page_facing_up: Summary
 
-Each interactive example and interactive exercise will be implemented with **Godot Engine 3.2.3-rc3**, using **C#** for the scripting.
+Each interactive example and interactive exercise will be implemented with **Godot Engine 3.2.2 stable**, using **C#** for the scripting.
 
 The project contain a **launcher**, with a **scene explorer** to navigate examples and exercises, and the **ecosystem simulation** scene.
 
@@ -42,7 +42,7 @@ You can also access the generated C# documentation here: [C# Documentation](http
   - [x] 03. Oscillation
   - [x] 04. Particle systems
   - [x] 05. Physics libraries
-  - [ ] 06. Autonomous agents
+  - [-] 06. Autonomous agents
   - [ ] 07. Cellular automata
   - [ ] 08. Fractals
   - [ ] 09. The evolution of code
