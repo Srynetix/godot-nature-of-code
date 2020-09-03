@@ -176,6 +176,7 @@
     <Compile Include="chapters\06-autonomous-agents\C6Exercise6.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise7.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise8.cs" />
+    <Compile Include="chapters\06-autonomous-agents\C6Exercise9.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="chapters\SceneLoader.cs" />
