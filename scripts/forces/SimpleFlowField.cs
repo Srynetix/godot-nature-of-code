@@ -16,6 +16,8 @@ namespace Forces
     protected int rows;
     /// <summary>Flow field</summary>
     protected FlowDirection[] field;
+    /// <summary>Size</summary>
+    protected Vector2 size;
 
     /// <summary>
     /// Flow direction.
@@ -53,9 +55,17 @@ namespace Forces
     /// <returns>Direction vector</returns>
     public Vector2 Lookup(Vector2 position)
     {
-      int x = (int)Mathf.Clamp(position.x / Resolution, 0, cols - 1);
-      int y = (int)Mathf.Clamp(position.y / Resolution, 0, rows - 1);
-      return field[x + y * cols].Direction;
+      var rect = new Rect2(GlobalPosition, size);
+      if (rect.HasPoint(position))
+      {
+        int x = (int)Mathf.Clamp((position.x - GlobalPosition.x) / Resolution, 0, cols - 1);
+        int y = (int)Mathf.Clamp((position.y - GlobalPosition.y) / Resolution, 0, rows - 1);
+        return field[x + y * cols].Direction;
+      }
+      else
+      {
+        return Vector2.Zero;
+      }
     }
 
     /// <summary>
@@ -115,6 +125,7 @@ namespace Forces
     private void CreateFieldFromWindowSize(Vector2 screenSize)
     {
       var resolutionSize = new Vector2(Resolution, Resolution);
+      size = screenSize;
       cols = (int)(screenSize.x / Resolution);
       rows = (int)(screenSize.y / Resolution);
       field = new FlowDirection[cols * rows];

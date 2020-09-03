@@ -66,7 +66,14 @@ namespace Forces
     /// </summary>
     protected void FollowFlow()
     {
-      var target = TargetFlow.Lookup(GlobalPosition) * MaxVelocity;
+      var tgtDirection = TargetFlow.Lookup(GlobalPosition);
+      if (tgtDirection == Vector2.Zero)
+      {
+        // Ignore empty lookup
+        return;
+      }
+
+      var target = tgtDirection * MaxVelocity;
       var steer = (target - Velocity).Clamped(MaxForce);
       ApplyForce(steer);
     }

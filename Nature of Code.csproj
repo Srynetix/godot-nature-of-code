@@ -175,6 +175,7 @@
     <Compile Include="chapters\06-autonomous-agents\C6Exercise4.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise6.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise7.cs" />
+    <Compile Include="chapters\06-autonomous-agents\C6Exercise8.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="chapters\SceneLoader.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="scripts\drawing\SimpleTrail.cs" />
     <Compile Include="scripts\drawing\SimpleWalker.cs" />
     <Compile Include="scripts\forces\ConstantAccelerationMover.cs" />
+    <Compile Include="scripts\forces\ImageFlowField.cs" />
     <Compile Include="scripts\forces\SimpleAttractor.cs" />
     <Compile Include="scripts\forces\SimpleFlowField.cs" />
     <Compile Include="scripts\forces\SimpleFrictionPocket.cs" />
