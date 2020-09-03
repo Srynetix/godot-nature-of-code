@@ -89,21 +89,36 @@ namespace Agents
     /// </summary>
     protected void FollowPath()
     {
-      var predictFactor = 25;
-      var dirFactor = 10;
+      var predictFactor = 50;
+      var dirFactor = 25;
+      var minDist = float.MaxValue;
 
       var predict = Velocity.Normalized() * predictFactor;
       var predictPos = GlobalPosition + predict;
-      var a = TargetPath.Start;
-      var b = TargetPath.End;
-      var normalPoint = predictPos.GetNormalPoint(a, b);
-      var dir = (a - b).Normalized() * dirFactor;
-      var target = normalPoint + dir;
+      Vector2? target = null;
 
-      var dist = normalPoint.DistanceTo(predictPos);
-      if (dist > TargetPath.Radius)
+      for (int i = 0; i < TargetPath.Points.Count - 1; ++i)
       {
-        Seek(target);
+        var a = TargetPath.Points[i];
+        var b = TargetPath.Points[i + 1];
+        var normalPoint = predictPos.GetNormalPoint(a, b);
+        if (normalPoint.x < Mathf.Min(a.x, b.x) || normalPoint.x > Mathf.Max(b.x, a.x))
+        {
+          normalPoint = b;
+        }
+
+        var dir = (b - a).Normalized() * dirFactor;
+        var dist = normalPoint.DistanceTo(predictPos);
+        if (dist < minDist)
+        {
+          minDist = dist;
+          target = normalPoint;
+        }
+      }
+
+      if (target.HasValue)
+      {
+        Seek(target.Value);
       }
     }
 

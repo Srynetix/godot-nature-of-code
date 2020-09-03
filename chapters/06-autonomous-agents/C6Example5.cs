@@ -6,6 +6,7 @@ namespace Examples.Chapter6
   /// <summary>
   /// Example 6.5: Simple Path Following.
   /// </summary>
+  /// Uses SimplePath.
   public class C6Example5 : Node2D, IExample
   {
     public string _Summary()
@@ -18,13 +19,14 @@ namespace Examples.Chapter6
       var size = GetViewportRect().Size;
 
       var path = new SimplePath();
-      path.Start = new Vector2(0, size.y / 3);
-      path.Start = new Vector2(size.x, 2 * size.y / 3);
+      path.Points.Add(new Vector2(0, size.y / 3));
+      path.Points.Add(new Vector2(size.x, 2 * size.y / 3));
       AddChild(path);
 
       var vehicle = new SimpleVehicle();
       vehicle.TargetPath = path;
-      vehicle.Position = new Vector2(100, size.y / 4);
+      vehicle.Velocity = new Vector2(10, 0);
+      vehicle.Position = new Vector2(100, 100);
       AddChild(vehicle);
     }
   }
