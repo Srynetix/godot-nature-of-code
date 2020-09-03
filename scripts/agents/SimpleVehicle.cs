@@ -66,6 +66,34 @@ namespace Agents
     }
 
     /// <summary>
+    /// Regroup with other vehicles.
+    /// </summary>
+    /// <param name="vehicles">Other vehicles</param>
+    public void Regroup(List<SimpleVehicle> vehicles)
+    {
+      float separationLimit = Radius * 4;
+      var sum = Vector2.Zero;
+      int count = 0;
+
+      foreach (var vehicle in vehicles)
+      {
+        float d = GlobalPosition.DistanceTo(vehicle.GlobalPosition);
+        if (d > 0 && d > separationLimit)
+        {
+          sum += (GlobalPosition - vehicle.GlobalPosition).Normalized() / d;
+          count++;
+        }
+      }
+
+      if (count > 0)
+      {
+        sum = (sum / count).Normalized() * -MaxVelocity;
+        var steer = (sum - Velocity).Clamped(MaxForce);
+        ApplyForce(steer);
+      }
+    }
+
+    /// <summary>
     /// Drive and steer towards target.
     /// </summary>
     protected void SeekTarget()
