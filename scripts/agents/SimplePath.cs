@@ -18,6 +18,11 @@ namespace Agents
       Points = new List<Vector2>();
     }
 
+    public override void _Process(float delta)
+    {
+      Update();
+    }
+
     public override void _Draw()
     {
       if (Points.Count < 2)
