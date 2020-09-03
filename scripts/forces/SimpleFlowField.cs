@@ -32,10 +32,10 @@ namespace Forces
         float arrowOffset = 8;
         float arrowWidth = 4;
         float arrowEndLength = 8;
-        float arrowEndWidth = 8;
+        float arrowEndWidth = 4;
 
         DrawRect(new Rect2(arrowOffset / 2, RectSize.y / 2 - arrowWidth / 2, RectSize.x - arrowOffset, arrowWidth), Colors.Lavender.WithAlpha(32));
-        DrawRect(new Rect2(RectSize.x - arrowEndLength, RectSize.y / 2 - arrowEndWidth / 2, arrowEndLength / 2, arrowEndWidth), Colors.Lavender.WithAlpha(64));
+        DrawRect(new Rect2(RectSize.x - arrowEndLength, RectSize.y / 2 - arrowEndWidth / 2, arrowEndLength / 2, arrowEndWidth), Colors.White.WithAlpha(128));
       }
 
       public override void _Process(float delta)
@@ -68,6 +68,23 @@ namespace Forces
     protected virtual Vector2 ComputeDirectionFromPosition(int x, int y)
     {
       return Vector2.Right;
+    }
+
+    /// <summary>
+    /// Refresh flow directions.
+    /// </summary>
+    protected void RefreshDirections()
+    {
+      for (int j = 0; j < rows; ++j)
+      {
+        for (int i = 0; i < cols; ++i)
+        {
+          var idx = i + j * cols;
+          var direction = field[idx];
+          direction.Direction = ComputeDirectionFromPosition(i, j);
+          direction.RectRotation = Mathf.Rad2Deg(direction.Direction.Angle());
+        }
+      }
     }
 
     #region Lifecycle methods
