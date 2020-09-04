@@ -1,6 +1,6 @@
 using Godot;
 using Agents;
-using Physics;
+using Utils;
 using System.Collections.Generic;
 
 namespace Examples.Chapter6

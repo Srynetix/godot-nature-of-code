@@ -1,6 +1,6 @@
 using Godot;
 using Agents;
-using Physics;
+using Utils;
 using System.Collections.Generic;
 
 namespace Examples.Chapter6
@@ -17,21 +17,20 @@ namespace Examples.Chapter6
 
     private class PeripheralVisionBoid : SimpleBoid
     {
-      protected override Vector2 Align(List<SimpleVehicle> vehicles, float neighborRadius = 50)
+      protected override Vector2 Align(List<SimpleVehicle> vehicles)
       {
         var sum = Vector2.Zero;
         int count = 0;
 
         // Use an arbitrary target position on the radius circle
-        var detectedPos = GlobalPosition + new Vector2(neighborRadius, 0).Rotated(GlobalRotation);
+        var detectedPos = GlobalPosition + new Vector2(DetectionAlignmentRadius, 0).Rotated(GlobalRotation);
 
         foreach (var vehicle in vehicles)
         {
-          var d = GlobalPosition.DistanceTo(vehicle.GlobalPosition);
           var dp = detectedPos.DistanceTo(vehicle.GlobalPosition);
 
           // Compare the distance between the target position and the neighbor
-          if (d > 0 && d < neighborRadius && dp < neighborRadius)
+          if (dp > 0 && dp < DetectionAlignmentRadius / 2)
           {
             sum += vehicle.Velocity;
             count++;

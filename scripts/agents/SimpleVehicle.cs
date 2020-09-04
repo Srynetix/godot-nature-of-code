@@ -28,14 +28,18 @@ namespace Agents
     public float DetectionScanLength = 25;
     /// <summary>Detection target offset</summary>
     public float DetectionTargetOffset = 25;
-    /// <summary>Debug draw path</summary>
-    public bool DebugDrawPath = false;
+    /// <summary>Detection alignment radius</summary>
+    public float DetectionAlignmentRadius = 50;
+    /// <summary>Debug draw</summary>
+    public bool DebugDraw = false;
     /// <summary>Enable separation group behavior</summary>
     public bool SeparationEnabled = false;
     /// <summary>Enable cohesion group behavior</summary>
     public bool CohesionEnabled = false;
     /// <summary>Enable alignment group behavior</summary>
     public bool AlignmentEnabled = false;
+    /// <summary>Enable lateral move group behavior</summary>
+    public bool LateralMoveEnabled = false;
     /// <summary>Vehicle group list</summary>
     public List<SimpleVehicle> VehicleGroupList = null;
 
@@ -47,6 +51,8 @@ namespace Agents
     public float CohesionForceFactor = 1;
     /// <summary>Alignment force factor</summary>
     public float AlignmentForceFactor = 1;
+    /// <summary>Lateral move force factor</summary>
+    public float LateralMoveForceFactor = 1;
 
     private Vector2? debugPredictPos = null;
     private Vector2? debugNormalPoint = null;
@@ -246,18 +252,54 @@ namespace Agents
     /// Align with other vehicles.
     /// </summary>
     /// <param name="vehicles">Other vehicles</param>
-    /// <param name="neighborRadius">Neighbor radius</param>
     /// <returns>Steer force</returns>
-    protected virtual Vector2 Align(List<SimpleVehicle> vehicles, float neighborRadius = 50)
+    protected virtual Vector2 Align(List<SimpleVehicle> vehicles)
     {
       var sum = Vector2.Zero;
       int count = 0;
       foreach (var vehicle in vehicles)
       {
         var d = GlobalPosition.DistanceTo(vehicle.GlobalPosition);
-        if (d > 0 && d < neighborRadius)
+        if (d > 0 && d < DetectionAlignmentRadius)
         {
           sum += vehicle.Velocity;
+          count++;
+        }
+      }
+
+      if (count > 0)
+      {
+        sum = (sum / count).Normalized() * MaxVelocity;
+        return (sum - Velocity).Clamped(MaxForce);
+      }
+      else
+      {
+        return Vector2.Zero;
+      }
+    }
+
+    /// <summary>
+    /// Move laterally from other vehicles.
+    /// </summary>
+    /// <param name="vehicles">Other vehicles</param>
+    /// <returns>Steer force</returns>
+    protected virtual Vector2 MoveLaterally(List<SimpleVehicle> vehicles)
+    {
+      var sum = Vector2.Zero;
+      int count = 0;
+
+      // Use an arbitrary target position on the radius circle
+      var detectedPos = GlobalPosition + new Vector2(DetectionAlignmentRadius, 0).Rotated(GlobalRotation);
+
+      foreach (var vehicle in vehicles)
+      {
+        var dp = detectedPos.DistanceTo(vehicle.GlobalPosition);
+
+        // Compare the distance between the target position and the neighbor
+        if (dp > 0 && dp < DetectionAlignmentRadius / 2)
+        {
+          var diff = vehicle.GlobalPosition - GlobalPosition;
+          sum += diff.Rotated(Mathf.Pi / 2);
           count++;
         }
       }
@@ -292,19 +334,27 @@ namespace Agents
         forces += FollowPath() * SeekForceFactor;
       }
 
-      if (SeparationEnabled && VehicleGroupList.Count > 0)
+      if (VehicleGroupList != null && VehicleGroupList.Count > 0)
       {
-        forces += Separate(VehicleGroupList) * SeparationForceFactor;
-      }
+        if (SeparationEnabled)
+        {
+          forces += Separate(VehicleGroupList) * SeparationForceFactor;
+        }
 
-      if (AlignmentEnabled && VehicleGroupList.Count > 0)
-      {
-        forces += Align(VehicleGroupList) * AlignmentForceFactor;
-      }
+        if (AlignmentEnabled)
+        {
+          forces += Align(VehicleGroupList) * AlignmentForceFactor;
+        }
 
-      if (CohesionEnabled && VehicleGroupList.Count > 0)
-      {
-        forces += Regroup(VehicleGroupList) * CohesionForceFactor;
+        if (CohesionEnabled)
+        {
+          forces += Regroup(VehicleGroupList) * CohesionForceFactor;
+        }
+
+        if (LateralMoveEnabled)
+        {
+          forces += MoveLaterally(VehicleGroupList) * LateralMoveForceFactor;
+        }
       }
 
       ApplyForce(forces);
@@ -312,7 +362,7 @@ namespace Agents
 
     public override void _Draw()
     {
-      if (DebugDrawPath && TargetPath != null)
+      if (DebugDraw && TargetPath != null)
       {
         if (debugNormalPoint.HasValue && debugPredictPos.HasValue && debugTargetPoint.HasValue)
         {
@@ -325,6 +375,11 @@ namespace Agents
           DrawLine(normalPos, targetPos, Colors.Orange);
           DrawCircle(targetPos, 5, Colors.OrangeRed);
         }
+      }
+
+      if (DebugDraw && (AlignmentEnabled || LateralMoveEnabled))
+      {
+        DrawCircle(Vector2.Zero, DetectionAlignmentRadius, Colors.Azure.WithAlpha(64));
       }
     }
   }

@@ -1,4 +1,5 @@
 using Godot;
+using Utils;
 
 namespace Examples
 {
@@ -76,7 +77,7 @@ namespace Examples
         attractor.Position = size / 2;
         AddChild(attractor);
 
-        var spawner = new Physics.SimpleTouchSpawner();
+        var spawner = new SimpleTouchSpawner();
         spawner.SpawnFunction = (position) =>
         {
           var body = new Physics.SimpleBall();

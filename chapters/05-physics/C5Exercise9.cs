@@ -1,4 +1,5 @@
 using Godot;
+using Utils;
 
 namespace Examples
 {
@@ -84,7 +85,7 @@ namespace Examples
         d.Position = size / 2 - new Vector2(d.Length / 2, 0);
         AddChild(d);
 
-        var spawner = new Physics.SimpleTouchSpawner();
+        var spawner = new SimpleTouchSpawner();
         spawner.SpawnFunction = (position) =>
         {
           var box = new PerlinKinematicBox();

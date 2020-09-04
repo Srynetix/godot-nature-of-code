@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using Drawing;
+using Utils;
 
 namespace Examples
 {
@@ -182,7 +183,7 @@ namespace Examples
         chain.EndPosition = new Vector2(size.x - offset, size.y / 2);
         AddChild(chain);
 
-        var spawner = new Physics.SimpleTouchSpawner();
+        var spawner = new SimpleTouchSpawner();
         spawner.SpawnFunction = (position) =>
         {
           var ball = new Physics.SimpleBall();

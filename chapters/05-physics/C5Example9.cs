@@ -1,4 +1,5 @@
 using Godot;
+using Utils;
 
 namespace Examples
 {
@@ -67,7 +68,7 @@ namespace Examples
         floor.Position = new Vector2(size.x / 2, size.y);
         AddChild(floor);
 
-        var spawner = new Physics.SimpleTouchSpawner();
+        var spawner = new SimpleTouchSpawner();
         spawner.SpawnFunction = (position) =>
         {
           var ball = new CollisionBall();

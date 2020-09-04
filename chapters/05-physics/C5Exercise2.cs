@@ -1,4 +1,5 @@
 using Godot;
+using Utils;
 
 namespace Examples
 {
@@ -32,7 +33,7 @@ namespace Examples
       {
         var size = GetViewportRect().Size;
 
-        var spawner = new Physics.SimpleTouchSpawner();
+        var spawner = new SimpleTouchSpawner();
         spawner.SpawnFunction = (position) =>
         {
           var box = new AntigravityBox();

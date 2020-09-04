@@ -1,4 +1,5 @@
 using Godot;
+using Utils;
 
 namespace Examples
 {
@@ -71,7 +72,7 @@ namespace Examples
         wall.Position = new Vector2(size.x / 2, size.y);
         AddChild(wall);
 
-        var spawner = new Physics.SimpleTouchSpawner();
+        var spawner = new SimpleTouchSpawner();
         spawner.SpawnFunction = (position) =>
         {
           var chance = MathUtils.RandRangef(0, 3);

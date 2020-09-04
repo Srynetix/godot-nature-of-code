@@ -1,4 +1,5 @@
 using Godot;
+using Utils;
 
 namespace Examples
 {
@@ -36,7 +37,7 @@ namespace Examples
         var wall = new CurveWall();
         AddChild(wall);
 
-        var spawner = new Physics.SimpleTouchSpawner();
+        var spawner = new SimpleTouchSpawner();
         spawner.SpawnFunction = (position) =>
         {
           var ball = new Physics.SimpleBall();

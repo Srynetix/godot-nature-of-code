@@ -181,6 +181,8 @@
     <Compile Include="chapters\06-autonomous-agents\C6Exercise14.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise15.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise16.cs" />
+    <Compile Include="chapters\06-autonomous-agents\C6Exercise17.cs" />
+    <Compile Include="chapters\06-autonomous-agents\C6Exercise18.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise2.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise3.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise4.cs" />
@@ -230,10 +232,10 @@
     <Compile Include="scripts\physics\SimpleMouseJoint.cs" />
     <Compile Include="scripts\physics\SimplePolygon.cs" />
     <Compile Include="scripts\physics\SimpleStaticChain.cs" />
-    <Compile Include="scripts\physics\SimpleTouchSpawner.cs" />
     <Compile Include="scripts\physics\SimpleWall.cs" />
     <Compile Include="scripts\utils\ColorExtensions.cs" />
     <Compile Include="scripts\utils\MathUtils.cs" />
+    <Compile Include="scripts\utils\SimpleTouchSpawner.cs" />
     <Compile Include="scripts\utils\SyntaxHighlighter.cs" />
     <Compile Include="scripts\utils\VectorExtensions.cs" />
     <Compile Include="scripts\verletphysics\AttractionBehavior.cs" />

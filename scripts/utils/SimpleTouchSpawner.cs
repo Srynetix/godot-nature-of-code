@@ -1,6 +1,9 @@
 using Godot;
 
-namespace Physics
+/// <summary>
+/// Utilities.
+/// </summary>
+namespace Utils
 {
   /// <summary>
   /// Touch spawner.

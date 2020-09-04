@@ -1,7 +1,7 @@
 using Godot;
 using Agents;
 using Forces;
-using Physics;
+using Utils;
 using System.Collections.Generic;
 
 namespace Examples.Chapter6

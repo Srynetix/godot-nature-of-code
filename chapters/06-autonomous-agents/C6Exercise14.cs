@@ -1,6 +1,6 @@
 using Godot;
 using Agents;
-using Physics;
+using Utils;
 using System.Collections.Generic;
 
 namespace Examples.Chapter6
@@ -12,7 +12,7 @@ namespace Examples.Chapter6
   {
     public string _Summary()
     {
-      return "Exercise 6.14:\nVehicle Force Factors";
+      return "Exercise 6.14:\nVehicle Force Factors\n\nTouch screen to spawn vehicles";
     }
 
     private int vehicleCount = 50;
