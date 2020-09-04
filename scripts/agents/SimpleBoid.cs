@@ -23,7 +23,6 @@ namespace Agents
       CohesionForceFactor = 1f;
       MaxForce = 0.1f;
 
-      WrapMode = WrapModeEnum.Bounce;
       Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
       Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.RightArrow);
       Mesh.Modulate = Colors.White;
