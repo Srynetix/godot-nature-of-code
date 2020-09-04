@@ -18,6 +18,14 @@ namespace Physics
     public Node Container = null;
 
     /// <summary>
+    /// Create a simple touch spawner.
+    /// </summary>
+    public SimpleTouchSpawner()
+    {
+      Name = "SimpleTouchSpawner";
+    }
+
+    /// <summary>
     /// Spawn body at position.
     /// </summary>
     /// <param name="position">Target position</param>

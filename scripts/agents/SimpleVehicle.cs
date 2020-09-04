@@ -34,6 +34,8 @@ namespace Agents
     public bool SeparationEnabled = false;
     /// <summary>Enable cohesion group behavior</summary>
     public bool CohesionEnabled = false;
+    /// <summary>Enable alignment group behavior</summary>
+    public bool AlignmentEnabled = false;
     /// <summary>Vehicle group list</summary>
     public List<SimpleVehicle> VehicleGroupList = null;
 
@@ -43,6 +45,8 @@ namespace Agents
     public float SeparationForceFactor = 1;
     /// <summary>Cohesion force factor</summary>
     public float CohesionForceFactor = 1;
+    /// <summary>Alignment force factor</summary>
+    public float AlignmentForceFactor = 1;
 
     private Vector2? debugPredictPos = null;
     private Vector2? debugNormalPoint = null;
@@ -59,6 +63,11 @@ namespace Agents
       SyncRotationOnVelocity = true;
       MaxVelocity = 4;
       MaxForce = 0.4f;
+
+      Name = "SimpleVehicle";
+
+      // Disable physics logic
+      collisionShape2D.Disabled = true;
     }
 
     /// <summary>
@@ -233,6 +242,37 @@ namespace Agents
       }
     }
 
+    /// <summary>
+    /// Align with other vehicles.
+    /// </summary>
+    /// <param name="vehicles">Other vehicles</param>
+    /// <param name="neighborRadius">Neighbor radius</param>
+    /// <returns>Steer force</returns>
+    protected virtual Vector2 Align(List<SimpleVehicle> vehicles, float neighborRadius = 50)
+    {
+      var sum = Vector2.Zero;
+      int count = 0;
+      foreach (var vehicle in vehicles)
+      {
+        var d = GlobalPosition.DistanceTo(vehicle.GlobalPosition);
+        if (d > 0 && d < neighborRadius)
+        {
+          sum += vehicle.Velocity;
+          count++;
+        }
+      }
+
+      if (count > 0)
+      {
+        sum = (sum / count).Normalized() * MaxVelocity;
+        return (sum - Velocity).Clamped(MaxForce);
+      }
+      else
+      {
+        return Vector2.Zero;
+      }
+    }
+
     protected override void UpdateAcceleration()
     {
       var forces = Vector2.Zero;
@@ -257,7 +297,12 @@ namespace Agents
         forces += Separate(VehicleGroupList) * SeparationForceFactor;
       }
 
-      else if (CohesionEnabled && VehicleGroupList.Count > 0)
+      if (AlignmentEnabled && VehicleGroupList.Count > 0)
+      {
+        forces += Align(VehicleGroupList) * AlignmentForceFactor;
+      }
+
+      if (CohesionEnabled && VehicleGroupList.Count > 0)
       {
         forces += Regroup(VehicleGroupList) * CohesionForceFactor;
       }
@@ -267,8 +312,6 @@ namespace Agents
 
     public override void _Draw()
     {
-      base._Draw();
-
       if (DebugDrawPath && TargetPath != null)
       {
         if (debugNormalPoint.HasValue && debugPredictPos.HasValue && debugTargetPoint.HasValue)

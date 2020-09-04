@@ -74,6 +74,8 @@ namespace Forces
       }
     }
 
+    protected CollisionShape2D collisionShape2D;
+
     /// <summary>
     /// Create a simple wrapping mover with a circle mesh.
     /// </summary>
@@ -81,6 +83,10 @@ namespace Forces
     {
       WrapMode = wrapMode;
       Mesh = new SimpleMesh();
+      Name = "SimpleMover";
+
+      collisionShape2D = new CollisionShape2D();
+      collisionShape2D.Name = "CollisionShape2D";
     }
 
     /// <summary>
@@ -152,11 +158,10 @@ namespace Forces
       AddToGroup("movers");
 
       // Add collision shape
-      var collisionShape = new CollisionShape2D();
       var shape = new CircleShape2D();
       shape.Radius = Radius;
-      collisionShape.Shape = shape;
-      AddChild(collisionShape);
+      collisionShape2D.Shape = shape;
+      AddChild(collisionShape2D);
 
       // Add mesh
       AddChild(Mesh);

@@ -173,11 +173,13 @@
     <Compile Include="chapters\06-autonomous-agents\C6Example6.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Example7.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Example8.cs" />
+    <Compile Include="chapters\06-autonomous-agents\C6Example9.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise1.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise11.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise12.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise13.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise14.cs" />
+    <Compile Include="chapters\06-autonomous-agents\C6Exercise15.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise2.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise3.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise4.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="modules\VirtualControls.cs" />
     <Compile Include="scripts\agents\ImageFlowField.cs" />
     <Compile Include="scripts\agents\RoundVehicle.cs" />
+    <Compile Include="scripts\agents\SimpleBoid.cs" />
     <Compile Include="scripts\agents\SimpleFlowField.cs" />
     <Compile Include="scripts\agents\SimplePath.cs" />
     <Compile Include="scripts\agents\SimpleVehicle.cs" />

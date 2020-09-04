@@ -22,6 +22,8 @@ namespace Assets
       WhiteDotOutlineOnly,
       /// <summary>Default white blurry circle with alpha background.</summary>
       WhiteDotBlur,
+      /// <summary>Right arrow with alpha background</summary>
+      RightArrow,
       /// <summary>Default vertical line texture.</summary>
       Line
     }
@@ -31,6 +33,7 @@ namespace Assets
     private static Texture WhiteDotAlphaWithOutlineTexture;
     private static Texture WhiteDotOutlineOnlyTexture;
     private static Texture WhiteDotBlurTexture;
+    private static Texture RightArrowTexture;
     private static Texture LineTexture;
 
     /// <summary>
@@ -67,6 +70,11 @@ namespace Assets
         return WhiteDotAlphaTexture;
       }
 
+      else if (value == Enum.RightArrow)
+      {
+        return RightArrowTexture;
+      }
+
       else if (value == Enum.Line)
       {
         return LineTexture;
@@ -100,6 +108,11 @@ namespace Assets
       if (WhiteDotAlphaWithOutlineTexture == null)
       {
         WhiteDotAlphaWithOutlineTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha-with-outline.png");
+      }
+
+      if (RightArrowTexture == null)
+      {
+        RightArrowTexture = (Texture)GD.Load("res://assets/textures/arrow-right.png");
       }
 
       if (LineTexture == null)

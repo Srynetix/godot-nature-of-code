@@ -33,10 +33,9 @@ namespace Drawing
     public CustomDrawFunc CustomDrawMethod = null;
     /// <summary>Custom texture</summary>
     public Texture CustomTexture = null;
-    /// <summary>Custom texture blend mode</summary>
-    public CanvasItemMaterial.BlendModeEnum CustomTextureBlendMode = CanvasItemMaterial.BlendModeEnum.Mix;
+    /// <summary>Custom material</summary>
+    public Material CustomMaterial = null;
 
-    private CanvasItemMaterial material;
     private Sprite sprite;
     private SimpleCircleSprite circleSprite;
 
@@ -46,20 +45,20 @@ namespace Drawing
     public SimpleMesh()
     {
       Modulate = Colors.LightCyan;
+      Name = "SimpleMesh";
     }
 
     public override void _Ready()
     {
-      material = new CanvasItemMaterial();
-      material.BlendMode = CustomTextureBlendMode;
-
       sprite = new Sprite();
-      sprite.Material = material;
+      sprite.Name = "CustomSprite";
+      sprite.Material = CustomMaterial;
       sprite.Modulate = Modulate;
       sprite.Visible = false;
       AddChild(sprite);
 
       circleSprite = new SimpleCircleSprite();
+      circleSprite.Name = "CircleSprite";
       circleSprite.Modulate = Modulate;
       circleSprite.Visible = false;
       AddChild(circleSprite);

@@ -31,7 +31,7 @@ namespace Examples
           particle.MeshSize = new Vector2(150, 150);
           particle.Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
           particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotBlur);
-          particle.Mesh.CustomTextureBlendMode = CanvasItemMaterial.BlendModeEnum.Add;
+          particle.Mesh.CustomMaterial = SimpleDefaultMaterial.FromEnum(SimpleDefaultMaterial.Enum.Add);
           particle.Mesh.Modulate = Colors.Firebrick;
           particle.ForceRangeX = new Vector2(-0.25f, 0.25f);
           particle.ForceRangeY = new Vector2(0, -0.15f);
