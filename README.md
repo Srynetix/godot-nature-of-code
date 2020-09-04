@@ -54,4 +54,4 @@ You can also access the generated C# documentation here: [C# Documentation](http
 - *Formatting*: This project use `dotnet-format` to automatically format the C# code, without specific configuration.
 - *Lint*: I am still looking for a command-line utility to lint the code (like `flake8` in the Python world or `clippy` in the Rust world).
 
-If you want to contribute, do not hesitate to create Pull Requests or file Issues on GitHub :octocat: :wink:. 
+If you want to contribute, do not hesitate to create Pull Requests or file Issues on GitHub :wink:. 
