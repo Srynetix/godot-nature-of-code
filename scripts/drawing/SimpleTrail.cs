@@ -22,8 +22,6 @@ namespace Drawing
       Width = 2.5f;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       // Gradient
@@ -44,7 +42,5 @@ namespace Drawing
         RemovePoint(0);
       }
     }
-
-    #endregion
   }
 }

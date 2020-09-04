@@ -129,8 +129,6 @@ namespace VerletPhysics
       behaviors.Remove(behavior);
     }
 
-    #region Lifecycle methods
-
     public override void _PhysicsProcess(float delta)
     {
       ProcessPoints(delta);
@@ -141,10 +139,6 @@ namespace VerletPhysics
       }
       linksToRemove.Clear();
     }
-
-    #endregion
-
-    #region Private methods
 
     private void RemoveLink(VerletLink link)
     {
@@ -184,7 +178,5 @@ namespace VerletPhysics
         point.UpdateMovement(delta);
       }
     }
-
-    #endregion
   }
 }

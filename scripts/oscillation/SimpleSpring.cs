@@ -54,8 +54,6 @@ namespace Oscillation
       currentMover.Position = initialPosition;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       lineSprite.PositionA = GlobalPosition;
@@ -118,10 +116,6 @@ namespace Oscillation
       }
     }
 
-    #endregion
-
-    #region Private methods
-
     private Vector2 ComputeForce(SimpleMover mover)
     {
       if (touched)
@@ -158,7 +152,5 @@ namespace Oscillation
         currentMover.Velocity = Vector2.Zero;
       }
     }
-
-    #endregion
   }
 }

@@ -27,8 +27,6 @@ namespace Agents
       ///<summary>Direction vector</summary>
       public Vector2 Direction = Vector2.Right;
 
-      #region Lifecycle methods
-
       public override void _Draw()
       {
         float arrowOffset = 8;
@@ -44,8 +42,6 @@ namespace Agents
       {
         Update();
       }
-
-      #endregion
     }
 
     /// <summary>
@@ -97,8 +93,6 @@ namespace Agents
       }
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       CreateFieldFromWindowSize(GetViewportRect().Size);
@@ -117,10 +111,6 @@ namespace Agents
         }
       }
     }
-
-    #endregion
-
-    #region Private methods
 
     private void CreateFieldFromWindowSize(Vector2 screenSize)
     {
@@ -146,7 +136,5 @@ namespace Agents
         }
       }
     }
-
-    #endregion
   }
 }

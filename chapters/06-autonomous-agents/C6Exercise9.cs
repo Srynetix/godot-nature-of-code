@@ -21,8 +21,6 @@ namespace Examples.Chapter6
     private Font defaultFont;
     private float theta;
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       theta = 0;
@@ -60,7 +58,5 @@ namespace Examples.Chapter6
       DrawString(defaultFont, new Vector2(100, size.y / 2), degText);
       DrawString(defaultFont, new Vector2(100, size.y / 2 + 16), radText);
     }
-
-    #endregion
   }
 }

@@ -88,14 +88,10 @@ namespace VerletPhysics
       PositionB = B.GlobalPosition;
     }
 
-    #region Lifecycle methods
-
     public override void _Process(float delta)
     {
       PositionA = A.GlobalPosition;
       PositionB = B.GlobalPosition;
     }
-
-    #endregion
   }
 }

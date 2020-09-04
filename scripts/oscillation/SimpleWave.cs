@@ -53,8 +53,6 @@ namespace Oscillation
       return MathUtils.Map(Mathf.Sin(angle), -1, 1, -Amplitude, Amplitude);
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       float angle = StartAngle;
@@ -78,10 +76,6 @@ namespace Oscillation
       UpdatePositions();
     }
 
-    #endregion
-
-    #region Private methods
-
     private void UpdatePositions()
     {
       float angle = StartAngle;
@@ -91,7 +85,5 @@ namespace Oscillation
         angle += AngularVelocity;
       }
     }
-
-    #endregion
   }
 }

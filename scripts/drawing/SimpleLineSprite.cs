@@ -60,17 +60,11 @@ namespace Drawing
       Modulate = Colors.LightGray;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.Line);
       UpdateTransform();
     }
-
-    #endregion
-
-    #region Private methods
 
     private void UpdateTransform()
     {
@@ -85,7 +79,5 @@ namespace Drawing
       // Fix position
       GlobalPosition = positionA + dir / 2;
     }
-
-    #endregion
   }
 }

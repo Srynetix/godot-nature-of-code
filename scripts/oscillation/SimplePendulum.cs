@@ -52,8 +52,6 @@ namespace Oscillation
       children.AddChild(pendulum);
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       AddChild(lineSprite);
@@ -125,15 +123,9 @@ namespace Oscillation
       }
     }
 
-    #endregion
-
-    #region Private methods
-
     private Vector2 GetBallPosition()
     {
       return new Vector2(RopeLength * Mathf.Sin(Angle), RopeLength * Mathf.Cos(Angle));
     }
-
-    #endregion
   }
 }

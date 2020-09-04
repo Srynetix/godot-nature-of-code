@@ -195,16 +195,10 @@ public class SceneLoader : Node
     return -1;
   }
 
-  #region Lifecycle methods
-
   public override void _Ready()
   {
     ScanScenes();
   }
-
-  #endregion
-
-  #region Private methods
 
   private void ScanScenes()
   {
@@ -345,6 +339,4 @@ public class SceneLoader : Node
     }
     return secondLine;
   }
-
-  #endregion
 }

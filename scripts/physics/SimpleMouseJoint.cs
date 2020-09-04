@@ -31,8 +31,6 @@ namespace Physics
       return GetViewport().GetMousePosition();
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       parent = (RigidBody2D)GetParent();
@@ -72,7 +70,5 @@ namespace Physics
         DrawLine(Vector2.Zero, (ComputeTargetPosition() - parent.GlobalPosition).Rotated(-parent.GlobalRotation), Colors.Gray, 2);
       }
     }
-
-    #endregion
   }
 }

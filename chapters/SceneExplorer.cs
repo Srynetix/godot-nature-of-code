@@ -23,8 +23,6 @@ public class SceneExplorer : Control
   private Label LoadingLabel;
   private SceneLoader sceneLoader;
 
-  #region Lifecycle methods
-
   async public override void _Ready()
   {
     CurrentSceneContainer = GetNode<Control>("CurrentScene");
@@ -70,10 +68,6 @@ public class SceneExplorer : Control
     await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
     AddChild(sceneLoader);
   }
-
-  #endregion
-
-  #region Private methods
 
   private void _OnScenesLoaded()
   {
@@ -243,6 +237,4 @@ public class SceneExplorer : Control
       SummaryLabel.Visible = true;
     }
   }
-
-  #endregion
 }

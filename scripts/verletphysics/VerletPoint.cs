@@ -139,8 +139,6 @@ namespace VerletPhysics
       pinned = false;
     }
 
-    #region Lifecycle methods
-
     public override void _UnhandledInput(InputEvent @event)
     {
       if (@event is InputEventScreenTouch eventScreenTouch)
@@ -171,10 +169,6 @@ namespace VerletPhysics
         }
       }
     }
-
-    #endregion
-
-    #region Private methods
 
     private void FixVelocity(Vector2 velocity)
     {
@@ -227,7 +221,5 @@ namespace VerletPhysics
         FixVelocity(velocity);
       }
     }
-
-    #endregion
   }
 }

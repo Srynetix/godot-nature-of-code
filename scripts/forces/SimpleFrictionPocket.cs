@@ -10,8 +10,6 @@ namespace Forces
     /// <summary>Friction coefficient</summary>
     public float Coeff = 0;
 
-    #region Lifecycle methods
-
     public override void _Draw()
     {
       Color color;
@@ -39,7 +37,5 @@ namespace Forces
         mover.ApplyFriction(Coeff);
       }
     }
-
-    #endregion
   }
 }

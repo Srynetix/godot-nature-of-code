@@ -44,8 +44,6 @@ namespace Particles
       return (byte)Mathf.Clamp(((Lifespan / initialLifespan) * 255), 0, 255);
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -69,7 +67,5 @@ namespace Particles
         Mesh.Modulate = Mesh.Modulate.WithAlpha(alpha);
       }
     }
-
-    #endregion
   }
 }

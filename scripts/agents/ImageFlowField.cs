@@ -63,8 +63,6 @@ namespace Agents
       return ColorToDirection(color);
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       if (SourceTexture != null)
@@ -91,7 +89,5 @@ namespace Agents
         base._Draw();
       }
     }
-
-    #endregion
   }
 }

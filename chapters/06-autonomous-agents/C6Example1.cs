@@ -22,8 +22,6 @@ namespace Examples
 
       private SimpleMover targetMover;
 
-      #region Lifecycle methods
-
       public override void _Ready()
       {
         var size = GetViewportRect().Size;
@@ -45,8 +43,6 @@ namespace Examples
       {
         targetMover.GlobalPosition = GetViewport().GetMousePosition();
       }
-
-      #endregion
     }
   }
 }

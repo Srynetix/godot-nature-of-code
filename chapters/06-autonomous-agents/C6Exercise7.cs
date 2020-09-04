@@ -39,8 +39,6 @@ namespace Examples.Chapter6
       }
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
@@ -54,7 +52,5 @@ namespace Examples.Chapter6
       vehicle.Position = size / 2;
       AddChild(vehicle);
     }
-
-    #endregion
   }
 }

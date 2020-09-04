@@ -71,8 +71,6 @@ namespace Oscillation
       lineSprite.Modulate = Colors.LightGray;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       AddChild(lineSprite);
@@ -93,7 +91,5 @@ namespace Oscillation
       lineSprite.PositionB = GlobalPosition + target;
       circleSprite.Position = target;
     }
-
-    #endregion
   }
 }

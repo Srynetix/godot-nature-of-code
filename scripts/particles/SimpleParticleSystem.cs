@@ -41,8 +41,6 @@ namespace Particles
       Drawing = false;
     }
 
-    #region Lifecycle methods
-
     public override void _Process(float delta)
     {
       base._Process(delta);
@@ -74,10 +72,6 @@ namespace Particles
 
       UpdateParticles();
     }
-
-    #endregion
-
-    #region Private lifecycle
 
     private void AddParticle(SimpleParticle particle)
     {
@@ -112,7 +106,5 @@ namespace Particles
 
       particles = newParticles;
     }
-
-    #endregion
   }
 }

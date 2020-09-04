@@ -31,8 +31,6 @@ namespace Physics
       collisionShape2D.Shape = rectangleShape2D;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       AddChild(collisionShape2D);
@@ -47,7 +45,5 @@ namespace Physics
     {
       Update();
     }
-
-    #endregion
   }
 }

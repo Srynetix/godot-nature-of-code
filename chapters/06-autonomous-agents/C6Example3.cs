@@ -75,8 +75,6 @@ namespace Examples
         }
       }
 
-      #region Lifecycle methods
-
       public override void _Ready()
       {
         var size = GetViewportRect().Size;
@@ -91,8 +89,6 @@ namespace Examples
         var size = GetViewportRect().Size;
         DrawRect(new Rect2(new Vector2(ScreenOffset, ScreenOffset), size.x - ScreenOffset * 2, size.y - ScreenOffset * 2), Colors.White.WithAlpha(8));
       }
-
-      #endregion
     }
   }
 }

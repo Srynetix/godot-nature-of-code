@@ -48,8 +48,6 @@ namespace Drawing
       image.Unlock();
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       sprite = new Sprite();
@@ -74,7 +72,5 @@ namespace Drawing
       sprite.Scale = new Vector2(Factor, Factor);
       AddChild(sprite);
     }
-
-    #endregion
   }
 }

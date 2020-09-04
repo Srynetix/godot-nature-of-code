@@ -147,8 +147,6 @@ namespace Forces
     /// </summary>
     protected virtual void UpdateAcceleration() { }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       AddToGroup("movers");
@@ -180,10 +178,6 @@ namespace Forces
 
       Update();
     }
-
-    #endregion
-
-    #region Private methods
 
     private void ApplyMovement()
     {
@@ -260,7 +254,5 @@ namespace Forces
 
       GlobalPosition = newPos;
     }
-
-    #endregion
   }
 }

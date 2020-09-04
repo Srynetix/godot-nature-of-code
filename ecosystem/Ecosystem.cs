@@ -31,8 +31,6 @@ public class Ecosystem : Control
       Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -47,10 +45,6 @@ public class Ecosystem : Control
       }
     }
 
-    #endregion
-
-    #region Private methods
-
     private void _DebugDraw()
     {
       DrawCircle(Vector2.Zero, 1f, Colors.Red);
@@ -61,8 +55,6 @@ public class Ecosystem : Control
     {
       Rotation = MathUtils.Map((float)GD.RandRange(0, 1), 0, 1, 0, 2 * Mathf.Pi);
     }
-
-    #endregion
   }
 
   /// <summary>
@@ -105,8 +97,6 @@ public class Ecosystem : Control
       sRightWing = new SimpleCircleSprite();
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -136,8 +126,6 @@ public class Ecosystem : Control
       sLeftWing.Position = leftWingPos;
       sRightWing.Position = rightWingPos;
     }
-
-    #endregion
   }
 
   /// <summary>
@@ -159,8 +147,6 @@ public class Ecosystem : Control
       AngularAcceleration = MathUtils.SignedRandf() * AngularAccelerationFactor;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -169,8 +155,6 @@ public class Ecosystem : Control
       attractor.Visible = false;
       AddChild(attractor);
     }
-
-    #endregion
   }
 
   /// <summary>
@@ -198,8 +182,6 @@ public class Ecosystem : Control
       ) * AccelerationFactor;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -222,8 +204,6 @@ public class Ecosystem : Control
 
       AddChild(particleSystem);
     }
-
-    #endregion
   }
 
   /// <summary>
@@ -264,8 +244,6 @@ public class Ecosystem : Control
       ) * AccelerationFactor;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -278,8 +256,6 @@ public class Ecosystem : Control
       oscillatingRightWing.Position = Vector2.Right * (Radius + 1);
       AddChild(oscillatingRightWing);
     }
-
-    #endregion
   }
 
   /// <summary>
@@ -356,8 +332,6 @@ public class Ecosystem : Control
       Acceleration = forward + offset;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -395,8 +369,6 @@ public class Ecosystem : Control
       leftWing.Position = Vector2.Right * (10 + tailAngle) + Vector2.Up * 5;
       rightWing.Position = Vector2.Right * (10 + tailAngle) + Vector2.Down * 5;
     }
-
-    #endregion
   }
 
   /// <summary>
@@ -534,8 +506,6 @@ public class Ecosystem : Control
       Acceleration.x = AccelerationFactor * Mathf.Sign(Scale.x);
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -619,8 +589,6 @@ public class Ecosystem : Control
       rightEar4.Position = (Vector2.Right * 5f + Vector2.Up * 20).Rotated(earAngle);
       rightEar5.Position = (Vector2.Right * 6f + Vector2.Up * 22).Rotated(earAngle);
     }
-
-    #endregion
   }
 
   /// <summary>Entity count per species</summary>
@@ -629,8 +597,6 @@ public class Ecosystem : Control
   private Control drawZone;
   private int zoneCount = 5;
   private float zoneMargin = 10;
-
-  #region Lifecycle methods
 
   public override void _Ready()
   {
@@ -660,10 +626,6 @@ public class Ecosystem : Control
     }
   }
 
-  #endregion
-
-  #region Private methods
-
   private void AddInZone(Lifeform lifeform, int zoneIdx)
   {
     var size = GetViewportRect().Size;
@@ -677,6 +639,4 @@ public class Ecosystem : Control
     lifeform.Position = new Vector2(xPosition, yPosition);
     drawZone.AddChild(lifeform);
   }
-
-  #endregion
 }

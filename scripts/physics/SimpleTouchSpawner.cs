@@ -31,8 +31,6 @@ namespace Physics
       }
     }
 
-    #region Lifecycle methods
-
     public override void _UnhandledInput(InputEvent @event)
     {
       if (@event is InputEventScreenTouch eventScreenTouch)
@@ -48,7 +46,5 @@ namespace Physics
         SpawnBody(eventScreenDrag.Position);
       }
     }
-
-    #endregion
   }
 }

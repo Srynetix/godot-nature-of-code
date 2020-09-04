@@ -52,14 +52,10 @@ namespace Physics
       sprite.Modulate = BaseColor;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       AddChild(collisionShape2D);
       AddChild(sprite);
     }
-
-    #endregion
   }
 }

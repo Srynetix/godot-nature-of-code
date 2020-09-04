@@ -22,8 +22,6 @@ namespace Forces
       DrawRect(new Rect2(Vector2.Zero - Size / 2, Size), color.WithAlpha(200));
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       defaultFont = SimpleDefaultFont.LoadDefaultFont();
@@ -35,10 +33,6 @@ namespace Forces
       DrawZone(Colors.DarkGreen);
     }
 
-    #endregion
-
-    #region Private methods
-
     private void CreateCollisionShape()
     {
       var collisionShape = new CollisionShape2D();
@@ -47,7 +41,5 @@ namespace Forces
       collisionShape.Shape = shape;
       AddChild(collisionShape);
     }
-
-    #endregion
   }
 }

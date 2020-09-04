@@ -73,8 +73,6 @@ namespace Drawing
     /// </summary>
     protected virtual void Step() { }
 
-    #region Lifecycle methods
-
     public override void _Process(float delta)
     {
       Position = new Vector2(x, y);
@@ -82,7 +80,5 @@ namespace Drawing
       Step();
       Update();
     }
-
-    #endregion
   }
 }

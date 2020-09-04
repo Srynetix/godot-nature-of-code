@@ -10,8 +10,6 @@ namespace Forces
     /// <summary>Drag coefficient</summary>
     public float Coeff = 0.25f;
 
-    #region Lifecycle methods
-
     public override void _Draw()
     {
       DrawZone(Colors.DarkViolet);
@@ -29,7 +27,5 @@ namespace Forces
         mover.ApplyDrag(Coeff);
       }
     }
-
-    #endregion
   }
 }

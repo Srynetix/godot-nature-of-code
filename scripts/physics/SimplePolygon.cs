@@ -26,8 +26,6 @@ namespace Physics
       collisionShape2D.Shape = polygonShape2D;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       polygonShape2D.SetPointCloud(Points);
@@ -44,7 +42,5 @@ namespace Physics
     {
       DrawPolygon(polygonShape2D.Points, colors);
     }
-
-    #endregion
   }
 }

@@ -92,8 +92,6 @@ public class VirtualControls : Control
 
       private Joystick parent;
 
-      #region Lifecycle methods
-
       public override void _Ready()
       {
         parent = (Joystick)GetParent();
@@ -136,16 +134,12 @@ public class VirtualControls : Control
       {
         Update();
       }
-
-      #endregion
     }
 
     private class Handle : Control
     {
       public Color OriginalColor;
       public float Radius => RectSize.x;
-
-      #region Lifecycle methods
 
       public override void _Ready()
       {
@@ -157,8 +151,6 @@ public class VirtualControls : Control
       {
         DrawCircle(RectSize / 2, Radius, Colors.LightBlue.WithAlpha(128));
       }
-
-      #endregion
     }
 
     private VirtualControls parent;
@@ -166,8 +158,6 @@ public class VirtualControls : Control
     private Handle handle;
     private int touchIndex = -1;
     private Font defaultFont;
-
-    #region Lifecycle methods
 
     async public override void _Ready()
     {
@@ -290,10 +280,6 @@ public class VirtualControls : Control
       }
     }
 
-    #endregion
-
-    #region Private methods
-
     private bool PositionIsInRadius(Vector2 sourcePosition, Vector2 targetPosition, float targetRadius)
     {
       return sourcePosition.DistanceTo(targetPosition) < targetRadius;
@@ -359,8 +345,6 @@ public class VirtualControls : Control
     {
       return !eventScreenTouch.Pressed && touchIndex == eventScreenTouch.Index;
     }
-
-    #endregion
   }
 
   private class Buttons : HBoxContainer
@@ -384,8 +368,6 @@ public class VirtualControls : Control
 
         originalColor = color;
       }
-
-      #region Lifecycle methods
 
       public override void _Ready()
       {
@@ -431,8 +413,6 @@ public class VirtualControls : Control
       {
         Update();
       }
-
-      #endregion
     }
 
     public Color PressedColor = Colors.White;
@@ -445,8 +425,6 @@ public class VirtualControls : Control
     private TouchButton buttonB;
     private VirtualControls parent;
     private Font defaultFont;
-
-    #region Lifecycle methods
 
     public override void _Ready()
     {
@@ -483,11 +461,7 @@ public class VirtualControls : Control
 
       Update();
     }
-
-    #endregion
   }
-
-  #region Lifecycle methods
 
   public override void _Process(float delta)
   {
@@ -519,10 +493,6 @@ public class VirtualControls : Control
     _UpdateMargins();
   }
 
-  #endregion
-
-  #region Private methods
-
   private void _UpdateMargins()
   {
     joystickMargin.AnchorTop = JoystickAnchorTop;
@@ -542,6 +512,4 @@ public class VirtualControls : Control
     buttonsMargin.Set("custom_constants/margin_top", MarginAmount);
     buttonsMargin.Set("custom_constants/margin_bottom", MarginAmount);
   }
-
-  #endregion
 }

@@ -43,8 +43,6 @@ namespace Forces
       return force.Normalized() * strength;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       base._Ready();
@@ -55,10 +53,6 @@ namespace Forces
     {
       AttractNodes();
     }
-
-    #endregion
-
-    #region Private methods
 
     private void AttractNodes()
     {
@@ -77,7 +71,5 @@ namespace Forces
         mover.ApplyForce(force);
       }
     }
-
-    #endregion
   }
 }

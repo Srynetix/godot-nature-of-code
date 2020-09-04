@@ -48,8 +48,6 @@ namespace Drawing
       Modulate = Colors.LightCyan;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       material = new CanvasItemMaterial();
@@ -104,10 +102,6 @@ namespace Drawing
       Update();
     }
 
-    #endregion
-
-    #region Private methods
-
     private void UpdateColor()
     {
       if (sprite != null)
@@ -120,7 +114,5 @@ namespace Drawing
         circleSprite.Modulate = Modulate;
       }
     }
-
-    #endregion
   }
 }

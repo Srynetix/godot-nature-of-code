@@ -22,8 +22,6 @@ public class Launcher : Control
   private RichTextLabel links;
   private Control drawSpace;
 
-  #region Lifecycle methods
-
   public override void _Ready()
   {
     // Base default clear color
@@ -61,10 +59,6 @@ public class Launcher : Control
   {
     fpsLabel.Text = "FPS: " + Engine.GetFramesPerSecond();
   }
-
-  #endregion
-
-  #region Private methods
 
   private void LoadSceneExplorer()
   {
@@ -114,6 +108,4 @@ public class Launcher : Control
   {
     GetTree().Quit();
   }
-
-  #endregion
 }

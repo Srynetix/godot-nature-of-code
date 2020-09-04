@@ -36,17 +36,11 @@ namespace Drawing
       this.textureEnum = textureEnum;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       Texture = SimpleDefaultTexture.FromEnum(textureEnum);
       UpdateScale();
     }
-
-    #endregion
-
-    #region Private methods
 
     private void UpdateScale()
     {
@@ -56,7 +50,5 @@ namespace Drawing
         Scale = targetSize / Texture.GetSize();
       }
     }
-
-    #endregion
   }
 }

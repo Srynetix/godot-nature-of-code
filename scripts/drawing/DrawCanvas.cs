@@ -42,8 +42,6 @@ namespace Drawing
       clearColor = color;
     }
 
-    #region Lifecycle methods
-
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
@@ -75,10 +73,6 @@ namespace Drawing
       pen.Update();
     }
 
-    #endregion
-
-    #region Private methods
-
     private void OnPenDraw()
     {
       // Clear if needed
@@ -96,7 +90,5 @@ namespace Drawing
         DrawFunction(pen);
       }
     }
-
-    #endregion
   }
 }
