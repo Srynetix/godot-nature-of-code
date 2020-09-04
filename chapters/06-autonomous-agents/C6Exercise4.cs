@@ -63,7 +63,7 @@ namespace Examples
 
         protected override void UpdateAcceleration()
         {
-          Seek(GlobalPosition + randomCircle.GetTarget());
+          ApplyForce(Seek(GlobalPosition + randomCircle.GetTarget()));
         }
       }
 

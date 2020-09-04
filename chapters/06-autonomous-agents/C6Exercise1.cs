@@ -23,26 +23,24 @@ namespace Examples
       {
         public float FleeDistance = 200;
 
-        public void FleeTarget()
+        public Vector2 Flee(Vector2 position)
         {
           if (Target != null)
           {
-            var targetForce = (Target.GlobalPosition - GlobalPosition).Normalized() * MaxVelocity;
-            var steerForce = (-targetForce - Velocity).Clamped(MaxForce);
-            ApplyForce(steerForce);
+            var targetForce = (position - GlobalPosition).Normalized() * MaxVelocity;
+            return (-targetForce - Velocity).Clamped(MaxForce);
+          }
+          else
+          {
+            return Vector2.Zero;
           }
         }
 
         protected override void UpdateAcceleration()
         {
-          // Depending on the distance, use a different behavior
-          if (GlobalPosition.DistanceSquaredTo(Target.GlobalPosition) > FleeDistance * FleeDistance)
+          if (GlobalPosition.DistanceSquaredTo(Target.GlobalPosition) < FleeDistance * FleeDistance)
           {
-            SeekTarget();
-          }
-          else
-          {
-            FleeTarget();
+            ApplyForce(Flee(Target.GlobalPosition));
           }
         }
       }

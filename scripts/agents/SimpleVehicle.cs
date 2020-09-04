@@ -37,6 +37,13 @@ namespace Agents
     /// <summary>Vehicle group list</summary>
     public List<SimpleVehicle> VehicleGroupList = null;
 
+    /// <summary>Seek force factor</summary>
+    public float SeekForceFactor = 1;
+    /// <summary>Separation force factor</summary>
+    public float SeparationForceFactor = 1;
+    /// <summary>Cohesion force factor</summary>
+    public float CohesionForceFactor = 1;
+
     private Vector2? debugPredictPos = null;
     private Vector2? debugNormalPoint = null;
     private Vector2? debugTargetPoint = null;
@@ -58,7 +65,8 @@ namespace Agents
     /// Separate from other vehicles.
     /// </summary>
     /// <param name="vehicles">Other vehicles</param>
-    protected void Separate(List<SimpleVehicle> vehicles)
+    /// <returns>Steer force</returns>
+    protected Vector2 Separate(List<SimpleVehicle> vehicles)
     {
       float desiredSeparation = Radius * 4;
       var sum = Vector2.Zero;
@@ -77,8 +85,11 @@ namespace Agents
       if (count > 0)
       {
         sum = (sum / count).Normalized() * MaxVelocity;
-        var steer = (sum - Velocity).Clamped(MaxForce);
-        ApplyForce(steer);
+        return (sum - Velocity).Clamped(MaxForce);
+      }
+      else
+      {
+        return Vector2.Zero;
       }
     }
 
@@ -86,7 +97,8 @@ namespace Agents
     /// Regroup with other vehicles.
     /// </summary>
     /// <param name="vehicles">Other vehicles</param>
-    protected void Regroup(List<SimpleVehicle> vehicles)
+    /// <returns>Steer force</returns>
+    protected Vector2 Regroup(List<SimpleVehicle> vehicles)
     {
       float separationLimit = Radius * 2;
       var sum = Vector2.Zero;
@@ -105,24 +117,20 @@ namespace Agents
       if (count > 0)
       {
         sum = (sum / count).Normalized() * -MaxVelocity;
-        var steer = (sum - Velocity).Clamped(MaxForce);
-        ApplyForce(steer);
+        return (sum - Velocity).Clamped(MaxForce);
       }
-    }
-
-    /// <summary>
-    /// Drive and steer towards target.
-    /// </summary>
-    protected void SeekTarget()
-    {
-      Seek(Target.GlobalPosition);
+      else
+      {
+        return Vector2.Zero;
+      }
     }
 
     /// <summary>
     /// Drive and steer towards target position.
     /// </summary>
     /// <param name="position">Target position</param>
-    protected virtual void Seek(Vector2 position)
+    /// <returns>Steer force</returns>
+    protected virtual Vector2 Seek(Vector2 position)
     {
       var targetDiff = position - GlobalPosition;
       var targetDist = targetDiff.Length();
@@ -137,32 +145,32 @@ namespace Agents
         targetDiff *= MaxVelocity;
       }
 
-      var steerForce = (targetDiff - Velocity).Clamped(MaxForce);
-      ApplyForce(steerForce);
+      return (targetDiff - Velocity).Clamped(MaxForce);
     }
 
     /// <summary>
     /// Drive and steer following a flow field.
     /// </summary>
-    protected void FollowFlow()
+    /// <returns>Steer force</returns>
+    protected Vector2 FollowFlow()
     {
       var tgtDirection = TargetFlow.Lookup(GlobalPosition);
       if (tgtDirection == Vector2.Zero)
       {
         // Ignore empty lookup
-        return;
+        return Vector2.Zero;
       }
 
       var target = tgtDirection * MaxVelocity;
-      var steer = (target - Velocity).Clamped(MaxForce);
-      ApplyForce(steer);
+      return (target - Velocity).Clamped(MaxForce);
     }
 
     /// <summary>
     /// Drive and steer following a path.
     /// Always follow the path from A to B.
     /// </summary>
-    protected void FollowPath()
+    /// <returns>Steer force</returns>
+    protected Vector2 FollowPath()
     {
       var minDist = float.MaxValue;
 
@@ -217,36 +225,44 @@ namespace Agents
 
       if (target.HasValue)
       {
-        Seek(target.Value);
+        return Seek(target.Value);
+      }
+      else
+      {
+        return Vector2.Zero;
       }
     }
 
     protected override void UpdateAcceleration()
     {
+      var forces = Vector2.Zero;
+
       if (Target != null)
       {
-        SeekTarget();
+        forces += Seek(Target.GlobalPosition) * SeekForceFactor;
       }
 
       if (TargetFlow != null)
       {
-        FollowFlow();
+        forces += FollowFlow() * SeekForceFactor;
       }
 
       if (TargetPath != null)
       {
-        FollowPath();
+        forces += FollowPath() * SeekForceFactor;
       }
 
       if (SeparationEnabled && VehicleGroupList.Count > 0)
       {
-        Separate(VehicleGroupList);
+        forces += Separate(VehicleGroupList) * SeparationForceFactor;
       }
 
       else if (CohesionEnabled && VehicleGroupList.Count > 0)
       {
-        Regroup(VehicleGroupList);
+        forces += Regroup(VehicleGroupList) * CohesionForceFactor;
       }
+
+      ApplyForce(forces);
     }
 
     public override void _Draw()

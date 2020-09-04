@@ -29,7 +29,7 @@ namespace Examples
 
         protected override void UpdateAcceleration()
         {
-          Seek(Target.GlobalPosition + Target.Velocity);
+          ApplyForce(Seek(Target.GlobalPosition + Target.Velocity));
         }
       }
 

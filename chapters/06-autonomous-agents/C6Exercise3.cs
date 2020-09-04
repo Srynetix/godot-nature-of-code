@@ -25,7 +25,8 @@ namespace Examples
         {
           MaxVelocity = Mathf.Max(GlobalPosition.DistanceTo(Target.GlobalPosition) / 10, 4f);
           MaxForce = Mathf.Max(GlobalPosition.DistanceTo(Target.GlobalPosition) / 100, 0.1f);
-          SeekTarget();
+
+          base.UpdateAcceleration();
         }
       }
 
