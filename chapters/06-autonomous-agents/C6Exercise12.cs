@@ -25,7 +25,9 @@ namespace Examples.Chapter6
       var spawner = new SimpleTouchSpawner();
       spawner.SpawnFunction = (pos) =>
       {
-        var vehicle = new SimpleVehicle();
+        var vehicle = new RoundVehicle();
+        vehicle.VehicleGroupList = vehicles;
+        vehicle.CohesionEnabled = true;
         vehicle.Position = pos;
         vehicles.Add(vehicle);
         return vehicle;
@@ -35,14 +37,6 @@ namespace Examples.Chapter6
       for (int i = 0; i < vehicleCount; ++i)
       {
         spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y));
-      }
-    }
-
-    public override void _Process(float delta)
-    {
-      foreach (var vehicle in vehicles)
-      {
-        vehicle.Regroup(vehicles);
       }
     }
   }

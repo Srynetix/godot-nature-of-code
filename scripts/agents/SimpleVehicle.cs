@@ -24,6 +24,22 @@ namespace Agents
     public float MaxForce = 0.1f;
     /// <summary>Arrive distance. Use `-1` to disable.</summary>
     public float ArriveDistance = -1;
+    /// <summary>Detection scan length</summary>
+    public float DetectionScanLength = 25;
+    /// <summary>Detection target offset</summary>
+    public float DetectionTargetOffset = 25;
+    /// <summary>Debug draw path</summary>
+    public bool DebugDrawPath = false;
+    /// <summary>Enable separation group behavior</summary>
+    public bool SeparationEnabled = false;
+    /// <summary>Enable cohesion group behavior</summary>
+    public bool CohesionEnabled = false;
+    /// <summary>Vehicle group list</summary>
+    public List<SimpleVehicle> VehicleGroupList = null;
+
+    private Vector2? debugPredictPos = null;
+    private Vector2? debugNormalPoint = null;
+    private Vector2? debugTargetPoint = null;
 
     /// <summary>
     /// Create a default vehicle.
@@ -35,13 +51,14 @@ namespace Agents
 
       SyncRotationOnVelocity = true;
       MaxVelocity = 4;
+      MaxForce = 0.4f;
     }
 
     /// <summary>
     /// Separate from other vehicles.
     /// </summary>
     /// <param name="vehicles">Other vehicles</param>
-    public void Separate(List<SimpleVehicle> vehicles)
+    protected void Separate(List<SimpleVehicle> vehicles)
     {
       float desiredSeparation = Radius * 4;
       var sum = Vector2.Zero;
@@ -69,9 +86,9 @@ namespace Agents
     /// Regroup with other vehicles.
     /// </summary>
     /// <param name="vehicles">Other vehicles</param>
-    public void Regroup(List<SimpleVehicle> vehicles)
+    protected void Regroup(List<SimpleVehicle> vehicles)
     {
-      float separationLimit = Radius * 4;
+      float separationLimit = Radius * 2;
       var sum = Vector2.Zero;
       int count = 0;
 
@@ -143,35 +160,60 @@ namespace Agents
 
     /// <summary>
     /// Drive and steer following a path.
+    /// Always follow the path from A to B.
     /// </summary>
     protected void FollowPath()
     {
-      var predictFactor = 50;
-      var dirFactor = 25;
       var minDist = float.MaxValue;
 
-      var predict = Velocity.Normalized() * predictFactor;
+      var predict = Velocity.Normalized() * DetectionScanLength;
       var predictPos = GlobalPosition + predict;
-      Vector2? target = null;
 
-      for (int i = 0; i < TargetPath.Points.Count - 1; ++i)
+      Vector2? target = null;
+      Vector2? targetNormalPoint = null;
+      var pointCount = TargetPath.Points.Count;
+
+      for (int i = 0; i < TargetPath.Points.Count; ++i)
       {
-        var a = TargetPath.Points[i];
-        var b = TargetPath.Points[i + 1];
-        var normalPoint = predictPos.GetNormalPoint(a, b);
-        if (normalPoint.x < Mathf.Min(a.x, b.x) || normalPoint.x > Mathf.Max(b.x, a.x))
+        // Ignore last iteration if not looping
+        if (!TargetPath.Looping && i == TargetPath.Points.Count - 1)
         {
-          normalPoint = b;
+          break;
         }
 
-        var dir = (b - a).Normalized() * dirFactor;
+        var a = TargetPath.Points[i];
+        var b = TargetPath.Points[(i + 1) % TargetPath.Points.Count];
+        var normalPoint = predictPos.GetNormalPoint(a, b);
+        var dir = b - a;
+
+        // Out of bounds
+        if (normalPoint.x < Mathf.Min(a.x, b.x) || normalPoint.x > Mathf.Max(a.x, b.x)
+          || normalPoint.y < Mathf.Min(a.y, b.y) || normalPoint.y > Mathf.Max(a.y, b.y))
+        {
+          normalPoint = b;
+
+          if (TargetPath.Looping || i != TargetPath.Points.Count - 2)
+          {
+            // Get two next points
+            var a2 = b;
+            var b2 = TargetPath.Points[(i + 2) % TargetPath.Points.Count];
+            dir = b2 - a2;
+          }
+        }
+
         var dist = normalPoint.DistanceTo(predictPos);
         if (dist < minDist)
         {
           minDist = dist;
-          target = normalPoint;
+          targetNormalPoint = normalPoint;
+          target = targetNormalPoint + dir.Normalized() * DetectionTargetOffset;
         }
       }
+
+      // Set debug values
+      debugNormalPoint = targetNormalPoint;
+      debugPredictPos = predictPos;
+      debugTargetPoint = target;
 
       if (target.HasValue)
       {
@@ -194,6 +236,36 @@ namespace Agents
       if (TargetPath != null)
       {
         FollowPath();
+      }
+
+      if (SeparationEnabled && VehicleGroupList.Count > 0)
+      {
+        Separate(VehicleGroupList);
+      }
+
+      else if (CohesionEnabled && VehicleGroupList.Count > 0)
+      {
+        Regroup(VehicleGroupList);
+      }
+    }
+
+    public override void _Draw()
+    {
+      base._Draw();
+
+      if (DebugDrawPath && TargetPath != null)
+      {
+        if (debugNormalPoint.HasValue && debugPredictPos.HasValue && debugTargetPoint.HasValue)
+        {
+          var predictPos = (debugPredictPos.Value - GlobalPosition).Rotated(-GlobalRotation);
+          var normalPos = (debugNormalPoint.Value - GlobalPosition).Rotated(-GlobalRotation);
+          var targetPos = (debugTargetPoint.Value - GlobalPosition).Rotated(-GlobalRotation);
+
+          DrawLine(Vector2.Zero, predictPos, Colors.OrangeRed);
+          DrawLine(predictPos, normalPos, Colors.BlueViolet);
+          DrawLine(normalPos, targetPos, Colors.Orange);
+          DrawCircle(targetPos, 5, Colors.OrangeRed);
+        }
       }
     }
   }

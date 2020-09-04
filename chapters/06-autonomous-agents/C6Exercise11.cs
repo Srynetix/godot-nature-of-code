@@ -11,7 +11,7 @@ namespace Examples.Chapter6
   {
     public string _Summary()
     {
-      return "Exercise 6.11:\nAnimated Path";
+      return "Exercise 6.11:\nAnimated Path\n\nVehicle at the right will turn right and follow the path from left to right";
     }
 
     private float t = 0;
@@ -36,6 +36,12 @@ namespace Examples.Chapter6
       vehicle2.Position = new Vector2(100, size.y - 100);
       vehicle2.TargetPath = path;
       AddChild(vehicle2);
+
+      var vehicle3 = new SimpleVehicle();
+      vehicle3.Velocity = new Vector2(-vehicle3.MaxVelocity, 0);
+      vehicle3.Position = new Vector2(size.x - 100, size.y - 100);
+      vehicle3.TargetPath = path;
+      AddChild(vehicle3);
     }
 
     public override void _Process(float delta)

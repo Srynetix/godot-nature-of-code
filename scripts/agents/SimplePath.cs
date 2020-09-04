@@ -12,6 +12,8 @@ namespace Agents
     public List<Vector2> Points;
     /// <summary>Path radius</summary>
     public float Radius = 20;
+    /// <summary>Looping</summary>
+    public bool Looping = false;
 
     public SimplePath()
     {
@@ -41,10 +43,24 @@ namespace Agents
         DrawCircle(p2, Radius, Colors.DarkGoldenrod);
       }
 
+      if (Looping)
+      {
+        var p1 = Points[Points.Count - 1];
+        var p2 = Points[0];
+        DrawLine(p1, p2, Colors.DarkGoldenrod, Radius * 2);
+      }
+
       for (int i = 0; i < Points.Count - 1; ++i)
       {
         var p1 = Points[i];
         var p2 = Points[i + 1];
+        DrawLine(p1, p2, Colors.Black, 1);
+      }
+
+      if (Looping)
+      {
+        var p1 = Points[Points.Count - 1];
+        var p2 = Points[0];
         DrawLine(p1, p2, Colors.Black, 1);
       }
     }

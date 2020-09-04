@@ -6,14 +6,14 @@ using System.Collections.Generic;
 namespace Examples.Chapter6
 {
   /// <summary>
-  /// Example 6.7: Group Separation.
+  /// Exercise 6.13: Crowd Path Following.
   /// </summary>
-  /// Use SimpleVehicle.Separate method.
-  public class C6Example7 : Node2D, IExample
+  /// Combines SimpleVehicle.SeparationEnabled and path following.
+  public class C6Exercise13 : Node2D, IExample
   {
     public string _Summary()
     {
-      return "Example 6.7:\nGroup Separation\n\nTouch screen to spawn vehicles";
+      return "Exercise 6.13:\nCrowd Path Following\n\nTouch screen to spawn vehicles";
     }
 
     private int vehicleCount = 50;
@@ -22,14 +22,22 @@ namespace Examples.Chapter6
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
+      var path = new SimplePath();
+      path.Points.Add(new Vector2(size.x * 1 / 4, size.y * 1 / 4));
+      path.Points.Add(new Vector2(size.x * 3 / 4, size.y * 1 / 4));
+      path.Points.Add(new Vector2(size.x * 3 / 4, size.y * 3 / 4));
+      path.Points.Add(new Vector2(size.x * 1 / 4 - 20, size.y * 3 / 4));
+      path.Looping = true;
+      AddChild(path);
 
       var spawner = new SimpleTouchSpawner();
       spawner.SpawnFunction = (pos) =>
       {
         var vehicle = new RoundVehicle();
         vehicle.VehicleGroupList = vehicles;
-        vehicle.SeparationEnabled = true;
         vehicle.Position = pos;
+        vehicle.TargetPath = path;
+        vehicle.SeparationEnabled = true;
         vehicles.Add(vehicle);
         return vehicle;
       };
