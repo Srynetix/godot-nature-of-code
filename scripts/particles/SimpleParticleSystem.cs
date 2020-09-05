@@ -20,6 +20,8 @@ namespace Particles
     public int ParticleCount = -1;
     /// <summary>Particle spawn frame delay</summary>
     public int ParticleSpawnFrameDelay = 4;
+    /// <summary>Particle count per wave</summary>
+    public int ParticleCountPerWave = 1;
     /// <summary>Draw in local coords</summary>
     public bool LocalCoords = true;
     /// <summary>Particles container. Use Parent by default.
@@ -49,15 +51,18 @@ namespace Particles
       {
         if (elapsedFrames == 0)
         {
-          var particle = ParticleCreationFunction();
-          AddParticle(particle);
-
-          if (ParticleCount > 0)
+          for (int i = 0; i < ParticleCountPerWave; ++i)
           {
-            ParticleCount--;
-          }
+            var particle = ParticleCreationFunction();
+            AddParticle(particle);
 
-          elapsedFrames = ParticleSpawnFrameDelay;
+            if (ParticleCount > 0)
+            {
+              ParticleCount--;
+            }
+
+            elapsedFrames = ParticleSpawnFrameDelay;
+          }
         }
         else
         {
@@ -84,7 +89,7 @@ namespace Particles
       else
       {
         var container = ParticlesContainer ?? GetParent();
-        particle.GlobalPosition = GlobalPosition;
+        particle.GlobalPosition = GlobalPosition + particle.InitialOffset;
         container.AddChild(particle);
       }
     }

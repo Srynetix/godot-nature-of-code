@@ -15,6 +15,8 @@ namespace Particles
     public float Lifespan = 2;
     /// <summary>Lifespan as alpha</summary>
     public bool LifespanAsAlpha = true;
+    /// <summary>Initial offset</summary>
+    public Vector2 InitialOffset = Vector2.Zero;
 
     private float initialLifespan;
 

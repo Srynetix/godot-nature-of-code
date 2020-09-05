@@ -64,10 +64,13 @@ namespace Examples
 
           particleSystem = new SimpleParticleSystem();
           particleSystem.Emitting = false;
+          particleSystem.ParticleCountPerWave = 6;
           particleSystem.ParticleCreationFunction = () =>
           {
             var particle = new EParticle();
-            particle.MeshSize = MeshSize / 2;
+            particle.MeshSize = MathUtils.RandRangef(0.5f, 1) * (MeshSize / 2);
+            particle.InitialOffset = MathUtils.RandVector2(-1, 1, -1, 1).Normalized() * 10;
+            particle.Velocity = MathUtils.RandVector2(-1, 1, -1, 1).Normalized() * 10;
             particle.Lifespan = 4;
             return particle;
           };
@@ -83,7 +86,7 @@ namespace Examples
 
           exploding = true;
           particleSystem.Emitting = true;
-          particleSystem.ParticleCount = 4;
+          particleSystem.ParticleCount = 6;
           Drawing = false;
         }
 
