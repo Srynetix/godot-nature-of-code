@@ -89,10 +89,10 @@ namespace Agents
 
       foreach (var vehicle in vehicles)
       {
-        float d = GlobalPosition.DistanceTo(vehicle.GlobalPosition);
-        if (d > 0 && d < desiredSeparation)
+        float d = GlobalPosition.DistanceSquaredTo(vehicle.GlobalPosition);
+        if (d > 0 && d < desiredSeparation * desiredSeparation)
         {
-          sum += (GlobalPosition - vehicle.GlobalPosition).Normalized() / d;
+          sum += (GlobalPosition - vehicle.GlobalPosition).Normalized() / Mathf.Sqrt(d);
           count++;
         }
       }
@@ -121,10 +121,10 @@ namespace Agents
 
       foreach (var vehicle in vehicles)
       {
-        float d = GlobalPosition.DistanceTo(vehicle.GlobalPosition);
-        if (d > 0 && d > separationLimit)
+        float d = GlobalPosition.DistanceSquaredTo(vehicle.GlobalPosition);
+        if (d > 0 && d > separationLimit * separationLimit)
         {
-          sum += (GlobalPosition - vehicle.GlobalPosition).Normalized() / d;
+          sum += (GlobalPosition - vehicle.GlobalPosition).Normalized() / Mathf.Sqrt(d);
           count++;
         }
       }
@@ -259,8 +259,8 @@ namespace Agents
       int count = 0;
       foreach (var vehicle in vehicles)
       {
-        var d = GlobalPosition.DistanceTo(vehicle.GlobalPosition);
-        if (d > 0 && d < DetectionAlignmentRadius)
+        var d = GlobalPosition.DistanceSquaredTo(vehicle.GlobalPosition);
+        if (d > 0 && d < DetectionAlignmentRadius * DetectionAlignmentRadius)
         {
           sum += vehicle.Velocity;
           count++;
@@ -293,10 +293,10 @@ namespace Agents
 
       foreach (var vehicle in vehicles)
       {
-        var dp = detectedPos.DistanceTo(vehicle.GlobalPosition);
+        var dp = detectedPos.DistanceSquaredTo(vehicle.GlobalPosition);
 
         // Compare the distance between the target position and the neighbor
-        if (dp > 0 && dp < DetectionAlignmentRadius / 2)
+        if (dp > 0 && dp < (DetectionAlignmentRadius * DetectionAlignmentRadius) / 2)
         {
           var diff = vehicle.GlobalPosition - GlobalPosition;
           sum += diff.Rotated(Mathf.Pi / 2);

@@ -180,8 +180,6 @@ namespace Forces
         var angle = Mathf.Atan2(Velocity.y, Velocity.x);
         Rotation = angle;
       }
-
-      Update();
     }
 
     private void ApplyMovement()
