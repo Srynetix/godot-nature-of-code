@@ -1,48 +1,45 @@
 using Godot;
 
-namespace Examples
+namespace Examples.Chapter1
 {
-  namespace Chapter1
+  /// <summary>
+  /// Example 1.2 - Bouncing call, vectors.
+  /// </summary>
+  /// Uses _Draw function and manual vector coordinates and speed.
+  public class C1Example2 : Node2D, IExample
   {
-    /// <summary>
-    /// Example 1.2 - Bouncing call, vectors.
-    /// </summary>
-    /// Uses _Draw function and manual vector coordinates and speed.
-    public class C1Example2 : Node2D, IExample
+    public string _Summary()
     {
-      public string _Summary()
+      return "Example 1.2:\n"
+        + "Bouncing ball, vectors";
+    }
+
+    private Vector2 position = new Vector2(100, 100);
+    private Vector2 velocity = new Vector2(2.5f, 5f);
+
+    public override void _Draw()
+    {
+      DrawCircle(position, 20, Colors.LightBlue);
+      DrawCircle(position, 18, Colors.White);
+    }
+
+    public override void _Process(float delta)
+    {
+      var size = GetViewportRect().Size;
+
+      position += velocity;
+
+      if ((position.x > size.x) || (position.x < 0))
       {
-        return "Example 1.2:\n"
-          + "Bouncing ball, vectors";
+        velocity.x *= -1;
       }
 
-      private Vector2 position = new Vector2(100, 100);
-      private Vector2 velocity = new Vector2(2.5f, 5f);
-
-      public override void _Draw()
+      if ((position.y > size.y) || (position.y < 0))
       {
-        DrawCircle(position, 20, Colors.LightBlue);
-        DrawCircle(position, 18, Colors.White);
+        velocity.y *= -1;
       }
 
-      public override void _Process(float delta)
-      {
-        var size = GetViewportRect().Size;
-
-        position += velocity;
-
-        if ((position.x > size.x) || (position.x < 0))
-        {
-          velocity.x *= -1;
-        }
-
-        if ((position.y > size.y) || (position.y < 0))
-        {
-          velocity.y *= -1;
-        }
-
-        Update();
-      }
+      Update();
     }
   }
 }

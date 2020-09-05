@@ -1,53 +1,50 @@
 using Godot;
 using Utils;
 
-namespace Examples
+namespace Examples.Chapter5
 {
-  namespace Chapter5
+  /// <summary>
+  /// Exercise 5.2 - Anti-Gravity Boxes.
+  /// </summary>
+  /// Custom SimpleBox without gravity.
+  public class C5Exercise2 : Node2D, IExample
   {
-    /// <summary>
-    /// Exercise 5.2 - Anti-Gravity Boxes.
-    /// </summary>
-    /// Custom SimpleBox without gravity.
-    public class C5Exercise2 : Node2D, IExample
+    public string _Summary()
     {
-      public string _Summary()
-      {
-        return "Exercise 5.2:\n"
-          + "Anti-Gravity Boxes\n\n"
-          + "Touch screen to spawn boxes";
-      }
+      return "Exercise 5.2:\n"
+        + "Anti-Gravity Boxes\n\n"
+        + "Touch screen to spawn boxes";
+    }
 
-      private class AntigravityBox : Physics.SimpleBox
-      {
-        public override void _Ready()
-        {
-          base._Ready();
-
-          // Remove gravity
-          GravityScale = 0;
-        }
-      }
-
+    private class AntigravityBox : Physics.SimpleBox
+    {
       public override void _Ready()
       {
-        var size = GetViewportRect().Size;
+        base._Ready();
 
-        var spawner = new SimpleTouchSpawner();
-        spawner.SpawnFunction = (position) =>
-        {
-          var box = new AntigravityBox();
-          box.BodySize = new Vector2(20, 20);
-          box.GlobalPosition = position;
-          return box;
-        };
-        AddChild(spawner);
+        // Remove gravity
+        GravityScale = 0;
+      }
+    }
 
-        int boxCount = 10;
-        for (int i = 0; i < boxCount; ++i)
-        {
-          spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y));
-        }
+    public override void _Ready()
+    {
+      var size = GetViewportRect().Size;
+
+      var spawner = new SimpleTouchSpawner();
+      spawner.SpawnFunction = (position) =>
+      {
+        var box = new AntigravityBox();
+        box.BodySize = new Vector2(20, 20);
+        box.GlobalPosition = position;
+        return box;
+      };
+      AddChild(spawner);
+
+      int boxCount = 10;
+      for (int i = 0; i < boxCount; ++i)
+      {
+        spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y));
       }
     }
   }

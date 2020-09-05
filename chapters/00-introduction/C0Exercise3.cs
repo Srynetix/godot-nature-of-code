@@ -1,94 +1,91 @@
 using Godot;
 using Drawing;
 
-namespace Examples
+namespace Examples.Chapter0
 {
-  namespace Chapter0
+  /// <summary>
+  /// Exercise 0.3 - Walker 50% moving to mouse.
+  /// </summary>
+  /// SimpleWalker with tuned probabilities to mostly go towards mouse position.
+  public class C0Exercise3 : Node2D, IExample
   {
-    /// <summary>
-    /// Exercise 0.3 - Walker 50% moving to mouse.
-    /// </summary>
-    /// SimpleWalker with tuned probabilities to mostly go towards mouse position.
-    public class C0Exercise3 : Node2D, IExample
+    public string _Summary()
     {
-      public string _Summary()
+      return "Exercise I.3:\n"
+        + "Walker 50% moving to mouse";
+    }
+
+    private class Walker : SimpleWalker
+    {
+      protected override void Step()
       {
-        return "Exercise I.3:\n"
-          + "Walker 50% moving to mouse";
-      }
+        float chance = (float)GD.RandRange(0, 1);
 
-      private class Walker : SimpleWalker
-      {
-        protected override void Step()
+        if (chance <= 0.5)
         {
-          float chance = (float)GD.RandRange(0, 1);
-
-          if (chance <= 0.5)
-          {
-            // Go towards mouse
-            var mousePosition = GetViewport().GetMousePosition();
-            if (x > mousePosition.x)
-            {
-              x -= StepSize;
-            }
-            else
-            {
-              x += StepSize;
-            }
-
-            if (y > mousePosition.y)
-            {
-              y -= StepSize;
-            }
-            else
-            {
-              y += StepSize;
-            }
-          }
-          else
-          {
-            RandomStep();
-          }
-        }
-
-        public void RandomStep()
-        {
-          float chance = (float)GD.RandRange(0, 1);
-
-          if (chance < 0.25)
-          {
-            x += StepSize;
-          }
-          else if (chance < 0.5)
+          // Go towards mouse
+          var mousePosition = GetViewport().GetMousePosition();
+          if (x > mousePosition.x)
           {
             x -= StepSize;
           }
-          else if (chance < 0.75)
-          {
-            y += StepSize;
-          }
           else
+          {
+            x += StepSize;
+          }
+
+          if (y > mousePosition.y)
           {
             y -= StepSize;
           }
+          else
+          {
+            y += StepSize;
+          }
+        }
+        else
+        {
+          RandomStep();
         }
       }
 
-      private Walker walker;
-
-      public override void _Ready()
+      public void RandomStep()
       {
-        walker = new Walker();
-        walker.SetXY(GetViewportRect().Size / 2);
-        AddChild(walker);
+        float chance = (float)GD.RandRange(0, 1);
 
-        var canvas = new DrawCanvas((pen) =>
+        if (chance < 0.25)
         {
-          pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-        });
-        canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
-        AddChild(canvas);
+          x += StepSize;
+        }
+        else if (chance < 0.5)
+        {
+          x -= StepSize;
+        }
+        else if (chance < 0.75)
+        {
+          y += StepSize;
+        }
+        else
+        {
+          y -= StepSize;
+        }
       }
+    }
+
+    private Walker walker;
+
+    public override void _Ready()
+    {
+      walker = new Walker();
+      walker.SetXY(GetViewportRect().Size / 2);
+      AddChild(walker);
+
+      var canvas = new DrawCanvas((pen) =>
+      {
+        pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
+      });
+      canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
+      AddChild(canvas);
     }
   }
 }

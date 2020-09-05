@@ -1,62 +1,59 @@
 using Godot;
 using Drawing;
 
-namespace Examples
+namespace Examples.Chapter0
 {
-  namespace Chapter0
+  /// <summary>
+  /// Exercise 0.9 - Animated 2D noise.
+  /// </summary>
+  /// Dynamic 2D noise based on SimpleNoiseTexture.
+  /// Can be slow on mobile and HTML5 environments.
+  public class C0Exercise9 : Node2D, IExample
   {
-    /// <summary>
-    /// Exercise 0.9 - Animated 2D noise.
-    /// </summary>
-    /// Dynamic 2D noise based on SimpleNoiseTexture.
-    /// Can be slow on mobile and HTML5 environments.
-    public class C0Exercise9 : Node2D, IExample
+    public string _Summary()
     {
-      public string _Summary()
+      return "Exercise I.9:\n"
+        + "Animated 2D noise";
+    }
+
+    private class AnimatedNoiseTexture : SimpleNoiseTexture
+    {
+      public float NoiseSpeed = 1;
+      public int AnimationFrameDelay = 1;
+
+      private float time;
+      private float frameCount;
+
+      public override void _Process(float delta)
       {
-        return "Exercise I.9:\n"
-          + "Animated 2D noise";
-      }
+        base._Process(delta);
 
-      private class AnimatedNoiseTexture : SimpleNoiseTexture
-      {
-        public float NoiseSpeed = 1;
-        public int AnimationFrameDelay = 1;
-
-        private float time;
-        private float frameCount;
-
-        public override void _Process(float delta)
+        if (frameCount == AnimationFrameDelay)
         {
-          base._Process(delta);
-
-          if (frameCount == AnimationFrameDelay)
-          {
-            GenerateNoiseTexture();
-            texture.SetData(image);
-            frameCount = 0;
-          }
-
-          time += delta * NoiseSpeed;
-          frameCount += 1;
+          GenerateNoiseTexture();
+          texture.SetData(image);
+          frameCount = 0;
         }
 
-        protected override float ComputeNoise(float x, float y)
-        {
-          return noise.GetNoise3d(x, y, time);
-        }
+        time += delta * NoiseSpeed;
+        frameCount += 1;
       }
 
-      public override void _Ready()
+      protected override float ComputeNoise(float x, float y)
       {
-        var noiseTexture = new AnimatedNoiseTexture();
-        noiseTexture.Factor = 3;
-        noiseTexture.Octaves = 8;
-        noiseTexture.NoiseSpeed = 10;
-        // Adapt for HTML5
-        noiseTexture.AnimationFrameDelay = OS.GetName() == "HTML5" ? 24 : 4;
-        AddChild(noiseTexture);
+        return noise.GetNoise3d(x, y, time);
       }
+    }
+
+    public override void _Ready()
+    {
+      var noiseTexture = new AnimatedNoiseTexture();
+      noiseTexture.Factor = 3;
+      noiseTexture.Octaves = 8;
+      noiseTexture.NoiseSpeed = 10;
+      // Adapt for HTML5
+      noiseTexture.AnimationFrameDelay = OS.GetName() == "HTML5" ? 24 : 4;
+      AddChild(noiseTexture);
     }
   }
 }

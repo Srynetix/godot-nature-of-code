@@ -2,58 +2,55 @@ using Godot;
 using Agents;
 using Forces;
 
-namespace Examples
+namespace Examples.Chapter6
 {
-  namespace Chapter6
+  /// <summary>
+  /// Exercise 6.2: Pursuit.
+  /// </summary>
+  /// Same principle as Example 6.1, but using the target velocity to predict its position.
+  public class C6Exercise2 : Node2D, IExample
   {
-    /// <summary>
-    /// Exercise 6.2: Pursuit.
-    /// </summary>
-    /// Same principle as Example 6.1, but using the target velocity to predict its position.
-    public class C6Exercise2 : Node2D, IExample
+    public string _Summary()
     {
-      public string _Summary()
+      return "Exercise 6.2:\nPursuit";
+    }
+
+    private SimpleMover targetMover;
+
+    private class Vehicle : SimpleVehicle
+    {
+      public Vehicle()
       {
-        return "Exercise 6.2:\nPursuit";
+        MaxVelocity = 8;
+        MaxForce = 0.8f;
       }
 
-      private SimpleMover targetMover;
-
-      private class Vehicle : SimpleVehicle
+      protected override void UpdateAcceleration()
       {
-        public Vehicle()
-        {
-          MaxVelocity = 8;
-          MaxForce = 0.8f;
-        }
-
-        protected override void UpdateAcceleration()
-        {
-          ApplyForce(Seek(Target.GlobalPosition + Target.Velocity));
-        }
+        ApplyForce(Seek(Target.GlobalPosition + Target.Velocity));
       }
+    }
 
-      public override void _Ready()
-      {
-        var size = GetViewportRect().Size;
+    public override void _Ready()
+    {
+      var size = GetViewportRect().Size;
 
-        // Create target
-        targetMover = new SimpleMover();
-        targetMover.Position = size / 2;
-        targetMover.Modulate = Colors.LightBlue.WithAlpha(128);
-        AddChild(targetMover);
+      // Create target
+      targetMover = new SimpleMover();
+      targetMover.Position = size / 2;
+      targetMover.Modulate = Colors.LightBlue.WithAlpha(128);
+      AddChild(targetMover);
 
-        // Create vehicle
-        var vehicle = new Vehicle();
-        vehicle.Target = targetMover;
-        vehicle.Position = size / 4;
-        AddChild(vehicle);
-      }
+      // Create vehicle
+      var vehicle = new Vehicle();
+      vehicle.Target = targetMover;
+      vehicle.Position = size / 4;
+      AddChild(vehicle);
+    }
 
-      public override void _Process(float delta)
-      {
-        targetMover.GlobalPosition = GetViewport().GetMousePosition();
-      }
+    public override void _Process(float delta)
+    {
+      targetMover.GlobalPosition = GetViewport().GetMousePosition();
     }
   }
 }

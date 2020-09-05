@@ -1,50 +1,47 @@
 using Godot;
 using Oscillation;
 
-namespace Examples
+namespace Examples.Chapter3
 {
-  namespace Chapter3
+  /// <summary>
+  /// Exercise 3.9 - Perlin Wave.
+  /// </summary>
+  /// Uses a custom SimpleWave with OpenSimplexNoise to draw a perlin wave.
+  public class C3Exercise9 : Node2D, IExample
   {
-    /// <summary>
-    /// Exercise 3.9 - Perlin Wave.
-    /// </summary>
-    /// Uses a custom SimpleWave with OpenSimplexNoise to draw a perlin wave.
-    public class C3Exercise9 : Node2D, IExample
+    public string _Summary()
     {
-      public string _Summary()
+      return "Exercise 3.9:\n" +
+        "Perlin Wave";
+    }
+
+    private class NoiseWave : SimpleWave
+    {
+      private OpenSimplexNoise noise;
+
+      public NoiseWave()
       {
-        return "Exercise 3.9:\n" +
-          "Perlin Wave";
+        noise = new OpenSimplexNoise();
+        AngularVelocity = 4f;
+        StartAngleFactor = 10f;
       }
 
-      private class NoiseWave : SimpleWave
+      protected override float ComputeY(float angle)
       {
-        private OpenSimplexNoise noise;
-
-        public NoiseWave()
-        {
-          noise = new OpenSimplexNoise();
-          AngularVelocity = 4f;
-          StartAngleFactor = 10f;
-        }
-
-        protected override float ComputeY(float angle)
-        {
-          return MathUtils.Map(noise.GetNoise1d(angle), -1, 1, -Amplitude, Amplitude);
-        }
+        return MathUtils.Map(noise.GetNoise1d(angle), -1, 1, -Amplitude, Amplitude);
       }
+    }
 
-      public override void _Ready()
-      {
-        var size = GetViewportRect().Size;
+    public override void _Ready()
+    {
+      var size = GetViewportRect().Size;
 
-        var wave = new NoiseWave();
-        wave.Separation = 24;
-        wave.Length = size.x;
-        wave.Position = new Vector2(size.x, size.y) / 2;
-        wave.Amplitude = size.y / 2;
-        AddChild(wave);
-      }
+      var wave = new NoiseWave();
+      wave.Separation = 24;
+      wave.Length = size.x;
+      wave.Position = new Vector2(size.x, size.y) / 2;
+      wave.Amplitude = size.y / 2;
+      AddChild(wave);
     }
   }
 }

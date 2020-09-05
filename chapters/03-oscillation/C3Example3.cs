@@ -2,47 +2,44 @@ using Godot;
 using Drawing;
 using Forces;
 
-namespace Examples
+namespace Examples.Chapter3
 {
-  namespace Chapter3
+  /// <summary>
+  /// Example 3.3 - Pointing towards motion.
+  /// </summary>
+  /// Update SimpleMover rotation depending on mouse position.
+  public class C3Example3 : Node2D, IExample
   {
-    /// <summary>
-    /// Example 3.3 - Pointing towards motion.
-    /// </summary>
-    /// Update SimpleMover rotation depending on mouse position.
-    public class C3Example3 : Node2D, IExample
+    public string _Summary()
     {
-      public string _Summary()
+      return "Example 3.3:\n"
+        + "Pointing towards motion";
+    }
+
+    private class Mover : SimpleMover
+    {
+      public Mover()
       {
-        return "Example 3.3:\n"
-          + "Pointing towards motion";
+        Mesh.MeshType = SimpleMesh.TypeEnum.Square;
+        Mesh.MeshSize = new Vector2(80, 40);
+        SyncRotationOnVelocity = true;
       }
 
-      private class Mover : SimpleMover
+      protected override void UpdateAcceleration()
       {
-        public Mover()
-        {
-          Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-          Mesh.MeshSize = new Vector2(80, 40);
-          SyncRotationOnVelocity = true;
-        }
-
-        protected override void UpdateAcceleration()
-        {
-          var mousePos = GetViewport().GetMousePosition();
-          var dir = (mousePos - Position).Normalized();
-          Acceleration = dir * 0.5f;
-        }
+        var mousePos = GetViewport().GetMousePosition();
+        var dir = (mousePos - Position).Normalized();
+        Acceleration = dir * 0.5f;
       }
+    }
 
-      public override void _Ready()
-      {
-        var size = GetViewportRect().Size;
+    public override void _Ready()
+    {
+      var size = GetViewportRect().Size;
 
-        var mover = new Mover();
-        mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
-        AddChild(mover);
-      }
+      var mover = new Mover();
+      mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
+      AddChild(mover);
     }
   }
 }
