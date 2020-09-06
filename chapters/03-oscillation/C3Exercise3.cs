@@ -75,7 +75,8 @@ namespace Examples.Chapter3
       AddChild(controls);
 
       // Add car
-      car = new Car {
+      car = new Car
+      {
         Position = GetViewportRect().Size / 2
       };
       AddChild(car);

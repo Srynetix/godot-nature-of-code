@@ -70,7 +70,8 @@ namespace Examples.Chapter6
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var vehicle = new Vehicle {
+      var vehicle = new Vehicle
+      {
         ScreenOffset = ScreenOffset,
         Position = size / 2
       };

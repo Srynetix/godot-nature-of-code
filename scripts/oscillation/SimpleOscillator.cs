@@ -69,11 +69,13 @@ namespace Oscillation
     public SimpleOscillator()
     {
       Velocity = new Vector2((float)GD.RandRange(-0.05f, 0.05f), (float)GD.RandRange(-0.05f, 0.05f));
-      circleSprite = new SimpleCircleSprite {
+      circleSprite = new SimpleCircleSprite
+      {
         Radius = 30,
         Modulate = Colors.LightCyan
       };
-      lineSprite = new SimpleLineSprite {
+      lineSprite = new SimpleLineSprite
+      {
         Visible = true,
         Modulate = Colors.LightGray
       };

@@ -73,7 +73,8 @@ namespace Examples.Chapter3
       controls = new VirtualControls();
       AddChild(controls);
 
-      spaceship = new Spaceship {
+      spaceship = new Spaceship
+      {
         Position = GetViewportRect().Size / 2
       };
       AddChild(spaceship);

@@ -46,7 +46,8 @@ namespace Examples.Chapter6
       var field = new AnimatedFlowField { Resolution = 30 };
       AddChild(field);
 
-      var vehicle = new SimpleVehicle {
+      var vehicle = new SimpleVehicle
+      {
         TargetFlow = field,
         Position = size / 2
       };

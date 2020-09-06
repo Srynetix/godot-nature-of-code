@@ -128,7 +128,8 @@ namespace Agents
         for (int i = 0; i < cols; ++i)
         {
           var idx = i + (j * cols);
-          var direction = new FlowDirection {
+          var direction = new FlowDirection
+          {
             RectSize = resolutionSize,
             RectPosition = new Vector2(i * Resolution, j * Resolution),
             RectPivotOffset = resolutionSize / 2.0f,

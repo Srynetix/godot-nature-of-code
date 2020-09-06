@@ -1,6 +1,7 @@
 using Godot;
 
-namespace Examples {
+namespace Examples
+{
   /// <summary>
   /// Scene explorer screen.
   /// Uses `SceneLoader` to dynamically load examples.

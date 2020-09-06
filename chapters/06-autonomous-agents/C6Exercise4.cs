@@ -68,7 +68,8 @@ namespace Examples.Chapter6
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var vehicle = new ReynoldsVehicle {
+      var vehicle = new ReynoldsVehicle
+      {
         Position = size / 2
       };
       AddChild(vehicle);

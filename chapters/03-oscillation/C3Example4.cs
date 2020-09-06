@@ -44,7 +44,8 @@ namespace Examples.Chapter3
 
     public override void _Ready()
     {
-      var ball = new Ball {
+      var ball = new Ball
+      {
         Position = GetViewportRect().Size / 2
       };
       AddChild(ball);

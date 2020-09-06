@@ -48,7 +48,8 @@ namespace Examples.Chapter5
           curY = MathUtils.Map(noise.GetNoise1d(curT), -1, 1, -Amplitude, Amplitude);
           curT += TimeSpeed;
 
-          var lineSprite = new SimpleLineSprite {
+          var lineSprite = new SimpleLineSprite
+          {
             PositionA = GlobalPosition + new Vector2(prevX, prevY),
             PositionB = GlobalPosition + new Vector2(curX, curY),
             Modulate = Colors.Gray,
@@ -95,20 +96,23 @@ namespace Examples.Chapter5
     {
       var size = GetViewportRect().Size;
       var length = size.x / 1.25f;
-      var d = new PerlinWaveDrawing {
+      var d = new PerlinWaveDrawing
+      {
         Length = length,
         Position = (size / 2) - new Vector2(length / 2, 0)
       };
       AddChild(d);
 
       // Top left
-      var box = new SimpleBox {
+      var box = new SimpleBox
+      {
         Position = new Vector2(10, 10)
       };
       AddChild(box);
 
       // Joint
-      var joint = new PerlinMouseJoint {
+      var joint = new PerlinMouseJoint
+      {
         Drawing = d
       };
       box.AddChild(joint);

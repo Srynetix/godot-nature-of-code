@@ -21,17 +21,20 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      var attractor1 = new SimpleAttractor {
+      var attractor1 = new SimpleAttractor
+      {
         Position = new Vector2(size.x / 4, size.y / 2)
       };
       AddChild(attractor1);
 
-      var attractor2 = new SimpleAttractor {
+      var attractor2 = new SimpleAttractor
+      {
         Position = new Vector2(size.x / 2, size.y / 2)
       };
       AddChild(attractor2);
 
-      var attractor3 = new SimpleAttractor {
+      var attractor3 = new SimpleAttractor
+      {
         Position = new Vector2(size.x - (size.x / 4), size.y / 2)
       };
       AddChild(attractor3);
@@ -46,7 +49,8 @@ namespace Examples.Chapter2
         mover.Mass = bodySize;
         mover.Position = new Vector2(xPos, yPos);
 
-        var trail = new SimpleTrail {
+        var trail = new SimpleTrail
+        {
           Target = mover
         };
 

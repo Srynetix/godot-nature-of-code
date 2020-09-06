@@ -78,16 +78,19 @@ namespace Examples.Chapter5
     {
       var size = GetViewportRect().Size;
       var length = size.x / 1.25f;
-      var d = new C5Exercise8.PerlinWaveDrawing {
+      var d = new C5Exercise8.PerlinWaveDrawing
+      {
         Length = length,
         Position = (size / 2) - new Vector2(length / 2, 0)
       };
       AddChild(d);
 
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (position) =>
         {
-          return new PerlinKinematicBox {
+          return new PerlinKinematicBox
+          {
             Drawing = d,
             MeshSize = new Vector2(20, 20),
             Position = position

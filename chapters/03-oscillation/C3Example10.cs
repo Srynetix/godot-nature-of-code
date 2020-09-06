@@ -19,7 +19,8 @@ namespace Examples.Chapter3
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var pendulum = new SimplePendulum {
+      var pendulum = new SimplePendulum
+      {
         Angle = Mathf.Pi / 4,
         RopeLength = size.y / 2,
         Position = new Vector2(size.x / 2, 0)

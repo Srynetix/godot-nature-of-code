@@ -21,7 +21,8 @@ namespace Assets
       if (Regular == null)
       {
         var fontData = (DynamicFontData)GD.Load("res://assets/fonts/Raleway-Regular.ttf");
-        Regular = new DynamicFont {
+        Regular = new DynamicFont
+        {
           FontData = fontData,
           Size = 16,
           UseFilter = true,

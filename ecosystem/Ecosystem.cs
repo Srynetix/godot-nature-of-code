@@ -6,7 +6,8 @@ using Forces;
 using Oscillation;
 using Particles;
 
-namespace Ecosystem {
+namespace Ecosystem
+{
   /// <summary>
   /// The Ecosystem project.
   /// </summary>
@@ -19,7 +20,8 @@ namespace Ecosystem {
     {
       public bool DebugDrawEnabled = false;
 
-      public Lifeform() : base(WrapModeEnum.Wrap) {
+      public Lifeform() : base(WrapModeEnum.Wrap)
+      {
         Velocity = Vector2.Zero;
         AngularVelocity = 0;
         Acceleration = Vector2.Zero;
@@ -39,7 +41,8 @@ namespace Ecosystem {
 
       public override void _Draw()
       {
-        if (DebugDrawEnabled) {
+        if (DebugDrawEnabled)
+        {
           DebugDraw();
         }
       }
@@ -193,13 +196,15 @@ namespace Ecosystem {
       {
         base._Ready();
 
-        particleSystem = new SimpleParticleSystem {
+        particleSystem = new SimpleParticleSystem
+        {
           ShowBehindParent = true,
           LocalCoords = false,
           ParticlesContainer = GetParent(),
           ParticleCreationFunction = () =>
           {
-            return new SimpleFallingParticle {
+            return new SimpleFallingParticle
+            {
               ShowBehindParent = true,
               MeshSize = new Vector2(2.5f, 2.5f),
               WrapMode = WrapModeEnum.None,
@@ -256,12 +261,14 @@ namespace Ecosystem {
       {
         base._Ready();
 
-        var oscillatingLeftWing = new OscillatingWing {
+        var oscillatingLeftWing = new OscillatingWing
+        {
           Position = Vector2.Left * (Radius + 1)
         };
         AddChild(oscillatingLeftWing);
 
-        var oscillatingRightWing = new OscillatingWing {
+        var oscillatingRightWing = new OscillatingWing
+        {
           Position = Vector2.Right * (Radius + 1)
         };
         AddChild(oscillatingRightWing);
@@ -623,27 +630,32 @@ namespace Ecosystem {
 
       foreach (int _ in Enumerable.Range(0, CountPerSpecies))
       {
-        var fly = new NervousFly {
+        var fly = new NervousFly
+        {
           Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
         };
         AddInZone(fly, 4);
 
-        var butterfly = new NervousButterfly {
+        var butterfly = new NervousButterfly
+        {
           Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
         };
         AddInZone(butterfly, 3);
 
-        var fish = new SwimmingFish {
+        var fish = new SwimmingFish
+        {
           Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
         };
         AddInZone(fish, 0);
 
-        var bunny = new HoppingBunny {
+        var bunny = new HoppingBunny
+        {
           Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
         };
         AddInZone(bunny, 1);
 
-        var attractedFly = new AttractedFly {
+        var attractedFly = new AttractedFly
+        {
           Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
         };
         AddInZone(attractedFly, 2);

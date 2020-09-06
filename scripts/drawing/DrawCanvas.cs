@@ -45,7 +45,8 @@ namespace Drawing
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      viewport = new Viewport {
+      viewport = new Viewport
+      {
         Size = size,
         Usage = Viewport.UsageEnum.Usage2d,
         RenderTargetUpdateMode = Viewport.UpdateMode.Always,
@@ -59,7 +60,8 @@ namespace Drawing
       viewport.AddChild(pen);
 
       var texture = viewport.GetTexture();
-      board = new TextureRect {
+      board = new TextureRect
+      {
         AnchorBottom = 1.0f,
         AnchorRight = 1.0f,
         Texture = texture

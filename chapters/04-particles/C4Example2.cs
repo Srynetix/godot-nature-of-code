@@ -28,7 +28,8 @@ namespace Examples.Chapter4
 
       private void CreateParticle()
       {
-        var particle = new SimpleFallingParticle {
+        var particle = new SimpleFallingParticle
+        {
           MeshSize = new Vector2(20, 20),
           Lifespan = 2
         };
@@ -65,7 +66,8 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var list = new ParticleList {
+      var list = new ParticleList
+      {
         Position = new Vector2(size.x / 2, size.y / 4)
       };
       AddChild(list);

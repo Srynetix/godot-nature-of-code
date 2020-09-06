@@ -19,7 +19,8 @@ namespace Examples.Chapter1
     {
       var size = GetViewportRect().Size;
 
-      var mover = new ConstantAccelerationMover {
+      var mover = new ConstantAccelerationMover
+      {
         ConstantAcceleration = new Vector2(-0.01f, 0.01f),
         Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y))
       };

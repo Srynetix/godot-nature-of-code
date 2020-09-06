@@ -43,7 +43,8 @@ namespace Examples.Chapter3
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var ball = new Ball {
+      var ball = new Ball
+      {
         Position = new Vector2(size.x / 2, 0)
       };
       AddChild(ball);

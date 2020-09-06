@@ -20,11 +20,13 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var particleSystem = new SimpleParticleSystem {
+      var particleSystem = new SimpleParticleSystem
+      {
         Position = new Vector2(size.x / 2, size.y / 4),
         ParticleCreationFunction = () =>
         {
-          var particle = new SimpleFallingParticle {
+          var particle = new SimpleFallingParticle
+          {
             MeshSize = new Vector2(20, 20),
             Lifespan = 2,
             Mass = 2
@@ -35,7 +37,8 @@ namespace Examples.Chapter4
       };
       AddChild(particleSystem);
 
-      var repeller = new SimpleRepeller {
+      var repeller = new SimpleRepeller
+      {
         Position = new Vector2(size.x / 2, size.y / 2)
       };
       AddChild(repeller);

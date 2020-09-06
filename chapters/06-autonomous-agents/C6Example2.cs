@@ -22,14 +22,16 @@ namespace Examples.Chapter6
       var size = GetViewportRect().Size;
 
       // Create target
-      targetMover = new SimpleMover {
+      targetMover = new SimpleMover
+      {
         Position = size / 2,
         Modulate = Colors.LightBlue.WithAlpha(128)
       };
       AddChild(targetMover);
 
       // Create vehicle
-      var vehicle = new SimpleVehicle {
+      var vehicle = new SimpleVehicle
+      {
         Target = targetMover,
         Position = size / 4,
         ArriveDistance = 100

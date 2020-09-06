@@ -50,10 +50,12 @@ namespace Examples.Chapter6
       path.Looping = true;
       AddChild(path);
 
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (pos) =>
         {
-          var vehicle = new RandomVehicle {
+          var vehicle = new RandomVehicle
+          {
             VehicleGroupList = vehicles,
             Position = pos,
             TargetPath = path,

@@ -33,7 +33,8 @@ namespace Examples.Chapter5
         collisionShape2D = new CollisionShape2D { Shape = circleShape2D };
         AddChild(collisionShape2D);
 
-        sprite = new SimpleCircleSprite {
+        sprite = new SimpleCircleSprite
+        {
           Radius = Radius,
           Modulate = Colors.LightGoldenrod
         };
@@ -42,7 +43,8 @@ namespace Examples.Chapter5
 
       public void LinkTarget(PhysicsBody2D target, float softness = 0, float bias = 0)
       {
-        var pinJoint = new PinJoint2D {
+        var pinJoint = new PinJoint2D
+        {
           NodeA = GetPath(),
           NodeB = target.GetPath(),
           Softness = softness,
@@ -66,7 +68,8 @@ namespace Examples.Chapter5
         collisionShape2D = new CollisionShape2D { Shape = circleShape2D };
         AddChild(collisionShape2D);
 
-        sprite = new SimpleCircleSprite {
+        sprite = new SimpleCircleSprite
+        {
           Radius = Radius,
           Modulate = Colors.LightGoldenrod
         };
@@ -75,7 +78,8 @@ namespace Examples.Chapter5
 
       public void LinkToParent(PhysicsBody2D parent, float softness = 0, float bias = 0)
       {
-        var pinJoint = new PinJoint2D {
+        var pinJoint = new PinJoint2D
+        {
           NodeA = parent.GetPath(),
           NodeB = GetPath(),
           Softness = softness,
@@ -123,7 +127,8 @@ namespace Examples.Chapter5
         PhysicsBody2D lastLink = startAnchor;
         for (int i = 0; i < LinkCount; ++i)
         {
-          var link = new ChainLink {
+          var link = new ChainLink
+          {
             Position = StartPosition + new Vector2(width + (i * width), height + (i * height))
           };
           linksContainer.AddChild(link);
@@ -139,7 +144,8 @@ namespace Examples.Chapter5
           lastLink = link;
         }
 
-        endAnchor = new ChainAnchor {
+        endAnchor = new ChainAnchor
+        {
           Position = EndPosition
         };
         circleContainer.AddChild(endAnchor);
@@ -175,7 +181,8 @@ namespace Examples.Chapter5
       var size = GetViewportRect().Size;
       const int offset = 50;
 
-      var chain = new SimpleChain {
+      var chain = new SimpleChain
+      {
         Softness = 0.1f,
         Bias = 0f,
         LinkCount = 30,
@@ -184,10 +191,12 @@ namespace Examples.Chapter5
       };
       AddChild(chain);
 
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (position) =>
         {
-          return new SimpleBall() {
+          return new SimpleBall()
+          {
             Radius = 15,
             GlobalPosition = position
           };

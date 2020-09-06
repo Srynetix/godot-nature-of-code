@@ -2,7 +2,8 @@ using Godot;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Examples {
+namespace Examples
+{
   /// <summary>
   /// Dynamic scene loader.
   /// </summary>
@@ -314,7 +315,8 @@ namespace Examples {
     private string ExtractSceneSummary(PackedScene packedScene)
     {
       var inst = packedScene.Instance();
-      if (inst is IExample exampleInst) {
+      if (inst is IExample exampleInst)
+      {
         var descr = exampleInst.GetSummary();
         inst.QueueFree();
 
@@ -333,7 +335,9 @@ namespace Examples {
           secondLine = secondLine.Substring(0, SampleNameMaxLength - 3) + "...";
         }
         return secondLine;
-      } else {
+      }
+      else
+      {
         GD.PrintErr("Error while reading '" + packedScene.ResourcePath + "' example summary. Make sure you inherited the IExample interface.");
         return "";
       }

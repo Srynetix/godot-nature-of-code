@@ -19,12 +19,14 @@ namespace Examples.Chapter4
 
     private void AddParticleSystem(Vector2 position)
     {
-      var ps = new SimpleParticleSystem {
+      var ps = new SimpleParticleSystem
+      {
         ParticleCount = 200,
         RemoveWhenEmptyParticles = true,
         ParticleCreationFunction = () =>
         {
-          var particle = new SimpleFallingParticle {
+          var particle = new SimpleFallingParticle
+          {
             Lifespan = 2,
             MeshSize = new Vector2(10, 10)
           };

@@ -74,12 +74,14 @@ namespace Examples.Chapter2
         mover.Mass = bodySize;
         mover.Position = new Vector2(xPos, yPos);
 
-        var repeller = new Repeller {
+        var repeller = new Repeller
+        {
           Visible = false
         };
         mover.AddChild(repeller);
 
-        var mouseAttractor = new MouseAttractor {
+        var mouseAttractor = new MouseAttractor
+        {
           Visible = false
         };
         AddChild(mouseAttractor);

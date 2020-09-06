@@ -70,15 +70,18 @@ namespace Examples.Chapter5
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var attractor = new PhysicsAttractor {
+      var attractor = new PhysicsAttractor
+      {
         Position = size / 2
       };
       AddChild(attractor);
 
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (position) =>
         {
-          var body = new SimpleBall {
+          var body = new SimpleBall
+          {
             GravityScale = 0,
             Mass = 2,
             GlobalPosition = position

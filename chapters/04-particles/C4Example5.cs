@@ -41,7 +41,8 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var particleSystem = new SimpleParticleSystem {
+      var particleSystem = new SimpleParticleSystem
+      {
         ParticleCreationFunction = () =>
         {
           SimpleParticle particle = null;

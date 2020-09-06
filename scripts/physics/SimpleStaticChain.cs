@@ -34,7 +34,8 @@ namespace Physics
     /// <param name="end">End position</param>
     public void AddSegment(Vector2 start, Vector2 end)
     {
-      var segment = new SegmentShape2D {
+      var segment = new SegmentShape2D
+      {
         A = start,
         B = end
       };
@@ -44,7 +45,8 @@ namespace Physics
       shapes.Add(shape);
       AddChild(shape);
 
-      var lineSprite = new SimpleLineSprite {
+      var lineSprite = new SimpleLineSprite
+      {
         PositionA = GlobalPosition + segment.A,
         PositionB = GlobalPosition + segment.B,
         Modulate = BaseColor,

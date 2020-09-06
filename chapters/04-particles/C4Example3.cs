@@ -20,10 +20,12 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var particleSystem = new SimpleParticleSystem {
+      var particleSystem = new SimpleParticleSystem
+      {
         ParticleCreationFunction = () =>
         {
-          var particle = new SimpleFallingParticle {
+          var particle = new SimpleFallingParticle
+          {
             WrapMode = SimpleMover.WrapModeEnum.Bounce,
             MeshSize = new Vector2(20, 20),
             Lifespan = 2

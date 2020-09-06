@@ -36,7 +36,8 @@ namespace Examples.Chapter3
         if (parents.Count == 0)
         {
           // Root pendulum
-          var plm = new SimplePendulum {
+          var plm = new SimplePendulum
+          {
             Position = new Vector2(size.x / 2, 0),
             RopeLength = ropeLength,
             Angle = Mathf.Pi / 2
@@ -51,7 +52,8 @@ namespace Examples.Chapter3
           {
             for (int cIndex = 0; cIndex < ChildrenPerParent; ++cIndex)
             {
-              var plm = new SimplePendulum {
+              var plm = new SimplePendulum
+              {
                 ShowBehindParent = true,
                 RopeLength = ropeLength,
                 Angle = angleStep * cIndex

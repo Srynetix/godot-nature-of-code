@@ -39,23 +39,27 @@ namespace Examples.Chapter5
       const int offset = 50;
 
       // Add left floor
-      var leftFloor = new SimpleWall {
+      var leftFloor = new SimpleWall
+      {
         BodySize = new Vector2(size.x / 2.5f, floorHeight),
         Position = new Vector2((size.x / 2.5f / 2) + offset, size.y)
       };
       AddChild(leftFloor);
 
       // Add right floor
-      var rightFloor = new SimpleWall {
+      var rightFloor = new SimpleWall
+      {
         BodySize = new Vector2(size.x / 2.5f, floorHeight),
         Position = new Vector2(size.x - (size.x / 2.5f / 2) - offset, size.y - (offset * 2))
       };
       AddChild(rightFloor);
 
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (position) =>
         {
-          return new Polygon {
+          return new Polygon
+          {
             GlobalPosition = position
           };
         }

@@ -32,10 +32,12 @@ namespace Examples.Chapter5
     {
       var size = GetViewportRect().Size;
 
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (position) =>
         {
-          return new AntigravityBox {
+          return new AntigravityBox
+          {
             BodySize = new Vector2(20, 20),
             GlobalPosition = position
           };

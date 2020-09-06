@@ -24,7 +24,8 @@ namespace Examples.Chapter3
 
       foreach (int i in Enumerable.Range(0, oscillatorsCount))
       {
-        var oscillator = new SimpleOscillator {
+        var oscillator = new SimpleOscillator
+        {
           Velocity = Vector2.Zero,
           Amplitude = new Vector2(24, size.y / 4),
           AngularAcceleration = new Vector2(0.01f, 0.025f * (i + 1)),

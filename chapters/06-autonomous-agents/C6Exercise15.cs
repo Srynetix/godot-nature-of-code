@@ -55,10 +55,12 @@ namespace Examples.Chapter6
     {
       const int boidsCount = 50;
       var size = GetViewportRect().Size;
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (pos) =>
         {
-          var boid = new PeripheralVisionBoid {
+          var boid = new PeripheralVisionBoid
+          {
             VehicleGroupList = boids,
             Position = pos
           };

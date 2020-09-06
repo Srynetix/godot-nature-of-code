@@ -34,21 +34,24 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      var zone1 = new SimpleFrictionPocket {
+      var zone1 = new SimpleFrictionPocket
+      {
         Coeff = 0.25f,
         Size = new Vector2(100, size.y),
         Position = new Vector2(size.x / 4, size.y / 2)
       };
       AddChild(zone1);
 
-      var zone2 = new SimpleFrictionPocket {
+      var zone2 = new SimpleFrictionPocket
+      {
         Coeff = -0.25f,
         Size = new Vector2(100, size.y),
         Position = new Vector2((size.x / 2) + (size.x / 4), size.y / 2)
       };
       AddChild(zone2);
 
-      var zone3 = new SimpleFrictionPocket {
+      var zone3 = new SimpleFrictionPocket
+      {
         Coeff = -2f,
         Size = new Vector2(10, size.y),
         Position = new Vector2(size.x / 2, size.y / 2)

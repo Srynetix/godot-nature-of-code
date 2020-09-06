@@ -39,7 +39,8 @@ namespace Assets
     {
       if (AddMaterial == null)
       {
-        AddMaterial = new CanvasItemMaterial {
+        AddMaterial = new CanvasItemMaterial
+        {
           BlendMode = CanvasItemMaterial.BlendModeEnum.Add
         };
       }

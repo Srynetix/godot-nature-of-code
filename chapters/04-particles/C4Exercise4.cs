@@ -26,7 +26,8 @@ namespace Examples.Chapter4
       {
         base._Ready();
 
-        particleSystem = new SimpleParticleSystem {
+        particleSystem = new SimpleParticleSystem
+        {
           ParticlesContainer = GetParent(),
           WrapMode = WrapModeEnum.None,
           LocalCoords = false,
@@ -36,7 +37,8 @@ namespace Examples.Chapter4
           ShowBehindParent = true,
           ParticleCreationFunction = () =>
           {
-            var particle = new SimpleFallingParticle {
+            var particle = new SimpleFallingParticle
+            {
               ForceRangeX = new Vector2(-0.15f, 0.15f),
               ForceRangeY = new Vector2(-0.15f, 0.15f),
               WrapMode = WrapModeEnum.None,
@@ -64,7 +66,8 @@ namespace Examples.Chapter4
       controls = new VirtualControls();
       AddChild(controls);
 
-      spaceship = new SpaceshipWithParticles {
+      spaceship = new SpaceshipWithParticles
+      {
         Position = GetViewportRect().Size / 2
       };
       AddChild(spaceship);

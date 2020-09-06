@@ -60,12 +60,14 @@ namespace Examples.Chapter4
       {
         base._Ready();
 
-        particleSystem = new SimpleParticleSystem {
+        particleSystem = new SimpleParticleSystem
+        {
           Emitting = false,
           ParticleCountPerWave = 6,
           ParticleCreationFunction = () =>
           {
-            return new EParticle {
+            return new EParticle
+            {
               MeshSize = MathUtils.RandRangef(0.5f, 1) * (MeshSize / 2),
               InitialOffset = MathUtils.RandVector2(-1, 1, -1, 1).Normalized() * 10,
               Velocity = MathUtils.RandVector2(-1, 1, -1, 1).Normalized() * 10,
@@ -108,7 +110,8 @@ namespace Examples.Chapter4
       float widthSlice = size.x / (objectCount + 1);
       for (int i = 0; i < objectCount; ++i)
       {
-        var shatteringObject = new ShatteringObject {
+        var shatteringObject = new ShatteringObject
+        {
           Position = new Vector2((widthSlice * i) + (widthSlice / 2), (float)GD.RandRange(widthSlice, size.y - widthSlice)),
           MeshSize = new Vector2(widthSlice, widthSlice) * (float)GD.RandRange(0.75f, 1.25f)
         };

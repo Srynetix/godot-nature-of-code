@@ -1,4 +1,5 @@
-namespace Examples {
+namespace Examples
+{
   /// <summary>
   /// Common example interface.
   /// </summary>

@@ -36,7 +36,8 @@ namespace Examples.Chapter3
     {
       var size = GetViewportRect().Size;
 
-      var wave = new NoiseWave {
+      var wave = new NoiseWave
+      {
         Separation = 24,
         Length = size.x,
         Position = new Vector2(size.x, size.y) / 2,

@@ -57,7 +57,8 @@ namespace Drawing
 
     public override void _Ready()
     {
-      sprite = new Sprite {
+      sprite = new Sprite
+      {
         Name = "CustomSprite",
         Material = CustomMaterial,
         Modulate = Modulate,
@@ -65,7 +66,8 @@ namespace Drawing
       };
       AddChild(sprite);
 
-      circleSprite = new SimpleCircleSprite {
+      circleSprite = new SimpleCircleSprite
+      {
         Name = "CircleSprite",
         Modulate = Modulate,
         Visible = false

@@ -45,7 +45,8 @@ namespace Physics
       circleShape2D = new CircleShape2D { Radius = 10 };
       collisionShape2D = new CollisionShape2D { Shape = circleShape2D };
 
-      sprite = new SimpleCircleSprite {
+      sprite = new SimpleCircleSprite
+      {
         Radius = 10,
         Modulate = BaseColor
       };

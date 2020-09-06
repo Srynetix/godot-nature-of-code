@@ -36,10 +36,12 @@ namespace Examples.Chapter5
       var wall = new CurveWall();
       AddChild(wall);
 
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (position) =>
         {
-          return new SimpleBall {
+          return new SimpleBall
+          {
             GlobalPosition = position
           };
         }

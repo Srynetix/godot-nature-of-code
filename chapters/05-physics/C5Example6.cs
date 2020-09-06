@@ -30,18 +30,21 @@ namespace Examples.Chapter5
 
       public override void _Ready()
       {
-        ball1 = new SimpleBall {
+        ball1 = new SimpleBall
+        {
           Radius = Radius,
           Position = new Vector2(-Distance, -Distance)
         };
-        ball2 = new SimpleBall {
+        ball2 = new SimpleBall
+        {
           Radius = Radius,
           Position = new Vector2(Distance, Distance)
         };
         AddChild(ball1);
         AddChild(ball2);
 
-        var join = new PinJoint2D {
+        var join = new PinJoint2D
+        {
           NodeA = ball1.GetPath(),
           NodeB = ball2.GetPath(),
           Softness = 0.1f
@@ -67,23 +70,27 @@ namespace Examples.Chapter5
       const int offset = 50;
 
       // Add left floor
-      var leftFloor = new SimpleWall {
+      var leftFloor = new SimpleWall
+      {
         BodySize = new Vector2(size.x / 2.5f, floorHeight),
         Position = new Vector2((size.x / 2.5f / 2) + offset, size.y)
       };
       AddChild(leftFloor);
 
       // Add right floor
-      var rightFloor = new SimpleWall {
+      var rightFloor = new SimpleWall
+      {
         BodySize = new Vector2(size.x / 2.5f, floorHeight),
         Position = new Vector2(size.x - (size.x / 2.5f / 2) - offset, size.y - (offset * 2))
       };
       AddChild(rightFloor);
 
-      var spawner = new SimpleTouchSpawner {
+      var spawner = new SimpleTouchSpawner
+      {
         SpawnFunction = (position) =>
         {
-          return new DoubleBall {
+          return new DoubleBall
+          {
             Distance = 20,
             Radius = 10,
             RotationDegrees = MathUtils.RandRangef(0, 360),

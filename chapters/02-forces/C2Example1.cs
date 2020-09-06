@@ -36,7 +36,8 @@ namespace Examples
 
       public override void _Ready()
       {
-        var mover = new Mover {
+        var mover = new Mover
+        {
           Position = GetViewportRect().Size / 2
         };
 
