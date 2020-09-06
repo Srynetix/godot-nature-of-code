@@ -20,7 +20,7 @@ namespace Examples.Chapter5
 
     public class Wheel : SimpleBall
     {
-      public float Torque = 20f;
+      public float Torque = 300f;
 
       public Wheel()
       {
