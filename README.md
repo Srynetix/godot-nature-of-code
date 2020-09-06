@@ -29,7 +29,7 @@ You can access the HTML5 version on my `github.io` here: [Godot Nature of Code](
 ## :book: Documentation
 
 Documentation is generated with Doxygen from C# XML comments.  
-Use the included Doxyfile to generate HTML documentation in the `../gnoc-html` folder.  
+Use the included Doxyfile to generate HTML documentation in the `exports/docs` folder.  
 You can also access the generated C# documentation here: [C# Documentation](https://srynetix.github.io/gamedev/godot-nature-of-code/docs/annotated.html)
 
 ## :date: Roadmap
@@ -53,5 +53,8 @@ You can also access the generated C# documentation here: [C# Documentation](http
 - *File rules*: An .editorconfig file is provided.    
 - *Formatting*: This project use `roslynator` to automatically format the C# code, without specific configuration.
 - *Lint*: I am using the Roslynator VSCode extension. I am still looking for a command-line version with the same hints.
+
+You can use `Makefile.py` to format or export the project and its documentation.  
+It needs `doxygen` and `godot` in `PATH`, or you can use `DOXYGEN_EXE` and `GODOT_EXE` environment variables.
 
 If you want to contribute, do not hesitate to create Pull Requests or file Issues on GitHub :wink:. 
