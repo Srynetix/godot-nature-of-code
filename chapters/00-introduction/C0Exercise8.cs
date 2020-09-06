@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// Play with SimpleNoiseTexture noise function to apply effects.
   public class C0Exercise8 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.8:\n"
         + "Noise visual effects";
@@ -19,15 +19,13 @@ namespace Examples.Chapter0
     {
       protected override float ComputeNoise(float x, float y)
       {
-        return noise.GetNoise2d(x + (float)GD.RandRange(0, 1) * 10, y + (float)GD.RandRange(0, 1) * 10);
+        return noise.GetNoise2d(x + ((float)GD.RandRange(0, 1) * 10), y + ((float)GD.RandRange(0, 1) * 10));
       }
     }
 
     public override void _Ready()
     {
-      var noiseTexture = new NoiseTextureEffects();
-      noiseTexture.Factor = 3;
-      noiseTexture.Octaves = 8;
+      var noiseTexture = new NoiseTextureEffects{ Factor = 8, Octaves = 8};
       AddChild(noiseTexture);
     }
   }

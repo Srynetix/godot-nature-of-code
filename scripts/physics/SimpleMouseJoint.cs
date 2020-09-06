@@ -52,14 +52,7 @@ namespace Physics
     {
       if (@event is InputEventScreenTouch eventScreenTouch)
       {
-        if (eventScreenTouch.Pressed)
-        {
-          active = true;
-        }
-        else
-        {
-          active = false;
-        }
+        active = eventScreenTouch.Pressed;
       }
     }
 

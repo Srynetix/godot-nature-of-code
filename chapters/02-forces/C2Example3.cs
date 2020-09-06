@@ -10,7 +10,7 @@ namespace Examples.Chapter2
   /// Uses object Mass to scale gravity when applying force.
   public class C2Example3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 2.3:\n"
         + "Gravity scaled by mass";
@@ -32,7 +32,7 @@ namespace Examples.Chapter2
 
     public override void _Ready()
     {
-      foreach (var x in Enumerable.Range(0, 20))
+      foreach (var _ in Enumerable.Range(0, 20))
       {
         var mover = new Mover();
         var bodySize = (float)GD.RandRange(20, 40);

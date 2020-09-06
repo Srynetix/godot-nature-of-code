@@ -14,16 +14,22 @@ namespace Assets
     {
       /// <summary>Default white circle texture with black background.</summary>
       WhiteDot,
+
       /// <summary>Default white circle texture with alpha background.</summary>
       WhiteDotAlpha,
+
       /// <summary>Default white circle texture with outline and alpha background.</summary>
       WhiteDotAlphaWithOutline,
+
       /// <summary>Default white circle outline with alpha background.</summary>
       WhiteDotOutlineOnly,
+
       /// <summary>Default white blurry circle with alpha background.</summary>
       WhiteDotBlur,
+
       /// <summary>Right arrow with alpha background</summary>
       RightArrow,
+
       /// <summary>Default vertical line texture.</summary>
       Line
     }
@@ -49,32 +55,26 @@ namespace Assets
       {
         return WhiteDotTexture;
       }
-
       else if (value == Enum.WhiteDotBlur)
       {
         return WhiteDotBlurTexture;
       }
-
       else if (value == Enum.WhiteDotOutlineOnly)
       {
         return WhiteDotOutlineOnlyTexture;
       }
-
       else if (value == Enum.WhiteDotAlphaWithOutline)
       {
         return WhiteDotAlphaWithOutlineTexture;
       }
-
       else if (value == Enum.WhiteDotAlpha)
       {
         return WhiteDotAlphaTexture;
       }
-
       else if (value == Enum.RightArrow)
       {
         return RightArrowTexture;
       }
-
       else if (value == Enum.Line)
       {
         return LineTexture;

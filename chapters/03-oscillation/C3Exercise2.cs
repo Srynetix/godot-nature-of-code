@@ -10,7 +10,7 @@ namespace Examples.Chapter3
   /// Uses a Timer to limit projectile spawning.
   public class C3Exercise2 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.2:\n"
         + "Cannon";
@@ -37,13 +37,13 @@ namespace Examples.Chapter3
 
       public Vector2 GetSpawnPoint()
       {
-        var spawnPointLength = BasisSize * 4 - 25;
+        var spawnPointLength = (BasisSize * 4) - 25;
         return new Vector2(spawnPointLength, 0).Rotated(Rotation) + GlobalPosition;
       }
 
       public override void _Process(float delta)
       {
-        Rotation = Mathf.Deg2Rad(-45 + Mathf.Sin(t) * 45);
+        Rotation = Mathf.Deg2Rad(-45 + (Mathf.Sin(t) * 45));
         t += delta * MovementSpeed;
       }
 
@@ -51,9 +51,10 @@ namespace Examples.Chapter3
       {
         var spawnPoint = GetSpawnPoint();
 
-        var proj = new Projectile();
-        proj.Position = spawnPoint;
-        proj.Rotation = Rotation;
+        var proj = new Projectile {
+          Position = spawnPoint,
+          Rotation = Rotation
+        };
         GetParent().AddChild(proj);
       }
     }
@@ -93,18 +94,20 @@ namespace Examples.Chapter3
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var offset = 50;
-      var fireTime = 1f;
+      const int offset = 50;
+      const float fireTime = 1f;
 
-      timer = new Timer();
-      timer.WaitTime = fireTime;
-      timer.Autostart = true;
+      timer = new Timer {
+        WaitTime = fireTime,
+        Autostart = true
+      };
       AddChild(timer);
 
       timer.Connect("timeout", this, nameof(CannonFire));
 
-      cannon = new Cannon();
-      cannon.Position = new Vector2(offset, size.y - offset);
+      cannon = new Cannon {
+        Position = new Vector2(offset, size.y - offset)
+      };
       AddChild(cannon);
     }
 

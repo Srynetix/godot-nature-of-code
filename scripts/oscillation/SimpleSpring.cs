@@ -13,25 +13,27 @@ namespace Oscillation
   {
     /// <summary>Spring length</summary>
     public float Length = 100;
+
     /// <summary>K coefficient</summary>
     public float K = 0.2f;
+
     /// <summary>Minimal length</summary>
     public float MinLength = 50;
+
     /// <summary>Maximal length</summary>
     public float MaxLength = 150;
 
     private SimpleMover currentMover = null;
     private int touchIndex = -1;
     private bool touched = false;
-    private SimpleLineSprite lineSprite;
+    private readonly SimpleLineSprite lineSprite;
 
     /// <summary>
     /// Create a default spring.
     /// </summary>
     public SimpleSpring()
     {
-      lineSprite = new SimpleLineSprite();
-      lineSprite.Width = 2;
+      lineSprite = new SimpleLineSprite { Width = 2 };
     }
 
     /// <summary>
@@ -87,7 +89,6 @@ namespace Oscillation
           touchIndex = -1;
         }
       }
-
       else if (@event is InputEventScreenDrag eventScreenDrag)
       {
         if (touched)
@@ -99,11 +100,7 @@ namespace Oscillation
 
     public override void _Process(float delta)
     {
-      if (currentMover != null)
-      {
-        currentMover.ApplyForce(ComputeForce(currentMover));
-      }
-
+      currentMover?.ApplyForce(ComputeForce(currentMover));
       ConstrainLength();
 
       if (currentMover != null)
@@ -145,7 +142,6 @@ namespace Oscillation
         currentMover.Position = dir.Normalized() * MinLength;
         currentMover.Velocity = Vector2.Zero;
       }
-
       else if (d > MaxLength)
       {
         currentMover.Position = dir.Normalized() * MaxLength;

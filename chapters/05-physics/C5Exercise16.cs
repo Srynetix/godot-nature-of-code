@@ -9,7 +9,7 @@ namespace Examples.Chapter5
   /// Uses two AttractionBehaviors, one for close objects, one for far objects.
   public class C5Exercise16 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.16\n"
         + "Verlet Attraction Combo\n\n"
@@ -29,10 +29,10 @@ namespace Examples.Chapter5
       // Repulse when close
       physics.AddBehavior(new AttractionBehavior(attractor, strength: -0.1f, radius: 24 * 4));
 
-      var pointCount = 18;
+      const int pointCount = 18;
       for (int i = 0; i < pointCount; ++i)
       {
-        var pt = physics.CreatePoint(MathUtils.RandVector2(0, size.x, 0, size.y), radius: 16, mass: 10);
+        physics.CreatePoint(MathUtils.RandVector2(0, size.x, 0, size.y), radius: 16, mass: 10);
       }
     }
   }

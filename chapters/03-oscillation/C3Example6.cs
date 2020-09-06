@@ -8,7 +8,7 @@ namespace Examples.Chapter3
   /// Same principle than Example 3.5 but without frame count.
   public class C3Example6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.6:\n"
         + "Simple Harmonic Motion II";
@@ -42,8 +42,9 @@ namespace Examples.Chapter3
 
     public override void _Ready()
     {
-      var ball = new Ball();
-      ball.Position = GetViewportRect().Size / 2;
+      var ball = new Ball {
+        Position = GetViewportRect().Size / 2
+      };
       AddChild(ball);
     }
   }

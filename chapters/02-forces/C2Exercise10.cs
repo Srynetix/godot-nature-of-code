@@ -12,7 +12,7 @@ namespace Examples.Chapter2
   /// Uses another custom SimpleAttractor which attract objects towards mouse.
   public class C2Exercise10 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 2.10:\n"
         + "Repulsion";
@@ -38,8 +38,8 @@ namespace Examples.Chapter2
         }
 
         var mousePos = GetGlobalMousePosition();
-        var mouseGravitation = 1;
-        var mouseMass = 15;
+        const int mouseGravitation = 1;
+        const int mouseMass = 15;
 
         var force = mousePos - mover.GlobalPosition;
         var length = Mathf.Clamp(force.Length(), 5, 25);
@@ -64,7 +64,7 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      foreach (var x in Enumerable.Range(0, 20))
+      foreach (var _ in Enumerable.Range(0, 20))
       {
         var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
         var bodySize = (float)GD.RandRange(20, 40);
@@ -74,12 +74,14 @@ namespace Examples.Chapter2
         mover.Mass = bodySize;
         mover.Position = new Vector2(xPos, yPos);
 
-        var repeller = new Repeller();
-        repeller.Visible = false;
+        var repeller = new Repeller {
+          Visible = false
+        };
         mover.AddChild(repeller);
 
-        var mouseAttractor = new MouseAttractor();
-        mouseAttractor.Visible = false;
+        var mouseAttractor = new MouseAttractor {
+          Visible = false
+        };
         AddChild(mouseAttractor);
 
         AddChild(mover);

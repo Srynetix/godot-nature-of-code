@@ -9,7 +9,7 @@ namespace Examples.Chapter3
   /// Uses frame count to limit speed.
   public class C3Example5 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.5:\n"
         + "Simple Harmonic Motion";
@@ -38,7 +38,7 @@ namespace Examples.Chapter3
 
       public override void _Process(float delta)
       {
-        frameCount += 1;
+        frameCount++;
 
         Update();
       }
@@ -46,8 +46,9 @@ namespace Examples.Chapter3
 
     public override void _Ready()
     {
-      var ball = new Ball();
-      ball.Position = GetViewportRect().Size / 2;
+      var ball = new Ball {
+        Position = GetViewportRect().Size / 2
+      };
       AddChild(ball);
     }
   }

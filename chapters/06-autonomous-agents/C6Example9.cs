@@ -10,25 +10,27 @@ namespace Examples.Chapter6
   /// </summary>
   public class C6Example9 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 6.9:\nFlocking\n\nTouch screen to spawn boids";
     }
 
-    private List<SimpleVehicle> boids = new List<SimpleVehicle>();
+    private readonly List<SimpleVehicle> boids = new List<SimpleVehicle>();
 
     public override void _Ready()
     {
+      const int boidsCount = 50;
       var size = GetViewportRect().Size;
-      var boidsCount = 50;
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (pos) =>
-      {
-        var boid = new SimpleBoid();
-        boid.VehicleGroupList = boids;
-        boid.Position = pos;
-        boids.Add(boid);
-        return boid;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (pos) =>
+        {
+          var boid = new SimpleBoid {
+            VehicleGroupList = boids,
+            Position = pos
+          };
+          boids.Add(boid);
+          return boid;
+        }
       };
       AddChild(spawner);
 

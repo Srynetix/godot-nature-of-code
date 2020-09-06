@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// SimpleWalker with Gaussian random distribution step.
   public class C0Exercise5 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.5:\n"
         + "Gaussian random walk";
@@ -49,10 +49,7 @@ namespace Examples.Chapter0
       walker.SetXY(GetViewportRect().Size / 2);
       AddChild(walker);
 
-      var canvas = new DrawCanvas((pen) =>
-      {
-        pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-      });
+      var canvas = new DrawCanvas((pen) => pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true));
       canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
       AddChild(canvas);
     }

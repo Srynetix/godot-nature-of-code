@@ -10,7 +10,7 @@ namespace Examples.Chapter5
   /// Combines VerletClusters using VerletLink's MinimalDistance attribute.
   public class C5Exercise15 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.15:\n"
         + "Verlet Cluster Graph\n\n"
@@ -40,10 +40,8 @@ namespace Examples.Chapter5
           }
         }
 
-        var stiffness = 0.01f;
-        var clusters = new List<VerletCluster>();
-
-        clusters.Add(
+        const float stiffness = 0.01f;
+        var clusters = new List<VerletCluster> {
           new VerletCluster(
             world,
             centerPosition + MathUtils.RandVector2(-5, 5, -5, 5),
@@ -51,10 +49,7 @@ namespace Examples.Chapter5
             diameter: 50,
             tearSensitivityFactor: -1,
             stiffness: stiffness
-          )
-        );
-
-        clusters.Add(
+          ),
           new VerletCluster(
             world,
             centerPosition + MathUtils.RandVector2(-5, 5, -5, 5),
@@ -62,10 +57,7 @@ namespace Examples.Chapter5
             diameter: 75,
             tearSensitivityFactor: -1,
             stiffness: stiffness
-          )
-        );
-
-        clusters.Add(
+          ),
           new VerletCluster(
             world,
             centerPosition + MathUtils.RandVector2(-5, 5, -5, 5),
@@ -73,10 +65,7 @@ namespace Examples.Chapter5
             diameter: 25,
             tearSensitivityFactor: -1,
             stiffness: stiffness
-          )
-        );
-
-        clusters.Add(
+          ),
           new VerletCluster(
             world,
             centerPosition + MathUtils.RandVector2(-5, 5, -5, 5),
@@ -85,7 +74,7 @@ namespace Examples.Chapter5
             tearSensitivityFactor: -1,
             stiffness: stiffness
           )
-        );
+        };
 
         for (int i = 0; i < clusters.Count - 1; ++i)
         {
@@ -109,7 +98,7 @@ namespace Examples.Chapter5
       var physics = new VerletWorld();
       AddChild(physics);
 
-      var graph = new VerletClusterGraph(physics, size / 2);
+      new VerletClusterGraph(physics, size / 2);
     }
   }
 }

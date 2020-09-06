@@ -12,10 +12,13 @@ namespace Agents
 
     /// <summary>Column count</summary>
     protected int cols;
+
     /// <summary>Row count</summary>
     protected int rows;
+
     /// <summary>Flow field</summary>
     protected FlowDirection[] field;
+
     /// <summary>Size</summary>
     protected Vector2 size;
 
@@ -29,13 +32,13 @@ namespace Agents
 
       public override void _Draw()
       {
-        float arrowOffset = 8;
-        float arrowWidth = 4;
-        float arrowEndLength = 8;
-        float arrowEndWidth = 4;
+        const float arrowOffset = 8;
+        const float arrowWidth = 4;
+        const float arrowEndLength = 8;
+        const float arrowEndWidth = 4;
 
-        DrawRect(new Rect2(arrowOffset / 2, RectSize.y / 2 - arrowWidth / 2, RectSize.x - arrowOffset, arrowWidth), Colors.Lavender.WithAlpha(32));
-        DrawRect(new Rect2(RectSize.x - arrowEndLength, RectSize.y / 2 - arrowEndWidth / 2, arrowEndLength / 2, arrowEndWidth), Colors.White.WithAlpha(128));
+        DrawRect(new Rect2(arrowOffset / 2, (RectSize.y / 2) - (arrowWidth / 2), RectSize.x - arrowOffset, arrowWidth), Colors.Lavender.WithAlpha(32));
+        DrawRect(new Rect2(RectSize.x - arrowEndLength, (RectSize.y / 2) - (arrowEndWidth / 2), arrowEndLength / 2, arrowEndWidth), Colors.White.WithAlpha(128));
       }
 
       public override void _Process(float delta)
@@ -56,7 +59,7 @@ namespace Agents
       {
         int x = (int)Mathf.Clamp((position.x - GlobalPosition.x) / Resolution, 0, cols - 1);
         int y = (int)Mathf.Clamp((position.y - GlobalPosition.y) / Resolution, 0, rows - 1);
-        return field[x + y * cols].Direction;
+        return field[x + (y * cols)].Direction;
       }
       else
       {
@@ -85,7 +88,7 @@ namespace Agents
       {
         for (int i = 0; i < cols; ++i)
         {
-          var idx = i + j * cols;
+          var idx = i + (j * cols);
           var direction = field[idx];
           direction.Direction = ComputeDirectionFromPosition(i, j);
           direction.RectRotation = Mathf.Rad2Deg(direction.Direction.Angle());
@@ -101,13 +104,13 @@ namespace Agents
     public override void _Draw()
     {
       // Draw grid
-      float bgOffset = 2;
+      const float bgOffset = 2;
 
       for (int j = 0; j < rows; ++j)
       {
         for (int i = 0; i < cols; ++i)
         {
-          DrawRect(new Rect2(i * Resolution + bgOffset / 2, j * Resolution + bgOffset / 2, Resolution - bgOffset, Resolution - bgOffset), Colors.Beige.WithAlpha(16));
+          DrawRect(new Rect2((i * Resolution) + (bgOffset / 2), (j * Resolution) + (bgOffset / 2), Resolution - bgOffset, Resolution - bgOffset), Colors.Beige.WithAlpha(16));
         }
       }
     }
@@ -124,12 +127,13 @@ namespace Agents
       {
         for (int i = 0; i < cols; ++i)
         {
-          var idx = i + j * cols;
-          var direction = new FlowDirection();
-          direction.RectSize = resolutionSize;
-          direction.RectPosition = new Vector2(i * Resolution, j * Resolution);
-          direction.RectPivotOffset = resolutionSize / 2.0f;
-          direction.Direction = ComputeDirectionFromPosition(i, j);
+          var idx = i + (j * cols);
+          var direction = new FlowDirection {
+            RectSize = resolutionSize,
+            RectPosition = new Vector2(i * Resolution, j * Resolution),
+            RectPivotOffset = resolutionSize / 2.0f,
+            Direction = ComputeDirectionFromPosition(i, j)
+          };
           direction.RectRotation = Mathf.Rad2Deg(direction.Direction.Angle());
           field[idx] = direction;
           AddChild(direction);

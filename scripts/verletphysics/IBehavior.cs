@@ -1,12 +1,10 @@
 namespace VerletPhysics
 {
-
   /// <summary>
   /// Behavior interface.
   /// </summary>
   public interface IBehavior
   {
-
     /// <summary>
     /// Apply behavior to a verlet point.
     /// </summary>

@@ -10,20 +10,26 @@ namespace VerletPhysics
   {
     /// <summary>Resting distance</summary>
     public float RestingDistance;
+
     /// <summary>Minimal distance. Use `-1` to disable.</summary>
     public float MinimalDistance = -1;
+
     /// <summary>Maximal distance. Use `-1` to disable.</summary>
     public float MaximalDistance = -1;
+
     /// <summary>Stiffness of the link, between 0 and 1.</summary>
     public float Stiffness = 1;
+
     /// <summary>Distance required to break the link. Use `-1` to create an unbreakable link.</summary>
     public float TearSensitivity = -1;
+
     /// <summary>First verlet point</summary>
     public VerletPoint A;
+
     /// <summary>Second verlet point</summary>
     public VerletPoint B;
 
-    private VerletWorld world;
+    private readonly VerletWorld world;
 
     public VerletLink(VerletWorld world, VerletPoint a, VerletPoint b)
     {

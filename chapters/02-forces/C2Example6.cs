@@ -9,7 +9,7 @@ namespace Examples.Chapter2
   /// Uses SimpleAttractor to automatically attract SimpleMovers.
   public class C2Example6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 2.6:\n"
         + "Attraction";
@@ -19,9 +19,10 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      var attractor = new SimpleAttractor();
-      attractor.Gravitation = 0.5f;
-      attractor.Position = size / 2;
+      var attractor = new SimpleAttractor {
+        Gravitation = 0.5f,
+        Position = size / 2
+      };
       AddChild(attractor);
 
       var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);

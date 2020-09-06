@@ -8,7 +8,7 @@ namespace Examples.Chapter3
   /// Simple bob using cosine wave and amplitude.
   public class C3Exercise6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.6:\n"
         + "Bob";
@@ -35,7 +35,7 @@ namespace Examples.Chapter3
 
       public override void _Process(float delta)
       {
-        frameCount += 1;
+        frameCount++;
         Update();
       }
     }
@@ -43,8 +43,9 @@ namespace Examples.Chapter3
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var ball = new Ball();
-      ball.Position = new Vector2(size.x / 2, 0);
+      var ball = new Ball {
+        Position = new Vector2(size.x / 2, 0)
+      };
       AddChild(ball);
     }
   }

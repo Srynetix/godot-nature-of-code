@@ -8,7 +8,7 @@ namespace Examples.Chapter0
   /// Uses the Node2D _Draw function to draw bars.
   public class C0Example2 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example I.2:\n"
         + "Random number distribution";

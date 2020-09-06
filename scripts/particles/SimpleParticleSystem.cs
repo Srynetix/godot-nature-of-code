@@ -14,18 +14,25 @@ namespace Particles
 
     /// <summary>System is emitting</summary>
     public bool Emitting = true;
+
     /// <summary>Remove system when particle list is empty</summary>
     public bool RemoveWhenEmptyParticles = false;
+
     /// <summary>Particle count. Use -1 for "unlimited" particles</summary>
     public int ParticleCount = -1;
+
     /// <summary>Particle spawn frame delay</summary>
     public int ParticleSpawnFrameDelay = 4;
+
     /// <summary>Particle count per wave</summary>
     public int ParticleCountPerWave = 1;
+
     /// <summary>Draw in local coords</summary>
     public bool LocalCoords = true;
+
     /// <summary>Particles container. Use Parent by default.
     public Node ParticlesContainer = null;
+
     /// <summary>Particles creation function</summary>
     public ParticleCreationFunc ParticleCreationFunction = null;
 

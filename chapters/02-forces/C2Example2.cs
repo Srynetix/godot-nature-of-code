@@ -10,7 +10,7 @@ namespace Examples.Chapter2
   /// Same principle as Example 2.1, but on many objects.
   public class C2Example2 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 2.2:\n"
         + "Forces on many objects";
@@ -32,7 +32,7 @@ namespace Examples.Chapter2
 
     public override void _Ready()
     {
-      foreach (var x in Enumerable.Range(0, 20))
+      foreach (var _ in Enumerable.Range(0, 20))
       {
         var mover = new Mover();
         var bodySize = (float)GD.RandRange(20, 40);

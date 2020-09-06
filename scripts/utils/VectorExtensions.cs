@@ -17,7 +17,7 @@ public static class VectorExtensions
     var len = vec.Length();
     if (len > 0)
     {
-      len = len / length;
+      len /= length;
       vec.x *= len;
       vec.y *= len;
     }
@@ -25,7 +25,7 @@ public static class VectorExtensions
   }
 
   /// <summary>
-  /// Add a random value to X and Y components. 
+  /// Add a random value to X and Y components.
   /// </summary>
   /// <param name="vector">Current vector</param>
   /// <param name="coef">Coefficient</param>
@@ -50,6 +50,6 @@ public static class VectorExtensions
     var ap = p - a;
     var ab = (b - a).Normalized();
     var dot = ap.Dot(ab);
-    return a + ab * dot;
+    return a + (ab * dot);
   }
 }

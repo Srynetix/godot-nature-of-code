@@ -15,7 +15,7 @@ namespace Examples
     /// Uses SimpleVehicle.
     public class C6Example1 : Node2D, IExample
     {
-      public string _Summary()
+      public string GetSummary()
       {
         return "Example 6.1:\nSeeking a target";
       }
@@ -27,15 +27,17 @@ namespace Examples
         var size = GetViewportRect().Size;
 
         // Create target
-        targetMover = new SimpleMover();
-        targetMover.Position = size / 2;
-        targetMover.Modulate = Colors.LightBlue.WithAlpha(128);
+        targetMover = new SimpleMover {
+          Position = size / 2,
+          Modulate = Colors.LightBlue.WithAlpha(128)
+        };
         AddChild(targetMover);
 
         // Create vehicle
-        var vehicle = new SimpleVehicle();
-        vehicle.Target = targetMover;
-        vehicle.Position = size / 4;
+        var vehicle = new SimpleVehicle {
+          Target = targetMover,
+          Position = size / 4
+        };
         AddChild(vehicle);
       }
 

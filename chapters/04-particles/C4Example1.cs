@@ -14,7 +14,7 @@ namespace Examples
     /// Uses SimpleParticle with a custom acceleration.
     public class C4Example1 : Node2D, IExample
     {
-      public string _Summary()
+      public string GetSummary()
       {
         return "Example 4.1:\n"
           + "Simple Particle";
@@ -31,8 +31,9 @@ namespace Examples
       public override void _Ready()
       {
         var size = GetViewportRect().Size;
-        var particle = new EParticle();
-        particle.Position = size / 2;
+        var particle = new EParticle {
+          Position = size / 2
+        };
         AddChild(particle);
       }
     }

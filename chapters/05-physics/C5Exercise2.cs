@@ -1,5 +1,6 @@
 using Godot;
 using Utils;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -9,14 +10,14 @@ namespace Examples.Chapter5
   /// Custom SimpleBox without gravity.
   public class C5Exercise2 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.2:\n"
         + "Anti-Gravity Boxes\n\n"
         + "Touch screen to spawn boxes";
     }
 
-    private class AntigravityBox : Physics.SimpleBox
+    private class AntigravityBox : SimpleBox
     {
       public override void _Ready()
       {
@@ -31,17 +32,18 @@ namespace Examples.Chapter5
     {
       var size = GetViewportRect().Size;
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var box = new AntigravityBox();
-        box.BodySize = new Vector2(20, 20);
-        box.GlobalPosition = position;
-        return box;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          return new AntigravityBox {
+            BodySize = new Vector2(20, 20),
+            GlobalPosition = position
+          };
+        }
       };
       AddChild(spawner);
 
-      int boxCount = 10;
+      const int boxCount = 10;
       for (int i = 0; i < boxCount; ++i)
       {
         spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y));

@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// Mix of DrawCanvas and RandomNumberGenerator to simulate paint.
   public class C0Exercise4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.4:\n"
         + "Paint splatter";
@@ -35,8 +35,8 @@ namespace Examples.Chapter0
         var colNumG = (byte)(generator.Randfn(0, 1) * 255);
         var colNumB = (byte)(generator.Randfn(0, 1) * 255);
 
-        float x = 20 * xNum + mousePosition.x;
-        float y = 20 * yNum + mousePosition.y;
+        float x = (20 * xNum) + mousePosition.x;
+        float y = (20 * yNum) + mousePosition.y;
 
         pen.DrawCircle(new Vector2(x, y), 8, Color.Color8(colNumR, colNumG, colNumB, 64));
       });

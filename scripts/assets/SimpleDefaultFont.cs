@@ -20,14 +20,14 @@ namespace Assets
     {
       if (Regular == null)
       {
-        var fontData = GD.Load("res://assets/fonts/Raleway-Regular.ttf");
-        var dynamicFont = new DynamicFont();
-        dynamicFont.FontData = (DynamicFontData)fontData;
-        dynamicFont.Size = 16;
-        dynamicFont.UseFilter = true;
-        dynamicFont.OutlineSize = 1;
-        dynamicFont.OutlineColor = Colors.Black;
-        Regular = dynamicFont;
+        var fontData = (DynamicFontData)GD.Load("res://assets/fonts/Raleway-Regular.ttf");
+        Regular = new DynamicFont {
+          FontData = fontData,
+          Size = 16,
+          UseFilter = true,
+          OutlineSize = 1,
+          OutlineColor = Colors.Black
+        };
       }
 
       return Regular;

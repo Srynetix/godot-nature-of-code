@@ -9,14 +9,14 @@ namespace Examples.Chapter6
   /// Use a child node containing angle information.
   public class C6Exercise4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.4:\nReynolds' Wandering Behavior";
     }
 
     private class ReynoldsVehicle : SimpleVehicle
     {
-      private RandomCircle randomCircle;
+      private readonly RandomCircle randomCircle;
 
       private class RandomCircle : Node2D
       {
@@ -30,7 +30,7 @@ namespace Examples.Chapter6
           // Draw circle and line
           DrawLine(Vector2.Zero, circlePos, Colors.Black, 1);
           DrawCircle(circlePos, Radius, Colors.White.WithAlpha(32));
-          DrawLine(circlePos, circlePos + Radius * new Vector2(Mathf.Cos(Theta), Mathf.Sin(Theta)), Colors.Black);
+          DrawLine(circlePos, circlePos + (Radius * new Vector2(Mathf.Cos(Theta), Mathf.Sin(Theta))), Colors.Black);
         }
 
         public override void _Process(float delta)
@@ -68,8 +68,9 @@ namespace Examples.Chapter6
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var vehicle = new ReynoldsVehicle();
-      vehicle.Position = size / 2;
+      var vehicle = new ReynoldsVehicle {
+        Position = size / 2
+      };
       AddChild(vehicle);
     }
   }

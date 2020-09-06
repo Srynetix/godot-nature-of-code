@@ -10,27 +10,29 @@ namespace Examples.Chapter6
   /// </summary>
   public class C6Exercise12 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.12:\nGroup Cohesion\n\nTouch screen to spawn vehicles";
     }
 
-    private int vehicleCount = 50;
-    private List<SimpleVehicle> vehicles = new List<SimpleVehicle>();
+    private const int vehicleCount = 50;
+    private readonly List<SimpleVehicle> vehicles = new List<SimpleVehicle>();
 
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (pos) =>
-      {
-        var vehicle = new RoundVehicle();
-        vehicle.VehicleGroupList = vehicles;
-        vehicle.CohesionEnabled = true;
-        vehicle.Position = pos;
-        vehicles.Add(vehicle);
-        return vehicle;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (pos) =>
+        {
+          var vehicle = new RoundVehicle {
+            VehicleGroupList = vehicles,
+            CohesionEnabled = true,
+            Position = pos
+          };
+          vehicles.Add(vehicle);
+          return vehicle;
+        }
       };
       AddChild(spawner);
 

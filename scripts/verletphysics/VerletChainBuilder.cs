@@ -16,11 +16,11 @@ namespace VerletPhysics
     /// <summary>Point configuration function definition</summary>
     public delegate void PointConfiguratorFunc(VerletPoint point);
 
-    private bool pinFirst;
-    private bool pinLast;
-    private bool drawIntermediatePoints;
-    private VerletWorld world;
-    private List<VerletPoint> points;
+    private readonly bool pinFirst;
+    private readonly bool pinLast;
+    private readonly bool drawIntermediatePoints;
+    private readonly VerletWorld world;
+    private readonly List<VerletPoint> points;
 
     /// <summary>
     /// Create a verlet chain builder.
@@ -61,7 +61,7 @@ namespace VerletPhysics
       var point = world.CreatePoint();
       point.MoveToPosition(position);
 
-      if (points.Count == 0)
+      if (points.Count == 0 && pinFirst)
       {
         point.PinToCurrentPosition();
       }
@@ -73,11 +73,7 @@ namespace VerletPhysics
         }
       }
 
-      if (configurator != null)
-      {
-        configurator(point);
-      }
-
+      configurator?.Invoke(point);
       points.Add(point);
       return this;
     }
@@ -169,7 +165,6 @@ namespace VerletPhysics
       // Show last
       lastPoint.Visible = true;
 
-      int linkCount = points.Count - 1;
       VerletPoint prevPoint = points[0];
       for (int i = 1; i < points.Count; ++i)
       {

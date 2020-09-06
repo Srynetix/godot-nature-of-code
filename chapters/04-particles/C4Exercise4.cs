@@ -10,7 +10,7 @@ namespace Examples.Chapter4
   /// Reuses Asteroid from Exercise 3.5 with a SimpleParticleSystem.
   public class C4Exercise4 : Chapter3.C3Exercise5, IExample
   {
-    public new string _Summary()
+    public new string GetSummary()
     {
       return "Exercise 4.4:\n"
         + "Asteroids with Particles\n\n"
@@ -26,24 +26,26 @@ namespace Examples.Chapter4
       {
         base._Ready();
 
-        particleSystem = new SimpleParticleSystem();
-        particleSystem.ParticlesContainer = GetParent();
-        particleSystem.WrapMode = WrapModeEnum.None;
-        particleSystem.LocalCoords = false;
-        particleSystem.Emitting = false;
-        particleSystem.Position = new Vector2(0, MeshSize.y + 10);
-        particleSystem.ParticleSpawnFrameDelay = 0;
-        particleSystem.ShowBehindParent = true;
-        particleSystem.ParticleCreationFunction = () =>
-        {
-          var particle = new SimpleFallingParticle();
-          particle.ForceRangeX = new Vector2(-0.15f, 0.15f);
-          particle.ForceRangeY = new Vector2(-0.15f, 0.15f);
-          particle.WrapMode = WrapModeEnum.None;
-          particle.MeshSize = new Vector2(10, 10);
-          particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-          particle.Lifespan = 2;
-          return particle;
+        particleSystem = new SimpleParticleSystem {
+          ParticlesContainer = GetParent(),
+          WrapMode = WrapModeEnum.None,
+          LocalCoords = false,
+          Emitting = false,
+          Position = new Vector2(0, MeshSize.y + 10),
+          ParticleSpawnFrameDelay = 0,
+          ShowBehindParent = true,
+          ParticleCreationFunction = () =>
+          {
+            var particle = new SimpleFallingParticle {
+              ForceRangeX = new Vector2(-0.15f, 0.15f),
+              ForceRangeY = new Vector2(-0.15f, 0.15f),
+              WrapMode = WrapModeEnum.None,
+              MeshSize = new Vector2(10, 10),
+              Lifespan = 2
+            };
+            particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
+            return particle;
+          }
         };
         AddChild(particleSystem);
       }
@@ -62,8 +64,9 @@ namespace Examples.Chapter4
       controls = new VirtualControls();
       AddChild(controls);
 
-      spaceship = new SpaceshipWithParticles();
-      spaceship.Position = GetViewportRect().Size / 2;
+      spaceship = new SpaceshipWithParticles {
+        Position = GetViewportRect().Size / 2
+      };
       AddChild(spaceship);
     }
   }

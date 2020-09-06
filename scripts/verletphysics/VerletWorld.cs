@@ -11,9 +11,9 @@ namespace VerletPhysics
     /// <summary>Constraint resolution accuracy</summary>
     public int ConstraintAccuracy = 2;
 
-    private List<IBehavior> behaviors;
-    private List<VerletPoint> points;
-    private List<VerletLink> linksToRemove;
+    private readonly List<IBehavior> behaviors;
+    private readonly List<VerletPoint> points;
+    private readonly List<VerletLink> linksToRemove;
 
     /// <summary>
     /// Create a default verlet world.

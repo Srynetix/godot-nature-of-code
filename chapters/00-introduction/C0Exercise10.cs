@@ -8,7 +8,7 @@ namespace Examples.Chapter0
   /// Dynamic line drawing using DrawLine and OpenSimplexNoise.
   public class C0Exercise10 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.10:\n"
         + "2D landscape elevation";
@@ -29,9 +29,8 @@ namespace Examples.Chapter0
       var middleY = size.y / 2;
       float stepSize = size.x / 20.0f;
       float prevY = middleY;
-      float nValue = 0;
-
       float tx = t;
+      float nValue;
 
       for (float x = 0; x < size.x; x += stepSize)
       {

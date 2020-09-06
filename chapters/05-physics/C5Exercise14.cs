@@ -9,7 +9,7 @@ namespace Examples.Chapter5
   /// Custom verlet creature using various VerletLinks, and a VerletRagdoll.
   public class C5Exercise14 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.14:\n"
         + "Verlet Creature\n\n"
@@ -21,8 +21,8 @@ namespace Examples.Chapter5
     {
       public VerletCreature(VerletWorld world, Vector2 centerPosition, float height, float gravityScale = 1, float pointRadius = 10f, bool drawPoints = true, bool drawSupportLinks = false)
       {
-        float tearSensitivityFactor = 4;
-        float stiffness = 0.10f;
+        const float tearSensitivityFactor = 4;
+        const float stiffness = 0.10f;
         Color supportLinkColor = Colors.LightCyan.WithAlpha(64);
         float sep = height / 4;
 
@@ -91,7 +91,7 @@ namespace Examples.Chapter5
       physics.AddBehavior(new GravityBehavior());
       AddChild(physics);
 
-      var creature = new VerletCreature(
+      new VerletCreature(
         physics,
         centerPosition: size / 2,
         height: 200,
@@ -99,13 +99,13 @@ namespace Examples.Chapter5
         drawSupportLinks: true
       );
 
-      var ragdoll = new VerletRagdoll(
+      new VerletRagdoll(
         physics,
         new Vector2(size.x * 0.75f, size.y / 2),
         height: 200,
-        pointRadius: 5f,
         gravityScale: 0.25f,
         tearSensitivityFactor: 4,
+        pointRadius: 5f,
         drawIntermediatePoints: false,
         drawSupportLinks: true
       );

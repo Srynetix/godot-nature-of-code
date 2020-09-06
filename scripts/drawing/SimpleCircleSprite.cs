@@ -23,7 +23,7 @@ namespace Drawing
     }
 
     private float radius = 10;
-    private SimpleDefaultTexture.Enum textureEnum;
+    private readonly SimpleDefaultTexture.Enum textureEnum;
 
     /// <summary>
     /// Create a light blue circle with radius 10.

@@ -10,7 +10,7 @@ namespace Examples.Chapter3
   /// Drive spaceship using arrow keys or VirtualControls.
   public class C3Exercise5 : Control, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.5:\n"
         + "Asteroids\n\n"
@@ -36,14 +36,14 @@ namespace Examples.Chapter3
           // Thrusters
           var thrusterColor = !thrusting ? Colors.White : Colors.Red;
           var thrusterSize = MeshSize / 3;
-          pen.DrawRect(new Rect2(-MeshSize.x / 2 - thrusterSize.x / 2, MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
-          pen.DrawRect(new Rect2(MeshSize.x / 2 - thrusterSize.x / 2, MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
+          pen.DrawRect(new Rect2((-MeshSize.x / 2) - (thrusterSize.x / 2), MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
+          pen.DrawRect(new Rect2((MeshSize.x / 2) - (thrusterSize.x / 2), MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
         };
       }
 
       public void Accelerate(float amount)
       {
-        Acceleration += Vector2.Right.Rotated(Rotation - Mathf.Pi / 2) * amount;
+        Acceleration += Vector2.Right.Rotated(Rotation - (Mathf.Pi / 2)) * amount;
       }
 
       public void Turn(float amount)
@@ -73,15 +73,16 @@ namespace Examples.Chapter3
       controls = new VirtualControls();
       AddChild(controls);
 
-      spaceship = new Spaceship();
-      spaceship.Position = GetViewportRect().Size / 2;
+      spaceship = new Spaceship {
+        Position = GetViewportRect().Size / 2
+      };
       AddChild(spaceship);
     }
 
     public override void _Process(float delta)
     {
-      var accelFactor = 0.25f;
-      var turnFactor = 0.05f;
+      const float accelFactor = 0.25f;
+      const float turnFactor = 0.05f;
 
       if (controls.JoystickOutput.y < -0.5f || Input.IsActionPressed("ui_up"))
       {

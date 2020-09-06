@@ -11,7 +11,7 @@ namespace Examples.Chapter2
   /// Uses a SimpleAttractor with a custom Attract implementation to push items that are too close.
   public class C2Exercise9 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 2.9:\n"
         + "Distance Attraction";
@@ -40,19 +40,22 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      var attractor1 = new Attractor();
-      attractor1.Position = new Vector2(size.x / 4, size.y / 2);
+      var attractor1 = new Attractor {
+        Position = new Vector2(size.x / 4, size.y / 2)
+      };
       AddChild(attractor1);
 
-      var attractor2 = new Attractor();
-      attractor2.Position = new Vector2(size.x / 2, size.y / 2);
+      var attractor2 = new Attractor {
+        Position = new Vector2(size.x / 2, size.y / 2)
+      };
       AddChild(attractor2);
 
-      var attractor3 = new Attractor();
-      attractor3.Position = new Vector2(size.x - size.x / 4, size.y / 2);
+      var attractor3 = new Attractor {
+        Position = new Vector2(size.x - (size.x / 4), size.y / 2)
+      };
       AddChild(attractor3);
 
-      foreach (var x in Enumerable.Range(0, 10))
+      foreach (var _ in Enumerable.Range(0, 10))
       {
         var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
         var bodySize = (float)GD.RandRange(20, 40);
@@ -62,8 +65,9 @@ namespace Examples.Chapter2
         mover.Mass = bodySize;
         mover.Position = new Vector2(xPos, yPos);
 
-        var trail = new SimpleTrail();
-        trail.Target = mover;
+        var trail = new SimpleTrail {
+          Target = mover
+        };
 
         AddChild(trail);
         AddChild(mover);

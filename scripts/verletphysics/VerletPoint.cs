@@ -11,12 +11,16 @@ namespace VerletPhysics
   {
     /// <summary>Point mass</summary>
     public float Mass = 1;
+
     /// <summary>Bounce coefficient</summary>
     public float Bounce = 0.9f;
+
     /// <summary>Friction coefficient</summary>
     public float Friction = 0.99f;
+
     /// <summary>Gravity scale</summary>
     public float GravityScale = 1;
+
     /// <summary>Current acceleration</summary>
     public Vector2 Acceleration;
 
@@ -31,8 +35,7 @@ namespace VerletPhysics
     private bool pinned = false;
     private Vector2 pinPosition;
     private Vector2 prevPosition;
-    private VerletWorld world;
-    private List<VerletLink> links;
+    private readonly List<VerletLink> links;
     private bool touched = false;
     private int touchIndex = -1;
 
@@ -41,7 +44,6 @@ namespace VerletPhysics
       Radius = 15f;
       Modulate = Colors.LightBlue;
 
-      this.world = world;
       links = new List<VerletLink>();
     }
 
@@ -89,7 +91,7 @@ namespace VerletPhysics
     public void UpdateMovement(float delta)
     {
       var velocity = ComputeVelocity() * Friction;
-      var nextPosition = GlobalPosition + velocity + Acceleration * delta;
+      var nextPosition = GlobalPosition + velocity + (Acceleration * delta);
 
       prevPosition = GlobalPosition;
       GlobalPosition = nextPosition;
@@ -152,7 +154,6 @@ namespace VerletPhysics
             Update();
           }
         }
-
         else if (!eventScreenTouch.Pressed && eventScreenTouch.Index == touchIndex)
         {
           touchIndex = -1;
@@ -160,7 +161,6 @@ namespace VerletPhysics
           Update();
         }
       }
-
       else if (@event is InputEventScreenDrag eventScreenDrag)
       {
         if (eventScreenDrag.Index == touchIndex && touched)
@@ -177,7 +177,7 @@ namespace VerletPhysics
 
     private Vector2 ComputeVelocity()
     {
-      return (GlobalPosition - prevPosition);
+      return GlobalPosition - prevPosition;
     }
 
     private void ConstraintPinning()
@@ -191,7 +191,6 @@ namespace VerletPhysics
     private void ConstraintPositionInSize(Vector2 worldSize)
     {
       var size = worldSize;
-      var newPos = GlobalPosition;
       var velocity = ComputeVelocity() * Bounce;
       var bodySize = new Vector2(Radius / 2, Radius / 2);
 
@@ -201,9 +200,9 @@ namespace VerletPhysics
         velocity.x *= -1;
         FixVelocity(velocity);
       }
-      else if (GlobalPosition.y > size.y - bodySize.y / 2)
+      else if (GlobalPosition.y > size.y - (bodySize.y / 2))
       {
-        GlobalPosition = new Vector2(GlobalPosition.x, size.y - bodySize.y / 2);
+        GlobalPosition = new Vector2(GlobalPosition.x, size.y - (bodySize.y / 2));
         velocity.x *= -1;
         FixVelocity(velocity);
       }
@@ -214,9 +213,9 @@ namespace VerletPhysics
         velocity.y *= -1;
         FixVelocity(velocity);
       }
-      else if (GlobalPosition.x > size.x - bodySize.x / 2)
+      else if (GlobalPosition.x > size.x - (bodySize.x / 2))
       {
-        GlobalPosition = new Vector2(size.x - bodySize.x / 2, GlobalPosition.y);
+        GlobalPosition = new Vector2(size.x - (bodySize.x / 2), GlobalPosition.y);
         velocity.y *= -1;
         FixVelocity(velocity);
       }

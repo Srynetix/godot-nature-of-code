@@ -2,6 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using Drawing;
 using Utils;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -11,7 +12,7 @@ namespace Examples.Chapter5
   /// Simple bridge using multiple physics body types.
   public class C5Exercise6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.6:\n"
         + "Bridge\n\n"
@@ -28,25 +29,25 @@ namespace Examples.Chapter5
 
       public override void _Ready()
       {
-        circleShape2D = new CircleShape2D();
-        circleShape2D.Radius = Radius;
-        collisionShape2D = new CollisionShape2D();
-        collisionShape2D.Shape = circleShape2D;
+        circleShape2D = new CircleShape2D { Radius = Radius };
+        collisionShape2D = new CollisionShape2D { Shape = circleShape2D };
         AddChild(collisionShape2D);
 
-        sprite = new SimpleCircleSprite();
-        sprite.Radius = Radius;
-        sprite.Modulate = Colors.LightGoldenrod;
+        sprite = new SimpleCircleSprite {
+          Radius = Radius,
+          Modulate = Colors.LightGoldenrod
+        };
         AddChild(sprite);
       }
 
       public void LinkTarget(PhysicsBody2D target, float softness = 0, float bias = 0)
       {
-        var pinJoint = new PinJoint2D();
-        pinJoint.NodeA = GetPath();
-        pinJoint.NodeB = target.GetPath();
-        pinJoint.Softness = softness;
-        pinJoint.Bias = bias;
+        var pinJoint = new PinJoint2D {
+          NodeA = GetPath(),
+          NodeB = target.GetPath(),
+          Softness = softness,
+          Bias = bias
+        };
         AddChild(pinJoint);
       }
     }
@@ -61,25 +62,25 @@ namespace Examples.Chapter5
 
       public override void _Ready()
       {
-        circleShape2D = new CircleShape2D();
-        circleShape2D.Radius = Radius;
-        collisionShape2D = new CollisionShape2D();
-        collisionShape2D.Shape = circleShape2D;
+        circleShape2D = new CircleShape2D { Radius = Radius };
+        collisionShape2D = new CollisionShape2D { Shape = circleShape2D };
         AddChild(collisionShape2D);
 
-        sprite = new SimpleCircleSprite();
-        sprite.Radius = Radius;
-        sprite.Modulate = Colors.LightGoldenrod;
+        sprite = new SimpleCircleSprite {
+          Radius = Radius,
+          Modulate = Colors.LightGoldenrod
+        };
         AddChild(sprite);
       }
 
       public void LinkToParent(PhysicsBody2D parent, float softness = 0, float bias = 0)
       {
-        var pinJoint = new PinJoint2D();
-        pinJoint.NodeA = parent.GetPath();
-        pinJoint.NodeB = GetPath();
-        pinJoint.Softness = softness;
-        pinJoint.Bias = bias;
+        var pinJoint = new PinJoint2D {
+          NodeA = parent.GetPath(),
+          NodeB = GetPath(),
+          Softness = softness,
+          Bias = bias
+        };
         parent.AddChild(pinJoint);
       }
     }
@@ -95,10 +96,10 @@ namespace Examples.Chapter5
 
       private ChainAnchor startAnchor;
       private ChainAnchor endAnchor;
-      private List<ChainLink> links;
-      private List<SimpleLineSprite> lineSprites;
-      private Node2D linksContainer;
-      private Node2D circleContainer;
+      private readonly List<ChainLink> links;
+      private readonly List<SimpleLineSprite> lineSprites;
+      private readonly Node2D linksContainer;
+      private readonly Node2D circleContainer;
 
       public SimpleChain()
       {
@@ -116,15 +117,15 @@ namespace Examples.Chapter5
         AddChild(linksContainer);
         AddChild(circleContainer);
 
-        startAnchor = new ChainAnchor();
-        startAnchor.Position = StartPosition;
+        startAnchor = new ChainAnchor { Position = StartPosition };
         circleContainer.AddChild(startAnchor);
 
         PhysicsBody2D lastLink = startAnchor;
         for (int i = 0; i < LinkCount; ++i)
         {
-          var link = new ChainLink();
-          link.Position = StartPosition + new Vector2(width + i * width, height + i * height);
+          var link = new ChainLink {
+            Position = StartPosition + new Vector2(width + (i * width), height + (i * height))
+          };
           linksContainer.AddChild(link);
           link.LinkToParent(lastLink, Softness, Bias);
           links.Add(link);
@@ -138,8 +139,9 @@ namespace Examples.Chapter5
           lastLink = link;
         }
 
-        endAnchor = new ChainAnchor();
-        endAnchor.Position = EndPosition;
+        endAnchor = new ChainAnchor {
+          Position = EndPosition
+        };
         circleContainer.AddChild(endAnchor);
         endAnchor.LinkTarget(lastLink, Softness, Bias);
 
@@ -171,32 +173,34 @@ namespace Examples.Chapter5
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var offset = 50;
+      const int offset = 50;
 
-      var chain = new SimpleChain();
-      chain.Softness = 0.1f;
-      chain.Bias = 0f;
-      chain.LinkCount = 30;
-      chain.StartPosition = new Vector2(offset, size.y / 2);
-      chain.EndPosition = new Vector2(size.x - offset, size.y / 2);
+      var chain = new SimpleChain {
+        Softness = 0.1f,
+        Bias = 0f,
+        LinkCount = 30,
+        StartPosition = new Vector2(offset, size.y / 2),
+        EndPosition = new Vector2(size.x - offset, size.y / 2)
+      };
       AddChild(chain);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var ball = new Physics.SimpleBall();
-        ball.Radius = 15;
-        ball.GlobalPosition = position;
-        return ball;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          return new SimpleBall() {
+            Radius = 15,
+            GlobalPosition = position
+          };
+        }
       };
       AddChild(spawner);
 
       // Spawn balls
-      var bodyCount = 10;
-      var bodyLength = (size.x / 2) / bodyCount;
+      const int bodyCount = 10;
+      var bodyLength = size.x / 2 / bodyCount;
       for (int i = 0; i < bodyCount; ++i)
       {
-        var x = size.x / 4 + i * bodyLength;
+        var x = (size.x / 4) + (i * bodyLength);
         var y = size.y / 8;
 
         spawner.SpawnBody(new Vector2(x, y));

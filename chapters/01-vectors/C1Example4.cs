@@ -8,7 +8,7 @@ namespace Examples.Chapter1
   /// Uses _Draw to represent vector multiplication.
   public class C1Example4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 1.4:\n"
         + "Vector multiplication";

@@ -9,7 +9,7 @@ namespace Examples.Chapter5
   /// Uses VerletCloth.
   public class C5Exercise13 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.13:\n"
         + "Verlet Cloth\n\n"
@@ -24,12 +24,12 @@ namespace Examples.Chapter5
       physics.AddBehavior(new GravityBehavior());
       AddChild(physics);
 
+      const int separation = 30;
       var pointCount = new Vector2(12, 10);
-      var separation = 30;
       var totalSize = pointCount * separation;
-      var topLeftPosition = size / 2 - totalSize / 2;
+      var topLeftPosition = (size / 2) - (totalSize / 2);
 
-      var cloth = new VerletCloth(
+      new VerletCloth(
         physics,
         topLeftPosition: topLeftPosition,
         pointCount: pointCount,

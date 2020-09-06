@@ -9,7 +9,7 @@ namespace Examples.Chapter6
   /// Uses SimpleFlowField.
   public class C6Exercise6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.6:\nRadial Flow Field";
     }
@@ -26,8 +26,7 @@ namespace Examples.Chapter6
 
     public override void _Ready()
     {
-      var flowField = new RadialFlowField();
-      flowField.Resolution = 30;
+      var flowField = new RadialFlowField { Resolution = 30 };
       AddChild(flowField);
     }
   }

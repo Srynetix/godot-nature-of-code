@@ -10,7 +10,7 @@ namespace Examples.Chapter3
   /// Uses SimpleSpring and SimpleMover with custom UpdateAcceleration.
   public class C3Example11 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.11:\n"
         + "Spring Connection\n\n"
@@ -36,11 +36,12 @@ namespace Examples.Chapter3
     {
       var size = GetViewportRect().Size;
 
-      var spring = new SimpleSpring();
-      spring.Length = size.y / 2;
-      spring.MaxLength = size.y / 2 + size.y / 4;
-      spring.MinLength = size.y / 4;
-      spring.Position = new Vector2(size.x / 2, 0);
+      var spring = new SimpleSpring {
+        Length = size.y / 2,
+        MaxLength = (size.y / 2) + (size.y / 4),
+        MinLength = size.y / 4,
+        Position = new Vector2(size.x / 2, 0)
+      };
 
       spring.SetMover(new Mover(), new Vector2(0, size.y / 2));
 

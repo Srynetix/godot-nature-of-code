@@ -9,7 +9,7 @@ namespace Examples.Chapter5
   /// Uses VerletChainBuilder with hidden VerletPoint to visually simulate a chain.
   public class C5Example11 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 5.11:\n"
         + "Verlet Soft Pendulum\n\n"
@@ -27,10 +27,7 @@ namespace Examples.Chapter5
       new VerletChainBuilder(physics)
         .AddPointAtPosition(x: size.x / 2, y: 0)
         .AddPointsWithOffset(pointCount: 8, x: 10, y: 10)
-        .AddPointWithOffset(x: 10, y: 10, configurator: (point) =>
-        {
-          point.Radius = 30;
-        })
+        .AddPointWithOffset(x: 10, y: 10, configurator: (point) => point.Radius = 30)
         .Build(stiffness: 0.5f);
     }
   }

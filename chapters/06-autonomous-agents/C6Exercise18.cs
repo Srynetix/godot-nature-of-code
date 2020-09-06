@@ -10,14 +10,14 @@ namespace Examples.Chapter6
   /// </summary>
   public class C6Exercise18 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.18:\nAnimated Flocking";
     }
 
     private class RandomBoid : SimpleBoid
     {
-      private OpenSimplexNoise noise = new OpenSimplexNoise();
+      private readonly OpenSimplexNoise noise = new OpenSimplexNoise();
       private float t = 0;
 
       public RandomBoid()
@@ -38,23 +38,24 @@ namespace Examples.Chapter6
 
         base._Process(delta);
       }
-
     }
 
-    private List<SimpleVehicle> boids = new List<SimpleVehicle>();
+    private readonly List<SimpleVehicle> boids = new List<SimpleVehicle>();
 
     public override void _Ready()
     {
+      const int boidsCount = 50;
       var size = GetViewportRect().Size;
-      var boidsCount = 50;
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (pos) =>
-      {
-        var boid = new RandomBoid();
-        boid.VehicleGroupList = boids;
-        boid.Position = pos;
-        boids.Add(boid);
-        return boid;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (pos) =>
+        {
+          var boid = new RandomBoid {
+            VehicleGroupList = boids,
+            Position = pos
+          };
+          boids.Add(boid);
+          return boid;
+        }
       };
       AddChild(spawner);
 

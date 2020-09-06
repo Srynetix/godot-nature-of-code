@@ -9,7 +9,7 @@ namespace Examples.Chapter6
   /// Uses ImageFlowField with a simple texture.
   public class C6Exercise8 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.8:\nImage Flow Field";
     }
@@ -17,15 +17,17 @@ namespace Examples.Chapter6
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var flowField = new ImageFlowField();
-      flowField.Resolution = 30;
-      flowField.CenterOnScreen = true;
-      flowField.SourceTexture = (Texture)GD.Load("res://assets/textures/sample-texture.png");
+      var flowField = new ImageFlowField {
+        Resolution = 30,
+        CenterOnScreen = true,
+        SourceTexture = (Texture)GD.Load("res://assets/textures/sample-texture.png")
+      };
       AddChild(flowField);
 
-      var vehicle = new SimpleVehicle();
-      vehicle.TargetFlow = flowField;
-      vehicle.Position = new Vector2(10, size.y / 2);
+      var vehicle = new SimpleVehicle {
+        TargetFlow = flowField,
+        Position = new Vector2(10, size.y / 2),
+      };
       vehicle.Velocity = Vector2.Right * vehicle.MaxVelocity;
       AddChild(vehicle);
     }

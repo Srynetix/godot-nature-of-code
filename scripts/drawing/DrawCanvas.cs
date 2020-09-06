@@ -45,12 +45,13 @@ namespace Drawing
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      viewport = new Viewport();
-      viewport.Size = size;
-      viewport.Usage = Viewport.UsageEnum.Usage2d;
-      viewport.RenderTargetUpdateMode = Viewport.UpdateMode.Always;
-      viewport.RenderTargetClearMode = Viewport.ClearMode.OnlyNextFrame;
-      viewport.RenderTargetVFlip = true;
+      viewport = new Viewport {
+        Size = size,
+        Usage = Viewport.UsageEnum.Usage2d,
+        RenderTargetUpdateMode = Viewport.UpdateMode.Always,
+        RenderTargetClearMode = Viewport.ClearMode.OnlyNextFrame,
+        RenderTargetVFlip = true
+      };
       AddChild(viewport);
 
       pen = new Node2D();
@@ -58,10 +59,11 @@ namespace Drawing
       viewport.AddChild(pen);
 
       var texture = viewport.GetTexture();
-      board = new TextureRect();
-      board.AnchorBottom = 1.0f;
-      board.AnchorRight = 1.0f;
-      board.Texture = texture;
+      board = new TextureRect {
+        AnchorBottom = 1.0f,
+        AnchorRight = 1.0f,
+        Texture = texture
+      };
       AddChild(board);
 
       // First clear on ready
@@ -85,10 +87,7 @@ namespace Drawing
         }
       }
 
-      if (DrawFunction != null)
-      {
-        DrawFunction(pen);
-      }
+      DrawFunction?.Invoke(pen);
     }
   }
 }

@@ -11,41 +11,44 @@ namespace Examples.Chapter6
   /// </summary>
   public class C6Example8 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 6.8:\nSeek and Separate";
     }
 
     private SimpleMover targetMover;
-    private int vehicleCount = 50;
-    private List<SimpleVehicle> vehicles = new List<SimpleVehicle>();
+    private const int vehicleCount = 50;
+    private readonly List<SimpleVehicle> vehicles = new List<SimpleVehicle>();
 
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (pos) =>
-      {
-        var vehicle = new RoundVehicle();
-        vehicle.VehicleGroupList = vehicles;
-        vehicle.SeparationEnabled = true;
-        vehicle.Target = targetMover;
-        vehicle.Position = pos;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (pos) =>
+        {
+          var vehicle = new RoundVehicle {
+            VehicleGroupList = vehicles,
+            SeparationEnabled = true,
+            Target = targetMover,
+            Position = pos,
 
-        // Scale forces
-        vehicle.SeparationForceFactor = 1.5f;
-        vehicle.SeekForceFactor = 0.5f;
+            // Scale forces
+            SeparationForceFactor = 1.5f,
+            SeekForceFactor = 0.5f
+          };
 
-        vehicles.Add(vehicle);
-        return vehicle;
+          vehicles.Add(vehicle);
+          return vehicle;
+        }
       };
       AddChild(spawner);
 
       // Create target
-      targetMover = new SimpleMover();
-      targetMover.Position = size / 2;
-      targetMover.Modulate = Colors.LightBlue.WithAlpha(128);
+      targetMover = new SimpleMover {
+        Position = size / 2,
+        Modulate = Colors.LightBlue.WithAlpha(128)
+      };
       AddChild(targetMover);
 
       // Create initial bodies

@@ -10,7 +10,7 @@ namespace Examples.Chapter3
   /// Simple drivable car using arrow keys or VirtualControls.
   public class C3Exercise3 : Control, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.3:\n"
         + "Car Drive\n\n"
@@ -30,13 +30,13 @@ namespace Examples.Chapter3
           var bodyWidth = Radius;
           var wheelRadius = Radius / 4;
 
-          pen.DrawCircle(new Vector2(-bodyLength / 2 + bodyLength / 4, -bodyWidth / 2), wheelRadius, Colors.Green);
-          pen.DrawCircle(new Vector2(bodyLength / 2 - bodyLength / 4, -bodyWidth / 2), wheelRadius, Colors.Green);
-          pen.DrawCircle(new Vector2(-bodyLength / 2 + bodyLength / 4, bodyWidth / 2), wheelRadius, Colors.Green);
-          pen.DrawCircle(new Vector2(bodyLength / 2 - bodyLength / 4, bodyWidth / 2), wheelRadius, Colors.Green);
+          pen.DrawCircle(new Vector2((-bodyLength / 2) + (bodyLength / 4), -bodyWidth / 2), wheelRadius, Colors.Green);
+          pen.DrawCircle(new Vector2((bodyLength / 2) - (bodyLength / 4), -bodyWidth / 2), wheelRadius, Colors.Green);
+          pen.DrawCircle(new Vector2((-bodyLength / 2) + (bodyLength / 4), bodyWidth / 2), wheelRadius, Colors.Green);
+          pen.DrawCircle(new Vector2((bodyLength / 2) - (bodyLength / 4), bodyWidth / 2), wheelRadius, Colors.Green);
 
           pen.DrawRect(new Rect2(-bodyLength / 2, -bodyWidth / 2, bodyLength, bodyWidth), Colors.LightBlue);
-          pen.DrawRect(new Rect2(-bodyLength / 2 + 2, -bodyWidth / 2 + 2, bodyLength - 4, bodyWidth - 4), Colors.White);
+          pen.DrawRect(new Rect2((-bodyLength / 2) + 2, (-bodyWidth / 2) + 2, bodyLength - 4, bodyWidth - 4), Colors.White);
 
           // Front
           pen.DrawRect(new Rect2(bodyLength / 2, -bodyWidth / 4, 2, bodyWidth / 2), Colors.Green);
@@ -75,8 +75,9 @@ namespace Examples.Chapter3
       AddChild(controls);
 
       // Add car
-      car = new Car();
-      car.Position = GetViewportRect().Size / 2;
+      car = new Car {
+        Position = GetViewportRect().Size / 2
+      };
       AddChild(car);
     }
 

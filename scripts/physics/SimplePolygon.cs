@@ -9,11 +9,12 @@ namespace Physics
   {
     /// <summary>Polygon points</summary>
     public Vector2[] Points;
+
     /// <summary>Color</summary>
     public Color BaseColor;
 
-    private CollisionShape2D collisionShape2D;
-    private ConvexPolygonShape2D polygonShape2D;
+    private readonly CollisionShape2D collisionShape2D;
+    private readonly ConvexPolygonShape2D polygonShape2D;
     private Color[] colors;
 
     /// <summary>
@@ -22,8 +23,7 @@ namespace Physics
     public SimplePolygon()
     {
       polygonShape2D = new ConvexPolygonShape2D();
-      collisionShape2D = new CollisionShape2D();
-      collisionShape2D.Shape = polygonShape2D;
+      collisionShape2D = new CollisionShape2D { Shape = polygonShape2D };
     }
 
     public override void _Ready()

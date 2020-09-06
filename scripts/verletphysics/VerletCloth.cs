@@ -15,15 +15,18 @@ namespace VerletPhysics
     {
       /// <summary>No pin</summary>
       None,
+
       /// <summary>Pin top corners</summary>
       TopCorners,
+
       /// <summary>Pin all top points</summary>
       Top,
+
       /// <summary>Pin all corners</summary>
       AllCorners
     }
 
-    private List<VerletPoint> points;
+    private readonly List<VerletPoint> points;
 
     /// <summary>
     /// Create a verlet cloth.
@@ -58,7 +61,6 @@ namespace VerletPhysics
               point.PinToCurrentPosition();
             }
           }
-
           else if (pinMode == PinModeEnum.TopCorners)
           {
             if (j == 0 && (i == 0 || i == pointCount.x - 1))
@@ -66,7 +68,6 @@ namespace VerletPhysics
               point.PinToCurrentPosition();
             }
           }
-
           else if (pinMode == PinModeEnum.Top)
           {
             if (j == 0)
@@ -92,8 +93,8 @@ namespace VerletPhysics
           if (i > 0)
           {
             // Right to left
-            int pAIdx = (i - 1) + j * (int)pointCount.x;
-            int pBIdx = i + j * (int)pointCount.x;
+            int pAIdx = i - 1 + (j * (int)pointCount.x);
+            int pBIdx = i + (j * (int)pointCount.x);
 
             var link = world.CreateLink(points[pAIdx], points[pBIdx]);
             link.RestingDistance = separation;
@@ -104,8 +105,8 @@ namespace VerletPhysics
           if (j > 0)
           {
             // Bottom to top
-            int pAIdx = i + (j - 1) * (int)pointCount.x;
-            int pBIdx = i + j * (int)pointCount.x;
+            int pAIdx = i + ((j - 1) * (int)pointCount.x);
+            int pBIdx = i + (j * (int)pointCount.x);
 
             var link = world.CreateLink(points[pAIdx], points[pBIdx]);
             link.RestingDistance = separation;

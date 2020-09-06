@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// SimpleWalker with tuned probabilities to mostly go towards mouse position.
   public class C0Exercise3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.3:\n"
         + "Walker 50% moving to mouse";
@@ -80,10 +80,7 @@ namespace Examples.Chapter0
       walker.SetXY(GetViewportRect().Size / 2);
       AddChild(walker);
 
-      var canvas = new DrawCanvas((pen) =>
-      {
-        pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-      });
+      var canvas = new DrawCanvas((pen) => pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true));
       canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
       AddChild(canvas);
     }

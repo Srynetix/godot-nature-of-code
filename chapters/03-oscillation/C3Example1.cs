@@ -13,16 +13,16 @@ namespace Examples
     /// Uses _Draw method and manual angular velocity and acceleration management.
     public class C3Example1 : Node2D, IExample
     {
-      public string _Summary()
+      public string GetSummary()
       {
         return "Example 3.1:\n"
           + "Angular Motion";
       }
 
-      float angularVelocity = 0;
-      float angularAcceleration = 0.01f;
-      float lineSize = 50;
-      float ballRadius = 10;
+      private float angularVelocity = 0;
+      private readonly float angularAcceleration = 0.01f;
+      private readonly float lineSize = 50;
+      private readonly float ballRadius = 10;
 
       public override void _Draw()
       {

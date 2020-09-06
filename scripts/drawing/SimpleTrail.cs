@@ -4,18 +4,20 @@ namespace Drawing
 {
   /// <summary>
   /// Simple trail drawing.
-  /// </summary> 
+  /// </summary>
   public class SimpleTrail : Line2D
   {
     /// <summary>Point count</summary>
     public int PointCount = 50;
+
     /// <summary>Trail color</summary>
     public Color TrailColor = Colors.Purple;
+
     /// <summary>Target node</summary>
     public Node2D Target;
 
     /// <summary>
-    /// Create a simple purple trail with a 2.5px width. 
+    /// Create a simple purple trail with a 2.5px width.
     /// </summary>
     public SimpleTrail()
     {

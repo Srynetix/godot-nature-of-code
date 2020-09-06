@@ -17,20 +17,26 @@ namespace Oscillation
       get => lineSprite.Visible;
       set => lineSprite.Visible = value;
     }
+
     /// <summary>Oscillator radius</summary>
     public float Radius
     {
       get => circleSprite.Radius;
       set => circleSprite.Radius = value;
     }
+
     /// <summary>Oscillator angle</summary>
     public Vector2 Angle;
+
     /// <summary>Position offset</summary>
     public Vector2 PositionOffset;
+
     /// <summary>Oscillator velocity</summary>
     public Vector2 Velocity;
+
     /// <summary>Oscillator amplitude</summary>
     public Vector2 Amplitude;
+
     /// <summary>Oscillator angular acceleration</summary>
     public Vector2 AngularAcceleration;
 
@@ -54,8 +60,8 @@ namespace Oscillation
       }
     }
 
-    private SimpleCircleSprite circleSprite;
-    private SimpleLineSprite lineSprite;
+    private readonly SimpleCircleSprite circleSprite;
+    private readonly SimpleLineSprite lineSprite;
 
     /// <summary>
     /// Create a default oscillator.
@@ -63,12 +69,14 @@ namespace Oscillation
     public SimpleOscillator()
     {
       Velocity = new Vector2((float)GD.RandRange(-0.05f, 0.05f), (float)GD.RandRange(-0.05f, 0.05f));
-      circleSprite = new SimpleCircleSprite();
-      circleSprite.Radius = 30;
-      circleSprite.Modulate = Colors.LightCyan;
-      lineSprite = new SimpleLineSprite();
-      lineSprite.Visible = true;
-      lineSprite.Modulate = Colors.LightGray;
+      circleSprite = new SimpleCircleSprite {
+        Radius = 30,
+        Modulate = Colors.LightCyan
+      };
+      lineSprite = new SimpleLineSprite {
+        Visible = true,
+        Modulate = Colors.LightGray
+      };
     }
 
     public override void _Ready()
@@ -83,8 +91,8 @@ namespace Oscillation
       Angle += Velocity;
       AngularAcceleration = Vector2.Zero;
 
-      float x = PositionOffset.x + Mathf.Sin(Angle.x) * Amplitude.x;
-      float y = PositionOffset.y + Mathf.Sin(Angle.y) * Amplitude.y;
+      float x = PositionOffset.x + (Mathf.Sin(Angle.x) * Amplitude.x);
+      float y = PositionOffset.y + (Mathf.Sin(Angle.y) * Amplitude.y);
       var target = new Vector2(x, y);
 
       lineSprite.PositionA = GlobalPosition;

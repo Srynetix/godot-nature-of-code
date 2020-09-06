@@ -10,7 +10,7 @@ namespace Examples.Chapter2
   /// Uses SimpleFrictionPocket capabilities to apply friction (and reverse friction) on SimpleMovers.
   public class C2Exercise4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 2.4:\n"
         + "Friction Pockets";
@@ -34,25 +34,28 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      var zone1 = new SimpleFrictionPocket();
-      zone1.Coeff = 0.25f;
-      zone1.Size = new Vector2(100, size.y);
-      zone1.Position = new Vector2(size.x / 4, size.y / 2);
+      var zone1 = new SimpleFrictionPocket {
+        Coeff = 0.25f,
+        Size = new Vector2(100, size.y),
+        Position = new Vector2(size.x / 4, size.y / 2)
+      };
       AddChild(zone1);
 
-      var zone2 = new SimpleFrictionPocket();
-      zone2.Coeff = -0.25f;
-      zone2.Size = new Vector2(100, size.y);
-      zone2.Position = new Vector2(size.x / 2 + size.x / 4, size.y / 2);
+      var zone2 = new SimpleFrictionPocket {
+        Coeff = -0.25f,
+        Size = new Vector2(100, size.y),
+        Position = new Vector2((size.x / 2) + (size.x / 4), size.y / 2)
+      };
       AddChild(zone2);
 
-      var zone3 = new SimpleFrictionPocket();
-      zone3.Coeff = -2f;
-      zone3.Size = new Vector2(10, size.y);
-      zone3.Position = new Vector2(size.x / 2, size.y / 2);
+      var zone3 = new SimpleFrictionPocket {
+        Coeff = -2f,
+        Size = new Vector2(10, size.y),
+        Position = new Vector2(size.x / 2, size.y / 2)
+      };
       AddChild(zone3);
 
-      foreach (var x in Enumerable.Range(0, 20))
+      foreach (var _ in Enumerable.Range(0, 20))
       {
         var mover = new Mover();
         var bodySize = (float)GD.RandRange(20, 40);

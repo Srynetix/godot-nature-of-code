@@ -8,7 +8,7 @@ namespace Examples.Chapter0
   /// Uses SimpleWalker, mixed with Godot's OpenSimplexNoise.
   public class C0Example5 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example I.5:\n"
         + "Perlin noise walker";

@@ -9,7 +9,7 @@ namespace Examples.Chapter5
   /// Uses VerletCluster.
   public class C5Example12 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 5.12:\n"
         + "Verlet Cluster\n\n"
@@ -24,10 +24,10 @@ namespace Examples.Chapter5
       AddChild(physics);
 
       var center = size / 2;
-      var pointCount = 12;
-      var diameter = 128;
+      const int pointCount = 12;
+      const int diameter = 128;
 
-      var cluster = new VerletCluster(
+      new VerletCluster(
         physics,
         centerPosition: center,
         pointCount: pointCount,

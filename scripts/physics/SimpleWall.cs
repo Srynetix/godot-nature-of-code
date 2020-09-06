@@ -17,17 +17,15 @@ namespace Physics
       set => rectangleShape2D.Extents = value / 2;
     }
 
-    private CollisionShape2D collisionShape2D;
-    private RectangleShape2D rectangleShape2D;
+    private readonly CollisionShape2D collisionShape2D;
+    private readonly RectangleShape2D rectangleShape2D;
 
     /// <summary>
     /// Create a default static wall with 10x10px extents.
     /// </summary>
     public SimpleWall()
     {
-      rectangleShape2D = new RectangleShape2D();
-      rectangleShape2D.Extents = new Vector2(10, 10);
-      collisionShape2D = new CollisionShape2D();
+      collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
       collisionShape2D.Shape = rectangleShape2D;
     }
 

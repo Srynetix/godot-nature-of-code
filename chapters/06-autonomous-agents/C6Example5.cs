@@ -9,7 +9,7 @@ namespace Examples.Chapter6
   /// Uses SimplePath.
   public class C6Example5 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 6.5:\nSimple Path Following";
     }
@@ -23,10 +23,11 @@ namespace Examples.Chapter6
       path.Points.Add(new Vector2(size.x, 2 * size.y / 3));
       AddChild(path);
 
-      var vehicle = new SimpleVehicle();
-      vehicle.TargetPath = path;
-      vehicle.Velocity = new Vector2(10, 0);
-      vehicle.Position = new Vector2(100, 100);
+      var vehicle = new SimpleVehicle {
+        TargetPath = path,
+        Velocity = new Vector2(10, 0),
+        Position = new Vector2(100, 100)
+      };
       AddChild(vehicle);
     }
   }

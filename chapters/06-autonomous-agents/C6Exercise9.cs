@@ -9,13 +9,13 @@ namespace Examples.Chapter6
   /// Uses Godot Vector2.AngleTo method.
   public class C6Exercise9 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.9:\nAngle between two vectors";
     }
 
-    private float length = 100;
-    private float width = 4;
+    private readonly float length = 100;
+    private readonly float width = 4;
     private Vector2 fixedVector;
     private Vector2 movingVector;
     private Font defaultFont;
@@ -52,11 +52,11 @@ namespace Examples.Chapter6
       var degText = ((int)Mathf.Rad2Deg(angle)).ToString() + " degrees";
       var radText = angle.ToString() + " radians";
 
-      DrawLine(size / 2, size / 2 + fixedVector * length, Colors.LightBlue, width);
-      DrawLine(size / 2, size / 2 + new Vector2(movingVector.x * length, -movingVector.y * length), Colors.LightGreen, width);
+      DrawLine(size / 2, (size / 2) + (fixedVector * length), Colors.LightBlue, width);
+      DrawLine(size / 2, (size / 2) + new Vector2(movingVector.x * length, -movingVector.y * length), Colors.LightGreen, width);
       DrawCircle(size / 2, width * 4, Colors.LightBlue.WithAlpha(128));
       DrawString(defaultFont, new Vector2(100, size.y / 2), degText);
-      DrawString(defaultFont, new Vector2(100, size.y / 2 + 16), radText);
+      DrawString(defaultFont, new Vector2(100, (size.y / 2) + 16), radText);
     }
   }
 }

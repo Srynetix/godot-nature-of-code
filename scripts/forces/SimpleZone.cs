@@ -19,7 +19,7 @@ namespace Forces
     /// <param name="color">Color</param>
     protected void DrawZone(Color color)
     {
-      DrawRect(new Rect2(Vector2.Zero - Size / 2, Size), color.WithAlpha(200));
+      DrawRect(new Rect2(Vector2.Zero - (Size / 2), Size), color.WithAlpha(200));
     }
 
     public override void _Ready()
@@ -35,10 +35,9 @@ namespace Forces
 
     private void CreateCollisionShape()
     {
-      var collisionShape = new CollisionShape2D();
-      var shape = new RectangleShape2D();
-      shape.Extents = Size / 2;
-      collisionShape.Shape = shape;
+      var collisionShape = new CollisionShape2D {
+        Shape = new RectangleShape2D { Extents = Size / 2 }
+      };
       AddChild(collisionShape);
     }
   }

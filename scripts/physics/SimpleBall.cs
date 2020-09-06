@@ -32,9 +32,9 @@ namespace Physics
       }
     }
 
-    private CollisionShape2D collisionShape2D;
-    private CircleShape2D circleShape2D;
-    private SimpleCircleSprite sprite;
+    private readonly CollisionShape2D collisionShape2D;
+    private readonly CircleShape2D circleShape2D;
+    private readonly SimpleCircleSprite sprite;
 
     /// <summary>
     /// Create a default ball.
@@ -42,14 +42,13 @@ namespace Physics
     public SimpleBall()
     {
       Mass = 0.25f;
-      circleShape2D = new CircleShape2D();
-      circleShape2D.Radius = 10;
-      collisionShape2D = new CollisionShape2D();
-      collisionShape2D.Shape = circleShape2D;
+      circleShape2D = new CircleShape2D { Radius = 10 };
+      collisionShape2D = new CollisionShape2D { Shape = circleShape2D };
 
-      sprite = new SimpleCircleSprite();
-      sprite.Radius = 10;
-      sprite.Modulate = BaseColor;
+      sprite = new SimpleCircleSprite {
+        Radius = 10,
+        Modulate = BaseColor
+      };
     }
 
     public override void _Ready()

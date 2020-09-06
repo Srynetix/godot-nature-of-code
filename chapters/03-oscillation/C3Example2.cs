@@ -11,7 +11,7 @@ namespace Examples.Chapter3
   /// Uses angular motion capabilities of SimpleMovers.
   public class C3Example2 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.2:\n"
         + "Forces with angular motion";
@@ -43,8 +43,8 @@ namespace Examples.Chapter3
       var size = GetViewportRect().Size;
 
       // Spawn squares
-      int squareCount = 20;
-      foreach (int x in Enumerable.Range(0, squareCount))
+      const int squareCount = 20;
+      foreach (int _ in Enumerable.Range(0, squareCount))
       {
         var square = new Square();
         var radius = (float)GD.RandRange(20, 40);

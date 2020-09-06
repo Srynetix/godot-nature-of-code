@@ -10,36 +10,41 @@ namespace Oscillation
   {
     /// <summary>Pendulum angular velocity</summary>
     public float AngularVelocity;
+
     /// <summary>Pendulum angular acceleration</summary>
     public float AngularAcceleration;
+
     /// <summary>Gravity value</summary>
     public float Gravity = 0.4f;
+
     /// <summary>Damping value</summary>
     public float Damping = 0.995f;
+
     /// <summary>Rope length</summary>
     public float RopeLength = 200;
+
     /// <summary>Ball radius</summary>
     public float Radius = 30;
+
     /// <summary>Pendulum angle</summary>
     public float Angle;
+
     /// <summary>Is user controllable?</summary>
     public bool UserControllable = true;
 
-    private SimpleLineSprite lineSprite;
-    private SimpleCircleSprite circleSprite;
+    private readonly SimpleLineSprite lineSprite;
+    private readonly SimpleCircleSprite circleSprite;
     private bool touched = false;
     private int touchIndex = -1;
-    private Node2D children;
+    private readonly Node2D children;
 
     /// <summary>
     /// Create a simple pendulum.
     /// </summary>
     public SimplePendulum()
     {
-      circleSprite = new SimpleCircleSprite();
-      circleSprite.Radius = 30;
-      lineSprite = new SimpleLineSprite();
-      lineSprite.Width = 2;
+      circleSprite = new SimpleCircleSprite { Radius = 30 };
+      lineSprite = new SimpleLineSprite { Width = 2 };
       children = new Node2D();
     }
 
@@ -81,14 +86,13 @@ namespace Oscillation
           touchIndex = -1;
         }
       }
-
       else if (@event is InputEventScreenDrag eventScreenDrag)
       {
         if (touched)
         {
           // Compute angle from touch position
           var touchAngle = (eventScreenDrag.Position - GlobalPosition).Normalized().Angle();
-          Angle = -(touchAngle - Mathf.Pi / 2);
+          Angle = -(touchAngle - (Mathf.Pi / 2));
         }
       }
     }

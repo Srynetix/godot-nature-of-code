@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// SimpleWalker with tuned probabilities to go down and right more often.
   public class C0Exercise1 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.1:\n"
         + "Walker moving down and right";
@@ -48,10 +48,7 @@ namespace Examples.Chapter0
       walker.SetXY(GetViewportRect().Size / 2);
       AddChild(walker);
 
-      var canvas = new DrawCanvas((pen) =>
-      {
-        pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-      });
+      var canvas = new DrawCanvas((pen) => pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true));
       canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
       AddChild(canvas);
     }

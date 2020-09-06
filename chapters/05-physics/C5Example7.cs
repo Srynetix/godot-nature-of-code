@@ -1,5 +1,6 @@
 using Godot;
 using Utils;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -9,7 +10,7 @@ namespace Examples.Chapter5
   /// Simple body composition using torque impulse for the windmill blade.
   public class C5Example7 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 5.7:\n"
         + "Spinning Windmill\n\n"
@@ -25,10 +26,8 @@ namespace Examples.Chapter5
 
       public override void _Ready()
       {
-        rectangleShape2D = new RectangleShape2D();
-        rectangleShape2D.Extents = Extents;
-        collisionShape2D = new CollisionShape2D();
-        collisionShape2D.Shape = rectangleShape2D;
+        rectangleShape2D = new RectangleShape2D { Extents = Extents };
+        collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
         AddChild(collisionShape2D);
       }
 
@@ -49,10 +48,8 @@ namespace Examples.Chapter5
       public override void _Ready()
       {
         Mass = 10;
-        rectangleShape2D = new RectangleShape2D();
-        rectangleShape2D.Extents = Extents;
-        collisionShape2D = new CollisionShape2D();
-        collisionShape2D.Shape = rectangleShape2D;
+        rectangleShape2D = new RectangleShape2D { Extents = Extents };
+        collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
         AddChild(collisionShape2D);
       }
 
@@ -75,20 +72,21 @@ namespace Examples.Chapter5
 
       public override void _Ready()
       {
-        var windmillBase = new WindmillBase();
-        windmillBase.Extents = BaseExtents;
+        var windmillBase = new WindmillBase { Extents = BaseExtents };
         AddChild(windmillBase);
 
-        var windmillBlade = new WindmillBlade();
-        windmillBlade.Extents = BladeExtents;
-        windmillBlade.Torque = BladeTorque;
-        windmillBlade.Position = windmillBase.Position - new Vector2(0, windmillBase.Extents.y);
+        var windmillBlade = new WindmillBlade {
+          Extents = BladeExtents,
+          Torque = BladeTorque,
+          Position = windmillBase.Position - new Vector2(0, windmillBase.Extents.y)
+        };
         AddChild(windmillBlade);
 
-        var joint = new PinJoint2D();
-        joint.NodeA = windmillBase.GetPath();
-        joint.NodeB = windmillBlade.GetPath();
-        joint.Softness = 0;
+        var joint = new PinJoint2D {
+          NodeA = windmillBase.GetPath(),
+          NodeB = windmillBlade.GetPath(),
+          Softness = 0
+        };
         windmillBlade.AddChild(joint);
       }
     }
@@ -96,18 +94,20 @@ namespace Examples.Chapter5
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var windmill = new Windmill();
-      windmill.Position = new Vector2(size.x / 2, size.y - 100);
+      var windmill = new Windmill {
+        Position = new Vector2(size.x / 2, size.y - 100)
+      };
       AddChild(windmill);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var body = new Physics.SimpleBall();
-        body.Mass = 0.25f;
-        body.Radius = 10;
-        body.GlobalPosition = position;
-        return body;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          return new SimpleBall {
+            Mass = 0.25f,
+            Radius = 10,
+            GlobalPosition = position
+          };
+        }
       };
       AddChild(spawner);
     }

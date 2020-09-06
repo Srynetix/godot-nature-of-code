@@ -9,7 +9,7 @@ namespace Examples.Chapter3
   /// Uses SimplePendulum.
   public class C3Example10 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.10:\n"
         + "Swinging Pendulum\n\n"
@@ -19,10 +19,11 @@ namespace Examples.Chapter3
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var pendulum = new SimplePendulum();
-      pendulum.Angle = Mathf.Pi / 4;
-      pendulum.RopeLength = size.y / 2;
-      pendulum.Position = new Vector2(size.x / 2, 0);
+      var pendulum = new SimplePendulum {
+        Angle = Mathf.Pi / 4,
+        RopeLength = size.y / 2,
+        Position = new Vector2(size.x / 2, 0)
+      };
       AddChild(pendulum);
     }
   }

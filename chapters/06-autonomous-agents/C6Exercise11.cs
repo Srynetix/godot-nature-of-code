@@ -9,13 +9,13 @@ namespace Examples.Chapter6
   /// Uses a sine to move path.
   public class C6Exercise11 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.11:\nAnimated Path\n\nVehicle at the right will turn right and follow the path from left to right";
     }
 
-    private float t = 0;
     private SimplePath path;
+    private float t;
 
     public override void _Ready()
     {
@@ -23,24 +23,27 @@ namespace Examples.Chapter6
       path = new SimplePath();
       path.Points.Add(new Vector2(0, size.y / 2));
       path.Points.Add(new Vector2(size.x / 8, size.y * 3 / 4));
-      path.Points.Add(new Vector2(size.x / 2, size.y / 2 - 50));
+      path.Points.Add(new Vector2(size.x / 2, (size.y / 2) - 50));
       path.Points.Add(new Vector2(size.x, size.y / 2));
       AddChild(path);
 
-      var vehicle1 = new SimpleVehicle();
-      vehicle1.Position = new Vector2(100, 100);
-      vehicle1.TargetPath = path;
+      var vehicle1 = new SimpleVehicle {
+        Position = new Vector2(100, 100),
+        TargetPath = path
+      };
       AddChild(vehicle1);
 
-      var vehicle2 = new SimpleVehicle();
-      vehicle2.Position = new Vector2(100, size.y - 100);
-      vehicle2.TargetPath = path;
+      var vehicle2 = new SimpleVehicle {
+        Position = new Vector2(100, size.y - 100),
+        TargetPath = path
+      };
       AddChild(vehicle2);
 
-      var vehicle3 = new SimpleVehicle();
-      vehicle3.Velocity = new Vector2(-vehicle3.MaxVelocity, 0);
-      vehicle3.Position = new Vector2(size.x - 100, size.y - 100);
-      vehicle3.TargetPath = path;
+      var vehicle3 = new SimpleVehicle {
+        Velocity = new Vector2(-vehicle1.MaxVelocity, 0),
+        Position = new Vector2(size.x - 100, size.y - 100),
+        TargetPath = path
+      };
       AddChild(vehicle3);
     }
 

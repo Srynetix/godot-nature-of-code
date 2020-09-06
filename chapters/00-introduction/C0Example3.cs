@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// Walker with tuned probabilities to move right more often.
   public class C0Example3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example I.3:\n"
         + "Walker moving right";
@@ -48,10 +48,7 @@ namespace Examples.Chapter0
       walker.SetXY(GetViewportRect().Size / 2);
       AddChild(walker);
 
-      var canvas = new DrawCanvas((pen) =>
-      {
-        pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-      });
+      var canvas = new DrawCanvas((pen) => pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true));
       canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
       AddChild(canvas);
     }

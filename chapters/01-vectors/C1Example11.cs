@@ -9,7 +9,7 @@ namespace Examples.Chapter1
   /// Uses same principle as Example 1.10 mover but with multiple occurences.
   public class C1Example11 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 1.11:\n"
         + "Movers towards mouse";
@@ -30,11 +30,13 @@ namespace Examples.Chapter1
     {
       var size = GetViewportRect().Size;
 
-      var moverCount = 20;
+      const int moverCount = 20;
       for (int i = 0; i < moverCount; ++i)
       {
-        var mover = new Mover();
-        mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
+        var mover = new Mover {
+          Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y))
+        };
+
         AddChild(mover);
       }
     }

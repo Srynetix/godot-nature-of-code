@@ -14,8 +14,10 @@ public class VirtualControls : Control
   {
     /// <summary>Fixed joystick</summary>
     Fixed,
+
     /// <summary>Dynamic joystick</summary>
     Dynamic,
+
     /// <summary>Following joystick (follow drag movement)</summary>
     Following
   }
@@ -27,6 +29,7 @@ public class VirtualControls : Control
   {
     /// <summary>Real vector value</summary>
     Real,
+
     /// <summary>Normalized vector value</summary>
     Normalized
   }
@@ -38,41 +41,56 @@ public class VirtualControls : Control
   {
     /// <summary>Always show joystick</summary>
     Always,
+
     /// <summary>Only show on touchscreen devices</summary>
     TouchscreenOnly
   }
 
   /// <summary>External margin amount</summary>
   [Export] public float MarginAmount = 8;
+
   /// <summary>Debug draw information</summary>
   [Export] public bool DebugDraw = false;
+
   /// <summary>Joystick mode</summary>
   [Export] public JoystickModeEnum JoystickMode = JoystickModeEnum.Fixed;
+
   /// <summary>Vector mode</summary>
   [Export] public VectorModeEnum VectorMode = VectorModeEnum.Real;
+
   /// <summary>Visibility mode</summary>
   [Export] public VisibilityModeEnum VisibilityMode = VisibilityModeEnum.TouchscreenOnly;
+
   /// <summary>Joystick pressed color</summary>
   [Export] public Color JoystickPressedColor = Colors.Gray;
+
   /// <summary>Joystick anchor top</summary>
   [Export(PropertyHint.Range, "0.5,0.75,0.05")] public float JoystickAnchorTop = 0.55f;
+
   /// <summary>Joystick anchor right</summary>
   [Export(PropertyHint.Range, "0,0.75,0.05")] public float JoystickAnchorRight = 0.25f;
+
   /// <summary>Joystick fixed directions (between 0 (free) and 12)</summary>
   [Export(PropertyHint.Range, "0,12,2")] public int JoystickDirections = 0;
+
   /// <summary>Joystick symmetry angle</summary>
   [Export(PropertyHint.Range, "-180,180")] public float JoystickSymmetryAngle = 90.0f;
+
   /// <summary>Joystick dead zone</summary>
   [Export(PropertyHint.Range, "0,0.5")] public float JoystickDeadZone = 0.2f;
+
   /// <summary>Joystick clamp zone</summary>
   [Export(PropertyHint.Range, "0.5,2")] public float JoystickClampZone = 1;
 
   /// <summary>Joystick output</summary>
   public Vector2 JoystickOutput = Vector2.Zero;
+
   /// <summary>Button A is currently pressed</summary>
   public bool ButtonAPressed = false;
+
   /// <summary>Button B is currently pressed</summary>
   public bool ButtonBPressed = false;
+
   /// <summary>Joystick is receiving inputs</summary>
   public bool JoystickReceivingInputs = false;
 
@@ -126,7 +144,7 @@ public class VirtualControls : Control
             }
           }
 
-          DrawLine(center, center + (Vector2.Right * Radius).Rotated(-Mathf.Deg2Rad(symmetryAngle + angleAmount * i)), color, LineWidth);
+          DrawLine(center, center + (Vector2.Right * Radius).Rotated(-Mathf.Deg2Rad(symmetryAngle + (angleAmount * i))), color, LineWidth);
         }
       }
 
@@ -200,19 +218,17 @@ public class VirtualControls : Control
             ResetHandle();
           }
 
-          if (PositionIsInRadius(eventScreenTouch.Position, background.RectGlobalPosition + background.RectSize / 2, background.Radius))
+          if (PositionIsInRadius(eventScreenTouch.Position, background.RectGlobalPosition + (background.RectSize / 2), background.Radius))
           {
             touchIndex = eventScreenTouch.Index;
             handle.SelfModulate = parent.JoystickPressedColor;
           }
         }
-
         else if (TouchEnded(eventScreenTouch))
         {
           ResetJoystick();
         }
       }
-
       else if (@event is InputEventScreenDrag eventScreenDrag)
       {
         if (eventScreenDrag.Index != touchIndex)
@@ -224,7 +240,7 @@ public class VirtualControls : Control
         float deadSize = parent.JoystickDeadZone * ray;
         float clampSize = parent.JoystickClampZone * ray;
 
-        var center = background.RectGlobalPosition + background.RectSize / 2;
+        var center = background.RectGlobalPosition + (background.RectSize / 2);
         var vector = eventScreenDrag.Position - center;
 
         if (vector.Length() > deadSize)
@@ -237,14 +253,13 @@ public class VirtualControls : Control
           if (parent.VectorMode == VectorModeEnum.Normalized)
           {
             parent.JoystickOutput = vector.Normalized();
-            handle.RectGlobalPosition = parent.JoystickOutput * clampSize + center - handle.RectSize / 2;
+            handle.RectGlobalPosition = (parent.JoystickOutput * clampSize) + center - (handle.RectSize / 2);
           }
-
           else if (parent.VectorMode == VectorModeEnum.Real)
           {
             var clampedVector = vector.Clamped(clampSize);
             parent.JoystickOutput = vector.Normalized() * (clampedVector.Length() - deadSize) / (clampSize - deadSize);
-            handle.RectGlobalPosition = clampedVector + center - handle.RectSize / 2;
+            handle.RectGlobalPosition = clampedVector + center - (handle.RectSize / 2);
           }
 
           parent.JoystickReceivingInputs = true;
@@ -253,7 +268,6 @@ public class VirtualControls : Control
             Following(vector);
           }
         }
-
         else
         {
           parent.JoystickReceivingInputs = false;
@@ -321,7 +335,7 @@ public class VirtualControls : Control
 
     private void ResetHandle()
     {
-      handle.RectGlobalPosition = background.RectGlobalPosition + background.RectSize / 2 - handle.RectSize / 2;
+      handle.RectGlobalPosition = background.RectGlobalPosition + (background.RectSize / 2) - (handle.RectSize / 2);
     }
 
     private void ResetJoystick()
@@ -386,7 +400,7 @@ public class VirtualControls : Control
 
         if (@event is InputEventScreenTouch eventScreenTouch)
         {
-          if (eventScreenTouch.Pressed && eventScreenTouch.Index != touchIndex && eventScreenTouch.Position.DistanceTo(RectGlobalPosition + RectSize / 2) < Radius / 2)
+          if (eventScreenTouch.Pressed && eventScreenTouch.Index != touchIndex && eventScreenTouch.Position.DistanceTo(RectGlobalPosition + (RectSize / 2)) < Radius / 2)
           {
             ButtonColor = Colors.Yellow;
             Pressed = true;
@@ -406,7 +420,7 @@ public class VirtualControls : Control
       {
         var labelSize = parent.defaultFont.GetStringSize(Label);
         DrawCircle(RectSize / 2, RectSize.x / 2, ButtonColor);
-        DrawString(parent.defaultFont, RectSize / 2 - new Vector2(labelSize.x / 2, -labelSize.y / 4), Label);
+        DrawString(parent.defaultFont, (RectSize / 2) - new Vector2(labelSize.x / 2, -labelSize.y / 4), Label);
       }
 
       public override void _Process(float delta)
@@ -450,7 +464,7 @@ public class VirtualControls : Control
       if (parent.DebugDraw)
       {
         DrawRect(new Rect2(0, 0, RectSize.x, RectSize.y), Colors.LightCyan.WithAlpha(32));
-        DrawString(defaultFont, new Vector2(0, -8), "A: " + buttonA.Pressed.ToString() + "  -  " + "B: " + buttonB.Pressed.ToString());
+        DrawString(defaultFont, new Vector2(0, -8), "A: " + buttonA.Pressed.ToString() + "  -  B: " + buttonB.Pressed.ToString());
       }
     }
 
@@ -467,7 +481,7 @@ public class VirtualControls : Control
   {
     if (Engine.EditorHint)
     {
-      _UpdateMargins();
+      UpdateMargins();
     }
   }
 
@@ -475,8 +489,6 @@ public class VirtualControls : Control
   {
     AnchorRight = 1.0f;
     AnchorBottom = 1.0f;
-
-    var viewportSize = GetViewportRect().Size;
 
     // Create joystick
     joystickMargin = new MarginContainer();
@@ -490,10 +502,10 @@ public class VirtualControls : Control
     var buttons = new Buttons();
     buttonsMargin.AddChild(buttons);
 
-    _UpdateMargins();
+    UpdateMargins();
   }
 
-  private void _UpdateMargins()
+  private void UpdateMargins()
   {
     joystickMargin.AnchorTop = JoystickAnchorTop;
     joystickMargin.AnchorRight = JoystickAnchorRight;

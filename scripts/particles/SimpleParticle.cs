@@ -13,8 +13,10 @@ namespace Particles
   {
     /// <summary>Lifespan</summary>
     public float Lifespan = 2;
+
     /// <summary>Lifespan as alpha</summary>
     public bool LifespanAsAlpha = true;
+
     /// <summary>Initial offset</summary>
     public Vector2 InitialOffset = Vector2.Zero;
 
@@ -43,7 +45,7 @@ namespace Particles
     /// <returns>Alpha byte value</returns>
     protected byte GetLifespanAlphaValue()
     {
-      return (byte)Mathf.Clamp(((Lifespan / initialLifespan) * 255), 0, 255);
+      return (byte)Mathf.Clamp(Lifespan / initialLifespan * 255, 0, 255);
     }
 
     public override void _Ready()

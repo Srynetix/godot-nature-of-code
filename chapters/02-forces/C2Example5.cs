@@ -11,7 +11,7 @@ namespace Examples.Chapter2
   /// Behind the scenes, SimpleLiquid is based on Area2D overlap detection.
   public class C2Example5 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 2.5:\n"
         + "Fluid Resistance";
@@ -35,13 +35,14 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      var zone = new SimpleLiquid();
-      zone.Coeff = 0.25f;
-      zone.Size = new Vector2(size.x, size.y / 4);
-      zone.Position = new Vector2(size.x / 2, size.y - size.y / 8);
+      var zone = new SimpleLiquid {
+        Coeff = 0.25f,
+        Size = new Vector2(size.x, size.y / 4),
+        Position = new Vector2(size.x / 2, size.y - (size.y / 8))
+      };
       AddChild(zone);
 
-      foreach (var x in Enumerable.Range(0, 20))
+      foreach (var _ in Enumerable.Range(0, 20))
       {
         var mover = new Mover();
         var bodySize = (float)GD.RandRange(20, 40);

@@ -1,5 +1,6 @@
 using Godot;
 using Utils;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -9,7 +10,7 @@ namespace Examples.Chapter5
   /// Simulate distance joint using PinJoint2D.
   public class C5Example6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 5.6:\n"
         + "Distance Joint\n\n"
@@ -24,24 +25,27 @@ namespace Examples.Chapter5
       public float Distance = 10;
       public float Radius = 20;
 
-      private Physics.SimpleBall ball1;
-      private Physics.SimpleBall ball2;
+      private SimpleBall ball1;
+      private SimpleBall ball2;
 
       public override void _Ready()
       {
-        ball1 = new Physics.SimpleBall();
-        ball1.Radius = Radius;
-        ball1.Position = new Vector2(-Distance, -Distance);
-        ball2 = new Physics.SimpleBall();
-        ball2.Radius = Radius;
-        ball2.Position = new Vector2(Distance, Distance);
+        ball1 = new SimpleBall {
+          Radius = Radius,
+          Position = new Vector2(-Distance, -Distance)
+        };
+        ball2 = new SimpleBall {
+          Radius = Radius,
+          Position = new Vector2(Distance, Distance)
+        };
         AddChild(ball1);
         AddChild(ball2);
 
-        var join = new PinJoint2D();
-        join.NodeA = ball1.GetPath();
-        join.NodeB = ball2.GetPath();
-        join.Softness = 0.1f;
+        var join = new PinJoint2D {
+          NodeA = ball1.GetPath(),
+          NodeB = ball2.GetPath(),
+          Softness = 0.1f
+        };
         ball1.AddChild(join);
       }
 
@@ -59,37 +63,40 @@ namespace Examples.Chapter5
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var floorHeight = 25;
-      var offset = 50;
+      const int floorHeight = 25;
+      const int offset = 50;
 
       // Add left floor
-      var leftFloor = new Physics.SimpleWall();
-      leftFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
-      leftFloor.Position = new Vector2(size.x / 2.5f / 2 + offset, size.y);
+      var leftFloor = new SimpleWall {
+        BodySize = new Vector2(size.x / 2.5f, floorHeight),
+        Position = new Vector2((size.x / 2.5f / 2) + offset, size.y)
+      };
       AddChild(leftFloor);
 
       // Add right floor
-      var rightFloor = new Physics.SimpleWall();
-      rightFloor.BodySize = new Vector2(size.x / 2.5f, floorHeight);
-      rightFloor.Position = new Vector2(size.x - size.x / 2.5f / 2 - offset, size.y - offset * 2);
+      var rightFloor = new SimpleWall {
+        BodySize = new Vector2(size.x / 2.5f, floorHeight),
+        Position = new Vector2(size.x - (size.x / 2.5f / 2) - offset, size.y - (offset * 2))
+      };
       AddChild(rightFloor);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var body = new DoubleBall();
-        body.Distance = 20;
-        body.Radius = 10;
-        body.RotationDegrees = MathUtils.RandRangef(0, 360);
-        body.GlobalPosition = position;
-        return body;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          return new DoubleBall {
+            Distance = 20,
+            Radius = 10,
+            RotationDegrees = MathUtils.RandRangef(0, 360),
+            GlobalPosition = position
+          };
+        }
       };
       AddChild(spawner);
 
-      int bodyCount = 10;
+      const int bodyCount = 10;
       for (int i = 0; i < bodyCount; ++i)
       {
-        spawner.SpawnBody(MathUtils.RandVector2(offset * 2, size.x - offset * 2, offset * 2, size.y - offset * 2));
+        spawner.SpawnBody(MathUtils.RandVector2(offset * 2, size.x - (offset * 2), offset * 2, size.y - (offset * 2)));
       }
     }
   }

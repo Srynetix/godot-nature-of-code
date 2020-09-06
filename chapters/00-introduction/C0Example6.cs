@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// Generate a noise texture with SimpleNoiseTexture.
   public class C0Example6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example I.6:\n"
         + "2D Perlin noise";
@@ -17,9 +17,10 @@ namespace Examples.Chapter0
 
     public override void _Ready()
     {
-      var noiseTexture = new SimpleNoiseTexture();
-      noiseTexture.Factor = 3;
-      noiseTexture.Octaves = 8;
+      var noiseTexture = new SimpleNoiseTexture {
+        Factor = 3,
+        Octaves = 8
+      };
       AddChild(noiseTexture);
     }
   }

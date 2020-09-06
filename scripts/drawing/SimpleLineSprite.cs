@@ -69,7 +69,7 @@ namespace Drawing
     private void UpdateTransform()
     {
       var dir = positionB - positionA;
-      Rotation = dir.Angle() + Mathf.Pi / 2;
+      Rotation = dir.Angle() + (Mathf.Pi / 2);
       if (Texture != null)
       {
         // Adapt scale depending on vector length
@@ -77,7 +77,7 @@ namespace Drawing
       }
 
       // Fix position
-      GlobalPosition = positionA + dir / 2;
+      GlobalPosition = positionA + (dir / 2);
     }
   }
 }

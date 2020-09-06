@@ -9,8 +9,10 @@ namespace Drawing
   {
     /// <summary>X position</summary>
     public float x;
+
     /// <summary>Y position</summary>
     public float y;
+
     /// <summary>Step size</summary>
     public float StepSize;
 

@@ -10,13 +10,13 @@ namespace Examples.Chapter6
   /// </summary>
   public class C6Exercise14 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.14:\nVehicle Force Factors\n\nTouch screen to spawn vehicles";
     }
 
-    private int vehicleCount = 50;
-    private List<SimpleVehicle> vehicles = new List<SimpleVehicle>();
+    private const int vehicleCount = 50;
+    private readonly List<SimpleVehicle> vehicles = new List<SimpleVehicle>();
 
     private class RandomVehicle : RoundVehicle
     {
@@ -37,7 +37,6 @@ namespace Examples.Chapter6
 
         base._Process(delta);
       }
-
     }
 
     public override void _Ready()
@@ -47,20 +46,22 @@ namespace Examples.Chapter6
       path.Points.Add(new Vector2(size.x * 1 / 4, size.y * 1 / 4));
       path.Points.Add(new Vector2(size.x * 3 / 4, size.y * 1 / 4));
       path.Points.Add(new Vector2(size.x * 3 / 4, size.y * 3 / 4));
-      path.Points.Add(new Vector2(size.x * 1 / 4 - 20, size.y * 3 / 4));
+      path.Points.Add(new Vector2((size.x * 1 / 4) - 20, size.y * 3 / 4));
       path.Looping = true;
       AddChild(path);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (pos) =>
-      {
-        var vehicle = new RandomVehicle();
-        vehicle.VehicleGroupList = vehicles;
-        vehicle.Position = pos;
-        vehicle.TargetPath = path;
-        vehicle.SeparationEnabled = true;
-        vehicles.Add(vehicle);
-        return vehicle;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (pos) =>
+        {
+          var vehicle = new RandomVehicle {
+            VehicleGroupList = vehicles,
+            Position = pos,
+            TargetPath = path,
+            SeparationEnabled = true
+          };
+          vehicles.Add(vehicle);
+          return vehicle;
+        }
       };
       AddChild(spawner);
 

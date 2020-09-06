@@ -17,6 +17,7 @@ namespace Utils
 
     /// <summary>Spawn function</summary>
     public SpawnFuncDef SpawnFunction = null;
+
     /// <summary>Target container. Defaults to parent.
     public Node Container = null;
 

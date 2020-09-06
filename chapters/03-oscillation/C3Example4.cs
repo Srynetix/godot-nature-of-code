@@ -8,7 +8,7 @@ namespace Examples.Chapter3
   /// Uses angle value to determine X and Y position of the ball.
   public class C3Example4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.4:\n"
         + "Polar to Cartesian";
@@ -44,8 +44,9 @@ namespace Examples.Chapter3
 
     public override void _Ready()
     {
-      var ball = new Ball();
-      ball.Position = GetViewportRect().Size / 2;
+      var ball = new Ball {
+        Position = GetViewportRect().Size / 2
+      };
       AddChild(ball);
     }
   }

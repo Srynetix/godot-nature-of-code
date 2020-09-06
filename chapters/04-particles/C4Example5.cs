@@ -10,7 +10,7 @@ namespace Examples.Chapter4
   /// Spawn multiple particle types using ParticleCreationFunction.
   public class C4Example5 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 4.5:\n"
         + "Multiple Particle Types";
@@ -41,24 +41,25 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var particleSystem = new SimpleParticleSystem();
-      particleSystem.ParticleCreationFunction = () =>
-      {
-        SimpleParticle particle = null;
-
-        if (MathUtils.RandRangef(0, 1) >= 0.5)
+      var particleSystem = new SimpleParticleSystem {
+        ParticleCreationFunction = () =>
         {
-          particle = new ERoundParticle();
-        }
-        else
-        {
-          particle = new ESquareParticle();
-        }
+          SimpleParticle particle = null;
 
-        particle.Lifespan = 2;
-        return particle;
+          if (MathUtils.RandRangef(0, 1) >= 0.5)
+          {
+            particle = new ERoundParticle();
+          }
+          else
+          {
+            particle = new ESquareParticle();
+          }
+
+          particle.Lifespan = 2;
+          return particle;
+        },
+        Position = new Vector2(size.x / 2, size.y / 2)
       };
-      particleSystem.Position = new Vector2(size.x / 2, size.y / 2);
       AddChild(particleSystem);
     }
   }

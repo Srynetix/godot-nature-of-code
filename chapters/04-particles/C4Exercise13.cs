@@ -12,7 +12,7 @@ namespace Examples.Chapter4
   /// Use SimpleMesh capabilities to spawn particles of multiple colors.
   public class C4Exercise13 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 4.13\n"
         + "Rainbow!";
@@ -21,23 +21,25 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var particleSystem = new SimpleParticleSystem();
-      particleSystem.ParticleCreationFunction = () =>
-      {
-        var particle = new SimpleFallingParticle();
-        particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
-        particle.MeshSize = new Vector2(40, 40);
-        particle.Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
-        particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotBlur);
-        particle.Mesh.CustomMaterial = SimpleDefaultMaterial.FromEnum(SimpleDefaultMaterial.Enum.Add);
-        particle.Mesh.Modulate = MathUtils.RandColor();
-        particle.ForceRangeX = new Vector2(-0.75f, 0.75f);
-        particle.ForceRangeY = new Vector2(0, -0.25f);
-        particle.Lifespan = 2;
-        return particle;
+      var particleSystem = new SimpleParticleSystem {
+        ParticleCreationFunction = () =>
+        {
+          var particle = new SimpleFallingParticle {
+            WrapMode = SimpleMover.WrapModeEnum.Bounce,
+            MeshSize = new Vector2(40, 40),
+            ForceRangeX = new Vector2(-0.75f, 0.75f),
+            ForceRangeY = new Vector2(0, -0.25f),
+            Lifespan = 2
+          };
+          particle.Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
+          particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotBlur);
+          particle.Mesh.CustomMaterial = SimpleDefaultMaterial.FromEnum(SimpleDefaultMaterial.Enum.Add);
+          particle.Mesh.Modulate = MathUtils.RandColor();
+          return particle;
+        },
+        ParticleSpawnFrameDelay = 2,
+        Position = new Vector2(size.x / 2, size.y / 1.5f)
       };
-      particleSystem.ParticleSpawnFrameDelay = 2;
-      particleSystem.Position = new Vector2(size.x / 2, size.y / 1.5f);
       AddChild(particleSystem);
     }
   }

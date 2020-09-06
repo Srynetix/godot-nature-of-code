@@ -7,17 +7,17 @@ namespace VerletPhysics
   /// </summary>
   public class VerletRagdoll
   {
-    private VerletPoint head;
-    private VerletPoint shoulder;
-    private VerletPoint elbowLeft;
-    private VerletPoint elbowRight;
-    private VerletPoint handLeft;
-    private VerletPoint handRight;
-    private VerletPoint pelvis;
-    private VerletPoint kneeLeft;
-    private VerletPoint kneeRight;
-    private VerletPoint footLeft;
-    private VerletPoint footRight;
+    private readonly VerletPoint head;
+    private readonly VerletPoint shoulder;
+    private readonly VerletPoint elbowLeft;
+    private readonly VerletPoint elbowRight;
+    private readonly VerletPoint handLeft;
+    private readonly VerletPoint handRight;
+    private readonly VerletPoint pelvis;
+    private readonly VerletPoint kneeLeft;
+    private readonly VerletPoint kneeRight;
+    private readonly VerletPoint footLeft;
+    private readonly VerletPoint footRight;
 
     /// <summary>
     /// Create a verlet ragdoll.
@@ -29,7 +29,7 @@ namespace VerletPhysics
     /// <param name="tearSensitivityFactor">Distance factor required to break links. Use '-1' to create an unbreakable ragdoll</param>
     /// <param name="pointRadius">Point radius</param>
     /// <param name="drawIntermediatePoints">Draw all ragdoll points</param>
-    /// <param name="drawSupportLinks">Draw support links</param> 
+    /// <param name="drawSupportLinks">Draw support links</param>
     public VerletRagdoll(VerletWorld world, Vector2 centerPosition, float height, float gravityScale = 1, float tearSensitivityFactor = -1, float pointRadius = 10f, bool drawIntermediatePoints = false, bool drawSupportLinks = false)
     {
       Vector2 genPos()

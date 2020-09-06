@@ -11,7 +11,7 @@ namespace Examples.Chapter4
   /// Each particle attract others.
   public class C4Exercise10 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 4.10:\n"
         + "Responding Particles";
@@ -27,8 +27,9 @@ namespace Examples.Chapter4
         ForceRangeY = new Vector2(0.005f, 0.005f);
 
         // Every particle should attract each other
-        var attractor = new SimpleAttractor();
-        attractor.Visible = false;
+        var attractor = new SimpleAttractor {
+          Visible = false
+        };
         AddChild(attractor);
       }
     }
@@ -36,17 +37,19 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var particleSystem = new SimpleParticleSystem();
-      particleSystem.ParticleCreationFunction = () =>
-      {
-        var particle = new EParticle();
-        particle.MeshSize = new Vector2(20, 20);
-        particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-        particle.Lifespan = 4;
-        particle.Mass = 4;
-        return particle;
+      var particleSystem = new SimpleParticleSystem {
+        ParticleCreationFunction = () =>
+        {
+          var particle = new EParticle {
+            MeshSize = new Vector2(20, 20),
+            Lifespan = 4,
+            Mass = 4
+          };
+          particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
+          return particle;
+        },
+        Position = new Vector2(size.x / 2, size.y / 4)
       };
-      particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
       AddChild(particleSystem);
     }
   }

@@ -10,7 +10,7 @@ namespace Examples.Chapter6
   /// </summary>
   public class C6Exercise17 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.17:\nFlocking with Lateral Move";
     }
@@ -24,20 +24,22 @@ namespace Examples.Chapter6
       }
     }
 
-    private List<SimpleVehicle> boids = new List<SimpleVehicle>();
+    private readonly List<SimpleVehicle> boids = new List<SimpleVehicle>();
 
     public override void _Ready()
     {
+      const int boidsCount = 50;
       var size = GetViewportRect().Size;
-      var boidsCount = 50;
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (pos) =>
-      {
-        var boid = new LateralMovingBoid();
-        boid.VehicleGroupList = boids;
-        boid.Position = pos;
-        boids.Add(boid);
-        return boid;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (pos) =>
+        {
+          var boid = new LateralMovingBoid {
+            VehicleGroupList = boids,
+            Position = pos
+          };
+          boids.Add(boid);
+          return boid;
+        }
       };
       AddChild(spawner);
 

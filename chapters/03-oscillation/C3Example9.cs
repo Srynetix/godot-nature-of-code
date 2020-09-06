@@ -9,7 +9,7 @@ namespace Examples.Chapter3
   /// Uses SimpleWave.
   public class C3Example9 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.9:\n" +
         "The Wave";
@@ -18,10 +18,11 @@ namespace Examples.Chapter3
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var wave = new SimpleWave();
-      wave.Position = size / 2;
-      wave.Length = size.x;
-      wave.Amplitude = size.y / 4;
+      var wave = new SimpleWave {
+        Position = size / 2,
+        Length = size.x,
+        Amplitude = size.y / 4
+      };
       AddChild(wave);
     }
   }

@@ -9,8 +9,10 @@ namespace Physics
   {
     /// <summary>Outline width</summary>
     public float OutlineWidth = 2;
+
     /// <summary>Outline color</summary>
     public Color OutlineColor = Colors.LightBlue;
+
     /// <summary>Base color</summary>
     public Color BaseColor = Colors.White;
 
@@ -24,18 +26,16 @@ namespace Physics
       }
     }
 
-    private CollisionShape2D collisionShape2D;
-    private RectangleShape2D rectangleShape2D;
+    private readonly CollisionShape2D collisionShape2D;
+    private readonly RectangleShape2D rectangleShape2D;
 
     /// <summary>
     /// Create a simple box.
     /// </summary>
     public SimpleBox()
     {
-      rectangleShape2D = new RectangleShape2D();
-      rectangleShape2D.Extents = new Vector2(10, 10);
-      collisionShape2D = new CollisionShape2D();
-      collisionShape2D.Shape = rectangleShape2D;
+      rectangleShape2D = new RectangleShape2D { Extents = new Vector2(10, 10) };
+      collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
     }
 
     public override void _Ready()
@@ -47,7 +47,7 @@ namespace Physics
     {
       var outlineVec = new Vector2(OutlineWidth, OutlineWidth);
       DrawRect(new Rect2(-BodySize / 2, BodySize), OutlineColor);
-      DrawRect(new Rect2(-BodySize / 2 + outlineVec / 2, BodySize - outlineVec / 2), BaseColor);
+      DrawRect(new Rect2((-BodySize / 2) + (outlineVec / 2), BodySize - (outlineVec / 2)), BaseColor);
     }
 
     public override void _Process(float delta)

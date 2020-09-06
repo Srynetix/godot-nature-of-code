@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Custom Rules" ToolsVersion="15.0">
+  <Include Path="relative_or_absolute_path_to_global_ruleset" Action="Default" />
+  <Rules AnalyzerId="Roslynator.CSharp.Analyzers" RuleNamespace="Roslynator.CSharp.Analyzers">
+    <!-- Unused parameters -->
+    <Rule Id="RCS1163" Action="None" />
+    <!-- Unused parameters action -->
+    <Rule Id="IDE0060" Action="None" />
+    <!-- Declare inside namespace -->
+    <Rule Id="RCS1110" Action="None" />
+  </Rules>
+</RuleSet>

@@ -10,7 +10,7 @@ namespace Examples.Chapter2
   /// Same principle than Example 2.6 but with many movers.
   public class C2Example7 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 2.7:\n"
         + "Attraction with many Movers";
@@ -20,12 +20,13 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      var attractor = new SimpleAttractor();
-      attractor.Gravitation = 0.5f;
-      attractor.Position = size / 2;
+      var attractor = new SimpleAttractor {
+        Gravitation = 0.5f,
+        Position = size / 2
+      };
       AddChild(attractor);
 
-      foreach (var x in Enumerable.Range(0, 10))
+      foreach (var _ in Enumerable.Range(0, 10))
       {
         var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
         var bodySize = (float)GD.RandRange(20, 40);

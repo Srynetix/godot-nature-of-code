@@ -18,17 +18,17 @@ public class SyntaxHighlighter
     string outputCode = code;
 
     // getting keywords/functions
-    string keywords = @"\b(public|private|protected|partial|static|namespace|class|using|void|float|Vector2|int|bool|string|foreach|in|var|override|if|for|else|new|true|false)\b";
+    const string keywords = @"\b(public|private|protected|partial|static|namespace|class|using|void|float|Vector2|int|bool|string|foreach|in|var|override|if|for|else|new|true|false)\b";
     MatchCollection keywordMatches = Regex.Matches(outputCode, keywords);
     outputCode = ColorizeMatches(outputCode, keywordMatches, Colors.Cyan);
 
-    // getting types/classes from the text 
-    string types = @"\b(GD|OS|Engine)\b";
+    // getting types/classes from the text
+    const string types = @"\b(GD|OS|Engine)\b";
     MatchCollection typeMatches = Regex.Matches(outputCode, types);
     outputCode = ColorizeMatches(outputCode, typeMatches, Colors.DarkCyan);
 
     // getting strings
-    string strings = "\".+?\"";
+    const string strings = "\".+?\"";
     MatchCollection stringMatches = Regex.Matches(outputCode, strings);
     outputCode = ColorizeMatches(outputCode, stringMatches, Colors.Brown);
 
@@ -40,9 +40,7 @@ public class SyntaxHighlighter
     // multiline comments
     comments = @"(\/\*.+?\*\/)";
     commentMatches = Regex.Matches(outputCode, comments, RegexOptions.Multiline | RegexOptions.Singleline);
-    outputCode = ColorizeMatches(outputCode, commentMatches, Colors.Green);
-
-    return outputCode;
+    return ColorizeMatches(outputCode, commentMatches, Colors.Green);
   }
 
   private string ColorizeMatches(string source, MatchCollection collection, Color color)
@@ -55,8 +53,8 @@ public class SyntaxHighlighter
       int startIndex = m.Index + currentOffset;
       int endIndex = m.Index + m.Length + currentOffset;
 
+      const string endTag = "[/color]";
       string stringTag = "[color=#" + color.ToHtml(false) + "]";
-      string endTag = "[/color]";
 
       var newOutputCode = outputCode.Insert(startIndex, stringTag);
       newOutputCode = newOutputCode.Insert(endIndex + stringTag.Length, endTag);

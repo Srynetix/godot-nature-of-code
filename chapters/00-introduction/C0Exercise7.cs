@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// SimpleWalker with randomized step value using OpenSimplexNoise.
   public class C0Exercise7 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.7:\n"
         + "Walker with noise step";
@@ -27,8 +27,8 @@ namespace Examples.Chapter0
       {
         RandomStep();
 
-        tx += 1f;
-        ty += 1f;
+        tx++;
+        ty++;
       }
 
       public float ComputeStepSize(float t)

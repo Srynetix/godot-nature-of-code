@@ -1,5 +1,6 @@
 using Godot;
 using Utils;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -9,7 +10,7 @@ namespace Examples.Chapter5
   /// Make balls disappear on collision.
   public class C5Exercise12 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.12:\n"
         + "Disappear on Collision\n\n"
@@ -17,7 +18,7 @@ namespace Examples.Chapter5
         + "Touch screen to spawn balls";
     }
 
-    private class CollisionBall : Physics.SimpleBall
+    private class CollisionBall : SimpleBall
     {
       public bool Colliding = false;
 
@@ -39,7 +40,7 @@ namespace Examples.Chapter5
       {
         Colliding = true;
 
-        if (body is Physics.SimpleWall)
+        if (body is SimpleWall)
         {
           // Remove on wall
           QueueFree();
@@ -67,17 +68,19 @@ namespace Examples.Chapter5
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var floor = new Physics.SimpleWall();
-      floor.BodySize = new Vector2(size.x, 100);
-      floor.Position = new Vector2(size.x / 2, size.y);
+      var floor = new SimpleWall {
+        BodySize = new Vector2(size.x, 100),
+        Position = new Vector2(size.x / 2, size.y)
+      };
       AddChild(floor);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var ball = new CollisionBall();
-        ball.GlobalPosition = position;
-        return ball;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          return new CollisionBall {
+            GlobalPosition = position
+          };
+        }
       };
       AddChild(spawner);
     }

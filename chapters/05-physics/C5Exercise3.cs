@@ -1,5 +1,6 @@
 using Godot;
 using Utils;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -9,14 +10,14 @@ namespace Examples.Chapter5
   /// Use SimpleStaticLines to define a sine and a perlin pattern.
   public class C5Exercise3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.3:\n"
         + "Sine/Perlin Boundaries\n\n"
         + "Touch screen to spawn balls";
     }
 
-    public class WaveWall : Physics.SimpleStaticLines
+    public class WaveWall : SimpleStaticLines
     {
       public float Frequency = 1f;
       public float Amplitude = 100f;
@@ -61,7 +62,7 @@ namespace Examples.Chapter5
 
     public class PerlinWall : WaveWall
     {
-      private OpenSimplexNoise noise;
+      private readonly OpenSimplexNoise noise;
 
       public PerlinWall()
       {
@@ -79,29 +80,32 @@ namespace Examples.Chapter5
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var leftWall = new SineWall();
-      leftWall.Position = new Vector2(size.x / 4, size.y / 2);
-      leftWall.Length = size.x / 2;
+      var leftWall = new SineWall {
+        Position = new Vector2(size.x / 4, size.y / 2),
+        Length = size.x / 2
+      };
       AddChild(leftWall);
 
-      var rightWall = new PerlinWall();
-      rightWall.Position = new Vector2(size.x / 1.25f, size.y / 2);
-      rightWall.Length = size.x / 2;
+      var rightWall = new PerlinWall {
+        Position = new Vector2(size.x / 1.25f, size.y / 2),
+        Length = size.x / 2
+      };
       AddChild(rightWall);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var ball = new Physics.SimpleBall();
-        ball.GlobalPosition = position;
-        return ball;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          return new SimpleBall {
+            GlobalPosition = position
+          };
+        }
       };
       AddChild(spawner);
 
-      int ballCount = 10;
+      const int ballCount = 10;
       for (int i = 0; i < ballCount; ++i)
       {
-        spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, size.y / 2 - 100));
+        spawner.SpawnBody(MathUtils.RandVector2(0, size.x, 0, (size.y / 2) - 100));
       }
     }
   }

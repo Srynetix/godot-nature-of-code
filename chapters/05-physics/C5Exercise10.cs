@@ -1,5 +1,6 @@
 using Godot;
 using Utils;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -9,7 +10,7 @@ namespace Examples.Chapter5
   /// Attraction principle using physics forces.
   public class C5Exercise10 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.10:\n"
         + "Attractor With Physics\n\n"
@@ -28,10 +29,8 @@ namespace Examples.Chapter5
 
       public override void _Ready()
       {
-        var collisionShape = new CollisionShape2D();
-        var shape = new CircleShape2D();
-        shape.Radius = Radius;
-        collisionShape.Shape = shape;
+        var shape = new CircleShape2D { Radius = Radius };
+        var collisionShape = new CollisionShape2D { Shape = shape };
         AddChild(collisionShape);
       }
 
@@ -39,7 +38,7 @@ namespace Examples.Chapter5
       {
         var force = GlobalPosition - mover.GlobalPosition;
         var length = Mathf.Clamp(force.Length(), MinForce, MaxForce);
-        float strength = (Gravitation * Mass * mover.Mass) / (length * length);
+        float strength = Gravitation * Mass * mover.Mass / (length * length);
         return force.Normalized() * strength;
       }
 
@@ -71,19 +70,22 @@ namespace Examples.Chapter5
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var attractor = new PhysicsAttractor();
-      attractor.Position = size / 2;
+      var attractor = new PhysicsAttractor {
+        Position = size / 2
+      };
       AddChild(attractor);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var body = new Physics.SimpleBall();
-        body.AddToGroup("rigidbody");
-        body.GravityScale = 0;
-        body.Mass = 2;
-        body.GlobalPosition = position;
-        return body;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          var body = new SimpleBall {
+            GravityScale = 0,
+            Mass = 2,
+            GlobalPosition = position
+          };
+          body.AddToGroup("rigidbody");
+          return body;
+        }
       };
       AddChild(spawner);
 

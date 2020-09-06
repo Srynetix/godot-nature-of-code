@@ -20,20 +20,26 @@ namespace Oscillation
 
     /// <summary>Component radius</summary>
     public float Radius = 30;
+
     /// <summary>Component separation</summary>
     public int Separation = 24;
+
     /// <summary>Wave angular velocity</summary>
     public float AngularVelocity = 0.1f;
+
     /// <summary>Wave start angle</summary>
     public float StartAngle = 0;
+
     /// <summary>Wave start angle update factor</summary>
     public float StartAngleFactor = 1;
+
     /// <summary>Wave length</summary>
     public float Length = 300;
+
     /// <summary>Wave amplitude</summary>
     public float Amplitude = 100;
 
-    private List<WaveComponent> components;
+    private readonly List<WaveComponent> components;
 
     /// <summary>
     /// Create a default wave.

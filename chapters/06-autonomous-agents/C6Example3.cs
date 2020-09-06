@@ -10,7 +10,7 @@ namespace Examples.Chapter6
   /// This example can also be used for the Exercise 6.5.
   public class C6Example3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 6.3:\nStay Within Walls";
     }
@@ -20,12 +20,9 @@ namespace Examples.Chapter6
     private class Vehicle : SimpleVehicle
     {
       public float ScreenOffset;
-      private Vector2 arbitraryTarget;
 
       public Vehicle()
       {
-        // Forward
-        arbitraryTarget = new Vector2(10, 0);
         // Disable wrapping
         WrapMode = WrapModeEnum.None;
 
@@ -49,21 +46,18 @@ namespace Examples.Chapter6
           var steer = (desired - Velocity).Clamped(MaxForce);
           ApplyForce(steer);
         }
-
         else if (GlobalPosition.x <= ScreenOffset)
         {
           var desired = new Vector2(MaxVelocity, Velocity.y);
           var steer = (desired - Velocity).Clamped(MaxForce);
           ApplyForce(steer);
         }
-
         else if (GlobalPosition.y >= size.y - ScreenOffset)
         {
           var desired = new Vector2(Velocity.x, -MaxVelocity);
           var steer = (desired - Velocity).Clamped(MaxForce);
           ApplyForce(steer);
         }
-
         else if (GlobalPosition.y <= ScreenOffset)
         {
           var desired = new Vector2(Velocity.x, MaxVelocity);
@@ -76,16 +70,17 @@ namespace Examples.Chapter6
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var vehicle = new Vehicle();
-      vehicle.ScreenOffset = ScreenOffset;
-      vehicle.Position = size / 2;
+      var vehicle = new Vehicle {
+        ScreenOffset = ScreenOffset,
+        Position = size / 2
+      };
       AddChild(vehicle);
     }
 
     public override void _Draw()
     {
       var size = GetViewportRect().Size;
-      DrawRect(new Rect2(new Vector2(ScreenOffset, ScreenOffset), size.x - ScreenOffset * 2, size.y - ScreenOffset * 2), Colors.White.WithAlpha(8));
+      DrawRect(new Rect2(new Vector2(ScreenOffset, ScreenOffset), size.x - (ScreenOffset * 2), size.y - (ScreenOffset * 2)), Colors.White.WithAlpha(8));
     }
   }
 }

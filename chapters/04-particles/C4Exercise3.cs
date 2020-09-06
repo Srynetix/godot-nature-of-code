@@ -8,10 +8,10 @@ namespace Examples.Chapter4
   /// <summary>
   /// Exercise 4.3 - Dynamic Particle System.
   /// </summary>
-  /// Uses SimpleMover capabilities at the core of SimpleParticleSystem. 
+  /// Uses SimpleMover capabilities at the core of SimpleParticleSystem.
   public class C4Exercise3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 4.3:\n"
         + "Dynamic Particle System";
@@ -27,7 +27,7 @@ namespace Examples.Chapter4
 
       protected override void UpdateAcceleration()
       {
-        float offset = 0.5f;
+        const float offset = 0.5f;
         ApplyForce(new Vector2((float)GD.RandRange(-offset, offset), (float)GD.RandRange(-offset, offset)));
       }
     }
@@ -35,17 +35,19 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var particleSystem = new DynamicParticleSystem();
-      particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
-      particleSystem.ParticleSpawnFrameDelay = 1;
-      particleSystem.ParticleCreationFunction = () =>
-      {
-        var particle = new SimpleFallingParticle();
-        particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
-        particle.MeshSize = new Vector2(20, 20);
-        particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-        particle.Lifespan = 2;
-        return particle;
+      var particleSystem = new DynamicParticleSystem {
+        Position = new Vector2(size.x / 2, size.y / 4),
+        ParticleSpawnFrameDelay = 1,
+        ParticleCreationFunction = () =>
+        {
+          var particle = new SimpleFallingParticle {
+            WrapMode = SimpleMover.WrapModeEnum.Bounce,
+            MeshSize = new Vector2(20, 20),
+            Lifespan = 2
+          };
+          particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
+          return particle;
+        }
       };
       AddChild(particleSystem);
     }

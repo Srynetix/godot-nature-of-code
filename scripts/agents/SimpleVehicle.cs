@@ -16,41 +16,58 @@ namespace Agents
   {
     /// <summary>Target</summary>
     public SimpleMover Target;
+
     /// <summary>Flow target</summary>
     public SimpleFlowField TargetFlow;
+
     /// <summary>Path target</summary>
     public SimplePath TargetPath;
+
     /// <summary>Max force</summary>
     public float MaxForce = 0.1f;
+
     /// <summary>Arrive distance. Use `-1` to disable.</summary>
     public float ArriveDistance = -1;
+
     /// <summary>Detection scan length</summary>
     public float DetectionScanLength = 25;
+
     /// <summary>Detection target offset</summary>
     public float DetectionTargetOffset = 25;
+
     /// <summary>Detection alignment radius</summary>
     public float DetectionAlignmentRadius = 50;
+
     /// <summary>Debug draw</summary>
     public bool DebugDraw = false;
+
     /// <summary>Enable separation group behavior</summary>
     public bool SeparationEnabled = false;
+
     /// <summary>Enable cohesion group behavior</summary>
     public bool CohesionEnabled = false;
+
     /// <summary>Enable alignment group behavior</summary>
     public bool AlignmentEnabled = false;
+
     /// <summary>Enable lateral move group behavior</summary>
     public bool LateralMoveEnabled = false;
+
     /// <summary>Vehicle group list</summary>
     public List<SimpleVehicle> VehicleGroupList = null;
 
     /// <summary>Seek force factor</summary>
     public float SeekForceFactor = 1;
+
     /// <summary>Separation force factor</summary>
     public float SeparationForceFactor = 1;
+
     /// <summary>Cohesion force factor</summary>
     public float CohesionForceFactor = 1;
+
     /// <summary>Alignment force factor</summary>
     public float AlignmentForceFactor = 1;
+
     /// <summary>Lateral move force factor</summary>
     public float LateralMoveForceFactor = 1;
 
@@ -196,16 +213,16 @@ namespace Agents
       Vector2? targetNormalPoint = null;
       var pointCount = TargetPath.Points.Count;
 
-      for (int i = 0; i < TargetPath.Points.Count; ++i)
+      for (int i = 0; i < pointCount; ++i)
       {
         // Ignore last iteration if not looping
-        if (!TargetPath.Looping && i == TargetPath.Points.Count - 1)
+        if (!TargetPath.Looping && i == pointCount - 1)
         {
           break;
         }
 
         var a = TargetPath.Points[i];
-        var b = TargetPath.Points[(i + 1) % TargetPath.Points.Count];
+        var b = TargetPath.Points[(i + 1) % pointCount];
         var normalPoint = predictPos.GetNormalPoint(a, b);
         var dir = b - a;
 
@@ -215,11 +232,11 @@ namespace Agents
         {
           normalPoint = b;
 
-          if (TargetPath.Looping || i != TargetPath.Points.Count - 2)
+          if (TargetPath.Looping || i != pointCount - 2)
           {
             // Get two next points
             var a2 = b;
-            var b2 = TargetPath.Points[(i + 2) % TargetPath.Points.Count];
+            var b2 = TargetPath.Points[(i + 2) % pointCount];
             dir = b2 - a2;
           }
         }
@@ -229,7 +246,7 @@ namespace Agents
         {
           minDist = dist;
           targetNormalPoint = normalPoint;
-          target = targetNormalPoint + dir.Normalized() * DetectionTargetOffset;
+          target = targetNormalPoint + (dir.Normalized() * DetectionTargetOffset);
         }
       }
 
@@ -334,7 +351,7 @@ namespace Agents
         forces += FollowPath() * SeekForceFactor;
       }
 
-      if (VehicleGroupList != null && VehicleGroupList.Count > 0)
+      if (VehicleGroupList?.Count > 0)
       {
         if (SeparationEnabled)
         {

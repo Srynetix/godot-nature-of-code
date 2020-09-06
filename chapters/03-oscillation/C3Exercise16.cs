@@ -10,7 +10,7 @@ namespace Examples.Chapter3
   /// Uses a SimpleSpring tree.
   public class C3Exercise16 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.16:\n"
         + "Multiple Springs\n\n"
@@ -49,24 +49,25 @@ namespace Examples.Chapter3
         var spring = new SimpleSpring();
         var mover = new Mover();
 
-        spring.Length = size.y / 4 + x * SpringSeparation;
+        spring.Length = (size.y / 4) + (x * SpringSeparation);
         spring.MaxLength = size.y / 2;
         spring.MinLength = size.y / 8;
-        spring.Position = new Vector2(springStep / 2 + springStep * x, 0);
+        spring.Position = new Vector2((springStep / 2) + (springStep * x), 0);
 
         spring.SetMover(mover, new Vector2(0, size.y / 4));
         AddChild(spring);
 
         for (int s = 0; s < SpringPerSpring; ++s)
         {
-          var cSpring = new SimpleSpring();
-          cSpring.ShowBehindParent = true;
-          cSpring.Length = size.y / 4 + s * SpringSeparation;
-          cSpring.MaxLength = size.y / 2;
-          cSpring.MinLength = size.y / 8;
-          cSpring.Position = Vector2.Zero;
+          var cSpring = new SimpleSpring {
+            ShowBehindParent = true,
+            Length = (size.y / 4) + (s * SpringSeparation),
+            MaxLength = size.y / 2,
+            MinLength = size.y / 8,
+            Position = Vector2.Zero
+          };
 
-          cSpring.SetMover(new Mover(), new Vector2(springPerSpringOffset * s - springPerSpringSurface / 2 + springPerSpringOffset / 2, size.y / 4));
+          cSpring.SetMover(new Mover(), new Vector2((springPerSpringOffset * s) - (springPerSpringSurface / 2) + (springPerSpringOffset / 2), size.y / 4));
           mover.AddChild(cSpring);
         }
       }

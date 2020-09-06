@@ -9,7 +9,7 @@ namespace Examples.Chapter3
   /// Uses a custom SimpleWave with OpenSimplexNoise to draw a perlin wave.
   public class C3Exercise9 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.9:\n" +
         "Perlin Wave";
@@ -17,7 +17,7 @@ namespace Examples.Chapter3
 
     private class NoiseWave : SimpleWave
     {
-      private OpenSimplexNoise noise;
+      private readonly OpenSimplexNoise noise;
 
       public NoiseWave()
       {
@@ -36,11 +36,12 @@ namespace Examples.Chapter3
     {
       var size = GetViewportRect().Size;
 
-      var wave = new NoiseWave();
-      wave.Separation = 24;
-      wave.Length = size.x;
-      wave.Position = new Vector2(size.x, size.y) / 2;
-      wave.Amplitude = size.y / 2;
+      var wave = new NoiseWave {
+        Separation = 24,
+        Length = size.x,
+        Position = new Vector2(size.x, size.y) / 2,
+        Amplitude = size.y / 2
+      };
       AddChild(wave);
     }
   }

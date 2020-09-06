@@ -15,32 +15,44 @@ namespace Forces
     {
       /// <summary>Wrap on edges</summary>
       Wrap,
+
       /// <summary>Bounce on edges</summary>
       Bounce,
+
       /// <summary>No edge limit</summary>
       None
     }
 
     /// <summary>Current velocity</summary>
     public Vector2 Velocity = Vector2.Zero;
+
     /// <summary>Current acceleration</summary>
     public Vector2 Acceleration = Vector2.Zero;
+
     /// <summary>Current angular velocity</summary>
     public float AngularVelocity = 0;
+
     /// <summary>Current angular acceleration</summary>
     public float AngularAcceleration = 0;
+
     /// <summary>Max velocity</summary>
     public float MaxVelocity = 10;
+
     /// <summary>Max angular velocity</summary>
     public float MaxAngularVelocity = 0.1f;
+
     /// <summary>Mass</summary>
     public float Mass = 1;
+
     /// <summary>Wrapping mode</summary>
     public WrapModeEnum WrapMode;
+
     /// <summary>Disable forces</summary>
     public bool DisableForces = false;
+
     /// <summary>Synchronize rotation on velocity</summary>
     public bool SyncRotationOnVelocity = false;
+
     /// <summary>Mesh</summary>
     public SimpleMesh Mesh;
 
@@ -85,8 +97,7 @@ namespace Forces
       Mesh = new SimpleMesh();
       Name = "SimpleMover";
 
-      collisionShape2D = new CollisionShape2D();
-      collisionShape2D.Name = "CollisionShape2D";
+      collisionShape2D = new CollisionShape2D { Name = "CollisionShape2D" };
     }
 
     /// <summary>
@@ -158,9 +169,7 @@ namespace Forces
       AddToGroup("movers");
 
       // Add collision shape
-      var shape = new CircleShape2D();
-      shape.Radius = Radius;
-      collisionShape2D.Shape = shape;
+      collisionShape2D.Shape = new CircleShape2D { Radius = Radius };
       AddChild(collisionShape2D);
 
       // Add mesh
@@ -177,8 +186,7 @@ namespace Forces
 
       if (SyncRotationOnVelocity)
       {
-        var angle = Mathf.Atan2(Velocity.y, Velocity.x);
-        Rotation = angle;
+        Rotation = Mathf.Atan2(Velocity.y, Velocity.x);
       }
     }
 
@@ -238,10 +246,10 @@ namespace Forces
         Velocity.y *= -1;
         newPos.y = MeshSize.y / 2;
       }
-      else if (GlobalPosition.y > size.y - MeshSize.y / 2)
+      else if (GlobalPosition.y > size.y - (MeshSize.y / 2))
       {
         Velocity.y *= -1;
-        newPos.y = size.y - MeshSize.y / 2;
+        newPos.y = size.y - (MeshSize.y / 2);
       }
 
       if (GlobalPosition.x < MeshSize.x / 2)
@@ -249,10 +257,10 @@ namespace Forces
         Velocity.x *= -1;
         newPos.x = MeshSize.x / 2;
       }
-      else if (GlobalPosition.x > size.x - MeshSize.x / 2)
+      else if (GlobalPosition.x > size.x - (MeshSize.x / 2))
       {
         Velocity.x *= -1;
-        newPos.x = size.x - MeshSize.x / 2;
+        newPos.x = size.x - (MeshSize.x / 2);
       }
 
       GlobalPosition = newPos;

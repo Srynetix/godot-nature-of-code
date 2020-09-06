@@ -13,7 +13,7 @@ namespace Examples
     /// Uses _Draw function and manual float coordinates (x/y) and speed.
     public class C1Example1 : Node2D, IExample
     {
-      public string _Summary()
+      public string GetSummary()
       {
         return "Example 1.1:\n"
           + "Bouncing ball, no vectors";

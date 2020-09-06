@@ -9,14 +9,14 @@ namespace Examples.Chapter6
   /// Uses SimpleFlowField with a Perlin noise.
   public class C6Example4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 6.4:\nFlow Field Following";
     }
 
     private class CustomFlowField : SimpleFlowField
     {
-      private OpenSimplexNoise noise;
+      private readonly OpenSimplexNoise noise;
 
       public CustomFlowField()
       {
@@ -34,13 +34,13 @@ namespace Examples.Chapter6
     {
       var size = GetViewportRect().Size;
 
-      var field = new CustomFlowField();
-      field.Resolution = 30;
+      var field = new CustomFlowField { Resolution = 30 };
       AddChild(field);
 
-      var vehicle = new SimpleVehicle();
-      vehicle.TargetFlow = field;
-      vehicle.Position = size / 2;
+      var vehicle = new SimpleVehicle {
+        TargetFlow = field,
+        Position = size / 2
+      };
       AddChild(vehicle);
     }
   }

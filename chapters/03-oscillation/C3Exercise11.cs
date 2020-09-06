@@ -9,7 +9,7 @@ namespace Examples.Chapter3
   /// Uses a custom ComputeY implementation of SimpleWave to combine waves.
   public class C3Exercise11 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.11:\n"
         + "Combined Wave";
@@ -17,7 +17,7 @@ namespace Examples.Chapter3
 
     private class CombinedWave : SimpleWave
     {
-      private OpenSimplexNoise noise;
+      private readonly OpenSimplexNoise noise;
 
       public CombinedWave()
       {
@@ -36,13 +36,14 @@ namespace Examples.Chapter3
     {
       var size = GetViewportRect().Size;
 
-      var wave = new CombinedWave();
-      wave.Separation = 8;
-      wave.StartAngleFactor = 0.75f;
-      wave.AngularVelocity = 0.25f;
-      wave.Length = size.x;
-      wave.Position = new Vector2(size.x, size.y) / 2;
-      wave.Amplitude = size.y / 2;
+      var wave = new CombinedWave {
+        Separation = 8,
+        StartAngleFactor = 0.75f,
+        AngularVelocity = 0.25f,
+        Length = size.x,
+        Position = new Vector2(size.x, size.y) / 2,
+        Amplitude = size.y / 2
+      };
       AddChild(wave);
     }
   }

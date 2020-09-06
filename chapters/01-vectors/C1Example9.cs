@@ -9,7 +9,7 @@ namespace Examples.Chapter1
   /// Uses a custom SimpleMover with a custom UpdateAcceleration method.
   public class C1Example9 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 1.9:\n"
         + "Velocity & random accel.";
@@ -27,8 +27,10 @@ namespace Examples.Chapter1
     {
       var size = GetViewportRect().Size;
 
-      var mover = new Mover();
-      mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
+      var mover = new Mover {
+        Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y))
+      };
+
       AddChild(mover);
     }
   }

@@ -11,7 +11,7 @@ namespace Examples.Chapter2
   /// Simple bouncy balloon using SimpleMover mesh capabilities to draw a balloon shape.
   public class C2Exercise1 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 2.1:\n"
         + "Helium-filled balloons";
@@ -33,7 +33,7 @@ namespace Examples.Chapter2
         MaxVelocity = 0.35f;
 
         noise = new OpenSimplexNoise();
-        Position = new Vector2((float)GD.RandRange(halfSize.x / 2, halfSize.x + halfSize.x / 2), (float)GD.RandRange(halfSize.y / 2, halfSize.y + halfSize.y / 2));
+        Position = new Vector2((float)GD.RandRange(halfSize.x / 2, halfSize.x + (halfSize.x / 2)), (float)GD.RandRange(halfSize.y / 2, halfSize.y + (halfSize.y / 2)));
         tNoise = (float)GD.RandRange(0, 1000);
         tRope = 0;
 
@@ -63,8 +63,8 @@ namespace Examples.Chapter2
 
     public override void _Ready()
     {
-      int balloonCount = 20;
-      foreach (int x in Enumerable.Range(0, balloonCount))
+      const int balloonCount = 20;
+      foreach (int _ in Enumerable.Range(0, balloonCount))
       {
         AddChild(new Balloon());
       }

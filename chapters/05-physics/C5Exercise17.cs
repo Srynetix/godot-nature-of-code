@@ -9,7 +9,7 @@ namespace Examples.Chapter5
   /// Uses VerletCluster combined with AttractionBehavior.
   public class C5Exercise17 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.17\n"
         + "Verlet Attraction with Springs\n\n"

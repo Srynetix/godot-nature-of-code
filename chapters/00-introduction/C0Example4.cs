@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// Uses DrawCanvas to draw circles, and Godot's RandomNumberGenerator.
   public class C0Example4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example I.4:\n"
         + "Gaussian distribution";
@@ -28,7 +28,7 @@ namespace Examples.Chapter0
         float num = generator.Randfn(0, 1);  // Gaussian distribution
         float sd = size.x / 8;
         float mean = size.x / 2;
-        float x = sd * num + mean;
+        float x = (sd * num) + mean;
         pen.DrawCircle(new Vector2(x, size.y / 2), 8, Colors.LightCyan.WithAlpha(10));
       });
       canvas.QueueClearDrawing(Color.Color8(45, 45, 45));

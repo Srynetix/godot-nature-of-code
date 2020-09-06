@@ -9,7 +9,7 @@ namespace Examples.Chapter5
   /// Same principle as Exercise 5.8, but using kinematic forces instead of a mouse joint.
   public class C5Exercise9 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.9:\n"
         + "Perlin Kinematic\n\n"
@@ -24,6 +24,7 @@ namespace Examples.Chapter5
       public float OutlineWidth = 2;
       public Color OutlineColor = Colors.LightBlue;
       public Color BaseColor = Colors.White;
+
       public Vector2 MeshSize
       {
         get => bodySize;
@@ -43,10 +44,8 @@ namespace Examples.Chapter5
 
       public override void _Ready()
       {
-        rectangleShape2D = new RectangleShape2D();
-        rectangleShape2D.Extents = bodySize / 2;
-        collisionShape2D = new CollisionShape2D();
-        collisionShape2D.Shape = rectangleShape2D;
+        rectangleShape2D = new RectangleShape2D { Extents = bodySize / 2 };
+        collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
         AddChild(collisionShape2D);
       }
 
@@ -54,7 +53,7 @@ namespace Examples.Chapter5
       {
         var outlineVec = new Vector2(OutlineWidth, OutlineWidth);
         DrawRect(new Rect2(-bodySize / 2, bodySize), OutlineColor);
-        DrawRect(new Rect2(-bodySize / 2 + outlineVec / 2, bodySize - outlineVec / 2), BaseColor);
+        DrawRect(new Rect2((-bodySize / 2) + (outlineVec / 2), bodySize - (outlineVec / 2)), BaseColor);
 
         DrawLine(Vector2.Zero, (ComputeTargetPosition() - GlobalPosition).Rotated(-GlobalRotation), Colors.Gray, 2);
       }
@@ -66,7 +65,7 @@ namespace Examples.Chapter5
 
       public override void _PhysicsProcess(float delta)
       {
-        var speed = 2;
+        const int speed = 2;
         var r = ComputeTargetPosition() - GlobalPosition;
 
         MoveAndSlide(r * speed);
@@ -78,19 +77,22 @@ namespace Examples.Chapter5
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var d = new C5Exercise8.PerlinWaveDrawing();
-      d.Length = size.x / 1.25f;
-      d.Position = size / 2 - new Vector2(d.Length / 2, 0);
+      var length = size.x / 1.25f;
+      var d = new C5Exercise8.PerlinWaveDrawing {
+        Length = length,
+        Position = (size / 2) - new Vector2(length / 2, 0)
+      };
       AddChild(d);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var box = new PerlinKinematicBox();
-        box.Drawing = d;
-        box.MeshSize = new Vector2(20, 20);
-        box.Position = position;
-        return box;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          return new PerlinKinematicBox {
+            Drawing = d,
+            MeshSize = new Vector2(20, 20),
+            Position = position
+          };
+        }
       };
       AddChild(spawner);
 

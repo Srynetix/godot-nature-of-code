@@ -14,7 +14,7 @@ namespace Examples
     /// Uses force methods from SimpleMover to apply forces as gravity or wind.
     public class C2Example1 : Node2D, IExample
     {
-      public string _Summary()
+      public string GetSummary()
       {
         return "Example 2.1:\n"
           + "Forces";
@@ -36,8 +36,10 @@ namespace Examples
 
       public override void _Ready()
       {
-        var mover = new Mover();
-        mover.Position = GetViewportRect().Size / 2;
+        var mover = new Mover {
+          Position = GetViewportRect().Size / 2
+        };
+
         AddChild(mover);
       }
     }

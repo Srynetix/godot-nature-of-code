@@ -7,10 +7,13 @@ namespace VerletPhysics
   {
     /// <summary>Attraction point</summary>
     public VerletPoint Attractor;
+
     /// <summary>Jitter value (random coefficient)</summary>
     public float Jitter;
+
     /// <summary>Attraction strength</summary>
     public float Strength;
+
     /// <summary>Attraction radius</summary>
     public float Radius
     {
@@ -46,7 +49,7 @@ namespace VerletPhysics
       var dist = diff.LengthSquared();
       if (dist < radiusSquared)
       {
-        var f = diff.NormalizeTo((1.0f - dist / radiusSquared)).Jitter(Jitter) * Strength * delta;
+        var f = diff.NormalizeTo(1.0f - (dist / radiusSquared)).Jitter(Jitter) * Strength * delta;
         point.ApplyForce(f);
       }
     }

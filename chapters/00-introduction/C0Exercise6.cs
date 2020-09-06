@@ -9,7 +9,7 @@ namespace Examples.Chapter0
   /// SimpleWalker with randomized step value and direction.
   public class C0Exercise6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.6:\n"
         + "Walker with random step";
@@ -52,10 +52,7 @@ namespace Examples.Chapter0
       walker.SetXY(GetViewportRect().Size / 2);
       AddChild(walker);
 
-      var canvas = new DrawCanvas((pen) =>
-      {
-        pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-      });
+      var canvas = new DrawCanvas((pen) => pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true));
       canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
       AddChild(canvas);
     }

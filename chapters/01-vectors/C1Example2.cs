@@ -8,7 +8,7 @@ namespace Examples.Chapter1
   /// Uses _Draw function and manual vector coordinates and speed.
   public class C1Example2 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 1.2:\n"
         + "Bouncing ball, vectors";

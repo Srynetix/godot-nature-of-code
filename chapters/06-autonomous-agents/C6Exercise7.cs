@@ -6,17 +6,17 @@ namespace Examples.Chapter6
   /// <summary>
   /// Exercise 6.7: Animated Flow Field.
   /// </summary>
-  /// Uses a local 'z' variable with GetNoise3d. 
+  /// Uses a local 'z' variable with GetNoise3d.
   public class C6Exercise7 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.7:\nAnimated Flow Field";
     }
 
     private class AnimatedFlowField : SimpleFlowField
     {
-      private OpenSimplexNoise noise;
+      private readonly OpenSimplexNoise noise;
       private float z = 0;
 
       public AnimatedFlowField()
@@ -43,13 +43,13 @@ namespace Examples.Chapter6
     {
       var size = GetViewportRect().Size;
 
-      var field = new AnimatedFlowField();
-      field.Resolution = 30;
+      var field = new AnimatedFlowField { Resolution = 30 };
       AddChild(field);
 
-      var vehicle = new SimpleVehicle();
-      vehicle.TargetFlow = field;
-      vehicle.Position = size / 2;
+      var vehicle = new SimpleVehicle {
+        TargetFlow = field,
+        Position = size / 2
+      };
       AddChild(vehicle);
     }
   }

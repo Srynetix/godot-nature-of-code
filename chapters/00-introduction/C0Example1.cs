@@ -15,10 +15,10 @@ namespace Examples
     /// Example 0.1 - Traditional random walk.
     /// </summary>
     /// Define a custom walker based on SimpleWalker with a custom step function.
-    /// Uses a DrawCanvas to draw without clearing the viewport. 
+    /// Uses a DrawCanvas to draw without clearing the viewport.
     public class C0Example1 : Node2D, IExample
     {
-      public string _Summary()
+      public string GetSummary()
       {
         return "Example I.1:\n"
           + "Traditional random walk";
@@ -44,10 +44,7 @@ namespace Examples
         walker.SetXY(GetViewportRect().Size / 2);
         AddChild(walker);
 
-        var canvas = new DrawCanvas((pen) =>
-        {
-          pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true);
-        });
+        var canvas = new DrawCanvas((pen) => pen.DrawRect(walker.GetStepRect(), Colors.LightCyan, true));
         canvas.QueueClearDrawing(Color.Color8(45, 45, 45));
         AddChild(canvas);
       }

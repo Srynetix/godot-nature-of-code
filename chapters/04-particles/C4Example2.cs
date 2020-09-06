@@ -11,7 +11,7 @@ namespace Examples.Chapter4
   /// Manual particles management in a List.
   public class C4Example2 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 4.2:\n"
         + "Particles List";
@@ -28,9 +28,10 @@ namespace Examples.Chapter4
 
       private void CreateParticle()
       {
-        var particle = new SimpleFallingParticle();
-        particle.MeshSize = new Vector2(20, 20);
-        particle.Lifespan = 2;
+        var particle = new SimpleFallingParticle {
+          MeshSize = new Vector2(20, 20),
+          Lifespan = 2
+        };
         particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
         particles.Add(particle);
         AddChild(particle);
@@ -64,8 +65,9 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var list = new ParticleList();
-      list.Position = new Vector2(size.x / 2, size.y / 4);
+      var list = new ParticleList {
+        Position = new Vector2(size.x / 2, size.y / 4)
+      };
       AddChild(list);
     }
   }

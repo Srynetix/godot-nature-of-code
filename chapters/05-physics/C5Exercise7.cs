@@ -1,5 +1,6 @@
 using Godot;
 using Utils;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -10,14 +11,14 @@ namespace Examples.Chapter5
   /// Reuses the WaveWall from Exercise 5.3.
   public class C5Exercise7 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 5.7:\n"
         + "Car Simulation\n\n"
         + "Touch screen to spawn balls";
     }
 
-    public class Wheel : Physics.SimpleBall
+    public class Wheel : SimpleBall
     {
       public float Torque = 20f;
 
@@ -32,7 +33,7 @@ namespace Examples.Chapter5
       }
     }
 
-    public class CarBase : Physics.SimpleBox
+    public class CarBase : SimpleBox
     {
       public CarBase()
       {
@@ -48,21 +49,23 @@ namespace Examples.Chapter5
         AddChild(carBase);
 
         var carLeftWheel = new Wheel();
-        carLeftWheel.Position = carBase.Position + new Vector2(-carBase.BodySize.x / 2 + carLeftWheel.Radius, carBase.BodySize.y);
+        carLeftWheel.Position = carBase.Position + new Vector2((-carBase.BodySize.x / 2) + carLeftWheel.Radius, carBase.BodySize.y);
         AddChild(carLeftWheel);
-        var leftJoint = new PinJoint2D();
-        leftJoint.NodeA = carBase.GetPath();
-        leftJoint.NodeB = carLeftWheel.GetPath();
-        leftJoint.Softness = 0;
+        var leftJoint = new PinJoint2D {
+          NodeA = carBase.GetPath(),
+          NodeB = carLeftWheel.GetPath(),
+          Softness = 0
+        };
         carLeftWheel.AddChild(leftJoint);
 
         var carRightWheel = new Wheel();
-        carRightWheel.Position = carBase.Position + new Vector2(carBase.BodySize.x / 2 - carRightWheel.Radius, carBase.BodySize.y);
+        carRightWheel.Position = carBase.Position + new Vector2((carBase.BodySize.x / 2) - carRightWheel.Radius, carBase.BodySize.y);
         AddChild(carRightWheel);
-        var rightJoint = new PinJoint2D();
-        rightJoint.NodeA = carBase.GetPath();
-        rightJoint.NodeB = carRightWheel.GetPath();
-        rightJoint.Softness = 0;
+        var rightJoint = new PinJoint2D {
+          NodeA = carBase.GetPath(),
+          NodeB = carRightWheel.GetPath(),
+          Softness = 0
+        };
         carRightWheel.AddChild(rightJoint);
       }
     }
@@ -71,25 +74,28 @@ namespace Examples.Chapter5
     {
       var size = GetViewportRect().Size;
 
-      var wall = new C5Exercise3.WaveWall();
-      wall.Length = size.x;
-      wall.Frequency = 0.1f;
-      wall.Amplitude = 100;
-      wall.Position = new Vector2(size.x / 2, size.y - 200);
+      var wall = new C5Exercise3.WaveWall {
+        Length = size.x,
+        Frequency = 0.1f,
+        Amplitude = 100,
+        Position = new Vector2(size.x / 2, size.y - 200)
+      };
       AddChild(wall);
 
-      var car = new Car();
-      car.Position = new Vector2(size.x / 8, size.y / 2);
+      var car = new Car {
+        Position = new Vector2(size.x / 8, size.y / 2)
+      };
       AddChild(car);
 
-      var spawner = new SimpleTouchSpawner();
-      spawner.SpawnFunction = (position) =>
-      {
-        var body = new Physics.SimpleBall();
-        body.Radius = 5;
-        body.Mass = 0.00001f;
-        body.GlobalPosition = position;
-        return body;
+      var spawner = new SimpleTouchSpawner {
+        SpawnFunction = (position) =>
+        {
+          return new SimpleBall {
+            Radius = 5,
+            Mass = 0.00001f,
+            GlobalPosition = position
+          };
+        }
       };
       AddChild(spawner);
     }

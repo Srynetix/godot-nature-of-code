@@ -9,6 +9,7 @@ namespace Agents
   {
     /// <summary>Source texture</summary>
     public Texture SourceTexture;
+
     /// <summary>Center on screen</summary>
     public bool CenterOnScreen;
 
@@ -28,12 +29,13 @@ namespace Agents
       {
         for (int i = 0; i < cols; ++i)
         {
-          var idx = i + j * cols;
-          var direction = new FlowDirection();
-          direction.RectSize = resolutionSize;
-          direction.RectPosition = new Vector2(i * Resolution, j * Resolution);
-          direction.RectPivotOffset = resolutionSize / 2.0f;
-          direction.Direction = ComputeDirectionFromPosition(i, j);
+          var idx = i + (j * cols);
+          var direction = new FlowDirection {
+            RectSize = resolutionSize,
+            RectPosition = new Vector2(i * Resolution, j * Resolution),
+            RectPivotOffset = resolutionSize / 2.0f,
+            Direction = ComputeDirectionFromPosition(i, j),
+          };
           direction.RectRotation = Mathf.Rad2Deg(direction.Direction.Angle());
           field[idx] = direction;
           AddChild(direction);
@@ -58,7 +60,7 @@ namespace Agents
       var image = SourceTexture.GetData();
       image.Lock();
       // Get middle pixel
-      var color = image.GetPixel(x * Resolution + Resolution / 2, y * Resolution + Resolution / 2);
+      var color = image.GetPixel((x * Resolution) + (Resolution / 2), (y * Resolution) + (Resolution / 2));
       image.Unlock();
       return ColorToDirection(color);
     }
@@ -73,7 +75,7 @@ namespace Agents
         if (CenterOnScreen)
         {
           var size = GetViewportRect().Size;
-          GlobalPosition = size / 2 - SourceTexture.GetSize() / 2;
+          GlobalPosition = (size / 2) - (SourceTexture.GetSize() / 2);
         }
       }
     }

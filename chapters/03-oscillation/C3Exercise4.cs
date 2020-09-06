@@ -9,7 +9,7 @@ namespace Examples.Chapter3
   /// Uses DrawCanvas and polar coordinates to draw a spiral.
   public class C3Exercise4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.4:\n"
         + "Spiral Path";
@@ -36,7 +36,7 @@ namespace Examples.Chapter3
             var target = new Vector2(x, y);
             var size = GetViewportRect().Size;
 
-            pen.DrawCircle(size / 2 + target, Width / 2, MathUtils.RandColor());
+            pen.DrawCircle((size / 2) + target, Width / 2, MathUtils.RandColor());
 
             theta += 0.016f;
             margin += 0.016f * 3;

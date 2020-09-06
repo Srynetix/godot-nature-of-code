@@ -10,7 +10,7 @@ namespace Examples.Chapter3
   /// Uses a SimplePendulum tree.
   public class C3Exercise12 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 3.12:\n"
         + "Pendulum Chain\n\n"
@@ -36,10 +36,11 @@ namespace Examples.Chapter3
         if (parents.Count == 0)
         {
           // Root pendulum
-          var plm = new SimplePendulum();
-          plm.Position = new Vector2(size.x / 2, 0);
-          plm.RopeLength = ropeLength;
-          plm.Angle = Mathf.Pi / 2;
+          var plm = new SimplePendulum {
+            Position = new Vector2(size.x / 2, 0),
+            RopeLength = ropeLength,
+            Angle = Mathf.Pi / 2
+          };
           AddChild(plm);
           newParents.Add(plm);
         }
@@ -50,10 +51,11 @@ namespace Examples.Chapter3
           {
             for (int cIndex = 0; cIndex < ChildrenPerParent; ++cIndex)
             {
-              var plm = new SimplePendulum();
-              plm.ShowBehindParent = true;
-              plm.RopeLength = ropeLength;
-              plm.Angle = angleStep * cIndex;
+              var plm = new SimplePendulum {
+                ShowBehindParent = true,
+                RopeLength = ropeLength,
+                Angle = angleStep * cIndex
+              };
               parents[pIndex].AddPendulumChild(plm);
               newParents.Add(plm);
             }

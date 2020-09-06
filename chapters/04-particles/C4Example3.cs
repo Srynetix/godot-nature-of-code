@@ -11,7 +11,7 @@ namespace Examples.Chapter4
   /// Uses SimpleParticleSystem with its ParticleCreationFunction.
   public class C4Example3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 4.3:\n"
         + "Particle System";
@@ -20,18 +20,20 @@ namespace Examples.Chapter4
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      var particleSystem = new SimpleParticleSystem();
-      particleSystem.ParticleCreationFunction = () =>
-      {
-        var particle = new SimpleFallingParticle();
-        particle.WrapMode = SimpleMover.WrapModeEnum.Bounce;
-        particle.MeshSize = new Vector2(20, 20);
-        particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-        particle.Lifespan = 2;
-        return particle;
+      var particleSystem = new SimpleParticleSystem {
+        ParticleCreationFunction = () =>
+        {
+          var particle = new SimpleFallingParticle {
+            WrapMode = SimpleMover.WrapModeEnum.Bounce,
+            MeshSize = new Vector2(20, 20),
+            Lifespan = 2
+          };
+          particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
+          return particle;
+        },
+        ParticleSpawnFrameDelay = 2,
+        Position = new Vector2(size.x / 2, size.y / 4)
       };
-      particleSystem.ParticleSpawnFrameDelay = 2;
-      particleSystem.Position = new Vector2(size.x / 2, size.y / 4);
       AddChild(particleSystem);
     }
   }

@@ -1,4 +1,5 @@
 using Godot;
+using Physics;
 
 namespace Examples.Chapter5
 {
@@ -8,7 +9,7 @@ namespace Examples.Chapter5
   /// Uses SimpleMouseJoint to simulate a mouse joint.
   public class C5Example8 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 5.8:\n"
         + "Mouse Joint\n\n"
@@ -19,14 +20,16 @@ namespace Examples.Chapter5
     {
       var size = GetViewportRect().Size;
 
-      var box = new Physics.SimpleBox();
-      box.Position = size / 2;
+      var box = new SimpleBox {
+        Position = size / 2
+      };
       AddChild(box);
-      box.AddChild(new Physics.SimpleMouseJoint());
+      box.AddChild(new SimpleMouseJoint());
 
-      var floor = new Physics.SimpleWall();
-      floor.BodySize = new Vector2(size.x, 100);
-      floor.Position = new Vector2(size.x / 2, size.y);
+      var floor = new SimpleWall {
+        BodySize = new Vector2(size.x, 100),
+        Position = new Vector2(size.x / 2, size.y)
+      };
       AddChild(floor);
     }
   }

@@ -14,10 +14,13 @@ namespace Drawing
     {
       /// <summary>Circle mesh</summary>
       Circle,
+
       /// <summary>Square mesh</summary>
       Square,
+
       /// <summary>Custom mesh</summary>
       Custom,
+
       /// <summary>Custom texture</summary>
       Texture
     }
@@ -27,12 +30,16 @@ namespace Drawing
 
     /// <summary>Mesh size</summary>
     public Vector2 MeshSize = new Vector2(40, 40);
+
     /// <summary>Mesh type</summary>
     public TypeEnum MeshType = TypeEnum.Circle;
+
     /// <summary>Custom draw method</summary>
     public CustomDrawFunc CustomDrawMethod = null;
+
     /// <summary>Custom texture</summary>
     public Texture CustomTexture = null;
+
     /// <summary>Custom material</summary>
     public Material CustomMaterial = null;
 
@@ -50,17 +57,19 @@ namespace Drawing
 
     public override void _Ready()
     {
-      sprite = new Sprite();
-      sprite.Name = "CustomSprite";
-      sprite.Material = CustomMaterial;
-      sprite.Modulate = Modulate;
-      sprite.Visible = false;
+      sprite = new Sprite {
+        Name = "CustomSprite",
+        Material = CustomMaterial,
+        Modulate = Modulate,
+        Visible = false
+      };
       AddChild(sprite);
 
-      circleSprite = new SimpleCircleSprite();
-      circleSprite.Name = "CircleSprite";
-      circleSprite.Modulate = Modulate;
-      circleSprite.Visible = false;
+      circleSprite = new SimpleCircleSprite {
+        Name = "CircleSprite",
+        Modulate = Modulate,
+        Visible = false
+      };
       AddChild(circleSprite);
 
       if (MeshType == TypeEnum.Texture)
@@ -72,7 +81,6 @@ namespace Drawing
           sprite.Visible = Visible;
         }
       }
-
       else if (MeshType == TypeEnum.Circle)
       {
         circleSprite.Radius = MeshSize.x / 2;
@@ -86,32 +94,15 @@ namespace Drawing
       {
         DrawRect(new Rect2(-MeshSize / 2, MeshSize / 2), Modulate);
       }
-
       else if (MeshType == TypeEnum.Custom)
       {
-        if (CustomDrawMethod != null)
-        {
-          CustomDrawMethod(this);
-        }
+        CustomDrawMethod?.Invoke(this);
       }
     }
 
     public override void _Process(float delta)
     {
       Update();
-    }
-
-    private void UpdateColor()
-    {
-      if (sprite != null)
-      {
-        sprite.Modulate = Modulate;
-      }
-
-      if (sprite != null)
-      {
-        circleSprite.Modulate = Modulate;
-      }
     }
   }
 }

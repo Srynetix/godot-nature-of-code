@@ -8,7 +8,7 @@ namespace Examples.Chapter1
   /// Uses _Draw to represent vector subtraction.
   public class C1Example3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 1.3:\n"
         + "Vector subtraction";

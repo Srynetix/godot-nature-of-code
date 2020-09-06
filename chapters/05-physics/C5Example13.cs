@@ -9,7 +9,7 @@ namespace Examples.Chapter5
   /// Uses VerletWorld and AttractionBehavior.
   public class C5Example13 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 5.13\n"
         + "Verlet Attraction/Repulsion\n\n"
@@ -25,8 +25,7 @@ namespace Examples.Chapter5
       var attractor = physics.CreatePoint(size / 2, radius: 24, color: Colors.LightGoldenrod, mass: 1000);
       physics.AddBehavior(new AttractionBehavior(attractor, strength: 0.01f, radius: size.x));
 
-      var pointCount = 18;
-
+      const int pointCount = 18;
       for (int i = 0; i < pointCount; ++i)
       {
         var pt = physics.CreatePoint(MathUtils.RandVector2(0, size.x, 0, size.y), radius: 16, mass: 10);

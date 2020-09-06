@@ -8,7 +8,7 @@ namespace Examples.Chapter1
   /// Uses _Draw to represent vector magnitude.
   public class C1Example5 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 1.5:\n"
         + "Vector magnitude";

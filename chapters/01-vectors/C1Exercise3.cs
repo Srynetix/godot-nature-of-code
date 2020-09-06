@@ -8,7 +8,7 @@ namespace Examples.Chapter1
   /// Uses simple limit detection at an arbitrary length.
   public class C1Exercise3 : Spatial, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 1.3:\n"
         + "3D bouncing ball";
@@ -29,8 +29,8 @@ namespace Examples.Chapter1
 
     public override void _Process(float delta)
     {
+      const int limit = 4;
       camPoint.RotateY(delta * 0.5f);
-      int limit = 4;
       position += velocity * delta * 10.0f;
 
       if (position.x > limit || position.x < -limit)

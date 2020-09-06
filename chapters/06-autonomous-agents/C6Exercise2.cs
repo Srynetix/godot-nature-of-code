@@ -10,7 +10,7 @@ namespace Examples.Chapter6
   /// Same principle as Example 6.1, but using the target velocity to predict its position.
   public class C6Exercise2 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 6.2:\nPursuit";
     }
@@ -36,15 +36,17 @@ namespace Examples.Chapter6
       var size = GetViewportRect().Size;
 
       // Create target
-      targetMover = new SimpleMover();
-      targetMover.Position = size / 2;
-      targetMover.Modulate = Colors.LightBlue.WithAlpha(128);
+      targetMover = new SimpleMover {
+        Position = size / 2,
+        Modulate = Colors.LightBlue.WithAlpha(128)
+      };
       AddChild(targetMover);
 
       // Create vehicle
-      var vehicle = new Vehicle();
-      vehicle.Target = targetMover;
-      vehicle.Position = size / 4;
+      var vehicle = new Vehicle {
+        Target = targetMover,
+        Position = size / 4
+      };
       AddChild(vehicle);
     }
 

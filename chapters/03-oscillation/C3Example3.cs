@@ -10,7 +10,7 @@ namespace Examples.Chapter3
   /// Update SimpleMover rotation depending on mouse position.
   public class C3Example3 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.3:\n"
         + "Pointing towards motion";
@@ -37,8 +37,9 @@ namespace Examples.Chapter3
     {
       var size = GetViewportRect().Size;
 
-      var mover = new Mover();
-      mover.Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y));
+      var mover = new Mover {
+        Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y))
+      };
       AddChild(mover);
     }
   }

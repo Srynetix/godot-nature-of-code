@@ -11,7 +11,7 @@ namespace Examples.Chapter2
   /// SimpleMover with a custom ApplyDrag implementation to use mesh surface.
   public class C2Exercise6 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise 2.6:\n"
         + "Water Drag Surface";
@@ -50,13 +50,14 @@ namespace Examples.Chapter2
     {
       var size = GetViewportRect().Size;
 
-      var zone = new SimpleLiquid();
-      zone.Coeff = 0.25f;
-      zone.Size = new Vector2(size.x, size.y / 4);
-      zone.Position = new Vector2(size.x / 2, size.y - size.y / 8);
+      var zone = new SimpleLiquid {
+        Coeff = 0.25f,
+        Size = new Vector2(size.x, size.y / 4),
+        Position = new Vector2(size.x / 2, size.y - (size.y / 8))
+      };
       AddChild(zone);
 
-      foreach (var x in Enumerable.Range(0, 20))
+      foreach (var _ in Enumerable.Range(0, 20))
       {
         var mover = new Mover();
         var bodySize = (float)GD.RandRange(10, 40);
@@ -64,7 +65,7 @@ namespace Examples.Chapter2
 
         mover.MeshSize = new Vector2(bodySize, bodySize);
         mover.Mass = (float)GD.RandRange(5, 10);
-        mover.Position = new Vector2(xPos, size.y / 2 + (float)GD.RandRange(-100, 100));
+        mover.Position = new Vector2(xPos, (size.y / 2) + (float)GD.RandRange(-100, 100));
 
         AddChild(mover);
       }

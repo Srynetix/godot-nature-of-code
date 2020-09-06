@@ -9,6 +9,7 @@ namespace Drawing
   {
     /// <summary>Noise factor</summary>
     public float Factor = 1;
+
     /// <summary>Noise octaves</summary>
     public int Octaves = 1;
 
@@ -53,8 +54,7 @@ namespace Drawing
       sprite = new Sprite();
       image = new Image();
       texture = new ImageTexture();
-      noise = new OpenSimplexNoise();
-      noise.Octaves = Octaves;
+      noise = new OpenSimplexNoise { Octaves = Octaves };
 
       var viewportSize = GetViewportRect().Size;
       var imageSize = viewportSize / Factor;

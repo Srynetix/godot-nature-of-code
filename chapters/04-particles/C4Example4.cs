@@ -10,7 +10,7 @@ namespace Examples.Chapter4
   /// Uses SimpleParticleSystem and touch input.
   public class C4Example4 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 4.4:\n"
         + "Multiple Particle Systems\n\n"
@@ -19,16 +19,18 @@ namespace Examples.Chapter4
 
     private void AddParticleSystem(Vector2 position)
     {
-      var ps = new SimpleParticleSystem();
-      ps.ParticleCreationFunction = () =>
-      {
-        var particle = new SimpleFallingParticle();
-        particle.Lifespan = 2;
-        particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-        particle.MeshSize = new Vector2(10, 10);
-        return particle;
+      var ps = new SimpleParticleSystem {
+        ParticleCreationFunction = () =>
+        {
+          var particle = new SimpleFallingParticle {
+            Lifespan = 2,
+            MeshSize = new Vector2(10, 10)
+          };
+          particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
+          return particle;
+        },
+        GlobalPosition = position
       };
-      ps.GlobalPosition = position;
       AddChild(ps);
     }
 
@@ -47,12 +49,12 @@ namespace Examples.Chapter4
     {
       // Initial systems
       var size = GetViewportRect().Size;
-      int initialCount = 2;
+      const int initialCount = 2;
       float splitSize = size.x / initialCount;
 
       for (int i = 0; i < initialCount; ++i)
       {
-        AddParticleSystem(new Vector2(splitSize / 2 + splitSize * i, size.y / 4));
+        AddParticleSystem(new Vector2((splitSize / 2) + (splitSize * i), size.y / 4));
       }
     }
   }

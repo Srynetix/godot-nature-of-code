@@ -10,7 +10,7 @@ namespace Examples.Chapter3
   /// Uses SimpleOscillator.
   public class C3Example7 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Example 3.7:\n"
         + "Oscillators";
@@ -19,13 +19,14 @@ namespace Examples.Chapter3
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
-      int oscillatorsCount = 10;
+      const int oscillatorsCount = 10;
 
-      foreach (int i in Enumerable.Range(0, oscillatorsCount))
+      foreach (int _ in Enumerable.Range(0, oscillatorsCount))
       {
-        var oscillator = new SimpleOscillator();
-        oscillator.Amplitude = new Vector2((float)GD.RandRange(0, size.x / 2), (float)GD.RandRange(0, size.y / 2));
-        oscillator.Position = size / 2;
+        var oscillator = new SimpleOscillator {
+          Amplitude = new Vector2((float)GD.RandRange(0, size.x / 2), (float)GD.RandRange(0, size.y / 2)),
+          Position = size / 2
+        };
         AddChild(oscillator);
       }
     }

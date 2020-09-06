@@ -10,8 +10,10 @@ namespace Agents
   {
     /// <summary>Points</summary>
     public List<Vector2> Points;
+
     /// <summary>Path radius</summary>
     public float Radius = 20;
+
     /// <summary>Looping</summary>
     public bool Looping = false;
 

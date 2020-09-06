@@ -13,16 +13,19 @@ namespace Forces
   {
     /// <summary>Attractor mass</summary>
     public float Mass = 20.0f;
+
     /// <summary>Gravitaton</summary>
     public float Gravitation = 1.0f;
+
     /// <summary>Minimum force</summary>
     public float MinForce = 5;
+
     /// <summary>Maximum force</summary>
     public float MaxForce = 25;
 
     /// <summary>
     /// Create a default attractor with a 20px radius.
-    /// </summary> 
+    /// </summary>
     public SimpleAttractor()
     {
       Radius = 20f;

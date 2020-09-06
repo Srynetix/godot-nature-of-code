@@ -10,7 +10,7 @@ namespace Examples.Chapter0
   /// Can be slow on mobile and HTML5 environments.
   public class C0Exercise9 : Node2D, IExample
   {
-    public string _Summary()
+    public string GetSummary()
     {
       return "Exercise I.9:\n"
         + "Animated 2D noise";
@@ -36,7 +36,7 @@ namespace Examples.Chapter0
         }
 
         time += delta * NoiseSpeed;
-        frameCount += 1;
+        frameCount++;
       }
 
       protected override float ComputeNoise(float x, float y)
@@ -47,10 +47,7 @@ namespace Examples.Chapter0
 
     public override void _Ready()
     {
-      var noiseTexture = new AnimatedNoiseTexture();
-      noiseTexture.Factor = 3;
-      noiseTexture.Octaves = 8;
-      noiseTexture.NoiseSpeed = 10;
+      var noiseTexture = new AnimatedNoiseTexture { Factor = 3, Octaves = 8, NoiseSpeed = 10};
       // Adapt for HTML5
       noiseTexture.AnimationFrameDelay = OS.GetName() == "HTML5" ? 24 : 4;
       AddChild(noiseTexture);
