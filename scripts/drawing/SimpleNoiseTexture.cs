@@ -17,6 +17,7 @@ namespace Drawing
     protected Image image;
     protected ImageTexture texture;
     protected OpenSimplexNoise noise;
+    protected Vector2 imageSize;
 
     /// <summary>
     /// Compute noise for X and Y coordinates.
@@ -34,8 +35,6 @@ namespace Drawing
     /// </summary>
     protected void GenerateNoiseTexture()
     {
-      var imageSize = GetViewportRect().Size / Factor;
-
       image.Lock();
       for (int x = 0; x < imageSize.x; ++x)
       {
@@ -57,7 +56,8 @@ namespace Drawing
       noise = new OpenSimplexNoise { Octaves = Octaves };
 
       var viewportSize = GetViewportRect().Size;
-      var imageSize = viewportSize / Factor;
+      imageSize = viewportSize / Factor;
+      imageSize = new Vector2((int)imageSize.x, (int)imageSize.y);
       image.Create((int)imageSize.x, (int)imageSize.y, false, Image.Format.Rgba8);
 
       // Generate

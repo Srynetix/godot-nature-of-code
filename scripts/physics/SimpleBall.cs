@@ -48,7 +48,7 @@ namespace Physics
       sprite = new SimpleCircleSprite
       {
         Radius = 10,
-        Modulate = BaseColor
+        Modulate = Colors.LightBlue
       };
     }
 
