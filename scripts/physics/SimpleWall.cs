@@ -25,6 +25,7 @@ namespace Physics
     /// </summary>
     public SimpleWall()
     {
+      rectangleShape2D = new RectangleShape2D { Extents = new Vector2(10, 10) };
       collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
       collisionShape2D.Shape = rectangleShape2D;
     }

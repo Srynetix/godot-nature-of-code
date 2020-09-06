@@ -51,7 +51,7 @@ You can also access the generated C# documentation here: [C# Documentation](http
 ## :mage: Contributing
 
 - *File rules*: An .editorconfig file is provided.    
-- *Formatting*: This project use `dotnet-format` to automatically format the C# code, without specific configuration.
-- *Lint*: I am still looking for a command-line utility to lint the code (like `flake8` in the Python world or `clippy` in the Rust world).
+- *Formatting*: This project use `roslynator` to automatically format the C# code, without specific configuration.
+- *Lint*: I am using the Roslynator VSCode extension. I am still looking for a command-line version with the same hints.
 
 If you want to contribute, do not hesitate to create Pull Requests or file Issues on GitHub :wink:. 
