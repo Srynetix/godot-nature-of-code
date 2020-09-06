@@ -54,7 +54,7 @@ You can also access the generated C# documentation here: [C# Documentation](http
 - *Formatting*: This project use `roslynator` to automatically format the C# code, without specific configuration.
 - *Lint*: I am using the Roslynator VSCode extension. I am still looking for a command-line version with the same hints.
 
-You can use `Makefile.py` to format or export the project and its documentation.  
+You can use the Python 3 `Makefile.py` to format or export the project and its documentation.  
 It needs `doxygen` and `godot` in `PATH`, or you can use `DOXYGEN_EXE` and `GODOT_EXE` environment variables.
 
 If you want to contribute, do not hesitate to create Pull Requests or file Issues on GitHub :wink:. 
