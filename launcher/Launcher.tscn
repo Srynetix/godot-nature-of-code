@@ -10,6 +10,7 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 48
+use_filter = true
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -101,16 +102,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Margin/VBox"]
+[node name="Label" type="RichTextLabel" parent="Margin/VBox"]
+margin_top = 25.0
 margin_right = 1100.0
-margin_bottom = 330.0
-size_flags_vertical = 7
-custom_fonts/font = SubResource( 2 )
-text = "Interactive
+margin_bottom = 305.0
+rect_min_size = Vector2( 0, 180 )
+size_flags_vertical = 6
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center][img=96]res://icon.png[/img]
+Interactive
+Nature of Code
+in Godot Engine[/center]"
+text = "
+Interactive
 Nature of Code
 in Godot Engine"
-align = 1
-valign = 1
+fit_content_height = true
+scroll_active = false
 
 [node name="Margin" type="MarginContainer" parent="Margin/VBox"]
 margin_top = 334.0
