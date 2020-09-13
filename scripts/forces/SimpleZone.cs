@@ -24,7 +24,7 @@ namespace Forces
 
     public override void _Ready()
     {
-      defaultFont = SimpleDefaultFont.LoadDefaultFont();
+      defaultFont = SimpleDefaultFont.Regular;
       CreateCollisionShape();
     }
 

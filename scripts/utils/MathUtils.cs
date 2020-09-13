@@ -29,6 +29,17 @@ public static class MathUtils
   }
 
   /// <summary>
+  /// Return an int RandRange.
+  /// </summary>
+  /// <param name="min">Lower bound</param>
+  /// <param name="max">Upper bound</param>
+  /// <returns>Random int</returns>
+  static public int RandRangei(int min, int max)
+  {
+    return Mathf.RoundToInt(RandRangef(min, max));
+  }
+
+  /// <summary>
   /// Return a signed Randf, between -1 and 1.
   /// </summary>
   /// <returns>Signed random floating number</returns>

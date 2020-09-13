@@ -24,7 +24,7 @@ namespace Examples.Chapter6
     public override void _Ready()
     {
       theta = 0;
-      defaultFont = SimpleDefaultFont.LoadDefaultFont();
+      defaultFont = SimpleDefaultFont.Regular;
       fixedVector = Vector2.Right;
       movingVector.x = Mathf.Cos(theta);
       movingVector.y = Mathf.Sin(theta);

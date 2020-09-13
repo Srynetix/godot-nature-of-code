@@ -181,7 +181,7 @@ public class VirtualControls : Control
     {
       // Parent is a MarginContainer, next parent is VirtualControls
       parent = (VirtualControls)GetParent().GetParent();
-      defaultFont = SimpleDefaultFont.LoadDefaultFont();
+      defaultFont = SimpleDefaultFont.Regular;
 
       // Create background
       background = new Background();
@@ -444,7 +444,7 @@ public class VirtualControls : Control
     {
       // Parent is a MarginContainer, next parent is VirtualControls
       parent = (VirtualControls)GetParent().GetParent();
-      defaultFont = SimpleDefaultFont.LoadDefaultFont();
+      defaultFont = SimpleDefaultFont.Regular;
 
       // Add buttons
       buttonA = new TouchButton(ButtonALabel, ButtonAColor);

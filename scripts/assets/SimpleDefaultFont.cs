@@ -10,18 +10,23 @@ namespace Assets
   /// </summary>
   public static class SimpleDefaultFont
   {
-    private static Font Regular = null;
+    public static Font Regular
+    {
+      get => LoadDefaultFont();
+    }
+
+    private static Font _regular;
 
     /// <summary>
     /// Get or create default font.
     /// </summary>
     /// <returns>Default font</returns>
-    static public Font LoadDefaultFont()
+    static private Font LoadDefaultFont()
     {
-      if (Regular == null)
+      if (_regular == null)
       {
         var fontData = (DynamicFontData)GD.Load("res://assets/fonts/Raleway-Regular.ttf");
-        Regular = new DynamicFont
+        _regular = new DynamicFont
         {
           FontData = fontData,
           Size = 16,
@@ -31,7 +36,7 @@ namespace Assets
         };
       }
 
-      return Regular;
+      return _regular;
     }
   }
 }
