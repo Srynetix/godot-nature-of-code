@@ -9,7 +9,6 @@ using System.Text;
 /// </summary>
 namespace Automata
 {
-
   /// <summary>
   /// Cellular automata.
   /// </summary>
@@ -18,31 +17,54 @@ namespace Automata
     /// <summary>Sent when `_rows` generations have been created.</summary>
     [Signal] public delegate void ScreenCompleted();
 
+    /// <summary>Wait time</summary>
+    public float WaitTime
+    {
+      get => _waitTime;
+      set
+      {
+        _waitTime = value;
+        if (_timer != null)
+        {
+          _timer.WaitTime = value;
+        }
+      }
+    }
+
     /// <summary>Cell color</summary>
     public Color CellColor { get; set; } = Colors.LightBlue;
+
     /// <summary>Scroll lines?</summary>
     public bool ScrollLines { get; set; }
-    /// <summary>Current rule set</summary>
-    public int[] RuleSet { get; set; } = new int[RULESET_COUNT] { 0, 1, 0, 1, 1, 0, 1, 0 };
 
-    private const float TIMER_WAIT_TIME = 0.05f;
+    /// <summary>Current rule number</summary>
+    public byte RuleNumber
+    {
+      get => _ruleNumber;
+      set
+      {
+        _ruleNumber = value;
+        SetRuleSetFromRuleNumber(value);
+      }
+    }
+
     private const int RULESET_COUNT = 8;
 
+    private byte _ruleNumber;
     private List<int[]> _lines;
+    private readonly int[] _ruleSet;
     private readonly int _scale;
     private int _rows;
     private int _cols;
     private int _generation;
     private Timer _timer;
     private RichTextLabel _label;
+    private float _waitTime = 0.05f;
 
     /// <summary>
     /// Create a default cellular automata with a cell scale of 10.
     /// </summary>
-    public CellularAutomata()
-    {
-      _scale = 10;
-    }
+    public CellularAutomata() : this(10) { }
 
     /// <summary>
     /// Create a default cellular automata with a custom cell scale.
@@ -51,6 +73,8 @@ namespace Automata
     public CellularAutomata(int scale)
     {
       _scale = scale;
+      _ruleSet = new int[RULESET_COUNT];
+      RuleNumber = 90;
     }
 
     /// <summary>
@@ -58,10 +82,7 @@ namespace Automata
     /// </summary>
     public void RandomizeRuleSet()
     {
-      for (int i = 0; i < RULESET_COUNT; ++i)
-      {
-        RuleSet[i] = MathUtils.RandRangei(0, 1);
-      }
+      RuleNumber = (byte)MathUtils.RandRangei(0, 255);
     }
 
     /// <summary>
@@ -109,7 +130,7 @@ namespace Automata
       // Create timer
       _timer = new Timer
       {
-        WaitTime = TIMER_WAIT_TIME,
+        WaitTime = _waitTime,
         Autostart = true
       };
       AddChild(_timer);
@@ -221,14 +242,23 @@ namespace Automata
       {
         sb.Append("[color=#00ff00]");
       }
-      sb.Append("{");
-      sb.Append(string.Join(", ", RuleSet));
-      sb.Append("}");
+      sb.Append("Rule ");
+      sb.Append(_ruleNumber);
       if (includeBbCode)
       {
         sb.Append("[/color]");
       }
       return sb.ToString();
+    }
+
+    private void SetRuleSetFromRuleNumber(byte number)
+    {
+      var binaryString = Convert.ToString(number, 2).PadLeft(8, '0');
+      var binaryStringArray = binaryString.ToCharArray();
+      for (int i = 0; i < RULESET_COUNT; ++i)
+      {
+        _ruleSet[RULESET_COUNT - 1 - i] = binaryStringArray[i] - '0';
+      }
     }
 
     private void ScrollLinesDown()
@@ -244,7 +274,7 @@ namespace Automata
       sb.Append(currState);
       sb.Append(rightState);
       int idx = Convert.ToInt32(sb.ToString(), 2);
-      return RuleSet[idx];
+      return _ruleSet[idx];
     }
   }
 }
