@@ -15,7 +15,7 @@ namespace Examples.Chapter7
 
     public override void _Ready()
     {
-      AddChild(new CellularAutomata
+      AddChild(new CellularAutomata1D
       {
         ScrollLines = true
       });

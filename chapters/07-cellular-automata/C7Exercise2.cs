@@ -13,15 +13,15 @@ namespace Examples.Chapter7
       return "Exercise 7.2:\nRandom First Line";
     }
 
-    private CellularAutomata ca;
+    private CellularAutomata1D ca;
 
     public override void _Ready()
     {
-      ca = new CellularAutomata();
+      ca = new CellularAutomata1D();
       AddChild(ca);
 
       ca.RandomizeCurrentLine();
-      ca.Connect(nameof(CellularAutomata.ScreenCompleted), this, nameof(SetRandomRule));
+      ca.Connect(nameof(CellularAutomata1D.ScreenCompleted), this, nameof(SetRandomRule));
     }
 
     private void SetRandomRule()

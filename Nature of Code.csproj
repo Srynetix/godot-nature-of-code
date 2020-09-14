@@ -193,10 +193,13 @@
     <Compile Include="chapters\06-autonomous-agents\C6Exercise8.cs" />
     <Compile Include="chapters\06-autonomous-agents\C6Exercise9.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Example1.cs" />
+    <Compile Include="chapters\07-cellular-automata\C7Example2.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise1.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise2.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise4.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise5.cs" />
+    <Compile Include="chapters\07-cellular-automata\C7Exercise6.cs" />
+    <Compile Include="chapters\07-cellular-automata\C7Exercise7.cs" />
     <Compile Include="chapters\Example.cs" />
     <Compile Include="chapters\SceneExplorer.cs" />
     <Compile Include="chapters\SceneLoader.cs" />
@@ -213,7 +216,8 @@
     <Compile Include="scripts\assets\SimpleDefaultFont.cs" />
     <Compile Include="scripts\assets\SimpleDefaultMaterial.cs" />
     <Compile Include="scripts\assets\SimpleDefaultTexture.cs" />
-    <Compile Include="scripts\automata\CellularAutomata.cs" />
+    <Compile Include="scripts\automata\CellularAutomata1D.cs" />
+    <Compile Include="scripts\automata\CellularAutomata2D.cs" />
     <Compile Include="scripts\drawing\DrawCanvas.cs" />
     <Compile Include="scripts\drawing\SimpleCircleSprite.cs" />
     <Compile Include="scripts\drawing\SimpleLineSprite.cs" />

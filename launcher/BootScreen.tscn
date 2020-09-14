@@ -44,9 +44,9 @@ __meta__ = {
 
 [node name="TextureRect" type="TextureRect" parent="Center"]
 self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 219.0
+margin_left = 220.0
 margin_top = 145.0
-margin_right = 919.0
+margin_right = 920.0
 margin_bottom = 395.0
 rect_min_size = Vector2( 700, 250 )
 size_flags_horizontal = 4

@@ -20,7 +20,7 @@ namespace Examples
 
       public override void _Ready()
       {
-        var ca = new CellularAutomata();
+        var ca = new CellularAutomata1D();
         AddChild(ca);
       }
     }

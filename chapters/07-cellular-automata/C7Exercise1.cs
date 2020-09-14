@@ -13,14 +13,14 @@ namespace Examples.Chapter7
       return "Exercise 7.1:\nRandom RuleSet";
     }
 
-    private CellularAutomata ca;
+    private CellularAutomata1D ca;
 
     public override void _Ready()
     {
-      ca = new CellularAutomata();
+      ca = new CellularAutomata1D();
       AddChild(ca);
 
-      ca.Connect(nameof(CellularAutomata.ScreenCompleted), this, nameof(SetRandomRule));
+      ca.Connect(nameof(CellularAutomata1D.ScreenCompleted), this, nameof(SetRandomRule));
     }
 
     private void SetRandomRule()

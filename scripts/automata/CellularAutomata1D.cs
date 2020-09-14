@@ -10,9 +10,9 @@ using System.Text;
 namespace Automata
 {
   /// <summary>
-  /// Cellular automata.
+  /// Cellular automata 1D.
   /// </summary>
-  public class CellularAutomata : Node2D
+  public class CellularAutomata1D : Node2D
   {
     /// <summary>Sent when `_rows` generations have been created.</summary>
     [Signal] public delegate void ScreenCompleted();
@@ -64,13 +64,13 @@ namespace Automata
     /// <summary>
     /// Create a default cellular automata with a cell scale of 10.
     /// </summary>
-    public CellularAutomata() : this(10) { }
+    public CellularAutomata1D() : this(10) { }
 
     /// <summary>
     /// Create a default cellular automata with a custom cell scale.
     /// </summary>
     /// <param name="scale">Scale</param>
-    public CellularAutomata(int scale)
+    public CellularAutomata1D(int scale)
     {
       _scale = scale;
       _ruleSet = new int[RULESET_COUNT];
@@ -95,6 +95,8 @@ namespace Automata
       {
         _lines[currRow][i] = MathUtils.RandRangei(0, 1);
       }
+
+      _generation = 0;
     }
 
     /// <summary>
@@ -108,6 +110,8 @@ namespace Automata
         _lines[currRow][i] = 0;
       }
       _lines[currRow][_cols / 2] = 1;
+
+      _generation = 0;
     }
 
     public override void _Ready()
@@ -147,7 +151,6 @@ namespace Automata
       _label.RectGlobalPosition = new Vector2(8, (size.y / 2) - textSize.y);
       _label.RectMinSize = new Vector2(size.x / 2, size.y);
       _label.Set("custom_fonts/normal_font", font);
-
       AddChild(_label);
     }
 
