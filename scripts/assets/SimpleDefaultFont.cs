@@ -24,7 +24,7 @@ namespace Assets
     /// Get or create default font.
     /// </summary>
     /// <returns>Default font</returns>
-    static private Font LoadDefaultFont()
+    private static Font LoadDefaultFont()
     {
       if (_regular == null)
       {

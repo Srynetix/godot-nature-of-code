@@ -7,117 +7,119 @@ namespace Assets
   /// </summary>
   public static class SimpleDefaultTexture
   {
-    /// <summary>
-    /// Texture types.
-    /// </summary>
-    public enum Enum
+    /// <summary>Default white circle texture with black background.</summary>
+    public static Texture WhiteDotTexture
     {
-      /// <summary>Default white circle texture with black background.</summary>
-      WhiteDot,
-
-      /// <summary>Default white circle texture with alpha background.</summary>
-      WhiteDotAlpha,
-
-      /// <summary>Default white circle texture with outline and alpha background.</summary>
-      WhiteDotAlphaWithOutline,
-
-      /// <summary>Default white circle outline with alpha background.</summary>
-      WhiteDotOutlineOnly,
-
-      /// <summary>Default white blurry circle with alpha background.</summary>
-      WhiteDotBlur,
-
-      /// <summary>Right arrow with alpha background</summary>
-      RightArrow,
-
-      /// <summary>Default vertical line texture.</summary>
-      Line
+      get
+      {
+        Initialize();
+        return _whiteDotTexture;
+      }
     }
 
-    private static Texture WhiteDotTexture;
-    private static Texture WhiteDotAlphaTexture;
-    private static Texture WhiteDotAlphaWithOutlineTexture;
-    private static Texture WhiteDotOutlineOnlyTexture;
-    private static Texture WhiteDotBlurTexture;
-    private static Texture RightArrowTexture;
-    private static Texture LineTexture;
-
-    /// <summary>
-    /// Get or create a default texture from an enum value.
-    /// </summary>
-    /// <param name="value">Texture enum value</param>
-    /// <returns>Generated texture</returns>
-    public static Texture FromEnum(Enum value)
+    /// <summary>Default white circle texture with alpha background.</summary>
+    public static Texture WhiteDotAlphaTexture
     {
-      Initialize();
-
-      if (value == Enum.WhiteDot)
+      get
       {
-        return WhiteDotTexture;
+        Initialize();
+        return _whiteDotAlphaTexture;
       }
-      else if (value == Enum.WhiteDotBlur)
-      {
-        return WhiteDotBlurTexture;
-      }
-      else if (value == Enum.WhiteDotOutlineOnly)
-      {
-        return WhiteDotOutlineOnlyTexture;
-      }
-      else if (value == Enum.WhiteDotAlphaWithOutline)
-      {
-        return WhiteDotAlphaWithOutlineTexture;
-      }
-      else if (value == Enum.WhiteDotAlpha)
-      {
-        return WhiteDotAlphaTexture;
-      }
-      else if (value == Enum.RightArrow)
-      {
-        return RightArrowTexture;
-      }
-      else if (value == Enum.Line)
-      {
-        return LineTexture;
-      }
-
-      return null;
     }
+
+    /// <summary>Default white circle texture with outline and alpha background.</summary>
+    public static Texture WhiteDotAlphaWithOutlineTexture
+    {
+      get
+      {
+        Initialize();
+        return _whiteDotAlphaWithOutlineTexture;
+      }
+    }
+
+    /// <summary>Default white circle outline with alpha background.</summary>
+    public static Texture WhiteDotOutlineOnlyTexture
+    {
+      get
+      {
+        Initialize();
+        return _whiteDotOutlineOnlyTexture;
+      }
+    }
+
+    /// <summary>Default white blurry circle with alpha background.</summary>
+    public static Texture WhiteDotBlurTexture
+    {
+      get
+      {
+        Initialize();
+        return _whiteDotBlurTexture;
+      }
+    }
+
+    /// <summary>Right arrow with alpha background</summary>
+    public static Texture RightArrowTexture
+    {
+      get
+      {
+        Initialize();
+        return _rightArrowTexture;
+      }
+    }
+
+    /// <summary>Default vertical line texture.</summary>
+    public static Texture LineTexture
+    {
+      get
+      {
+        Initialize();
+        return _lineTexture;
+      }
+    }
+
+    private static Texture _whiteDotTexture;
+    private static Texture _whiteDotAlphaTexture;
+    private static Texture _whiteDotAlphaWithOutlineTexture;
+    private static Texture _whiteDotOutlineOnlyTexture;
+    private static Texture _whiteDotBlurTexture;
+    private static Texture _rightArrowTexture;
+    private static Texture _lineTexture;
 
     private static void Initialize()
     {
-      if (WhiteDotTexture == null)
+      if (_whiteDotTexture == null)
       {
-        WhiteDotTexture = (Texture)GD.Load("res://assets/textures/white-dot-on-black.png");
+        _whiteDotTexture = (Texture)GD.Load("res://assets/textures/white-dot-on-black.png");
       }
 
-      if (WhiteDotBlurTexture == null)
+      if (_whiteDotBlurTexture == null)
       {
-        WhiteDotBlurTexture = (Texture)GD.Load("res://assets/textures/white-dot-blur.png");
+        _whiteDotBlurTexture = (Texture)GD.Load("res://assets/textures/white-dot-blur.png");
       }
 
-      if (WhiteDotAlphaTexture == null)
+      if (_whiteDotAlphaTexture == null)
       {
-        WhiteDotAlphaTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha.png");
+        _whiteDotAlphaTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha.png");
       }
 
-      if (WhiteDotOutlineOnlyTexture == null)
+      if (_whiteDotOutlineOnlyTexture == null)
       {
-        WhiteDotOutlineOnlyTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha-outline.png");
+        _whiteDotOutlineOnlyTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha-outline.png");
       }
 
-      if (WhiteDotAlphaWithOutlineTexture == null)
+      if (_whiteDotAlphaWithOutlineTexture == null)
       {
-        WhiteDotAlphaWithOutlineTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha-with-outline.png");
+        _whiteDotAlphaWithOutlineTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha-with-outline.png");
       }
 
-      if (RightArrowTexture == null)
+      if (_rightArrowTexture == null)
       {
-        RightArrowTexture = (Texture)GD.Load("res://assets/textures/arrow-right.png");
+        _rightArrowTexture = (Texture)GD.Load("res://assets/textures/arrow-right.png");
       }
 
-      if (LineTexture == null)
+      if (_lineTexture == null)
       {
-        LineTexture = (Texture)GD.Load("res://assets/textures/line.png");
+        _lineTexture = (Texture)GD.Load("res://assets/textures/line.png");
       }
     }
   }

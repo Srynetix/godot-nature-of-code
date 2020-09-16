@@ -24,7 +24,7 @@ namespace Agents
       MaxForce = 0.1f;
 
       Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
-      Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.RightArrow);
+      Mesh.CustomTexture = SimpleDefaultTexture.RightArrowTexture;
       Mesh.Modulate = Colors.White;
       Mesh.MeshSize = new Vector2(20, 10);
 

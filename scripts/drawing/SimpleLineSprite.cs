@@ -62,7 +62,7 @@ namespace Drawing
 
     public override void _Ready()
     {
-      Texture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.Line);
+      Texture = SimpleDefaultTexture.LineTexture;
       UpdateTransform();
     }
 

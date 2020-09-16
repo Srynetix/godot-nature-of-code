@@ -32,6 +32,38 @@ namespace Automata
   /// </summary>
   public class CellularAutomata2D : Node2D
   {
+    /// <summary>
+    /// Cell.
+    /// </summary>
+    public class Cell: Node2D {
+      /// <summary>Previous state</summary>
+      public int PreviousState { set; get; }
+
+      /// <summary>Current state</summary>
+      public int State { set; get; }
+
+      /// <summary>Cell size</summary>
+      public Vector2 Size { set; get; }
+
+      /// <summary>Cell color</summary>
+      public Color CellColor { set; get; } = Colors.LightBlue;
+
+      public Cell() {
+        Name = "Cell";
+      }
+
+      public override void _Draw() {
+        if (State == 1) {
+          DrawRect(new Rect2(Vector2.Zero, Size), CellColor);
+        }
+      }
+
+      public override void _Process(float delta)
+      {
+        Update();
+      }
+    }
+
     /// <summary>Wait time</summary>
     public float WaitTime
     {
@@ -58,8 +90,7 @@ namespace Automata
     /// <summary>Wrap behavior</summary>
     public WrapBehaviorEnum WrapBehavior { get; set; }
 
-    private int[] _gridFrontBuffer;
-    private int[] _gridBackBuffer;
+    private Cell[] _grid;
     private readonly int _scale;
     private int _rows;
     private int _cols;
@@ -74,7 +105,7 @@ namespace Automata
     /// <summary>
     /// Create a default cellular automata with a cell scale of 10.
     /// </summary>
-    public CellularAutomata2D() : this(10) { }
+    public CellularAutomata2D() : this(20) { }
 
     /// <summary>
     /// Create a default cellular automata with a custom cell scale.
@@ -82,6 +113,7 @@ namespace Automata
     /// <param name="scale">Scale</param>
     public CellularAutomata2D(int scale)
     {
+      Name = "CellularAutomata2D";
       _scale = scale;
     }
 
@@ -98,8 +130,8 @@ namespace Automata
         for (int i = offset; i < _cols - offset; ++i)
         {
           var currPos = i + (j * _cols);
-          _gridBackBuffer[currPos] = MathUtils.RandRangei(0, 1);
-          _gridFrontBuffer[currPos] = _gridBackBuffer[currPos];
+          var cell = _grid[currPos];
+          cell.State = cell.PreviousState = MathUtils.RandRangei(0, 1);
         }
       }
     }
@@ -110,12 +142,13 @@ namespace Automata
       var size = GetViewportRect().Size;
       _cols = (int)size.x / _scale;
       _rows = (int)size.y / _scale;
-      _gridFrontBuffer = new int[_cols * _rows];
-      _gridBackBuffer = new int[_cols * _rows];
+      _grid = new Cell[_cols * _rows];
+      InitializeGrid();
 
       // Create timer
       _timer = new Timer
       {
+        Name = "UpdateTimer",
         WaitTime = _waitTime,
         Autostart = true
       };
@@ -127,6 +160,7 @@ namespace Automata
       var textSize = font.GetStringSize("Generation: 0000000");
       _label = new RichTextLabel
       {
+        Name = "Label",
         BbcodeEnabled = true,
         ScrollActive = false
       };
@@ -136,7 +170,10 @@ namespace Automata
       AddChild(_label);
 
       // Create button
-      _pauseButton = new Button();
+      _pauseButton = new Button {
+        Name = "Pause Button"
+      };
+
       _pauseButton.Set("custom_fonts/font", font);
       _pauseButton.Text = "Touch here to pause";
       _pauseButton.Flat = true;
@@ -149,20 +186,6 @@ namespace Automata
     public override void _Process(float delta)
     {
       Update();
-    }
-
-    public override void _Draw()
-    {
-      for (int j = 0; j < _rows; ++j)
-      {
-        for (int i = 0; i < _cols; ++i)
-        {
-          if (_gridFrontBuffer[i + (j * _cols)] == 1)
-          {
-            DrawRect(new Rect2(i * _scale, j * _scale, _scale, _scale), CellColor);
-          }
-        }
-      }
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -195,6 +218,27 @@ namespace Automata
       }
     }
 
+    private void InitializeGrid() {
+      int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+
+      for (int j = offset; j < _rows - offset; ++j)
+      {
+        for (int i = offset; i < _cols - offset; ++i)
+        {
+          var currPos = i + (j * _cols);
+          var cell = new Cell {
+            Position = new Vector2(i * _scale, j * _scale),
+            Size = new Vector2(_scale, _scale),
+            PreviousState = 0,
+            State = 0,
+            CellColor = CellColor
+          };
+          AddChild(cell);
+          _grid[currPos] = cell;
+        }
+      }
+    }
+
     private void ReviveCellAtScreenPos(Vector2 pos)
     {
       // Split position depending on scale
@@ -203,8 +247,8 @@ namespace Automata
       int x = Mathf.Min(Mathf.Max(offset, (int)idx.x), _cols - 1 - offset);
       int y = Mathf.Min(Mathf.Max(offset, (int)idx.y), _rows - 1 - offset);
 
-      _gridBackBuffer[x + (y * _cols)] = 1;
-      _gridFrontBuffer[x + (y * _cols)] = 1;
+      var cell = _grid[x + (y * _cols)];
+      cell.State = cell.PreviousState = 1;
     }
 
     private int GetAliveNeighborsFromCell(int x, int y)
@@ -217,17 +261,17 @@ namespace Automata
         {
           int cellX = WrapBehavior == WrapBehaviorEnum.Wrap ? Mathf.PosMod(x + i, _cols) : x + i;
           int cellY = WrapBehavior == WrapBehaviorEnum.Wrap ? Mathf.PosMod(y + j, _rows) : y + j;
-          count += _gridFrontBuffer[cellX + (cellY * _cols)];
+          count += _grid[cellX + (cellY * _cols)].PreviousState;
         }
       }
 
-      return count - _gridFrontBuffer[x + (y * _cols)];
+      return count - _grid[x + (y * _cols)].PreviousState;
     }
 
     private int ApplyRules(int x, int y)
     {
       var neighbors = GetAliveNeighborsFromCell(x, y);
-      var state = _gridFrontBuffer[x + (y * _cols)];
+      var state = _grid[x + (y * _cols)].State;
 
       if (state == 1 && (neighbors < 2 || neighbors > 3))
       {
@@ -256,14 +300,14 @@ namespace Automata
       {
         for (int i = offset; i < _cols - offset; ++i)
         {
-          _gridBackBuffer[i + (j * _cols)] = ApplyRules(i, j);
+          _grid[i + (j * _cols)].State = ApplyRules(i, j);
         }
       }
 
       // Update
       for (int i = 0; i < _cols * _rows; ++i)
       {
-        _gridFrontBuffer[i] = _gridBackBuffer[i];
+        _grid[i].PreviousState = _grid[i].State;
       }
 
       _generation++;

@@ -34,8 +34,8 @@ namespace Examples.Chapter4
             Lifespan = 2
           };
           particle.Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
-          particle.Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.WhiteDotBlur);
-          particle.Mesh.CustomMaterial = SimpleDefaultMaterial.FromEnum(SimpleDefaultMaterial.Enum.Add);
+          particle.Mesh.CustomTexture = SimpleDefaultTexture.WhiteDotBlurTexture;
+          particle.Mesh.CustomMaterial = SimpleDefaultMaterial.AddMaterial;
           particle.Mesh.Modulate = MathUtils.RandColor();
           return particle;
         },
