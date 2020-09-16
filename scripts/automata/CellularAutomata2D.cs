@@ -85,6 +85,9 @@ namespace Automata
       _scale = scale;
     }
 
+    /// <summary>
+    /// Randomize grid.
+    /// </summary>
     public void RandomizeGrid()
     {
       _generation = 0;

@@ -39,6 +39,15 @@ namespace VerletPhysics
     private bool touched = false;
     private int touchIndex = -1;
 
+    /// <summary>
+    /// Create an uninitialized verlet point.
+    /// </summary>
+    public VerletPoint() { }
+
+    /// <summary>
+    /// Create a verlet point.
+    /// </summary>
+    /// <param name="world">Verlet world</param>
     public VerletPoint(VerletWorld world)
     {
       Radius = 15f;

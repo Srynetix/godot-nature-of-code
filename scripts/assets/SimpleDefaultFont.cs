@@ -10,6 +10,9 @@ namespace Assets
   /// </summary>
   public static class SimpleDefaultFont
   {
+    /// <summary>
+    /// Regular font.
+    /// </summary>
     public static Font Regular
     {
       get => LoadDefaultFont();

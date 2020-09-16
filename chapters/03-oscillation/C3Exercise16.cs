@@ -32,10 +32,10 @@ namespace Examples.Chapter3
       }
     }
 
-    public int SpringCount = 4;
-    public int SpringPerSpring = 3;
-    public int SpringSeparation = 30;
-    public float SprintChildSurfaceRatio = 8;
+    private const int SpringCount = 4;
+    private const int SpringPerSpring = 3;
+    private const int SpringSeparation = 30;
+    private const float SprintChildSurfaceRatio = 8;
 
     public override void _Ready()
     {

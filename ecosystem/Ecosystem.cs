@@ -18,7 +18,8 @@ namespace Ecosystem
     /// </summary>
     public class Lifeform : SimpleMover
     {
-      public bool DebugDrawEnabled = false;
+      /// <summary>Debug draw enabled?</summary>
+      public bool DebugDrawEnabled;
 
       public Lifeform() : base(WrapModeEnum.Wrap)
       {

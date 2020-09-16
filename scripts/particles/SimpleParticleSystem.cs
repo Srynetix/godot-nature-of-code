@@ -42,8 +42,13 @@ namespace Particles
     /// <summary>
     /// Create a default particle system.
     /// </summary>
-    /// <param name="wrapMode">Wrapping mode</param>
-    public SimpleParticleSystem(WrapModeEnum wrapMode = WrapModeEnum.None) : base(wrapMode)
+    public SimpleParticleSystem() : this(WrapModeEnum.None) { }
+
+    /// <summary>
+    /// Create a default particle system with a custom wrap mode.
+    /// </summary>
+    /// <param name="wrapMode">Wrap mode</param>
+    public SimpleParticleSystem(WrapModeEnum wrapMode) : base(wrapMode)
     {
       particles = new List<SimpleParticle>();
       DisableForces = true;

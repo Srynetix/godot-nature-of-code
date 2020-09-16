@@ -20,7 +20,8 @@ namespace Examples.Chapter3
 
     public class Spaceship : SimpleMover
     {
-      protected bool thrusting = false;
+      /// <summary>Thrusting?</summary>
+      protected bool thrusting;
 
       public Spaceship() : base(WrapModeEnum.Wrap)
       {
@@ -64,7 +65,9 @@ namespace Examples.Chapter3
       }
     }
 
+    /// <summary>Virtual controls</summary>
     protected VirtualControls controls;
+    /// <summary>Spaceship</summary>
     protected Spaceship spaceship;
 
     public override void _Ready()

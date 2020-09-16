@@ -13,10 +13,15 @@ namespace Drawing
     /// <summary>Noise octaves</summary>
     public int Octaves = 1;
 
+    /// <summary>Sprite</summary>
     protected Sprite sprite;
+    /// <summary>Image</summary>
     protected Image image;
+    /// <summary>Texture</summary>
     protected ImageTexture texture;
+    /// <summary>Noise</summary>
     protected OpenSimplexNoise noise;
+    /// <summary>Image size</summary>
     protected Vector2 imageSize;
 
     /// <summary>

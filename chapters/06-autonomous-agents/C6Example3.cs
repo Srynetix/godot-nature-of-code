@@ -15,7 +15,7 @@ namespace Examples.Chapter6
       return "Example 6.3:\nStay Within Walls";
     }
 
-    public float ScreenOffset = 50;
+    private const float _screenOffset = 50;
 
     private class Vehicle : SimpleVehicle
     {
@@ -72,7 +72,7 @@ namespace Examples.Chapter6
       var size = GetViewportRect().Size;
       var vehicle = new Vehicle
       {
-        ScreenOffset = ScreenOffset,
+        ScreenOffset = _screenOffset,
         Position = size / 2
       };
       AddChild(vehicle);
@@ -81,7 +81,7 @@ namespace Examples.Chapter6
     public override void _Draw()
     {
       var size = GetViewportRect().Size;
-      DrawRect(new Rect2(new Vector2(ScreenOffset, ScreenOffset), size.x - (ScreenOffset * 2), size.y - (ScreenOffset * 2)), Colors.White.WithAlpha(8));
+      DrawRect(new Rect2(new Vector2(_screenOffset, _screenOffset), size.x - (_screenOffset * 2), size.y - (_screenOffset * 2)), Colors.White.WithAlpha(8));
     }
   }
 }

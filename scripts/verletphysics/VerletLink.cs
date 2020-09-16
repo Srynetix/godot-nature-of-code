@@ -31,6 +31,20 @@ namespace VerletPhysics
 
     private readonly VerletWorld world;
 
+    /// <summary>
+    /// Create an uninitialized verlet link.
+    /// </summary>
+    public VerletLink()
+    {
+      this.world = null;
+    }
+
+    /// <summary>
+    /// Create a simple verlet link.
+    /// </summary>
+    /// <param name="world">World</param>
+    /// <param name="a">Point A</param>
+    /// <param name="b">Point B</param>
     public VerletLink(VerletWorld world, VerletPoint a, VerletPoint b)
     {
       A = a;

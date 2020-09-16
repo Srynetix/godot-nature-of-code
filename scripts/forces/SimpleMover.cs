@@ -86,12 +86,19 @@ namespace Forces
       }
     }
 
+    /// <summary>Collision shape</summary>
     protected CollisionShape2D collisionShape2D;
 
     /// <summary>
     /// Create a simple wrapping mover with a circle mesh.
     /// </summary>
-    public SimpleMover(WrapModeEnum wrapMode = WrapModeEnum.Wrap)
+    public SimpleMover() : this(WrapModeEnum.Wrap) { }
+
+    /// <summary>
+    /// Create a simple mover with a custom wrap mode and a circle mesh.
+    /// </summary>
+    /// <param name="wrapMode">Wrap mode</param>
+    public SimpleMover(WrapModeEnum wrapMode)
     {
       WrapMode = wrapMode;
       Mesh = new SimpleMesh();

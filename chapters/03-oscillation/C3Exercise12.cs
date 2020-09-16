@@ -17,15 +17,15 @@ namespace Examples.Chapter3
         + "You can move pendulums by touching them.";
     }
 
-    public float Steps = 3;
-    public float BaseAngle = Mathf.Pi / 2;
-    public float ChildrenPerParent = 2;
+    private const float Steps = 3;
+    private const float BaseAngle = Mathf.Pi / 2;
+    private const float ChildrenPerParent = 2;
 
     public override void _Ready()
     {
       var size = GetViewportRect().Size;
 
-      var angleStep = BaseAngle / ChildrenPerParent;
+      const float angleStep = BaseAngle / ChildrenPerParent;
       var ropeLength = (size.y * 0.95f) / Steps;
       List<SimplePendulum> parents = new List<SimplePendulum>();
 

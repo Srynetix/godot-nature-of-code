@@ -15,9 +15,9 @@ namespace Examples.Chapter3
         + "Spiral Path";
     }
 
-    public float Width = 10;
-    public float Iterations = 20;
-    public float MaxTheta = 200;
+    private const float Width = 10;
+    private const float Iterations = 20;
+    private const float MaxTheta = 200;
 
     private float theta = 0;
     private float margin = 0;

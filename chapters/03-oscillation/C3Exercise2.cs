@@ -114,7 +114,7 @@ namespace Examples.Chapter3
       AddChild(cannon);
     }
 
-    public void CannonFire()
+    private void CannonFire()
     {
       cannon.Fire();
     }

@@ -24,10 +24,15 @@ namespace Drawing
     private Color clearColor = Colors.Black;
 
     /// <summary>
+    /// Create a default draw canvas.
+    /// </summary>
+    public DrawCanvas() { }
+
+    /// <summary>
     /// Create a default draw canvas with an optional draw function.
     /// </summary>
     /// <param name="func">Draw function</param>
-    public DrawCanvas(DrawFunc func = null)
+    public DrawCanvas(DrawFunc func)
     {
       DrawFunction = func;
     }

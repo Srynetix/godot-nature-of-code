@@ -11,6 +11,7 @@ namespace Forces
     /// <summary>Zone size</summary>
     public Vector2 Size = new Vector2(100, 100);
 
+    /// <summary>Default font</summary>
     protected Font defaultFont;
 
     /// <summary>

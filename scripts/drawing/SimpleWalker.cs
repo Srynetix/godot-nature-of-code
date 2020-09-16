@@ -16,9 +16,16 @@ namespace Drawing
     /// <summary>Step size</summary>
     public float StepSize;
 
+    /// <summary>Random number generator</summary>
     protected RandomNumberGenerator generator;
+
+    /// <summary>Noise</summary>
     protected OpenSimplexNoise noise;
+
+    /// <summary>Noise time X</summary>
     protected float tx;
+
+    /// <summary>Noise time Y</summary>
     protected float ty;
 
     /// <summary>
