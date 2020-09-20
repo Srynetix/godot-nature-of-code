@@ -5,13 +5,13 @@ using System;
 namespace Examples.Chapter7
 {
   /// <summary>
-  /// Exercise 7.8: Hexagonal Game of Life.
+  /// Exercise 7.9: Hexagonal Game of Life.
   /// </summary>
-  public class C7Exercise8 : Node2D, IExample
+  public class C7Exercise9 : Node2D, IExample
   {
     public string GetSummary()
     {
-      return "Exercise 7.8:\nHexagonal Game of Life";
+      return "Exercise 7.9:\nHexagonal Game of Life";
     }
 
     private class HexagonalAutomata2D : CellularAutomata2D
