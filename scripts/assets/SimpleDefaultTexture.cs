@@ -57,6 +57,16 @@ namespace Assets
       }
     }
 
+    /// <summary>White hexagon texture.</summary>
+    public static Texture HexagonTexture
+    {
+      get
+      {
+        Initialize();
+        return _hexagonTexture;
+      }
+    }
+
     /// <summary>Right arrow with alpha background</summary>
     public static Texture RightArrowTexture
     {
@@ -82,6 +92,7 @@ namespace Assets
     private static Texture _whiteDotAlphaWithOutlineTexture;
     private static Texture _whiteDotOutlineOnlyTexture;
     private static Texture _whiteDotBlurTexture;
+    private static Texture _hexagonTexture;
     private static Texture _rightArrowTexture;
     private static Texture _lineTexture;
 
@@ -110,6 +121,11 @@ namespace Assets
       if (_whiteDotAlphaWithOutlineTexture == null)
       {
         _whiteDotAlphaWithOutlineTexture = (Texture)GD.Load("res://assets/textures/white-dot-alpha-with-outline.png");
+      }
+
+      if (_hexagonTexture == null)
+      {
+        _hexagonTexture = (Texture)GD.Load("res://assets/textures/hexagon.png");
       }
 
       if (_rightArrowTexture == null)

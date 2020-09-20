@@ -67,6 +67,7 @@ namespace Examples.Chapter3
 
     /// <summary>Virtual controls</summary>
     protected VirtualControls controls;
+
     /// <summary>Spaceship</summary>
     protected Spaceship spaceship;
 

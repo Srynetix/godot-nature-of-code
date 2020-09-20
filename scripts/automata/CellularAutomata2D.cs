@@ -35,7 +35,8 @@ namespace Automata
     /// <summary>
     /// Cell.
     /// </summary>
-    public class Cell: Node2D {
+    public class Cell : Node2D
+    {
       /// <summary>Previous state</summary>
       public int PreviousState { set; get; }
 
@@ -48,19 +49,63 @@ namespace Automata
       /// <summary>Cell color</summary>
       public Color CellColor { set; get; } = Colors.LightBlue;
 
-      public Cell() {
+      /// <summary>Highlight when a cell is transitioning from life to death</summary>
+      public bool HighlightTransitions { set; get; }
+
+      /// <summary>
+      /// Creates a new cell.
+      /// </summary>
+      public Cell()
+      {
         Name = "Cell";
       }
 
-      public override void _Draw() {
-        if (State == 1) {
-          DrawRect(new Rect2(Vector2.Zero, Size), CellColor);
+      public override void _Draw()
+      {
+        var color = GetStateColor();
+        if (color.HasValue)
+        {
+          DrawRect(new Rect2(Vector2.Zero, Size), color.Value);
         }
       }
 
       public override void _Process(float delta)
       {
         Update();
+      }
+
+      /// <summary>
+      /// Get state color.
+      /// Returns null if cell is discarded.
+      /// </summary>
+      /// <returns>State color</returns>
+      protected Color? GetStateColor()
+      {
+        if (HighlightTransitions)
+        {
+          if (PreviousState == 0 && State == 1)
+          {
+            // Cell just lived
+            return Colors.Blue;
+          }
+          else if (PreviousState == 1 && State == 0)
+          {
+            // Cell just died
+            return Colors.Red;
+          }
+          else if (State == 0)
+          {
+            // Cell already dead
+            return null;
+          }
+        }
+        else if (State == 0)
+        {
+          // Cell already dead
+          return null;
+        }
+
+        return CellColor;
       }
     }
 
@@ -84,26 +129,38 @@ namespace Automata
     /// <summary>Paused</summary>
     public bool Paused { get; set; }
 
+    /// <summary>Highlight when a cell is transitioning from life to death</summary>
+    public bool HighlightTransitions { set; get; }
+
     /// <summary>Touch behavior</summary>
     public TouchBehaviorEnum TouchBehavior { get; set; }
 
     /// <summary>Wrap behavior</summary>
     public WrapBehaviorEnum WrapBehavior { get; set; }
 
-    private Cell[] _grid;
-    private readonly int _scale;
-    private int _rows;
-    private int _cols;
-    private int _generation;
+    /// <summary>Grid nodes</summary>
+    protected Cell[] _grid;
+
+    /// <summary>Cell scale</summary>
+    protected int _scale;
+
+    /// <summary>Row count</summary>
+    protected int _rows;
+
+    /// <summary>Cols count</summary>
+    protected int _cols;
+
+    /// <summary>Current generation</summary>
+    protected int _generation;
+
     private Timer _timer;
     private RichTextLabel _label;
     private Button _pauseButton;
     private float _waitTime = 0.05f;
-
     private int _touchIndex = -1;
 
     /// <summary>
-    /// Create a default cellular automata with a cell scale of 10.
+    /// Create a default cellular automata with a cell scale of 20.
     /// </summary>
     public CellularAutomata2D() : this(20) { }
 
@@ -120,7 +177,7 @@ namespace Automata
     /// <summary>
     /// Randomize grid.
     /// </summary>
-    public void RandomizeGrid()
+    public virtual void RandomizeGrid()
     {
       _generation = 0;
       int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
@@ -140,9 +197,6 @@ namespace Automata
     {
       // Create automata on ready
       var size = GetViewportRect().Size;
-      _cols = (int)size.x / _scale;
-      _rows = (int)size.y / _scale;
-      _grid = new Cell[_cols * _rows];
       InitializeGrid();
 
       // Create timer
@@ -153,7 +207,7 @@ namespace Automata
         Autostart = true
       };
       AddChild(_timer);
-      _timer.Connect("timeout", this, nameof(Generate));
+      _timer.Connect("timeout", this, nameof(TryGenerate));
 
       // Create label
       var font = SimpleDefaultFont.Regular;
@@ -170,7 +224,8 @@ namespace Automata
       AddChild(_label);
 
       // Create button
-      _pauseButton = new Button {
+      _pauseButton = new Button
+      {
         Name = "Pause Button"
       };
 
@@ -218,20 +273,29 @@ namespace Automata
       }
     }
 
-    private void InitializeGrid() {
-      int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+    /// <summary>
+    /// Initialize grid.
+    /// </summary>
+    protected virtual void InitializeGrid()
+    {
+      var size = GetViewportRect().Size;
+      _cols = (int)size.x / _scale;
+      _rows = (int)size.y / _scale;
+      _grid = new Cell[_cols * _rows];
 
-      for (int j = offset; j < _rows - offset; ++j)
+      for (int j = 0; j < _rows; ++j)
       {
-        for (int i = offset; i < _cols - offset; ++i)
+        for (int i = 0; i < _cols; ++i)
         {
           var currPos = i + (j * _cols);
-          var cell = new Cell {
+          var cell = new Cell
+          {
             Position = new Vector2(i * _scale, j * _scale),
             Size = new Vector2(_scale, _scale),
             PreviousState = 0,
             State = 0,
-            CellColor = CellColor
+            CellColor = CellColor,
+            HighlightTransitions = HighlightTransitions
           };
           AddChild(cell);
           _grid[currPos] = cell;
@@ -239,7 +303,11 @@ namespace Automata
       }
     }
 
-    private void ReviveCellAtScreenPos(Vector2 pos)
+    /// <summary>
+    /// Revive cell at screen position.
+    /// </summary>
+    /// <param name="pos">Screen position</param>
+    protected virtual void ReviveCellAtScreenPos(Vector2 pos)
     {
       // Split position depending on scale
       var idx = pos / _scale;
@@ -248,10 +316,17 @@ namespace Automata
       int y = Mathf.Min(Mathf.Max(offset, (int)idx.y), _rows - 1 - offset);
 
       var cell = _grid[x + (y * _cols)];
-      cell.State = cell.PreviousState = 1;
+      cell.PreviousState = 0;
+      cell.State = 1;
     }
 
-    private int GetAliveNeighborsFromCell(int x, int y)
+    /// <summary>
+    /// Get alive neighbors from cell position.
+    /// </summary>
+    /// <param name="x">X position</param>
+    /// <param name="y">Y position</param>
+    /// <returns>Alive neighbors count</returns>
+    protected virtual int GetAliveNeighborsFromCell(int x, int y)
     {
       int count = 0;
 
@@ -268,7 +343,13 @@ namespace Automata
       return count - _grid[x + (y * _cols)].PreviousState;
     }
 
-    private int ApplyRules(int x, int y)
+    /// <summary>
+    /// Apply rules on cell and return next state.
+    /// </summary>
+    /// <param name="x">X position</param>
+    /// <param name="x">Y position</param>
+    /// <returns>Next state</returns>
+    protected virtual int ApplyRules(int x, int y)
     {
       var neighbors = GetAliveNeighborsFromCell(x, y);
       var state = _grid[x + (y * _cols)].State;
@@ -287,14 +368,20 @@ namespace Automata
       }
     }
 
-    private void Generate()
+    /// <summary>
+    /// Create a new generation.
+    /// </summary>
+    protected virtual void Generate()
     {
-      if (Paused)
-      {
-        return;
-      }
-
       int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+
+      for (int j = offset; j < _rows - offset; ++j)
+      {
+        for (int i = offset; i < _cols - offset; ++i)
+        {
+          _grid[i + (j * _cols)].PreviousState = _grid[i + (j * _cols)].State;
+        }
+      }
 
       for (int j = offset; j < _rows - offset; ++j)
       {
@@ -303,13 +390,16 @@ namespace Automata
           _grid[i + (j * _cols)].State = ApplyRules(i, j);
         }
       }
+    }
 
-      // Update
-      for (int i = 0; i < _cols * _rows; ++i)
+    private void TryGenerate()
+    {
+      if (Paused)
       {
-        _grid[i].PreviousState = _grid[i].State;
+        return;
       }
 
+      Generate();
       _generation++;
       UpdateLabel();
     }
@@ -331,11 +421,6 @@ namespace Automata
     private void UpdateLabel()
     {
       var sb = "Generation: [color=#ffff00]" + _generation + "[/color]";
-      if (Paused)
-      {
-        sb += "\nPaused";
-      }
-
       _label.BbcodeText = sb;
     }
   }
