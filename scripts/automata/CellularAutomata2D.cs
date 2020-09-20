@@ -79,7 +79,7 @@ namespace Automata
       /// Returns null if cell is discarded.
       /// </summary>
       /// <returns>State color</returns>
-      protected Color? GetStateColor()
+      protected virtual Color? GetStateColor()
       {
         if (HighlightTransitions)
         {

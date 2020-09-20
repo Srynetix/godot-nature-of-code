@@ -197,6 +197,7 @@
     <Compile Include="chapters\07-cellular-automata\C7Example3.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise1.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise10.cs" />
+    <Compile Include="chapters\07-cellular-automata\C7Exercise11.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise2.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise4.cs" />
     <Compile Include="chapters\07-cellular-automata\C7Exercise5.cs" />
