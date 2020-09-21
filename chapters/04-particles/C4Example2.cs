@@ -5,72 +5,72 @@ using Particles;
 
 namespace Examples.Chapter4
 {
-  /// <summary>
-  /// Example 4.2 - Particles List.
-  /// </summary>
-  /// Manual particles management in a List.
-  public class C4Example2 : Node2D, IExample
-  {
-    public string GetSummary()
+    /// <summary>
+    /// Example 4.2 - Particles List.
+    /// </summary>
+    /// Manual particles management in a List.
+    public class C4Example2 : Node2D, IExample
     {
-      return "Example 4.2:\n"
-        + "Particles List";
-    }
-
-    private class ParticleList : Node2D
-    {
-      private List<SimpleParticle> particles;
-
-      public ParticleList()
-      {
-        particles = new List<SimpleParticle>();
-      }
-
-      private void CreateParticle()
-      {
-        var particle = new SimpleFallingParticle
+        public string GetSummary()
         {
-          MeshSize = new Vector2(20, 20),
-          Lifespan = 2
-        };
-        particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
-        particles.Add(particle);
-        AddChild(particle);
-      }
-
-      private void UpdateParticles()
-      {
-        List<SimpleParticle> newParticles = new List<SimpleParticle>();
-        foreach (SimpleParticle part in particles)
-        {
-          if (part.IsDead())
-          {
-            part.QueueFree();
-          }
-          else
-          {
-            newParticles.Add(part);
-          }
+            return "Example 4.2:\n"
+              + "Particles List";
         }
 
-        particles = newParticles;
-      }
+        private class ParticleList : Node2D
+        {
+            private List<SimpleParticle> particles;
 
-      public override void _Process(float delta)
-      {
-        CreateParticle();
-        UpdateParticles();
-      }
-    }
+            public ParticleList()
+            {
+                particles = new List<SimpleParticle>();
+            }
 
-    public override void _Ready()
-    {
-      var size = GetViewportRect().Size;
-      var list = new ParticleList
-      {
-        Position = new Vector2(size.x / 2, size.y / 4)
-      };
-      AddChild(list);
+            private void CreateParticle()
+            {
+                var particle = new SimpleFallingParticle
+                {
+                    MeshSize = new Vector2(20, 20),
+                    Lifespan = 2
+                };
+                particle.Mesh.MeshType = SimpleMesh.TypeEnum.Square;
+                particles.Add(particle);
+                AddChild(particle);
+            }
+
+            private void UpdateParticles()
+            {
+                List<SimpleParticle> newParticles = new List<SimpleParticle>();
+                foreach (SimpleParticle part in particles)
+                {
+                    if (part.IsDead())
+                    {
+                        part.QueueFree();
+                    }
+                    else
+                    {
+                        newParticles.Add(part);
+                    }
+                }
+
+                particles = newParticles;
+            }
+
+            public override void _Process(float delta)
+            {
+                CreateParticle();
+                UpdateParticles();
+            }
+        }
+
+        public override void _Ready()
+        {
+            var size = GetViewportRect().Size;
+            var list = new ParticleList
+            {
+                Position = new Vector2(size.x / 2, size.y / 4)
+            };
+            AddChild(list);
+        }
     }
-  }
 }

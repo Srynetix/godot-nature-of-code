@@ -2,34 +2,34 @@ using Godot;
 
 namespace Assets
 {
-  /// <summary>
-  /// Contains lazy-loaded materials to use.
-  /// </summary>
-  public static class SimpleDefaultMaterial
-  {
     /// <summary>
-    /// Add material.
+    /// Contains lazy-loaded materials to use.
     /// </summary>
-    public static Material AddMaterial
+    public static class SimpleDefaultMaterial
     {
-      get
-      {
-        Initialize();
-        return _addMaterial;
-      }
-    }
-
-    private static Material _addMaterial;
-
-    private static void Initialize()
-    {
-      if (_addMaterial == null)
-      {
-        _addMaterial = new CanvasItemMaterial
+        /// <summary>
+        /// Add material.
+        /// </summary>
+        public static Material AddMaterial
         {
-          BlendMode = CanvasItemMaterial.BlendModeEnum.Add
-        };
-      }
+            get
+            {
+                Initialize();
+                return _addMaterial;
+            }
+        }
+
+        private static Material _addMaterial;
+
+        private static void Initialize()
+        {
+            if (_addMaterial == null)
+            {
+                _addMaterial = new CanvasItemMaterial
+                {
+                    BlendMode = CanvasItemMaterial.BlendModeEnum.Add
+                };
+            }
+        }
     }
-  }
 }

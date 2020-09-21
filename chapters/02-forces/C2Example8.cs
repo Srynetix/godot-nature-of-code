@@ -4,41 +4,41 @@ using Forces;
 
 namespace Examples.Chapter2
 {
-  /// <summary>
-  /// Example 2.8 - Mutual Attraction.
-  /// </summary>
-  /// By adding a SimpleAttractor as a child of SimpleMover, it will not try to attract its parent.
-  public class C2Example8 : Node2D, IExample
-  {
-    public string GetSummary()
+    /// <summary>
+    /// Example 2.8 - Mutual Attraction.
+    /// </summary>
+    /// By adding a SimpleAttractor as a child of SimpleMover, it will not try to attract its parent.
+    public class C2Example8 : Node2D, IExample
     {
-      return "Example 2.8:\n"
-        + "Mutual Attraction";
-    }
-
-    public override void _Ready()
-    {
-      var size = GetViewportRect().Size;
-
-      foreach (var _ in Enumerable.Range(0, 20))
-      {
-        var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
-        var bodySize = (float)GD.RandRange(20, 40);
-        var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
-        var yPos = (float)GD.RandRange(bodySize, size.y - bodySize);
-        mover.MeshSize = new Vector2(bodySize, bodySize);
-        mover.Mass = bodySize;
-        mover.Position = new Vector2(xPos, yPos);
-
-        // Add attractor on mover
-        var attractor = new SimpleAttractor
+        public string GetSummary()
         {
-          Visible = false
-        };
-        mover.AddChild(attractor);
+            return "Example 2.8:\n"
+              + "Mutual Attraction";
+        }
 
-        AddChild(mover);
-      }
+        public override void _Ready()
+        {
+            var size = GetViewportRect().Size;
+
+            foreach (var _ in Enumerable.Range(0, 20))
+            {
+                var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
+                var bodySize = (float)GD.RandRange(20, 40);
+                var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
+                var yPos = (float)GD.RandRange(bodySize, size.y - bodySize);
+                mover.MeshSize = new Vector2(bodySize, bodySize);
+                mover.Mass = bodySize;
+                mover.Position = new Vector2(xPos, yPos);
+
+                // Add attractor on mover
+                var attractor = new SimpleAttractor
+                {
+                    Visible = false
+                };
+                mover.AddChild(attractor);
+
+                AddChild(mover);
+            }
+        }
     }
-  }
 }
