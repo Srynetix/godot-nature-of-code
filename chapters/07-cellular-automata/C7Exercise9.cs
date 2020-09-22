@@ -14,32 +14,35 @@ namespace Examples.Chapter7
             return "Exercise 7.9:\nHexagonal Game of Life";
         }
 
-        private class HexagonalAutomata2D : CellularAutomata2D
+        private class HexagonalCell : BoolCell
         {
-            private class HexagonalCell : Cell
+            private Sprite sprite;
+
+            public override void _Ready()
             {
-                private Sprite sprite;
+                base._Ready();
 
-                public override void _Ready()
+                sprite = new Sprite
                 {
-                    sprite = new Sprite
-                    {
-                        Texture = Assets.SimpleDefaultTexture.HexagonTexture
-                    };
-                    sprite.Scale = Size / sprite.Texture.GetSize() * 1.25f;
-                    sprite.Offset = sprite.Texture.GetSize() / 2;
-                    AddChild(sprite);
-                }
-
-                public override void _Process(float delta)
-                {
-                    var color = GetStateColor();
-                    sprite.Modulate = color ?? Colors.Black;
-                }
-
-                public override void _Draw() { }
+                    Texture = Assets.SimpleDefaultTexture.HexagonTexture
+                };
+                sprite.Scale = Size / sprite.Texture.GetSize() * 1.25f;
+                sprite.Offset = sprite.Texture.GetSize() / 2;
+                AddChild(sprite);
             }
 
+            public override void _Process(float delta)
+            {
+                var color = GetStateColor();
+                sprite.Modulate = color ?? Colors.Black;
+            }
+
+            // Draw not needed
+            public override void _Draw() { }
+        }
+
+        private class HexagonalAutomata2D : CellularAutomata2D<HexagonalCell, bool>
+        {
             public override void RandomizeGrid()
             {
                 _generation = 0;
@@ -56,7 +59,7 @@ namespace Examples.Chapter7
 
                         var currPos = i + (j * _cols);
                         var cell = _grid[currPos];
-                        cell.State = cell.PreviousState = MathUtils.RandRangei(0, 1);
+                        cell.State = cell.PreviousState = MathUtils.RandRangei(0, 1) == 1;
                     }
                 }
             }
@@ -71,7 +74,7 @@ namespace Examples.Chapter7
                 _rows = Mathf.FloorToInt(size.y / _scale * 1.5f);
                 _cols = _cols % 2 != 0 ? _cols - 1 : _cols;
                 _rows = _rows % 2 != 0 ? _rows - 1 : _rows;
-                _grid = new Cell[_cols * _rows];
+                _grid = new HexagonalCell[_cols * _rows];
 
                 for (int j = 0; j < _rows; ++j)
                 {
@@ -90,12 +93,13 @@ namespace Examples.Chapter7
                         {
                             Position = new Vector2(xPos, yPos),
                             Size = new Vector2(_scale, _scale),
-                            PreviousState = 0,
-                            State = 0,
+                            PreviousState = false,
+                            State = false,
                             CellColor = CellColor,
                             HighlightTransitions = HighlightTransitions
                         };
-                        AddChild(cell);
+                        InitializeCell(cell, i, j);
+                        _gridContainer.AddChild(cell);
                         _grid[currPos] = cell;
                     }
                 }
@@ -116,8 +120,8 @@ namespace Examples.Chapter7
                 }
 
                 var cell = _grid[x + (y * _cols)];
-                cell.PreviousState = 0;
-                cell.State = 1;
+                cell.PreviousState = false;
+                cell.State = true;
             }
 
             protected override int GetAliveNeighborsFromCell(int x, int y)
@@ -129,27 +133,27 @@ namespace Examples.Chapter7
                 // Top-left
                 xPos = WrapX(x, -1);
                 yPos = WrapY(y, -1);
-                count += _grid[xPos + (yPos * _cols)].State;
+                count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
                 // Top
                 xPos = x;
                 yPos = WrapY(y, -2);
-                count += _grid[xPos + (yPos * _cols)].State;
+                count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
                 // Top-right
                 xPos = WrapX(x, 1);
                 yPos = WrapY(y, -1);
-                count += _grid[xPos + (yPos * _cols)].State;
+                count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
                 // Bottom-right
                 xPos = WrapX(x, 1);
                 yPos = WrapY(y, 1);
-                count += _grid[xPos + (yPos * _cols)].State;
+                count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
                 // Bottom
                 xPos = x;
                 yPos = WrapY(y, 2);
-                count += _grid[xPos + (yPos * _cols)].State;
+                count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
                 // Bottom-left
                 xPos = WrapX(x, -1);
                 yPos = WrapY(y, 1);
-                count += _grid[xPos + (yPos * _cols)].State;
+                count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
 
                 return count;
             }

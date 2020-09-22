@@ -14,57 +14,38 @@ namespace Examples.Chapter7
             return "Exercise 7.11:\nContinuous Game of Life";
         }
 
-        private class ContinuousGameOfLife : CellularAutomata2D
+        private class IntCell : Cell<int>
         {
-            private class ContinuousCell : Cell
-            {
-                protected override Color? GetStateColor()
-                {
-                    if (State <= 20)
-                    {
-                        // Cell already dead
-                        return null;
-                    }
+            public override int RandomizeState() {
+                return MathUtils.RandRangei(GetDeadValue(), GetAliveValue());
+            }
 
-                    return CellColor;
+            public override int GetAliveValue() {
+                return 100;
+            }
+
+            public override int GetDeadValue() {
+                return 0;
+            }
+
+            protected override Color? GetStateColor()
+            {
+                if (State == 0) {
+                    return null;
                 }
+
+                return CellColor;
             }
+        }
 
-            public override void RandomizeGrid()
-            {
-                _generation = 0;
-                int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
-
-                for (int j = offset; j < _rows - offset; ++j)
-                {
-                    for (int i = offset; i < _cols - offset; ++i)
-                    {
-                        var currPos = i + (j * _cols);
-                        var cell = _grid[currPos];
-                        cell.State = cell.PreviousState = MathUtils.RandRangei(0, 100);
-                    }
-                }
-            }
-
-            protected override void ReviveCellAtScreenPos(Vector2 pos)
-            {
-                // Split position depending on scale
-                var idx = pos / _scale;
-                int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
-                int x = Mathf.Min(Mathf.Max(offset, (int)idx.x), _cols - 1 - offset);
-                int y = Mathf.Min(Mathf.Max(offset, (int)idx.y), _rows - 1 - offset);
-
-                var cell = _grid[x + (y * _cols)];
-                cell.PreviousState = 0;
-                cell.State = 100;
-            }
-
+        private class ContinuousGameOfLife : CellularAutomata2D<IntCell, int>
+        {
             protected override int ApplyRules(int x, int y)
             {
                 var neighbors = GetAliveNeighborsFromCell(x, y);
                 var state = _grid[x + (y * _cols)].State;
 
-                if (state > 20 && (neighbors < 200 || neighbors > 300))
+                if (state > 20 && (neighbors < 200 || neighbors > 400))
                 {
                     return 0;
                 }
@@ -73,7 +54,7 @@ namespace Examples.Chapter7
                     return 100;
                 }
 
-                return state;
+                return Mathf.Clamp(state - MathUtils.RandRangei(-1, 1), 0, 100);
             }
         }
 

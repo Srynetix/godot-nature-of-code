@@ -25,8 +25,8 @@ namespace Examples.Chapter3
                 Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
                 Mesh.CustomDrawMethod = (pen) =>
                 {
-            // Car body
-            var bodyLength = Radius * 2;
+                    // Car body
+                    var bodyLength = Radius * 2;
                     var bodyWidth = Radius;
                     var wheelRadius = Radius / 4;
 
@@ -38,8 +38,8 @@ namespace Examples.Chapter3
                     pen.DrawRect(new Rect2(-bodyLength / 2, -bodyWidth / 2, bodyLength, bodyWidth), Colors.LightBlue);
                     pen.DrawRect(new Rect2((-bodyLength / 2) + 2, (-bodyWidth / 2) + 2, bodyLength - 4, bodyWidth - 4), Colors.White);
 
-            // Front
-            pen.DrawRect(new Rect2(bodyLength / 2, -bodyWidth / 4, 2, bodyWidth / 2), Colors.Green);
+                    // Front
+                    pen.DrawRect(new Rect2(bodyLength / 2, -bodyWidth / 4, 2, bodyWidth / 2), Colors.Green);
                 };
             }
 

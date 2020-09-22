@@ -28,87 +28,129 @@ namespace Automata
     }
 
     /// <summary>
-    /// Cellular automata 2D.
+    /// Generic base cell class.
     /// </summary>
-    public class CellularAutomata2D : Node2D
+    public abstract class Cell<T>: Node2D
+        where T: System.IEquatable<T>
     {
+        /// <summary>Previous state</summary>
+        public T PreviousState { set; get; }
+
+        /// <summary>Current state</summary>
+        public T State { set; get; }
+
+        /// <summary>Cell size</summary>
+        public Vector2 Size { set; get; }
+
+        /// <summary>Cell color</summary>
+        public Color CellColor { set; get; } = Colors.LightBlue;
+
+        /// <summary>Highlight when a cell is transitioning from life to death</summary>
+        public bool HighlightTransitions { set; get; }
+
         /// <summary>
-        /// Cell.
+        /// Get alive cell value.
         /// </summary>
-        public class Cell : Node2D
+        /// <returns>Alive cell value</returns>
+        public abstract T GetAliveValue();
+
+        /// <summary>
+        /// Get dead cell value.
+        /// </summary>
+        /// <returns>Dead cell value</returns>
+        public abstract T GetDeadValue();
+
+        /// <summary>
+        /// Check if cell is alive (based on State).
+        /// </summary>
+        /// <returns>Live state</returns>
+        public virtual bool IsAlive() {
+            return State.Equals(GetAliveValue());
+        }
+
+        /// <summary>
+        /// Check if cell was alive (based on PreviousState).
+        /// </summary>
+        /// <returns>Previous live state</returns>
+        public virtual bool WasAlive() {
+            return PreviousState.Equals(GetAliveValue());
+        }
+
+        /// <summary>
+        /// Return a randomized state.
+        /// </summary>
+        /// <returns>Randomized state</returns>
+        public virtual T RandomizeState() {
+            if (MathUtils.Randf() <= 0.5f) {
+                return GetAliveValue();
+            } else {
+                return GetDeadValue();
+            }
+        }
+
+        public override void _Ready() {
+            Name = "Cell";
+        }
+
+        public override void _Draw()
         {
-            /// <summary>Previous state</summary>
-            public int PreviousState { set; get; }
-
-            /// <summary>Current state</summary>
-            public int State { set; get; }
-
-            /// <summary>Cell size</summary>
-            public Vector2 Size { set; get; }
-
-            /// <summary>Cell color</summary>
-            public Color CellColor { set; get; } = Colors.LightBlue;
-
-            /// <summary>Highlight when a cell is transitioning from life to death</summary>
-            public bool HighlightTransitions { set; get; }
-
-            /// <summary>
-            /// Creates a new cell.
-            /// </summary>
-            public Cell()
+            var color = GetStateColor();
+            if (color.HasValue)
             {
-                Name = "Cell";
+                DrawRect(new Rect2(Vector2.Zero, Size), color.Value);
             }
+        }
 
-            public override void _Draw()
+        public override void _Process(float delta)
+        {
+            Update();
+        }
+
+        /// <summary>
+        /// Get state color.
+        /// Returns null if cell is discarded.
+        /// </summary>
+        /// <returns>State color</returns>
+        protected virtual Color? GetStateColor()
+        {
+            var wasAlive = WasAlive();
+            var isAlive = IsAlive();
+
+            if (HighlightTransitions)
             {
-                var color = GetStateColor();
-                if (color.HasValue)
+                if (!wasAlive && isAlive)
                 {
-                    DrawRect(new Rect2(Vector2.Zero, Size), color.Value);
+                    // Cell just lived
+                    return Colors.Blue;
                 }
-            }
-
-            public override void _Process(float delta)
-            {
-                Update();
-            }
-
-            /// <summary>
-            /// Get state color.
-            /// Returns null if cell is discarded.
-            /// </summary>
-            /// <returns>State color</returns>
-            protected virtual Color? GetStateColor()
-            {
-                if (HighlightTransitions)
+                else if (wasAlive && !isAlive)
                 {
-                    if (PreviousState == 0 && State == 1)
-                    {
-                        // Cell just lived
-                        return Colors.Blue;
-                    }
-                    else if (PreviousState == 1 && State == 0)
-                    {
-                        // Cell just died
-                        return Colors.Red;
-                    }
-                    else if (State == 0)
-                    {
-                        // Cell already dead
-                        return null;
-                    }
+                    // Cell just died
+                    return Colors.Red;
                 }
-                else if (State == 0)
+                else if (!isAlive)
                 {
                     // Cell already dead
                     return null;
                 }
-
-                return CellColor;
             }
-        }
+            else if (!isAlive)
+            {
+                // Cell already dead
+                return null;
+            }
 
+            return CellColor;
+        }
+    }
+
+    /// <summary>
+    /// Cellular automata 2D.
+    /// </summary>
+    public class CellularAutomata2D<TCell, T> : Node2D
+        where TCell: Cell<T>, new()
+        where T: System.IEquatable<T>
+    {
         /// <summary>Wait time</summary>
         public float WaitTime
         {
@@ -132,6 +174,9 @@ namespace Automata
         /// <summary>Highlight when a cell is transitioning from life to death</summary>
         public bool HighlightTransitions { set; get; }
 
+        /// <summary>Align grid to the center</summary>
+        public bool CenterAlignedGrid { get; set; }
+
         /// <summary>Touch behavior</summary>
         public TouchBehaviorEnum TouchBehavior { get; set; }
 
@@ -139,7 +184,7 @@ namespace Automata
         public WrapBehaviorEnum WrapBehavior { get; set; }
 
         /// <summary>Grid nodes</summary>
-        protected Cell[] _grid;
+        protected TCell[] _grid;
 
         /// <summary>Cell scale</summary>
         protected int _scale;
@@ -152,6 +197,9 @@ namespace Automata
 
         /// <summary>Current generation</summary>
         protected int _generation;
+
+        /// <summary>Grid container</summary>
+        protected Node2D _gridContainer;
 
         private Timer _timer;
         private RichTextLabel _label;
@@ -172,6 +220,10 @@ namespace Automata
         {
             Name = "CellularAutomata2D";
             _scale = scale;
+            _gridContainer = new Node2D
+            {
+                Name = "GridContainer"
+            };
         }
 
         /// <summary>
@@ -188,7 +240,7 @@ namespace Automata
                 {
                     var currPos = i + (j * _cols);
                     var cell = _grid[currPos];
-                    cell.State = cell.PreviousState = MathUtils.RandRangei(0, 1);
+                    cell.State = cell.PreviousState = cell.RandomizeState();
                 }
             }
         }
@@ -196,8 +248,16 @@ namespace Automata
         public override void _Ready()
         {
             // Create automata on ready
+            AddChild(_gridContainer);
+
             var size = GetViewportRect().Size;
             InitializeGrid();
+
+            // Align center if needed
+            if (CenterAlignedGrid)
+            {
+                _gridContainer.GlobalPosition = (size / 2) - (new Vector2(_cols, _rows) * _scale / 2);
+            }
 
             // Create timer
             _timer = new Timer
@@ -274,33 +334,50 @@ namespace Automata
         }
 
         /// <summary>
+        /// Get automata bounds.
+        /// </summary>
+        /// <returns>Bounds</returns>
+        protected virtual Vector2 GetAutomataBounds() {
+            return GetViewportRect().Size;
+        }
+
+        /// <summary>
         /// Initialize grid.
         /// </summary>
         protected virtual void InitializeGrid()
         {
-            var size = GetViewportRect().Size;
+            var size = GetAutomataBounds();
             _cols = (int)size.x / _scale;
             _rows = (int)size.y / _scale;
-            _grid = new Cell[_cols * _rows];
+            _grid = new TCell[_cols * _rows];
 
             for (int j = 0; j < _rows; ++j)
             {
                 for (int i = 0; i < _cols; ++i)
                 {
                     var currPos = i + (j * _cols);
-                    var cell = new Cell
+                    var cell = new TCell
                     {
                         Position = new Vector2(i * _scale, j * _scale),
                         Size = new Vector2(_scale, _scale),
-                        PreviousState = 0,
-                        State = 0,
                         CellColor = CellColor,
                         HighlightTransitions = HighlightTransitions
                     };
-                    AddChild(cell);
+                    InitializeCell(cell, i, j);
+                    _gridContainer.AddChild(cell);
                     _grid[currPos] = cell;
                 }
             }
+        }
+
+        ///  <summary>
+        /// Initialize cell.
+        /// </summary>
+        /// <param name="cell">Cell</param>
+        /// <param name="i">X position</param>
+        /// <param name="i">Y position</param>
+        protected virtual void InitializeCell(TCell cell, int i, int j) {
+            cell.State = cell.PreviousState = cell.GetDeadValue();
         }
 
         /// <summary>
@@ -316,8 +393,8 @@ namespace Automata
             int y = Mathf.Min(Mathf.Max(offset, (int)idx.y), _rows - 1 - offset);
 
             var cell = _grid[x + (y * _cols)];
-            cell.PreviousState = 0;
-            cell.State = 1;
+            cell.PreviousState = cell.GetDeadValue();
+            cell.State = cell.GetAliveValue();
         }
 
         /// <summary>
@@ -336,11 +413,11 @@ namespace Automata
                 {
                     int cellX = WrapBehavior == WrapBehaviorEnum.Wrap ? Mathf.PosMod(x + i, _cols) : x + i;
                     int cellY = WrapBehavior == WrapBehaviorEnum.Wrap ? Mathf.PosMod(y + j, _rows) : y + j;
-                    count += _grid[cellX + (cellY * _cols)].PreviousState;
+                    count += _grid[cellX + (cellY * _cols)].WasAlive() ? 1 : 0;
                 }
             }
 
-            return count - _grid[x + (y * _cols)].PreviousState;
+            return count - (_grid[x + (y * _cols)].WasAlive() ? 1 : 0);
         }
 
         /// <summary>
@@ -349,18 +426,20 @@ namespace Automata
         /// <param name="x">X position</param>
         /// <param name="x">Y position</param>
         /// <returns>Next state</returns>
-        protected virtual int ApplyRules(int x, int y)
+        protected virtual T ApplyRules(int x, int y)
         {
             var neighbors = GetAliveNeighborsFromCell(x, y);
-            var state = _grid[x + (y * _cols)].State;
+            var cell = _grid[x + (y * _cols)];
+            var state = cell.State;
+            var isAlive = cell.IsAlive();
 
-            if (state == 1 && (neighbors < 2 || neighbors > 3))
+            if (isAlive && (neighbors < 2 || neighbors > 3))
             {
-                return 0;
+                return cell.GetDeadValue();
             }
-            else if (state == 0 && neighbors == 3)
+            else if (!isAlive && neighbors == 3)
             {
-                return 1;
+                return cell.GetAliveValue();
             }
             else
             {
@@ -424,4 +503,22 @@ namespace Automata
             _label.BbcodeText = sb;
         }
     }
+
+    /// <summary>
+    /// Boolean cell.
+    /// </summary>
+    public class BoolCell: Cell<bool> {
+        public override bool GetAliveValue() {
+            return true;
+        }
+
+        public override bool GetDeadValue() {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Boolean cellular automata 2D.
+    /// </summary>
+    public class BoolCellularAutomata2D: CellularAutomata2D<BoolCell, bool> {}
 }

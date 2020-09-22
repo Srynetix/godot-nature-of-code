@@ -170,7 +170,7 @@ namespace Examples.Chapter5
                     lastLink = links[i];
                 }
 
-                var lastLineSprite = lineSprites[lineSprites.Count - 1];
+                var lastLineSprite = lineSprites[^1];
                 lastLineSprite.PositionA = lastLink.Position;
                 lastLineSprite.PositionB = endAnchor.Position;
             }

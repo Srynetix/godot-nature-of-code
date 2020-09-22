@@ -26,8 +26,8 @@ namespace Examples.Chapter3
         {
             var canvas = new DrawCanvas((pen) =>
             {
-          // Stop when theta > MaxTheta
-          if (theta < MaxTheta)
+                // Stop when theta > MaxTheta
+                if (theta < MaxTheta)
                 {
                     for (int i = 0; i < Iterations; ++i)
                     {

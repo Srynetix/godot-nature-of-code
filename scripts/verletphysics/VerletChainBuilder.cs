@@ -103,7 +103,7 @@ namespace VerletPhysics
             Vector2 prevPosition = Vector2.Zero;
             if (points.Count > 0)
             {
-                prevPosition = points[points.Count - 1].GlobalPosition;
+                prevPosition = points[^1].GlobalPosition;
             }
 
             return AddPointAtPosition(prevPosition + offset, configurator);
@@ -156,7 +156,7 @@ namespace VerletPhysics
             }
 
             // Pin last
-            var lastPoint = points[points.Count - 1];
+            var lastPoint = points[^1];
             if (pinLast)
             {
                 lastPoint.PinToCurrentPosition();

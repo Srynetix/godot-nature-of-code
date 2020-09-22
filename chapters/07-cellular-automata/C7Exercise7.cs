@@ -15,11 +15,12 @@ namespace Examples.Chapter7
 
         public override void _Ready()
         {
-            var ca = new CellularAutomata2D();
+            var ca = new BoolCellularAutomata2D {
+                TouchBehavior = TouchBehaviorEnum.DrawCell,
+                WrapBehavior = WrapBehaviorEnum.Wrap
+            };
             AddChild(ca);
 
-            ca.TouchBehavior = TouchBehaviorEnum.DrawCell;
-            ca.WrapBehavior = WrapBehaviorEnum.Wrap;
             ca.RandomizeGrid();
         }
     }

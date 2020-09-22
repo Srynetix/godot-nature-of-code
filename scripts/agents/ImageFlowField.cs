@@ -10,15 +10,26 @@ namespace Agents
         /// <summary>Source texture</summary>
         public Texture SourceTexture;
 
+        /// <summary>Texture scale</summary>
+        public int TextureScale { get; set; } = 1;
+
         /// <summary>Center on screen</summary>
         public bool CenterOnScreen;
+
+        private readonly Sprite _sprite;
+
+        /// <summary>Create a new image flow field</summary>
+        public ImageFlowField()
+        {
+            _sprite = new Sprite();
+        }
 
         /// <summary>
         /// Create field from source texture.
         /// </summary>
         protected void CreateFieldFromTexture()
         {
-            var texSize = SourceTexture.GetSize();
+            var texSize = SourceTexture.GetSize() * TextureScale;
             var resolutionSize = new Vector2(Resolution, Resolution);
             size = texSize;
             cols = (int)(texSize.x / Resolution);
@@ -58,10 +69,11 @@ namespace Agents
 
         protected override Vector2 ComputeDirectionFromPosition(int x, int y)
         {
+            var res = Resolution / TextureScale;
             var image = SourceTexture.GetData();
             image.Lock();
             // Get middle pixel
-            var color = image.GetPixel((x * Resolution) + (Resolution / 2), (y * Resolution) + (Resolution / 2));
+            var color = image.GetPixel((x * res) + (res / 2), (y * res) + (res / 2));
             image.Unlock();
             return ColorToDirection(color);
         }
@@ -70,26 +82,20 @@ namespace Agents
         {
             if (SourceTexture != null)
             {
+                _sprite.Texture = SourceTexture;
+                _sprite.Scale = new Vector2(TextureScale, TextureScale);
+                _sprite.Offset = SourceTexture.GetSize() / 2;
+                _sprite.Modulate = Colors.White.WithAlpha(64);
+                AddChild(_sprite);
+
                 CreateFieldFromTexture();
 
                 // Set at the middle of the screen
                 if (CenterOnScreen)
                 {
                     var size = GetViewportRect().Size;
-                    GlobalPosition = (size / 2) - (SourceTexture.GetSize() / 2);
+                    GlobalPosition = (size / 2) - (SourceTexture.GetSize() * TextureScale / 2);
                 }
-            }
-        }
-
-        public override void _Draw()
-        {
-            if (SourceTexture != null)
-            {
-                // Show original texture behind
-                DrawTexture(SourceTexture, Vector2.Zero, Colors.White.WithAlpha(128));
-
-                // Then draw grid
-                base._Draw();
             }
         }
     }

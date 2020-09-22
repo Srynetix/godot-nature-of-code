@@ -47,7 +47,7 @@ namespace Agents
 
             if (Looping)
             {
-                var p1 = Points[Points.Count - 1];
+                var p1 = Points[^1];
                 var p2 = Points[0];
                 DrawLine(p1, p2, Colors.DarkGoldenrod, Radius * 2);
             }
@@ -61,7 +61,7 @@ namespace Agents
 
             if (Looping)
             {
-                var p1 = Points[Points.Count - 1];
+                var p1 = Points[^1];
                 var p2 = Points[0];
                 DrawLine(p1, p2, Colors.Black, 1);
             }

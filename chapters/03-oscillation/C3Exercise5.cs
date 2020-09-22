@@ -29,13 +29,13 @@ namespace Examples.Chapter3
                 Mesh.MeshType = SimpleMesh.TypeEnum.Custom;
                 Mesh.CustomDrawMethod = (pen) =>
                 {
-            // Body
-            Vector2[] points = { new Vector2(-1, 1) * MeshSize, new Vector2(1, 1) * MeshSize, new Vector2(0, -1) * MeshSize };
+                    // Body
+                    Vector2[] points = { new Vector2(-1, 1) * MeshSize, new Vector2(1, 1) * MeshSize, new Vector2(0, -1) * MeshSize };
                     Color[] colors = { pen.Modulate, pen.Modulate, pen.Modulate };
                     pen.DrawPolygon(points, colors);
 
-            // Thrusters
-            var thrusterColor = !thrusting ? Colors.White : Colors.Red;
+                    // Thrusters
+                    var thrusterColor = !thrusting ? Colors.White : Colors.Red;
                     var thrusterSize = MeshSize / 3;
                     pen.DrawRect(new Rect2((-MeshSize.x / 2) - (thrusterSize.x / 2), MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
                     pen.DrawRect(new Rect2((MeshSize.x / 2) - (thrusterSize.x / 2), MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);

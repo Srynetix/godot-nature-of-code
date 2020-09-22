@@ -19,6 +19,7 @@ namespace Examples.Chapter6
             var size = GetViewportRect().Size;
             var flowField = new ImageFlowField
             {
+                TextureScale = 8,
                 Resolution = 30,
                 CenterOnScreen = true,
                 SourceTexture = (Texture)GD.Load("res://assets/textures/sample-texture.png")

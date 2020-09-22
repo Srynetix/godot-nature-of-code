@@ -26,7 +26,7 @@ namespace Examples.Chapter0
             {
                 var size = GetViewportRect().Size;
                 float num = generator.Randfn(0, 1);  // Gaussian distribution
-          float sd = size.x / 8;
+                float sd = size.x / 8;
                 float mean = size.x / 2;
                 float x = (sd * num) + mean;
                 pen.DrawCircle(new Vector2(x, size.y / 2), 8, Colors.LightCyan.WithAlpha(10));

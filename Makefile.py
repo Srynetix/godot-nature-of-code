@@ -15,7 +15,7 @@ def execute(exe, *args):
     subprocess.call([exe] + list(args))
 
 parser = argparse.ArgumentParser(description="Makefile")
-subs = parser.add_subparsers(dest="cmd")
+subs = parser.add_subparsers(dest="cmd", required=True)
 subs.add_parser("format")
 subs.add_parser("export")
 

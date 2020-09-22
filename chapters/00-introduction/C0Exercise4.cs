@@ -26,12 +26,12 @@ namespace Examples.Chapter0
             {
                 var size = GetViewportRect().Size;
 
-          // Follow mouse for fun
-          var mousePosition = GetViewport().GetMousePosition();
+                // Follow mouse for fun
+                var mousePosition = GetViewport().GetMousePosition();
 
                 float xNum = generator.Randfn(0, 1);  // Gaussian distribution
-          float yNum = generator.Randfn(0, 1);  // Gaussian distribution
-          var colNumR = (byte)(generator.Randfn(0, 1) * 255);
+                float yNum = generator.Randfn(0, 1);  // Gaussian distribution
+                var colNumR = (byte)(generator.Randfn(0, 1) * 255);
                 var colNumG = (byte)(generator.Randfn(0, 1) * 255);
                 var colNumB = (byte)(generator.Randfn(0, 1) * 255);
 

@@ -35,8 +35,8 @@ namespace Examples.Chapter6
                         Target = targetMover,
                         Position = pos,
 
-                // Scale forces
-                SeparationForceFactor = 1.5f,
+                        // Scale forces
+                        SeparationForceFactor = 1.5f,
                         SeekForceFactor = 0.5f
                     };
 

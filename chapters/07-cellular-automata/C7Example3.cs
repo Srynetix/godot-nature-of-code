@@ -15,7 +15,7 @@ namespace Examples.Chapter7
 
         public override void _Ready()
         {
-            var ca = new CellularAutomata2D
+            var ca = new BoolCellularAutomata2D
             {
                 WrapBehavior = WrapBehaviorEnum.Wrap,
                 TouchBehavior = TouchBehaviorEnum.DrawCell,

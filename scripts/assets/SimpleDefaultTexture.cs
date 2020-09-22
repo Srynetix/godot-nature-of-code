@@ -67,6 +67,16 @@ namespace Assets
             }
         }
 
+        /// <summary>Inverted cloud texture</summary>
+        public static Texture CloudTexture
+        {
+            get
+            {
+                Initialize();
+                return _cloudTexture;
+            }
+        }
+
         /// <summary>Right arrow with alpha background</summary>
         public static Texture RightArrowTexture
         {
@@ -93,6 +103,7 @@ namespace Assets
         private static Texture _whiteDotOutlineOnlyTexture;
         private static Texture _whiteDotBlurTexture;
         private static Texture _hexagonTexture;
+        private static Texture _cloudTexture;
         private static Texture _rightArrowTexture;
         private static Texture _lineTexture;
 
@@ -126,6 +137,11 @@ namespace Assets
             if (_hexagonTexture == null)
             {
                 _hexagonTexture = (Texture)GD.Load("res://assets/textures/hexagon.png");
+            }
+
+            if (_cloudTexture == null)
+            {
+                _cloudTexture = (Texture)GD.Load("res://assets/textures/sample-texture.png");
             }
 
             if (_rightArrowTexture == null)

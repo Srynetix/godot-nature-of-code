@@ -2,7 +2,7 @@
   <PropertyGroup>
     <RootNamespace>NatureofCode</RootNamespace>
     <AssemblyName>Nature of Code</AssemblyName>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <CodeAnalysisRuleSet>./global.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
