@@ -4,22 +4,21 @@ using Automata;
 namespace Examples.Chapter7
 {
     /// <summary>
-    /// Example 7.3: Game of Life OOP.
+    /// Exercise 7.13: Historical Game of Life.
     /// </summary>
-    public class C7Example3 : Node2D, IExample
+    public class C7Exercise13 : Node2D, IExample
     {
         public string GetSummary()
         {
-            return "Example 7.3:\nGame of Life OOP";
+            return "Exercise 7.13:\nHistorical Game of Life\n\nCells darken when alive for too long.";
         }
 
         public override void _Ready()
         {
-            var ca = new GameOfLife
+            var ca = new HistoricalGameOfLife
             {
-                WrapBehavior = WrapBehaviorEnum.Wrap,
                 TouchBehavior = TouchBehaviorEnum.DrawCell,
-                HighlightTransitions = true
+                WrapBehavior = WrapBehaviorEnum.Wrap,
             };
             AddChild(ca);
 

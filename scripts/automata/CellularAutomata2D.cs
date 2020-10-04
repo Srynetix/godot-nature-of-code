@@ -517,8 +517,7 @@ namespace Automata
 
         private void UpdateLabel()
         {
-            var sb = "Generation: [color=#ffff00]" + _generation + "[/color]";
-            _label.BbcodeText = sb;
+            _label.BbcodeText = "Generation: [color=#ffff00]" + _generation + "[/color]";
         }
     }
 }

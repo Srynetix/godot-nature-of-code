@@ -19,5 +19,5 @@ namespace Automata
     /// <summary>
     /// Boolean cellular automata 2D.
     /// </summary>
-    public class BoolCellularAutomata2D : CellularAutomata2D<BoolCell, bool> { }
+    public class GameOfLife : CellularAutomata2D<BoolCell, bool> { }
 }

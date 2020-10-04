@@ -13,7 +13,7 @@ namespace Examples.Chapter7
             return "Exercise 7.10:\nProbabilistic Game of Life";
         }
 
-        private class ProbabilisticGameOfLife : BoolCellularAutomata2D
+        private class ProbabilisticGameOfLife : GameOfLife
         {
             protected override bool ApplyRules(int x, int y)
             {
