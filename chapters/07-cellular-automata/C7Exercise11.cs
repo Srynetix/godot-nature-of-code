@@ -16,21 +16,25 @@ namespace Examples.Chapter7
 
         private class IntCell : Cell<int>
         {
-            public override int RandomizeState() {
+            public override int RandomizeState()
+            {
                 return MathUtils.RandRangei(GetDeadValue(), GetAliveValue());
             }
 
-            public override int GetAliveValue() {
+            public override int GetAliveValue()
+            {
                 return 100;
             }
 
-            public override int GetDeadValue() {
+            public override int GetDeadValue()
+            {
                 return 0;
             }
 
             protected override Color? GetStateColor()
             {
-                if (State == 0) {
+                if (State == 0)
+                {
                     return null;
                 }
 

@@ -30,8 +30,8 @@ namespace Automata
     /// <summary>
     /// Generic base cell class.
     /// </summary>
-    public abstract class Cell<T>: Node2D
-        where T: System.IEquatable<T>
+    public abstract class Cell<T> : Node2D
+        where T : System.IEquatable<T>
     {
         /// <summary>Previous state</summary>
         public T PreviousState { set; get; }
@@ -64,7 +64,8 @@ namespace Automata
         /// Check if cell is alive (based on State).
         /// </summary>
         /// <returns>Live state</returns>
-        public virtual bool IsAlive() {
+        public virtual bool IsAlive()
+        {
             return State.Equals(GetAliveValue());
         }
 
@@ -72,7 +73,8 @@ namespace Automata
         /// Check if cell was alive (based on PreviousState).
         /// </summary>
         /// <returns>Previous live state</returns>
-        public virtual bool WasAlive() {
+        public virtual bool WasAlive()
+        {
             return PreviousState.Equals(GetAliveValue());
         }
 
@@ -80,15 +82,20 @@ namespace Automata
         /// Return a randomized state.
         /// </summary>
         /// <returns>Randomized state</returns>
-        public virtual T RandomizeState() {
-            if (MathUtils.Randf() <= 0.5f) {
+        public virtual T RandomizeState()
+        {
+            if (MathUtils.Randf() <= 0.5f)
+            {
                 return GetAliveValue();
-            } else {
+            }
+            else
+            {
                 return GetDeadValue();
             }
         }
 
-        public override void _Ready() {
+        public override void _Ready()
+        {
             Name = "Cell";
         }
 
@@ -148,8 +155,8 @@ namespace Automata
     /// Cellular automata 2D.
     /// </summary>
     public class CellularAutomata2D<TCell, T> : Node2D
-        where TCell: Cell<T>, new()
-        where T: System.IEquatable<T>
+        where TCell : Cell<T>, new()
+        where T : System.IEquatable<T>
     {
         /// <summary>Wait time</summary>
         public float WaitTime
@@ -337,7 +344,8 @@ namespace Automata
         /// Get automata bounds.
         /// </summary>
         /// <returns>Bounds</returns>
-        protected virtual Vector2 GetAutomataBounds() {
+        protected virtual Vector2 GetAutomataBounds()
+        {
             return GetViewportRect().Size;
         }
 
@@ -376,7 +384,8 @@ namespace Automata
         /// <param name="cell">Cell</param>
         /// <param name="i">X position</param>
         /// <param name="i">Y position</param>
-        protected virtual void InitializeCell(TCell cell, int i, int j) {
+        protected virtual void InitializeCell(TCell cell, int i, int j)
+        {
             cell.State = cell.PreviousState = cell.GetDeadValue();
         }
 
@@ -387,7 +396,16 @@ namespace Automata
         protected virtual void ReviveCellAtScreenPos(Vector2 pos)
         {
             // Split position depending on scale
-            var idx = pos / _scale;
+            var bounds = GetAutomataBounds();
+            var gridPosition = _gridContainer.Position;
+            var automataRect = new Rect2(gridPosition, bounds);
+            if (!automataRect.HasPoint(pos))
+            {
+                return;
+            }
+
+            // Get index
+            var idx = (pos - gridPosition) / _scale;
             int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
             int x = Mathf.Min(Mathf.Max(offset, (int)idx.x), _cols - 1 - offset);
             int y = Mathf.Min(Mathf.Max(offset, (int)idx.y), _rows - 1 - offset);
@@ -503,22 +521,4 @@ namespace Automata
             _label.BbcodeText = sb;
         }
     }
-
-    /// <summary>
-    /// Boolean cell.
-    /// </summary>
-    public class BoolCell: Cell<bool> {
-        public override bool GetAliveValue() {
-            return true;
-        }
-
-        public override bool GetDeadValue() {
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Boolean cellular automata 2D.
-    /// </summary>
-    public class BoolCellularAutomata2D: CellularAutomata2D<BoolCell, bool> {}
 }
