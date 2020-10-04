@@ -383,7 +383,7 @@ namespace Automata
         /// </summary>
         /// <param name="cell">Cell</param>
         /// <param name="i">X position</param>
-        /// <param name="i">Y position</param>
+        /// <param name="j">Y position</param>
         protected virtual void InitializeCell(TCell cell, int i, int j)
         {
             cell.State = cell.PreviousState = cell.GetDeadValue();
@@ -442,7 +442,7 @@ namespace Automata
         /// Apply rules on cell and return next state.
         /// </summary>
         /// <param name="x">X position</param>
-        /// <param name="x">Y position</param>
+        /// <param name="y">Y position</param>
         /// <returns>Next state</returns>
         protected virtual T ApplyRules(int x, int y)
         {
