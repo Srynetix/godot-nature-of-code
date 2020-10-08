@@ -44,12 +44,15 @@ __meta__ = {
 
 [node name="TextureRect" type="TextureRect" parent="Center"]
 self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 98.0
-margin_top = 103.0
-margin_right = 1042.0
-margin_bottom = 436.0
+margin_left = 220.0
+margin_top = 145.0
+margin_right = 920.0
+margin_bottom = 395.0
+rect_min_size = Vector2( 700, 250 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 2 )
-stretch_mode = 4
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

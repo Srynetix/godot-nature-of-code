@@ -4,31 +4,31 @@ using Assets;
 
 namespace Agents
 {
-  /// <summary>
-  /// Simple vehicle configured as a boid.
-  /// </summary>
-  public class SimpleBoid : SimpleVehicle
-  {
     /// <summary>
-    /// Create a default boid.
+    /// Simple vehicle configured as a boid.
     /// </summary>
-    public SimpleBoid()
+    public class SimpleBoid : SimpleVehicle
     {
-      SeparationEnabled = true;
-      CohesionEnabled = true;
-      AlignmentEnabled = true;
+        /// <summary>
+        /// Create a default boid.
+        /// </summary>
+        public SimpleBoid()
+        {
+            SeparationEnabled = true;
+            CohesionEnabled = true;
+            AlignmentEnabled = true;
 
-      SeparationForceFactor = 1.5f;
-      AlignmentForceFactor = 1f;
-      CohesionForceFactor = 1f;
-      MaxForce = 0.1f;
+            SeparationForceFactor = 1.5f;
+            AlignmentForceFactor = 1f;
+            CohesionForceFactor = 1f;
+            MaxForce = 0.1f;
 
-      Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
-      Mesh.CustomTexture = SimpleDefaultTexture.FromEnum(SimpleDefaultTexture.Enum.RightArrow);
-      Mesh.Modulate = Colors.White;
-      Mesh.MeshSize = new Vector2(20, 10);
+            Mesh.MeshType = SimpleMesh.TypeEnum.Texture;
+            Mesh.CustomTexture = SimpleDefaultTexture.RightArrowTexture;
+            Mesh.Modulate = Colors.White;
+            Mesh.MeshSize = new Vector2(20, 10);
 
-      Name = "SimpleBoid";
+            Name = "SimpleBoid";
+        }
     }
-  }
 }

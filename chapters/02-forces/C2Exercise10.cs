@@ -5,89 +5,89 @@ using Forces;
 
 namespace Examples.Chapter2
 {
-  /// <summary>
-  /// Exercise 2.10 - Repulsion.
-  /// </summary>
-  /// Uses a custom SimpleAttractor with a reverse Attract method.
-  /// Uses another custom SimpleAttractor which attract objects towards mouse.
-  public class C2Exercise10 : Node2D, IExample
-  {
-    public string GetSummary()
+    /// <summary>
+    /// Exercise 2.10 - Repulsion.
+    /// </summary>
+    /// Uses a custom SimpleAttractor with a reverse Attract method.
+    /// Uses another custom SimpleAttractor which attract objects towards mouse.
+    public class C2Exercise10 : Node2D, IExample
     {
-      return "Exercise 2.10:\n"
-        + "Repulsion";
-    }
-
-    private class Repeller : SimpleAttractor
-    {
-      public override Vector2 Attract(SimpleMover mover)
-      {
-        return -base.Attract(mover);
-      }
-    }
-
-    private class MouseAttractor : SimpleAttractor
-    {
-      private bool active = true;
-
-      public override Vector2 Attract(SimpleMover mover)
-      {
-        if (!active)
+        public string GetSummary()
         {
-          return Vector2.Zero;
+            return "Exercise 2.10:\n"
+              + "Repulsion";
         }
 
-        var mousePos = GetGlobalMousePosition();
-        const int mouseGravitation = 1;
-        const int mouseMass = 15;
-
-        var force = mousePos - mover.GlobalPosition;
-        var length = Mathf.Clamp(force.Length(), 5, 25);
-        float strength = (mouseGravitation * mouseMass * mover.Mass) / (length * length);
-        return force.Normalized() * strength;
-      }
-
-      public override void _Notification(int what)
-      {
-        if (what == NotificationWmMouseEnter)
+        private class Repeller : SimpleAttractor
         {
-          active = true;
+            public override Vector2 Attract(SimpleMover mover)
+            {
+                return -base.Attract(mover);
+            }
         }
-        else if (what == NotificationWmMouseExit)
+
+        private class MouseAttractor : SimpleAttractor
         {
-          active = false;
+            private bool active = true;
+
+            public override Vector2 Attract(SimpleMover mover)
+            {
+                if (!active)
+                {
+                    return Vector2.Zero;
+                }
+
+                var mousePos = GetGlobalMousePosition();
+                const int mouseGravitation = 1;
+                const int mouseMass = 15;
+
+                var force = mousePos - mover.GlobalPosition;
+                var length = Mathf.Clamp(force.Length(), 5, 25);
+                float strength = (mouseGravitation * mouseMass * mover.Mass) / (length * length);
+                return force.Normalized() * strength;
+            }
+
+            public override void _Notification(int what)
+            {
+                if (what == NotificationWmMouseEnter)
+                {
+                    active = true;
+                }
+                else if (what == NotificationWmMouseExit)
+                {
+                    active = false;
+                }
+            }
         }
-      }
-    }
 
-    public override void _Ready()
-    {
-      var size = GetViewportRect().Size;
-
-      foreach (var _ in Enumerable.Range(0, 20))
-      {
-        var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
-        var bodySize = (float)GD.RandRange(20, 40);
-        var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
-        var yPos = (float)GD.RandRange(bodySize, size.y - bodySize);
-        mover.MeshSize = new Vector2(bodySize, bodySize);
-        mover.Mass = bodySize;
-        mover.Position = new Vector2(xPos, yPos);
-
-        var repeller = new Repeller
+        public override void _Ready()
         {
-          Visible = false
-        };
-        mover.AddChild(repeller);
+            var size = GetViewportRect().Size;
 
-        var mouseAttractor = new MouseAttractor
-        {
-          Visible = false
-        };
-        AddChild(mouseAttractor);
+            foreach (var _ in Enumerable.Range(0, 20))
+            {
+                var mover = new SimpleMover(SimpleMover.WrapModeEnum.Bounce);
+                var bodySize = (float)GD.RandRange(20, 40);
+                var xPos = (float)GD.RandRange(bodySize, size.x - bodySize);
+                var yPos = (float)GD.RandRange(bodySize, size.y - bodySize);
+                mover.MeshSize = new Vector2(bodySize, bodySize);
+                mover.Mass = bodySize;
+                mover.Position = new Vector2(xPos, yPos);
 
-        AddChild(mover);
-      }
+                var repeller = new Repeller
+                {
+                    Visible = false
+                };
+                mover.AddChild(repeller);
+
+                var mouseAttractor = new MouseAttractor
+                {
+                    Visible = false
+                };
+                AddChild(mouseAttractor);
+
+                AddChild(mover);
+            }
+        }
     }
-  }
 }

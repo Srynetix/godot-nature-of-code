@@ -2,48 +2,34 @@ using Godot;
 
 namespace Assets
 {
-  /// <summary>
-  /// Contains lazy-loaded materials to use.
-  /// </summary>
-  public static class SimpleDefaultMaterial
-  {
     /// <summary>
-    /// Material types.
+    /// Contains lazy-loaded materials to use.
     /// </summary>
-    public enum Enum
+    public static class SimpleDefaultMaterial
     {
-      /// <summary>Default material with BlendMode.Add</summary>
-      Add
-    }
-
-    private static Material AddMaterial;
-
-    /// <summary>
-    /// Get or create a default material from an enum value.
-    /// </summary>
-    /// <param name="value">Material enum value</param>
-    /// <returns>Generated material</returns>
-    public static Material FromEnum(Enum value)
-    {
-      Initialize();
-
-      if (value == Enum.Add)
-      {
-        return AddMaterial;
-      }
-
-      return null;
-    }
-
-    private static void Initialize()
-    {
-      if (AddMaterial == null)
-      {
-        AddMaterial = new CanvasItemMaterial
+        /// <summary>
+        /// Add material.
+        /// </summary>
+        public static Material AddMaterial
         {
-          BlendMode = CanvasItemMaterial.BlendModeEnum.Add
-        };
-      }
+            get
+            {
+                Initialize();
+                return _addMaterial;
+            }
+        }
+
+        private static Material _addMaterial;
+
+        private static void Initialize()
+        {
+            if (_addMaterial == null)
+            {
+                _addMaterial = new CanvasItemMaterial
+                {
+                    BlendMode = CanvasItemMaterial.BlendModeEnum.Add
+                };
+            }
+        }
     }
-  }
 }
