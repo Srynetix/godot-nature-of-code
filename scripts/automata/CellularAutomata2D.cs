@@ -12,7 +12,10 @@ namespace Automata
         RandomizeGrid,
 
         /// <summary>Draw cell at touch position</summary>
-        DrawCell
+        DrawCell,
+
+        /// <summary>None</summary>
+        None
     }
 
     /// <summary>
@@ -184,6 +187,17 @@ namespace Automata
         /// <summary>Align grid to the center</summary>
         public bool CenterAlignedGrid { get; set; }
 
+        /// <summary>Hide GUI</summary>
+        public bool HideGUI
+        {
+            get => _hideGui;
+            set
+            {
+                _hideGui = value;
+                SetGUIVisibility(!value);
+            }
+        }
+
         /// <summary>Touch behavior</summary>
         public TouchBehaviorEnum TouchBehavior { get; set; }
 
@@ -208,6 +222,7 @@ namespace Automata
         /// <summary>Grid container</summary>
         protected Node2D _gridContainer;
 
+        private bool _hideGui;
         private Timer _timer;
         private RichTextLabel _label;
         private Button _pauseButton;
@@ -303,6 +318,8 @@ namespace Automata
             _pauseButton.RectGlobalPosition = new Vector2(0, (size.y / 2) - textSize.y + textSize.y);
             AddChild(_pauseButton);
             _pauseButton.Connect("pressed", this, nameof(TogglePause));
+
+            SetGUIVisibility(!_hideGui);
         }
 
         public override void _Process(float delta)
@@ -321,7 +338,7 @@ namespace Automata
                     {
                         ReviveCellAtScreenPos(eventScreenTouch.Position);
                     }
-                    else
+                    else if (TouchBehavior == TouchBehaviorEnum.RandomizeGrid)
                     {
                         RandomizeGrid();
                     }
@@ -499,6 +516,17 @@ namespace Automata
             Generate();
             _generation++;
             UpdateLabel();
+        }
+
+        private void SetGUIVisibility(bool value)
+        {
+            if (_pauseButton == null || _label == null)
+            {
+                return;
+            }
+
+            _pauseButton.Visible = value;
+            _label.Visible = value;
         }
 
         private void TogglePause()

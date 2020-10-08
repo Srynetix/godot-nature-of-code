@@ -19,5 +19,17 @@ namespace Automata
     /// <summary>
     /// Boolean cellular automata 2D.
     /// </summary>
-    public class GameOfLife : CellularAutomata2D<BoolCell, bool> { }
+    public class GameOfLife : CellularAutomata2D<BoolCell, bool>
+    {
+        /// <summary>
+        /// Create a standard game of life of scale 20.
+        /// </summary>
+        public GameOfLife() : this(20) { }
+
+        /// <summary>
+        /// Create a Game of Life instance of custom scale.
+        /// </summary>
+        /// <param name="scale">Scale</param>
+        public GameOfLife(int scale) : base(scale) { }
+    }
 }
