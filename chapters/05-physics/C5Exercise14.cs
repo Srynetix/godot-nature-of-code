@@ -28,7 +28,7 @@ namespace Examples.Chapter5
 
                 VerletPoint createPoint()
                 {
-                    return world.CreatePoint(centerPosition + MathUtils.RandVector2(-5, 5, -5, 5), radius: pointRadius, visible: drawPoints);
+                    return world.CreatePoint(centerPosition + MathUtils.RandVector2(-5, 5, -5, 5), gravityScale: gravityScale, radius: pointRadius, visible: drawPoints);
                 }
 
                 VerletLink createLink(VerletPoint a, VerletPoint b, float distance)

@@ -30,17 +30,19 @@ namespace VerletPhysics
         /// </summary>
         /// <param name="initialPosition">Initial position</param>
         /// <param name="mass">Mass</param>
+        /// <param name="gravityScale">Gravity scale</param>
         /// <param name="radius">Radius</param>
         /// <param name="color">Color</param>
         /// <param name="visible">Show point</param>
         /// <returns>Verlet point</returns>
-        public VerletPoint CreatePoint(Vector2? initialPosition = null, float? mass = null, float? radius = null, Color? color = null, bool? visible = null)
+        public VerletPoint CreatePoint(Vector2? initialPosition = null, float? mass = null, float? gravityScale = null, float? radius = null, Color? color = null, bool? visible = null)
         {
             var point = new VerletPoint(this);
             points.Add(point);
             AddChild(point);
 
             point.Mass = mass ?? point.Mass;
+            point.GravityScale = gravityScale ?? point.GravityScale;
             point.Radius = radius ?? point.Radius;
             point.Visible = visible ?? point.Visible;
             point.Modulate = color ?? point.Modulate;
