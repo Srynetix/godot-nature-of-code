@@ -18,7 +18,7 @@ namespace Examples.Chapter3
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var wave = new SimpleWave
+            var wave = new SimpleWave()
             {
                 Position = size / 2,
                 Length = size.x,

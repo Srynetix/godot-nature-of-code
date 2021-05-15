@@ -20,7 +20,7 @@ namespace Examples.Chapter5
 
         private class CollisionBall : SimpleBall
         {
-            public bool Colliding = false;
+            public bool Colliding;
 
             public CollisionBall()
             {
@@ -68,18 +68,18 @@ namespace Examples.Chapter5
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var floor = new SimpleWall
+            var floor = new SimpleWall()
             {
                 BodySize = new Vector2(size.x, 100),
                 Position = new Vector2(size.x / 2, size.y)
             };
             AddChild(floor);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (position) =>
                 {
-                    return new CollisionBall
+                    return new CollisionBall()
                     {
                         GlobalPosition = position
                     };

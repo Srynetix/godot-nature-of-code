@@ -24,14 +24,14 @@ namespace Examples.Chapter6
             path.Points.Add(new Vector2(size.x, size.y / 2));
             AddChild(path);
 
-            var vehicle1 = new SimpleVehicle
+            var vehicle1 = new SimpleVehicle()
             {
                 Position = new Vector2(100, 100),
                 TargetPath = path
             };
             AddChild(vehicle1);
 
-            var vehicle2 = new SimpleVehicle
+            var vehicle2 = new SimpleVehicle()
             {
                 Position = new Vector2(100, size.y - 100),
                 TargetPath = path

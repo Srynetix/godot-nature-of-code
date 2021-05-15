@@ -19,7 +19,7 @@ namespace Examples.Chapter2
         {
             var size = GetViewportRect().Size;
 
-            var attractor = new SimpleAttractor
+            var attractor = new SimpleAttractor()
             {
                 Gravitation = 0.5f,
                 Position = size / 2

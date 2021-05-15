@@ -31,7 +31,7 @@ namespace Examples.Chapter2
                 mover.Position = new Vector2(xPos, yPos);
 
                 // Add attractor on mover
-                var attractor = new SimpleAttractor
+                var attractor = new SimpleAttractor()
                 {
                     Visible = false
                 };

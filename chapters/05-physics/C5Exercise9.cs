@@ -18,7 +18,6 @@ namespace Examples.Chapter5
 
         private class PerlinKinematicBox : KinematicBody2D
         {
-            public float InitialTValue = 0;
             public C5Exercise8.PerlinWaveDrawing Drawing;
 
             public float OutlineWidth = 2;
@@ -44,8 +43,8 @@ namespace Examples.Chapter5
 
             public override void _Ready()
             {
-                rectangleShape2D = new RectangleShape2D { Extents = bodySize / 2 };
-                collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
+                rectangleShape2D = new RectangleShape2D() { Extents = bodySize / 2 };
+                collisionShape2D = new CollisionShape2D() { Shape = rectangleShape2D };
                 AddChild(collisionShape2D);
             }
 
@@ -78,18 +77,18 @@ namespace Examples.Chapter5
         {
             var size = GetViewportRect().Size;
             var length = size.x / 1.25f;
-            var d = new C5Exercise8.PerlinWaveDrawing
+            var d = new C5Exercise8.PerlinWaveDrawing()
             {
                 Length = length,
                 Position = (size / 2) - new Vector2(length / 2, 0)
             };
             AddChild(d);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (position) =>
                 {
-                    return new PerlinKinematicBox
+                    return new PerlinKinematicBox()
                     {
                         Drawing = d,
                         MeshSize = new Vector2(20, 20),

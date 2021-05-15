@@ -25,7 +25,7 @@ namespace Examples
         private Label LoadingLabel;
         private SceneLoader sceneLoader;
 
-        async public override void _Ready()
+        public override async void _Ready()
         {
             CurrentSceneContainer = GetNode<Control>("CurrentScene");
             CodeLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Code");
@@ -172,7 +172,7 @@ namespace Examples
             CurrentSceneContainer.AddChild(instance);
 
             // Show code
-            CSharpScript script = (CSharpScript)instance.GetScript();
+            var script = (CSharpScript)instance.GetScript();
             string scriptPath = script.ResourcePath;
             CodeLabel.BbcodeEnabled = true;
             CodeLabel.BbcodeText = ReadSourceCodeAtPath(scriptPath);

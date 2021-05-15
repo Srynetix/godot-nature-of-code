@@ -15,7 +15,7 @@ namespace Agents
         public float Radius = 20;
 
         /// <summary>Looping</summary>
-        public bool Looping = false;
+        public bool Looping;
 
         public SimplePath()
         {

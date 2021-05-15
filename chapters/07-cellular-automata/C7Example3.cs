@@ -15,7 +15,7 @@ namespace Examples.Chapter7
 
         public override void _Ready()
         {
-            var ca = new GameOfLife
+            var ca = new GameOfLife()
             {
                 WrapBehavior = WrapBehaviorEnum.Wrap,
                 TouchBehavior = TouchBehaviorEnum.DrawCell,

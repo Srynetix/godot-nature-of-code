@@ -23,11 +23,11 @@ namespace Examples.Chapter6
         {
             var size = GetViewportRect().Size;
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (pos) =>
                 {
-                    var vehicle = new RoundVehicle
+                    var vehicle = new RoundVehicle()
                     {
                         VehicleGroupList = vehicles,
                         SeparationEnabled = true,

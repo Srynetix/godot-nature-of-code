@@ -34,18 +34,18 @@ namespace Physics
         /// <param name="end">End position</param>
         public void AddSegment(Vector2 start, Vector2 end)
         {
-            var segment = new SegmentShape2D
+            var segment = new SegmentShape2D()
             {
                 A = start,
                 B = end
             };
-            var shape = new CollisionShape2D { Shape = segment };
+            var shape = new CollisionShape2D() { Shape = segment };
 
             segments.Add(segment);
             shapes.Add(shape);
             AddChild(shape);
 
-            var lineSprite = new SimpleLineSprite
+            var lineSprite = new SimpleLineSprite()
             {
                 PositionA = GlobalPosition + segment.A,
                 PositionB = GlobalPosition + segment.B,

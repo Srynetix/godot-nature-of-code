@@ -19,7 +19,7 @@ namespace Examples.Chapter3
             public float RopeLength = 150;
             public float Radius = 50;
 
-            private float theta = 0;
+            private float theta;
 
             public override void _Draw()
             {
@@ -44,7 +44,7 @@ namespace Examples.Chapter3
 
         public override void _Ready()
         {
-            var ball = new Ball
+            var ball = new Ball()
             {
                 Position = GetViewportRect().Size / 2
             };

@@ -33,7 +33,7 @@ public class SyntaxHighlighter
         outputCode = ColorizeMatches(outputCode, stringMatches, Colors.Brown);
 
         // inline comments
-        string comments = @"(\/\/.*)";
+        var comments = @"(\/\/.*)";
         MatchCollection commentMatches = Regex.Matches(outputCode, comments);
         outputCode = ColorizeMatches(outputCode, commentMatches, Colors.Green);
 

@@ -35,13 +35,13 @@ namespace Examples.Chapter4
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var particleSystem = new DynamicParticleSystem
+            var particleSystem = new DynamicParticleSystem()
             {
                 Position = new Vector2(size.x / 2, size.y / 4),
                 ParticleSpawnFrameDelay = 1,
                 ParticleCreationFunction = () =>
                 {
-                    var particle = new SimpleFallingParticle
+                    var particle = new SimpleFallingParticle()
                     {
                         WrapMode = SimpleMover.WrapModeEnum.Bounce,
                         MeshSize = new Vector2(20, 20),

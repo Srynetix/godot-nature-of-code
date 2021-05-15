@@ -14,7 +14,7 @@ namespace Examples.Chapter3
               + "Static line wave";
         }
 
-        private float angle = 0;
+        private float angle;
         private readonly float angularVelocity = 0.2f;
 
         public override void _Draw()

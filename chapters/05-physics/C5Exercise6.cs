@@ -29,11 +29,11 @@ namespace Examples.Chapter5
 
             public override void _Ready()
             {
-                circleShape2D = new CircleShape2D { Radius = Radius };
-                collisionShape2D = new CollisionShape2D { Shape = circleShape2D };
+                circleShape2D = new CircleShape2D() { Radius = Radius };
+                collisionShape2D = new CollisionShape2D() { Shape = circleShape2D };
                 AddChild(collisionShape2D);
 
-                sprite = new SimpleCircleSprite
+                sprite = new SimpleCircleSprite()
                 {
                     Radius = Radius,
                     Modulate = Colors.LightGoldenrod
@@ -43,7 +43,7 @@ namespace Examples.Chapter5
 
             public void LinkTarget(PhysicsBody2D target, float softness = 0, float bias = 0)
             {
-                var pinJoint = new PinJoint2D
+                var pinJoint = new PinJoint2D()
                 {
                     NodeA = GetPath(),
                     NodeB = target.GetPath(),
@@ -64,11 +64,11 @@ namespace Examples.Chapter5
 
             public override void _Ready()
             {
-                circleShape2D = new CircleShape2D { Radius = Radius };
-                collisionShape2D = new CollisionShape2D { Shape = circleShape2D };
+                circleShape2D = new CircleShape2D() { Radius = Radius };
+                collisionShape2D = new CollisionShape2D() { Shape = circleShape2D };
                 AddChild(collisionShape2D);
 
-                sprite = new SimpleCircleSprite
+                sprite = new SimpleCircleSprite()
                 {
                     Radius = Radius,
                     Modulate = Colors.LightGoldenrod
@@ -78,7 +78,7 @@ namespace Examples.Chapter5
 
             public void LinkToParent(PhysicsBody2D parent, float softness = 0, float bias = 0)
             {
-                var pinJoint = new PinJoint2D
+                var pinJoint = new PinJoint2D()
                 {
                     NodeA = parent.GetPath(),
                     NodeB = GetPath(),
@@ -95,8 +95,8 @@ namespace Examples.Chapter5
             public Vector2 StartPosition;
             public Vector2 EndPosition;
             public int LinkCount = 10;
-            public float Softness = 0;
-            public float Bias = 0;
+            public float Softness;
+            public float Bias;
 
             private ChainAnchor startAnchor;
             private ChainAnchor endAnchor;
@@ -121,13 +121,13 @@ namespace Examples.Chapter5
                 AddChild(linksContainer);
                 AddChild(circleContainer);
 
-                startAnchor = new ChainAnchor { Position = StartPosition };
+                startAnchor = new ChainAnchor() { Position = StartPosition };
                 circleContainer.AddChild(startAnchor);
 
                 PhysicsBody2D lastLink = startAnchor;
                 for (int i = 0; i < LinkCount; ++i)
                 {
-                    var link = new ChainLink
+                    var link = new ChainLink()
                     {
                         Position = StartPosition + new Vector2(width + (i * width), height + (i * height))
                     };
@@ -144,7 +144,7 @@ namespace Examples.Chapter5
                     lastLink = link;
                 }
 
-                endAnchor = new ChainAnchor
+                endAnchor = new ChainAnchor()
                 {
                     Position = EndPosition
                 };
@@ -181,7 +181,7 @@ namespace Examples.Chapter5
             var size = GetViewportRect().Size;
             const int offset = 50;
 
-            var chain = new SimpleChain
+            var chain = new SimpleChain()
             {
                 Softness = 0.1f,
                 Bias = 0f,
@@ -191,7 +191,7 @@ namespace Examples.Chapter5
             };
             AddChild(chain);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (position) =>
                 {

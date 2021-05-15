@@ -23,9 +23,9 @@ namespace Oscillation
         /// <summary>Maximal length</summary>
         public float MaxLength = 150;
 
-        private SimpleMover currentMover = null;
+        private SimpleMover currentMover;
         private int touchIndex = -1;
-        private bool touched = false;
+        private bool touched;
         private readonly SimpleLineSprite lineSprite;
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Oscillation
         /// </summary>
         public SimpleSpring()
         {
-            lineSprite = new SimpleLineSprite { Width = 2 };
+            lineSprite = new SimpleLineSprite() { Width = 2 };
         }
 
         /// <summary>
@@ -72,14 +72,11 @@ namespace Oscillation
 
             if (@event is InputEventScreenTouch eventScreenTouch)
             {
-                if (eventScreenTouch.Pressed && touchIndex == -1)
+                if (eventScreenTouch.Pressed && touchIndex == -1 && eventScreenTouch.Position.DistanceTo(currentMover.GlobalPosition) < currentMover.Radius * 2)
                 {
-                    if (eventScreenTouch.Position.DistanceTo(currentMover.GlobalPosition) < currentMover.Radius * 2)
-                    {
-                        touchIndex = eventScreenTouch.Index;
-                        currentMover.DisableForces = true;
-                        touched = true;
-                    }
+                    touchIndex = eventScreenTouch.Index;
+                    currentMover.DisableForces = true;
+                    touched = true;
                 }
 
                 if (!eventScreenTouch.Pressed && touchIndex == eventScreenTouch.Index)
@@ -106,7 +103,7 @@ namespace Oscillation
             if (currentMover != null)
             {
                 // Update line
-                var color = touched ? Colors.LightGoldenrod : Colors.LightGray;
+                var color = (touched) ? Colors.LightGoldenrod : Colors.LightGray;
                 lineSprite.PositionA = GlobalPosition;
                 lineSprite.PositionB = currentMover.GlobalPosition;
                 lineSprite.Modulate = color;

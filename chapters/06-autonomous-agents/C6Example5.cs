@@ -23,7 +23,7 @@ namespace Examples.Chapter6
             path.Points.Add(new Vector2(size.x, 2 * size.y / 3));
             AddChild(path);
 
-            var vehicle = new SimpleVehicle
+            var vehicle = new SimpleVehicle()
             {
                 TargetPath = path,
                 Velocity = new Vector2(10, 0),

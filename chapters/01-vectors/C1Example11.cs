@@ -33,7 +33,7 @@ namespace Examples.Chapter1
             const int moverCount = 20;
             for (int i = 0; i < moverCount; ++i)
             {
-                var mover = new Mover
+                var mover = new Mover()
                 {
                     Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y))
                 };

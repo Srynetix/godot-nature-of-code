@@ -18,8 +18,10 @@ namespace Examples
                 Pattern(new Vector2(0, size.y / 2), length);
             }
 
-            private void Pattern(Vector2 position, float length) {
-                if (length >= 20) {
+            private void Pattern(Vector2 position, float length)
+            {
+                if (length >= 20)
+                {
                     DrawLine(position, position - new Vector2(length / 2, -length / 2), Colors.LightGray);
                     DrawLine(position, position - new Vector2(length / 2, length / 2), Colors.LightGray);
 

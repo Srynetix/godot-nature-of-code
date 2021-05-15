@@ -59,7 +59,7 @@ namespace Examples.Chapter3
 
                 for (int s = 0; s < SpringPerSpring; ++s)
                 {
-                    var cSpring = new SimpleSpring
+                    var cSpring = new SimpleSpring()
                     {
                         ShowBehindParent = true,
                         Length = (size.y / 4) + (s * SpringSeparation),

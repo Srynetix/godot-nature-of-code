@@ -80,25 +80,25 @@ namespace Examples.Chapter5
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var leftWall = new SineWall
+            var leftWall = new SineWall()
             {
                 Position = new Vector2(size.x / 4, size.y / 2),
                 Length = size.x / 2
             };
             AddChild(leftWall);
 
-            var rightWall = new PerlinWall
+            var rightWall = new PerlinWall()
             {
                 Position = new Vector2(size.x / 1.25f, size.y / 2),
                 Length = size.x / 2
             };
             AddChild(rightWall);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (position) =>
                 {
-                    return new SimpleBall
+                    return new SimpleBall()
                     {
                         GlobalPosition = position
                     };

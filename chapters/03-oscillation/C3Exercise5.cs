@@ -35,7 +35,7 @@ namespace Examples.Chapter3
                     pen.DrawPolygon(points, colors);
 
                     // Thrusters
-                    var thrusterColor = !thrusting ? Colors.White : Colors.Red;
+                    var thrusterColor = (!thrusting) ? Colors.White : Colors.Red;
                     var thrusterSize = MeshSize / 3;
                     pen.DrawRect(new Rect2((-MeshSize.x / 2) - (thrusterSize.x / 2), MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
                     pen.DrawRect(new Rect2((MeshSize.x / 2) - (thrusterSize.x / 2), MeshSize.y, thrusterSize.x, thrusterSize.y), thrusterColor);
@@ -77,7 +77,7 @@ namespace Examples.Chapter3
             controls = new VirtualControls();
             AddChild(controls);
 
-            spaceship = new Spaceship
+            spaceship = new Spaceship()
             {
                 Position = GetViewportRect().Size / 2
             };

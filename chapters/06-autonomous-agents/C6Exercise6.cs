@@ -26,7 +26,7 @@ namespace Examples.Chapter6
 
         public override void _Ready()
         {
-            var flowField = new RadialFlowField { Resolution = 30 };
+            var flowField = new RadialFlowField() { Resolution = 30 };
             AddChild(flowField);
         }
     }

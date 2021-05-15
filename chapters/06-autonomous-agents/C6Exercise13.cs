@@ -30,11 +30,11 @@ namespace Examples.Chapter6
             path.Looping = true;
             AddChild(path);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (pos) =>
                 {
-                    var vehicle = new RoundVehicle
+                    var vehicle = new RoundVehicle()
                     {
                         VehicleGroupList = vehicles,
                         Position = pos,

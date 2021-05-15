@@ -21,7 +21,7 @@ namespace Examples.Chapter5
         {
             public Polygon1()
             {
-                Points = new Vector2[] {
+                Points = new[] {
             new Vector2(-10, 10),
             new Vector2(10, 10),
             new Vector2(5, 5),
@@ -36,7 +36,7 @@ namespace Examples.Chapter5
         {
             public Polygon2()
             {
-                Points = new Vector2[] {
+                Points = new[] {
             new Vector2(-10, 10),
             new Vector2(-10, 10),
             new Vector2(5, -5),
@@ -51,7 +51,7 @@ namespace Examples.Chapter5
         {
             public Polygon3()
             {
-                Points = new Vector2[] {
+                Points = new[] {
             new Vector2(-10, 10),
             new Vector2(10, 10),
             new Vector2(5, -5),
@@ -66,14 +66,14 @@ namespace Examples.Chapter5
         {
             var size = GetViewportRect().Size;
 
-            var wall = new SimpleWall
+            var wall = new SimpleWall()
             {
                 BodySize = new Vector2(size.x, 50),
                 Position = new Vector2(size.x / 2, size.y)
             };
             AddChild(wall);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (position) =>
                 {

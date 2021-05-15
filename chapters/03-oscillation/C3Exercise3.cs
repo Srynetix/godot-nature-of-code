@@ -59,8 +59,7 @@ namespace Examples.Chapter3
 
                 if (Velocity.LengthSquared() > 0.01)
                 {
-                    float angle = Mathf.Atan2(Velocity.y, Velocity.x);
-                    Rotation = angle;
+                    Rotation = (float)Mathf.Atan2(Velocity.y, Velocity.x);
                 }
             }
         }
@@ -75,7 +74,7 @@ namespace Examples.Chapter3
             AddChild(controls);
 
             // Add car
-            car = new Car
+            car = new Car()
             {
                 Position = GetViewportRect().Size / 2
             };

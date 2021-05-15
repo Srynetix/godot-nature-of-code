@@ -19,7 +19,7 @@ namespace Examples.Chapter4
 
         private class EParticle : SimpleParticle
         {
-            private bool initialForceDone = false;
+            private bool initialForceDone;
 
             public EParticle()
             {
@@ -54,19 +54,19 @@ namespace Examples.Chapter4
         private class ShatteringObject : SimpleMover
         {
             private SimpleParticleSystem particleSystem;
-            private bool exploding = false;
+            private bool exploding;
 
             public override void _Ready()
             {
                 base._Ready();
 
-                particleSystem = new SimpleParticleSystem
+                particleSystem = new SimpleParticleSystem()
                 {
                     Emitting = false,
                     ParticleCountPerWave = 6,
                     ParticleCreationFunction = () =>
                     {
-                        return new EParticle
+                        return new EParticle()
                         {
                             MeshSize = MathUtils.RandRangef(0.5f, 1) * (MeshSize / 2),
                             InitialOffset = MathUtils.RandVector2(-1, 1, -1, 1).Normalized() * 10,
@@ -93,12 +93,9 @@ namespace Examples.Chapter4
 
             public override void _UnhandledInput(InputEvent @event)
             {
-                if (@event is InputEventScreenTouch eventScreenTouch)
+                if (@event is InputEventScreenTouch eventScreenTouch && eventScreenTouch.Pressed && eventScreenTouch.Position.DistanceTo(GlobalPosition) < Radius)
                 {
-                    if (eventScreenTouch.Pressed && eventScreenTouch.Position.DistanceTo(GlobalPosition) < Radius)
-                    {
-                        Explode();
-                    }
+                    Explode();
                 }
             }
         }
@@ -110,7 +107,7 @@ namespace Examples.Chapter4
             float widthSlice = size.x / (objectCount + 1);
             for (int i = 0; i < objectCount; ++i)
             {
-                var shatteringObject = new ShatteringObject
+                var shatteringObject = new ShatteringObject()
                 {
                     Position = new Vector2((widthSlice * i) + (widthSlice / 2), (float)GD.RandRange(widthSlice, size.y - widthSlice)),
                     MeshSize = new Vector2(widthSlice, widthSlice) * (float)GD.RandRange(0.75f, 1.25f)

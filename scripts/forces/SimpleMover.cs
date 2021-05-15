@@ -30,10 +30,10 @@ namespace Forces
         public Vector2 Acceleration = Vector2.Zero;
 
         /// <summary>Current angular velocity</summary>
-        public float AngularVelocity = 0;
+        public float AngularVelocity;
 
         /// <summary>Current angular acceleration</summary>
-        public float AngularAcceleration = 0;
+        public float AngularAcceleration;
 
         /// <summary>Max velocity</summary>
         public float MaxVelocity = 10;
@@ -48,10 +48,10 @@ namespace Forces
         public WrapModeEnum WrapMode;
 
         /// <summary>Disable forces</summary>
-        public bool DisableForces = false;
+        public bool DisableForces;
 
         /// <summary>Synchronize rotation on velocity</summary>
-        public bool SyncRotationOnVelocity = false;
+        public bool SyncRotationOnVelocity;
 
         /// <summary>Mesh</summary>
         public SimpleMesh Mesh;
@@ -104,7 +104,7 @@ namespace Forces
             Mesh = new SimpleMesh();
             Name = "SimpleMover";
 
-            collisionShape2D = new CollisionShape2D { Name = "CollisionShape2D" };
+            collisionShape2D = new CollisionShape2D() { Name = "CollisionShape2D" };
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Forces
             AddToGroup("movers");
 
             // Add collision shape
-            collisionShape2D.Shape = new CircleShape2D { Radius = Radius };
+            collisionShape2D.Shape = new CircleShape2D() { Radius = Radius };
             AddChild(collisionShape2D);
 
             // Add mesh

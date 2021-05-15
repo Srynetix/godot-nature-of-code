@@ -36,7 +36,7 @@ namespace Examples.Chapter3
         {
             var size = GetViewportRect().Size;
 
-            var spring = new SimpleSpring
+            var spring = new SimpleSpring()
             {
                 Length = size.y / 2,
                 MaxLength = (size.y / 2) + (size.y / 4),

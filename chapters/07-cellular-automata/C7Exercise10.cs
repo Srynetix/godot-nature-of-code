@@ -44,7 +44,7 @@ namespace Examples.Chapter7
 
         public override void _Ready()
         {
-            var ca = new ProbabilisticGameOfLife
+            var ca = new ProbabilisticGameOfLife()
             {
                 TouchBehavior = TouchBehaviorEnum.DrawCell,
                 WrapBehavior = WrapBehaviorEnum.Wrap,

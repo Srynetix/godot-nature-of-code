@@ -10,8 +10,8 @@ namespace Physics
         /// <summary>Joint speed</summary>
         public float Speed = 2;
 
-        private bool active = false;
-        private RigidBody2D parent = null;
+        private bool active;
+        private RigidBody2D parent;
 
         /// <summary>
         /// Is joint active?

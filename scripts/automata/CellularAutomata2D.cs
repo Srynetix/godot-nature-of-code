@@ -242,7 +242,7 @@ namespace Automata
         {
             Name = "CellularAutomata2D";
             _scale = scale;
-            _gridContainer = new Node2D
+            _gridContainer = new Node2D()
             {
                 Name = "GridContainer"
             };
@@ -254,7 +254,7 @@ namespace Automata
         public virtual void RandomizeGrid()
         {
             _generation = 0;
-            int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+            int offset = (WrapBehavior == WrapBehaviorEnum.Wrap) ? 0 : 1;
 
             for (int j = offset; j < _rows - offset; ++j)
             {
@@ -282,7 +282,7 @@ namespace Automata
             }
 
             // Create timer
-            _timer = new Timer
+            _timer = new Timer()
             {
                 Name = "UpdateTimer",
                 WaitTime = _waitTime,
@@ -294,7 +294,7 @@ namespace Automata
             // Create label
             var font = SimpleDefaultFont.Regular;
             var textSize = font.GetStringSize("Generation: 0000000");
-            _label = new RichTextLabel
+            _label = new RichTextLabel()
             {
                 Name = "Label",
                 BbcodeEnabled = true,
@@ -306,7 +306,7 @@ namespace Automata
             AddChild(_label);
 
             // Create button
-            _pauseButton = new Button
+            _pauseButton = new Button()
             {
                 Name = "Pause Button"
             };
@@ -381,7 +381,7 @@ namespace Automata
                 for (int i = 0; i < _cols; ++i)
                 {
                     var currPos = i + (j * _cols);
-                    var cell = new TCell
+                    var cell = new TCell()
                     {
                         Position = new Vector2(i * _scale, j * _scale),
                         Size = new Vector2(_scale, _scale),
@@ -423,7 +423,7 @@ namespace Automata
 
             // Get index
             var idx = (pos - gridPosition) / _scale;
-            int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+            int offset = (WrapBehavior == WrapBehaviorEnum.Wrap) ? 0 : 1;
             int x = Mathf.Min(Mathf.Max(offset, (int)idx.x), _cols - 1 - offset);
             int y = Mathf.Min(Mathf.Max(offset, (int)idx.y), _rows - 1 - offset);
 
@@ -446,13 +446,13 @@ namespace Automata
             {
                 for (int i = -1; i <= 1; ++i)
                 {
-                    int cellX = WrapBehavior == WrapBehaviorEnum.Wrap ? Mathf.PosMod(x + i, _cols) : x + i;
-                    int cellY = WrapBehavior == WrapBehaviorEnum.Wrap ? Mathf.PosMod(y + j, _rows) : y + j;
-                    count += _grid[cellX + (cellY * _cols)].WasAlive() ? 1 : 0;
+                    int cellX = (WrapBehavior == WrapBehaviorEnum.Wrap) ? Mathf.PosMod(x + i, _cols) : x + i;
+                    int cellY = (WrapBehavior == WrapBehaviorEnum.Wrap) ? Mathf.PosMod(y + j, _rows) : y + j;
+                    count += (_grid[cellX + (cellY * _cols)].WasAlive()) ? 1 : 0;
                 }
             }
 
-            return count - (_grid[x + (y * _cols)].WasAlive() ? 1 : 0);
+            return count - ((_grid[x + (y * _cols)].WasAlive()) ? 1 : 0);
         }
 
         /// <summary>
@@ -487,7 +487,7 @@ namespace Automata
         /// </summary>
         protected virtual void Generate()
         {
-            int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+            int offset = (WrapBehavior == WrapBehaviorEnum.Wrap) ? 0 : 1;
 
             for (int j = offset; j < _rows - offset; ++j)
             {

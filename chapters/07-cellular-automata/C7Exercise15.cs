@@ -31,7 +31,7 @@ namespace Examples.Chapter7
             {
                 base._Ready();
 
-                _gameOfLife = new SmallGoL
+                _gameOfLife = new SmallGoL()
                 {
                     HideGUI = true,
                     TouchBehavior = TouchBehaviorEnum.None
@@ -42,7 +42,7 @@ namespace Examples.Chapter7
 
             public override void _Draw()
             {
-                byte alphaValue = (byte)(IsAlive() ? 255 : 64);
+                var alphaValue = (byte)((IsAlive()) ? 255 : 64);
                 _gameOfLife.Modulate = _gameOfLife.Modulate.WithAlpha(alphaValue);
                 base._Draw();
             }

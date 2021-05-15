@@ -19,7 +19,7 @@ namespace Examples.Chapter0
         {
             protected override void Step()
             {
-                float chance = (float)GD.RandRange(0, 1);
+                var chance = (float)GD.RandRange(0, 1);
 
                 if (chance < 0.1)
                 {

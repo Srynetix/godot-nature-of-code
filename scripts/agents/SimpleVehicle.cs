@@ -39,22 +39,22 @@ namespace Agents
         public float DetectionAlignmentRadius = 50;
 
         /// <summary>Debug draw</summary>
-        public bool DebugDraw = false;
+        public bool DebugDraw;
 
         /// <summary>Enable separation group behavior</summary>
-        public bool SeparationEnabled = false;
+        public bool SeparationEnabled;
 
         /// <summary>Enable cohesion group behavior</summary>
-        public bool CohesionEnabled = false;
+        public bool CohesionEnabled;
 
         /// <summary>Enable alignment group behavior</summary>
-        public bool AlignmentEnabled = false;
+        public bool AlignmentEnabled;
 
         /// <summary>Enable lateral move group behavior</summary>
-        public bool LateralMoveEnabled = false;
+        public bool LateralMoveEnabled;
 
         /// <summary>Vehicle group list</summary>
-        public List<SimpleVehicle> VehicleGroupList = null;
+        public List<SimpleVehicle> VehicleGroupList;
 
         /// <summary>Seek force factor</summary>
         public float SeekForceFactor = 1;
@@ -71,9 +71,9 @@ namespace Agents
         /// <summary>Lateral move force factor</summary>
         public float LateralMoveForceFactor = 1;
 
-        private Vector2? debugPredictPos = null;
-        private Vector2? debugNormalPoint = null;
-        private Vector2? debugTargetPoint = null;
+        private Vector2? debugPredictPos;
+        private Vector2? debugNormalPoint;
+        private Vector2? debugTargetPoint;
 
         /// <summary>
         /// Create a default vehicle.
@@ -379,19 +379,16 @@ namespace Agents
 
         public override void _Draw()
         {
-            if (DebugDraw && TargetPath != null)
+            if (DebugDraw && TargetPath != null && debugNormalPoint.HasValue && debugPredictPos.HasValue && debugTargetPoint.HasValue)
             {
-                if (debugNormalPoint.HasValue && debugPredictPos.HasValue && debugTargetPoint.HasValue)
-                {
-                    var predictPos = (debugPredictPos.Value - GlobalPosition).Rotated(-GlobalRotation);
-                    var normalPos = (debugNormalPoint.Value - GlobalPosition).Rotated(-GlobalRotation);
-                    var targetPos = (debugTargetPoint.Value - GlobalPosition).Rotated(-GlobalRotation);
+                var predictPos = (debugPredictPos.Value - GlobalPosition).Rotated(-GlobalRotation);
+                var normalPos = (debugNormalPoint.Value - GlobalPosition).Rotated(-GlobalRotation);
+                var targetPos = (debugTargetPoint.Value - GlobalPosition).Rotated(-GlobalRotation);
 
-                    DrawLine(Vector2.Zero, predictPos, Colors.OrangeRed);
-                    DrawLine(predictPos, normalPos, Colors.BlueViolet);
-                    DrawLine(normalPos, targetPos, Colors.Orange);
-                    DrawCircle(targetPos, 5, Colors.OrangeRed);
-                }
+                DrawLine(Vector2.Zero, predictPos, Colors.OrangeRed);
+                DrawLine(predictPos, normalPos, Colors.BlueViolet);
+                DrawLine(normalPos, targetPos, Colors.Orange);
+                DrawCircle(targetPos, 5, Colors.OrangeRed);
             }
 
             if (DebugDraw && (AlignmentEnabled || LateralMoveEnabled))

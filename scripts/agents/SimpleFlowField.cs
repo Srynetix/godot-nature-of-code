@@ -57,8 +57,8 @@ namespace Agents
             var rect = new Rect2(GlobalPosition, size);
             if (rect.HasPoint(position))
             {
-                int x = (int)Mathf.Clamp((position.x - GlobalPosition.x) / Resolution, 0, cols - 1);
-                int y = (int)Mathf.Clamp((position.y - GlobalPosition.y) / Resolution, 0, rows - 1);
+                var x = (int)Mathf.Clamp((position.x - GlobalPosition.x) / Resolution, 0, cols - 1);
+                var y = (int)Mathf.Clamp((position.y - GlobalPosition.y) / Resolution, 0, rows - 1);
                 return field[x + (y * cols)].Direction;
             }
             else
@@ -128,7 +128,7 @@ namespace Agents
                 for (int i = 0; i < cols; ++i)
                 {
                     var idx = i + (j * cols);
-                    var direction = new FlowDirection
+                    var direction = new FlowDirection()
                     {
                         RectSize = resolutionSize,
                         RectPosition = new Vector2(i * Resolution, j * Resolution),

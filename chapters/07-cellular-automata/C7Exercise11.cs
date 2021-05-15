@@ -64,7 +64,7 @@ namespace Examples.Chapter7
 
         public override void _Ready()
         {
-            var ca = new ContinuousGameOfLife
+            var ca = new ContinuousGameOfLife()
             {
                 TouchBehavior = TouchBehaviorEnum.DrawCell,
                 WrapBehavior = WrapBehaviorEnum.Wrap,

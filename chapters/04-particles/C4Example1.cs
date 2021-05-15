@@ -31,7 +31,7 @@ namespace Examples
             public override void _Ready()
             {
                 var size = GetViewportRect().Size;
-                var particle = new EParticle
+                var particle = new EParticle()
                 {
                     Position = size / 2
                 };

@@ -50,7 +50,7 @@ namespace Drawing
                 for (int y = 0; y < imageSize.y; ++y)
                 {
                     float n = MathUtils.Map(ComputeNoise(x, y), -1, 1, 0, 1);
-                    byte tint = (byte)MathUtils.Map(n, 0, 1, 0, 255);
+                    var tint = (byte)MathUtils.Map(n, 0, 1, 0, 255);
                     image.SetPixel(x, y, Color.Color8(tint, tint, tint));
                 }
             }
@@ -62,7 +62,7 @@ namespace Drawing
             sprite = new Sprite();
             image = new Image();
             texture = new ImageTexture();
-            noise = new OpenSimplexNoise { Octaves = Octaves };
+            noise = new OpenSimplexNoise() { Octaves = Octaves };
 
             var viewportSize = GetViewportRect().Size;
             imageSize = viewportSize / Factor;

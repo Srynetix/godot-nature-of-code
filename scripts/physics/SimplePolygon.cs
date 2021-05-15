@@ -23,7 +23,7 @@ namespace Physics
         public SimplePolygon()
         {
             polygonShape2D = new ConvexPolygonShape2D();
-            collisionShape2D = new CollisionShape2D { Shape = polygonShape2D };
+            collisionShape2D = new CollisionShape2D() { Shape = polygonShape2D };
         }
 
         public override void _Ready()
