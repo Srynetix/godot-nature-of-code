@@ -15,7 +15,8 @@ namespace Examples
             public override void _Ready()
             {
                 var size = GetViewportRect().Size;
-                var kochSnowflake = new KochSnowflake() {
+                var kochSnowflake = new KochSnowflake()
+                {
                     Diameter = size.y / 4,
                     Generations = 4
                 };

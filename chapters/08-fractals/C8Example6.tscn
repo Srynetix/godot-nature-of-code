@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://chapters/08-fractals/C8Example6.cs" type="Script" id=1]
+
+[node name="C8Example6" type="Node2D"]
+position = Vector2( 0, 1 )
+script = ExtResource( 1 )

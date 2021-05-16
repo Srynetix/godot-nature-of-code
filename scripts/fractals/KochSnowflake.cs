@@ -2,7 +2,7 @@ using Godot;
 
 namespace Fractals
 {
-    public class KochSnowflake: Node2D
+    public class KochSnowflake : Node2D
     {
         public float Diameter;
         public int Generations;
@@ -16,7 +16,8 @@ namespace Fractals
             CreatePoints();
         }
 
-        private void CreatePoints() {
+        private void CreatePoints()
+        {
             var pointA = new Vector2(0, -Diameter);
             var pointB = pointA + new Vector2(0, Diameter * 2).Rotated(Mathf.Deg2Rad(30));
             var pointC = pointA + new Vector2(0, Diameter * 2).Rotated(-Mathf.Deg2Rad(30));
@@ -30,7 +31,8 @@ namespace Fractals
             _curveC.GenerateAll();
         }
 
-        public override void _Draw() {
+        public override void _Draw()
+        {
             _curveA.Draw(this);
             _curveB.Draw(this);
             _curveC.Draw(this);

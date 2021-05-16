@@ -17,7 +17,8 @@ namespace Examples
                 var size = GetViewportRect().Size;
                 var start = new Vector2(20, (size.y / 1.25f) - 20);
                 var end = new Vector2(size.x - 20, (size.y / 1.25f) - 20);
-                var kochCurveNode = new KochCurveNode() {
+                var kochCurveNode = new KochCurveNode()
+                {
                     KochCurve = new KochCurve(start, end, 6)
                 };
                 AddChild(kochCurveNode);
