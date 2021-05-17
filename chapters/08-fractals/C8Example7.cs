@@ -14,7 +14,7 @@ namespace Examples
             private float _baseAngle = Mathf.Pi / 6;
             private bool _mouseUpdated;
 
-            public override void _Input(InputEvent @event)
+            public override void _UnhandledInput(InputEvent @event)
             {
                 if (@event is InputEventMouse eventMouse)
                 {
