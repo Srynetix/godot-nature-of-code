@@ -26,7 +26,7 @@ namespace Examples
 
                 var start = position;
                 var end = position + new Vector2(0, -length).Rotated(rotation);
-                var newRotation = Mathf.Pi / 6;
+                const float newRotation = Mathf.Pi / 6;
                 var newLength = length * 0.66f;
                 var newWeight = weight * 0.66f;
 
