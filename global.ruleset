@@ -1,12 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Custom Rules" ToolsVersion="15.0">
-  <Include Path="relative_or_absolute_path_to_global_ruleset" Action="Default" />
+<RuleSet Name="Global Ruleset" ToolsVersion="16.0">
   <Rules AnalyzerId="Roslynator.CSharp.Analyzers" RuleNamespace="Roslynator.CSharp.Analyzers">
-    <!-- Unused parameters -->
-    <Rule Id="RCS1163" Action="None" />
-    <!-- Unused parameters action -->
-    <Rule Id="IDE0060" Action="None" />
-    <!-- Declare inside namespace -->
+    <Rule Id="RCS1002" Action="Hidden" />
+    <Rule Id="RCS1006" Action="Info" />
+    <Rule Id="RCS1008" Action="None" />
+    <Rule Id="RCS1009" Action="None" />
+    <Rule Id="RCS1010" Action="Info" />
+    <Rule Id="RCS1013" Action="Info" />
+    <Rule Id="RCS1014" Action="Info" />
+    <Rule Id="RCS1014a" Action="Info" />
+    <Rule Id="RCS1017" Action="Info" />
+    <Rule Id="RCS1018" Action="Warning" />
+    <Rule Id="RCS1019" Action="Info" />
+    <Rule Id="RCS1034" Action="Info" />
+    <Rule Id="RCS1036a" Action="Info" />
+    <Rule Id="RCS1037" Action="Warning" />
+    <Rule Id="RCS1039" Action="Info" />
+    <Rule Id="RCS1040" Action="Info" />
+    <Rule Id="RCS1042" Action="Info" />
+    <Rule Id="RCS1043" Action="Info" />
+    <Rule Id="RCS1045" Action="Warning" />
+    <Rule Id="RCS1050" Action="Info" />
+    <Rule Id="RCS1051" Action="Info" />
+    <Rule Id="RCS1060" Action="None" />
+    <Rule Id="RCS1061" Action="Info" />
+    <Rule Id="RCS1062" Action="Info" />
+    <Rule Id="RCS1064" Action="Info" />
+    <Rule Id="RCS1066" Action="Info" />
+    <Rule Id="RCS1069" Action="Info" />
+    <Rule Id="RCS1070" Action="Info" />
+    <Rule Id="RCS1071" Action="Info" />
+    <Rule Id="RCS1074" Action="Info" />
+    <Rule Id="RCS1076" Action="None" />
+    <Rule Id="RCS1078" Action="Info" />
+    <Rule Id="RCS1081" Action="Info" />
+    <Rule Id="RCS1082" Action="Info" />
+    <Rule Id="RCS1083" Action="Info" />
+    <Rule Id="RCS1091" Action="Info" />
+    <Rule Id="RCS1096" Action="Warning" />
+    <Rule Id="RCS1101" Action="None" />
     <Rule Id="RCS1110" Action="None" />
+    <Rule Id="RCS1111" Action="Info" />
+    <Rule Id="RCS1124" Action="Info" />
+    <Rule Id="RCS1126" Action="Warning" />
+    <Rule Id="RCS1129" Action="Info" />
+    <Rule Id="RCS1133" Action="Info" />
+    <Rule Id="RCS1134" Action="Info" />
+    <Rule Id="RCS1136" Action="Info" />
+    <Rule Id="RCS1138" Action="Info" />
+    <Rule Id="RCS1139" Action="Info" />
+    <Rule Id="RCS1143" Action="Info" />
+    <Rule Id="RCS1145" Action="Info" />
+    <Rule Id="RCS1151" Action="Info" />
+    <Rule Id="RCS1162" Action="None" />
+    <Rule Id="RCS1188" Action="Info" />
+    <Rule Id="RCS1189" Action="Info" />
+    <Rule Id="RCS1207" Action="Info" />
+    <Rule Id="RCS1207i" Action="Info" />
+    <Rule Id="RCS1244" Action="Info" />
+    <Rule Id="RCS1246a" Action="Info" />
+  </Rules>
+  <Rules AnalyzerId="Roslynator.Formatting.Analyzers" RuleNamespace="Roslynator.Formatting.Analyzers">
+    <Rule Id="RCS0001" Action="Info" />
+    <Rule Id="RCS0003" Action="Info" />
+    <Rule Id="RCS0004" Action="Info" />
+    <Rule Id="RCS0006" Action="Info" />
+    <Rule Id="RCS0008" Action="Info" />
+    <Rule Id="RCS0009" Action="Info" />
+    <Rule Id="RCS0010" Action="Info" />
+    <Rule Id="RCS0011" Action="Info" />
+    <Rule Id="RCS0011i" Action="Info" />
+    <Rule Id="RCS0013" Action="Info" />
+    <Rule Id="RCS0015" Action="Info" />
+    <Rule Id="RCS0015i" Action="Info" />
+    <Rule Id="RCS0016" Action="Info" />
+    <Rule Id="RCS0021" Action="Info" />
+    <Rule Id="RCS0022" Action="Info" />
+    <Rule Id="RCS0023" Action="Info" />
+    <Rule Id="RCS0024" Action="Info" />
+    <Rule Id="RCS0025" Action="Info" />
+    <Rule Id="RCS0027" Action="Info" />
+    <Rule Id="RCS0028" Action="Info" />
+    <Rule Id="RCS0030" Action="Info" />
+    <Rule Id="RCS0031" Action="Info" />
+    <Rule Id="RCS0032" Action="Info" />
+    <Rule Id="RCS0033" Action="Info" />
+    <Rule Id="RCS0038" Action="Info" />
+    <Rule Id="RCS0039" Action="Info" />
+    <Rule Id="RCS0041" Action="Info" />
+    <Rule Id="RCS0042" Action="Info" />
+    <Rule Id="RCS0043" Action="Info" />
+    <Rule Id="RCS0044" Action="Info" />
+    <Rule Id="RCS0046" Action="Info" />
+    <Rule Id="RCS0048" Action="Hidden" />
+    <Rule Id="RCS0049" Action="Info" />
+    <Rule Id="RCS0050" Action="Info" />
+    <Rule Id="RCS0051" Action="Info" />
+    <Rule Id="RCS0051i" Action="Info" />
+    <Rule Id="RCS0053" Action="Info" />
+    <Rule Id="RCS0054" Action="Info" />
+    <Rule Id="RCS0055" Action="Info" />
   </Rules>
 </RuleSet>

@@ -33,7 +33,7 @@ namespace Examples.Chapter6
             var size = GetViewportRect().Size;
 
             // Create target
-            targetMover = new SimpleMover
+            targetMover = new SimpleMover()
             {
                 Position = size / 2,
                 Modulate = Colors.LightBlue.WithAlpha(128)
@@ -41,7 +41,7 @@ namespace Examples.Chapter6
             AddChild(targetMover);
 
             // Create vehicle
-            var vehicle = new Vehicle
+            var vehicle = new Vehicle()
             {
                 Target = targetMover,
                 Position = size / 4

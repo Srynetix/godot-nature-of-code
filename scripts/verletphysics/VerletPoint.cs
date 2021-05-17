@@ -32,11 +32,11 @@ namespace VerletPhysics
 
         private const int mouseDetectionRadiusThreshold = 10;
 
-        private bool pinned = false;
+        private bool pinned;
         private Vector2 pinPosition;
         private Vector2 prevPosition;
         private readonly List<VerletLink> links;
-        private bool touched = false;
+        private bool touched;
         private int touchIndex = -1;
 
         /// <summary>

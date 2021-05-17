@@ -34,7 +34,7 @@ namespace Examples.Chapter3
         {
             var size = GetViewportRect().Size;
 
-            var wave1 = new SimpleWave
+            var wave1 = new SimpleWave()
             {
                 Separation = 8,
                 Length = 150,
@@ -43,7 +43,7 @@ namespace Examples.Chapter3
             };
             AddChild(wave1);
 
-            var wave2 = new NoiseWave
+            var wave2 = new NoiseWave()
             {
                 Separation = 4,
                 Length = 300,
@@ -53,7 +53,7 @@ namespace Examples.Chapter3
             };
             AddChild(wave2);
 
-            var wave3 = new SimpleWave
+            var wave3 = new SimpleWave()
             {
                 Separation = 8,
                 StartAngleFactor = 10,

@@ -65,12 +65,9 @@ namespace VerletPhysics
             {
                 point.PinToCurrentPosition();
             }
-            else
+            else if (!drawIntermediatePoints)
             {
-                if (!drawIntermediatePoints)
-                {
-                    point.Visible = false;
-                }
+                point.Visible = false;
             }
 
             configurator?.Invoke(point);

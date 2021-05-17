@@ -8,7 +8,7 @@ namespace Forces
     public class SimpleFrictionPocket : SimpleZone
     {
         /// <summary>Friction coefficient</summary>
-        public float Coeff = 0;
+        public float Coeff;
 
         public override void _Draw()
         {

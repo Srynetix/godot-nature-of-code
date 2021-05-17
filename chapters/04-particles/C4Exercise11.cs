@@ -21,11 +21,11 @@ namespace Examples.Chapter4
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var particleSystem = new SimpleParticleSystem
+            var particleSystem = new SimpleParticleSystem()
             {
                 ParticleCreationFunction = () =>
                 {
-                    var particle = new SimpleFallingParticle
+                    var particle = new SimpleFallingParticle()
                     {
                         WrapMode = SimpleMover.WrapModeEnum.None,
                         MeshSize = new Vector2(150, 150),

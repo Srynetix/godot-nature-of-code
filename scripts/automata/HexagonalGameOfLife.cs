@@ -10,7 +10,7 @@ namespace Automata
         {
             base._Ready();
 
-            sprite = new Sprite
+            sprite = new Sprite()
             {
                 Texture = Assets.SimpleDefaultTexture.HexagonTexture
             };
@@ -34,7 +34,7 @@ namespace Automata
         public override void RandomizeGrid()
         {
             _generation = 0;
-            int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+            int offset = (WrapBehavior == WrapBehaviorEnum.Wrap) ? 0 : 1;
 
             for (int j = offset; j < _rows - offset; ++j)
             {
@@ -60,8 +60,8 @@ namespace Automata
             // Ensure _cols and _rows are even
             _cols = Mathf.FloorToInt(size.x / _scale);
             _rows = Mathf.FloorToInt(size.y / _scale * 1.5f);
-            _cols = _cols % 2 != 0 ? _cols - 1 : _cols;
-            _rows = _rows % 2 != 0 ? _rows - 1 : _rows;
+            _cols = (_cols % 2 != 0) ? _cols - 1 : _cols;
+            _rows = (_rows % 2 != 0) ? _rows - 1 : _rows;
             _grid = new HexagonalCell[_cols * _rows];
 
             for (int j = 0; j < _rows; ++j)
@@ -77,7 +77,7 @@ namespace Automata
                     var currPos = i + (j * _cols);
                     var xPos = i * _scale;
                     var yPos = j * _scale / 1.5f;
-                    var cell = new HexagonalCell
+                    var cell = new HexagonalCell()
                     {
                         Position = new Vector2(xPos, yPos),
                         Size = new Vector2(_scale, _scale),
@@ -98,7 +98,7 @@ namespace Automata
             // Split position depending on scale
             var xPos = (int)(pos.x / _scale);
             var yPos = (int)(pos.y / _scale * 1.5f);
-            int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+            int offset = (WrapBehavior == WrapBehaviorEnum.Wrap) ? 0 : 1;
             int x = Mathf.Min(Mathf.Max(offset, xPos), _cols - 1 - offset);
             int y = Mathf.Min(Mathf.Max(offset, yPos), _rows - 1 - offset);
 
@@ -121,34 +121,34 @@ namespace Automata
             // Top-left
             xPos = WrapX(x, -1);
             yPos = WrapY(y, -1);
-            count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
+            count += (_grid[xPos + (yPos * _cols)].PreviousState) ? 1 : 0;
             // Top
             xPos = x;
             yPos = WrapY(y, -2);
-            count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
+            count += (_grid[xPos + (yPos * _cols)].PreviousState) ? 1 : 0;
             // Top-right
             xPos = WrapX(x, 1);
             yPos = WrapY(y, -1);
-            count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
+            count += (_grid[xPos + (yPos * _cols)].PreviousState) ? 1 : 0;
             // Bottom-right
             xPos = WrapX(x, 1);
             yPos = WrapY(y, 1);
-            count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
+            count += (_grid[xPos + (yPos * _cols)].PreviousState) ? 1 : 0;
             // Bottom
             xPos = x;
             yPos = WrapY(y, 2);
-            count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
+            count += (_grid[xPos + (yPos * _cols)].PreviousState) ? 1 : 0;
             // Bottom-left
             xPos = WrapX(x, -1);
             yPos = WrapY(y, 1);
-            count += _grid[xPos + (yPos * _cols)].PreviousState ? 1 : 0;
+            count += (_grid[xPos + (yPos * _cols)].PreviousState) ? 1 : 0;
 
             return count;
         }
 
         protected override void Generate()
         {
-            int offset = WrapBehavior == WrapBehaviorEnum.Wrap ? 0 : 1;
+            int offset = (WrapBehavior == WrapBehaviorEnum.Wrap) ? 0 : 1;
 
             for (int j = offset; j < _rows - offset; ++j)
             {
@@ -179,14 +179,14 @@ namespace Automata
 
         private int WrapX(int x, int offset)
         {
-            return WrapBehavior == WrapBehaviorEnum.Wrap
+            return (WrapBehavior == WrapBehaviorEnum.Wrap)
                 ? Mathf.PosMod(x + offset, _cols)
                 : x + offset;
         }
 
         private int WrapY(int y, int offset)
         {
-            return WrapBehavior == WrapBehaviorEnum.Wrap
+            return (WrapBehavior == WrapBehaviorEnum.Wrap)
                 ? Mathf.PosMod(y + offset, _rows)
                 : y + offset;
         }

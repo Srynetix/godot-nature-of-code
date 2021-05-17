@@ -87,7 +87,7 @@ namespace Ecosystem
             public byte WingColorAlpha = 80;
 
             /// <summary>Wings time</summary>
-            protected float tWings = 0;
+            protected float tWings;
 
             /// <summary>Body sprite</summary>
             protected SimpleCircleSprite sBody;
@@ -163,7 +163,7 @@ namespace Ecosystem
             {
                 base._Ready();
 
-                var attractor = new SimpleAttractor { Visible = false };
+                var attractor = new SimpleAttractor() { Visible = false };
                 AddChild(attractor);
             }
         }
@@ -197,14 +197,14 @@ namespace Ecosystem
             {
                 base._Ready();
 
-                particleSystem = new SimpleParticleSystem
+                particleSystem = new SimpleParticleSystem()
                 {
                     ShowBehindParent = true,
                     LocalCoords = false,
                     ParticlesContainer = GetParent(),
                     ParticleCreationFunction = () =>
                     {
-                        return new SimpleFallingParticle
+                        return new SimpleFallingParticle()
                         {
                             ShowBehindParent = true,
                             MeshSize = new Vector2(2.5f, 2.5f),
@@ -262,13 +262,13 @@ namespace Ecosystem
             {
                 base._Ready();
 
-                var oscillatingLeftWing = new OscillatingWing
+                var oscillatingLeftWing = new OscillatingWing()
                 {
                     Position = Vector2.Left * (Radius + 1)
                 };
                 AddChild(oscillatingLeftWing);
 
-                var oscillatingRightWing = new OscillatingWing
+                var oscillatingRightWing = new OscillatingWing()
                 {
                     Position = Vector2.Right * (Radius + 1)
                 };
@@ -293,7 +293,7 @@ namespace Ecosystem
             /// <summary>Side offset acceleration</summary>
             public float SideOffsetAcceleration = 0.1f;
 
-            private float tTail = 0;
+            private float tTail;
             private readonly SimpleCircleSprite tail1;
             private readonly SimpleCircleSprite tail2;
             private readonly SimpleCircleSprite tail3;
@@ -325,8 +325,7 @@ namespace Ecosystem
                 Color lightenedColor = colorToUse.Lightened(0.25f);
                 Color lowDarkenedColor = colorToUse.Darkened(0.1f);
                 Color midDarkenedColor = colorToUse.Darkened(0.25f);
-                Color highDarkenedColor = colorToUse.Darkened(0.5f);
-                tail1.Modulate = highDarkenedColor;
+                tail1.Modulate = colorToUse.Darkened(0.5f);
                 tail2.Modulate = midDarkenedColor;
                 tail3.Modulate = lowDarkenedColor;
                 tail1.Radius = 2;
@@ -631,31 +630,31 @@ namespace Ecosystem
 
             foreach (int _ in Enumerable.Range(0, CountPerSpecies))
             {
-                var fly = new NervousFly
+                var fly = new NervousFly()
                 {
                     Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
                 };
                 AddInZone(fly, 4);
 
-                var butterfly = new NervousButterfly
+                var butterfly = new NervousButterfly()
                 {
                     Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
                 };
                 AddInZone(butterfly, 3);
 
-                var fish = new SwimmingFish
+                var fish = new SwimmingFish()
                 {
                     Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
                 };
                 AddInZone(fish, 0);
 
-                var bunny = new HoppingBunny
+                var bunny = new HoppingBunny()
                 {
                     Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
                 };
                 AddInZone(bunny, 1);
 
-                var attractedFly = new AttractedFly
+                var attractedFly = new AttractedFly()
                 {
                     Scale = Vector2.One * (float)GD.RandRange(1f, 2f)
                 };

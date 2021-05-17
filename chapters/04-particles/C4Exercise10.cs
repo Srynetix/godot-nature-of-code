@@ -27,7 +27,7 @@ namespace Examples.Chapter4
                 ForceRangeY = new Vector2(0.005f, 0.005f);
 
                 // Every particle should attract each other
-                var attractor = new SimpleAttractor
+                var attractor = new SimpleAttractor()
                 {
                     Visible = false
                 };
@@ -38,11 +38,11 @@ namespace Examples.Chapter4
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var particleSystem = new SimpleParticleSystem
+            var particleSystem = new SimpleParticleSystem()
             {
                 ParticleCreationFunction = () =>
                 {
-                    var particle = new EParticle
+                    var particle = new EParticle()
                     {
                         MeshSize = new Vector2(20, 20),
                         Lifespan = 4,

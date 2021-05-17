@@ -17,7 +17,7 @@ namespace Examples.Chapter0
 
         public override void _Ready()
         {
-            var noiseTexture = new SimpleNoiseTexture
+            var noiseTexture = new SimpleNoiseTexture()
             {
                 Factor = 3,
                 Octaves = 8

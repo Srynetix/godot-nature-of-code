@@ -18,7 +18,7 @@ namespace Examples.Chapter6
         private class RandomBoid : SimpleBoid
         {
             private readonly OpenSimplexNoise noise = new OpenSimplexNoise();
-            private float t = 0;
+            private float t;
 
             public RandomBoid()
             {
@@ -46,11 +46,11 @@ namespace Examples.Chapter6
         {
             const int boidsCount = 50;
             var size = GetViewportRect().Size;
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (pos) =>
                 {
-                    var boid = new RandomBoid
+                    var boid = new RandomBoid()
                     {
                         VehicleGroupList = boids,
                         Position = pos

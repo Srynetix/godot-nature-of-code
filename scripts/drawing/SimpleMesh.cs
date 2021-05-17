@@ -32,16 +32,16 @@ namespace Drawing
         public Vector2 MeshSize = new Vector2(40, 40);
 
         /// <summary>Mesh type</summary>
-        public TypeEnum MeshType = TypeEnum.Circle;
+        public TypeEnum MeshType;
 
         /// <summary>Custom draw method</summary>
-        public CustomDrawFunc CustomDrawMethod = null;
+        public CustomDrawFunc CustomDrawMethod;
 
         /// <summary>Custom texture</summary>
-        public Texture CustomTexture = null;
+        public Texture CustomTexture;
 
         /// <summary>Custom material</summary>
-        public Material CustomMaterial = null;
+        public Material CustomMaterial;
 
         private Sprite sprite;
         private SimpleCircleSprite circleSprite;
@@ -57,7 +57,7 @@ namespace Drawing
 
         public override void _Ready()
         {
-            sprite = new Sprite
+            sprite = new Sprite()
             {
                 Name = "CustomSprite",
                 Material = CustomMaterial,
@@ -66,7 +66,7 @@ namespace Drawing
             };
             AddChild(sprite);
 
-            circleSprite = new SimpleCircleSprite
+            circleSprite = new SimpleCircleSprite()
             {
                 Name = "CircleSprite",
                 Modulate = Modulate,

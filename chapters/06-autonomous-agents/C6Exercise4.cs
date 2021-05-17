@@ -22,7 +22,7 @@ namespace Examples.Chapter6
             {
                 public float Distance = 60;
                 public float Radius = 25;
-                public float Theta = 0;
+                public float Theta;
 
                 public override void _Draw()
                 {
@@ -68,7 +68,7 @@ namespace Examples.Chapter6
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var vehicle = new ReynoldsVehicle
+            var vehicle = new ReynoldsVehicle()
             {
                 Position = size / 2
             };

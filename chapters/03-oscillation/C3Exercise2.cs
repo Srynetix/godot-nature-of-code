@@ -21,7 +21,7 @@ namespace Examples.Chapter3
             public float BasisSize = 20;
             public float MovementSpeed = 1;
 
-            private float t = 0;
+            private float t;
 
             public override void _Draw()
             {
@@ -51,7 +51,7 @@ namespace Examples.Chapter3
             {
                 var spawnPoint = GetSpawnPoint();
 
-                var proj = new Projectile
+                var proj = new Projectile()
                 {
                     Position = spawnPoint,
                     Rotation = Rotation
@@ -62,7 +62,7 @@ namespace Examples.Chapter3
 
         private class Projectile : SimpleMover
         {
-            public bool Fired = false;
+            public bool Fired;
 
             public Projectile() : base(WrapModeEnum.Bounce)
             {
@@ -98,7 +98,7 @@ namespace Examples.Chapter3
             const int offset = 50;
             const float fireTime = 1f;
 
-            timer = new Timer
+            timer = new Timer()
             {
                 WaitTime = fireTime,
                 Autostart = true
@@ -107,7 +107,7 @@ namespace Examples.Chapter3
 
             timer.Connect("timeout", this, nameof(CannonFire));
 
-            cannon = new Cannon
+            cannon = new Cannon()
             {
                 Position = new Vector2(offset, size.y - offset)
             };

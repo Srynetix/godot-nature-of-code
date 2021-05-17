@@ -19,8 +19,8 @@ namespace Examples.Chapter3
         private const float Iterations = 20;
         private const float MaxTheta = 200;
 
-        private float theta = 0;
-        private float margin = 0;
+        private float theta;
+        private float margin;
 
         public override void _Ready()
         {

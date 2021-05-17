@@ -41,7 +41,7 @@ namespace Examples.Chapter5
                 }
 
                 const float stiffness = 0.01f;
-                var clusters = new List<VerletCluster> {
+                var clusters = new List<VerletCluster>() {
           new VerletCluster(
             world,
             centerPosition + MathUtils.RandVector2(-5, 5, -5, 5),

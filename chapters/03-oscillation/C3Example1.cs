@@ -19,7 +19,7 @@ namespace Examples
                   + "Angular Motion";
             }
 
-            private float angularVelocity = 0;
+            private float angularVelocity;
             private readonly float angularAcceleration = 0.01f;
             private readonly float lineSize = 50;
             private readonly float ballRadius = 10;

@@ -36,7 +36,7 @@ namespace Examples.Chapter3
         {
             var size = GetViewportRect().Size;
 
-            var wave = new CombinedWave
+            var wave = new CombinedWave()
             {
                 Separation = 8,
                 StartAngleFactor = 0.75f,

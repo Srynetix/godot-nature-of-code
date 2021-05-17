@@ -29,8 +29,8 @@ namespace Examples.Chapter5
 
             public override void _Ready()
             {
-                var shape = new CircleShape2D { Radius = Radius };
-                var collisionShape = new CollisionShape2D { Shape = shape };
+                var shape = new CircleShape2D() { Radius = Radius };
+                var collisionShape = new CollisionShape2D() { Shape = shape };
                 AddChild(collisionShape);
             }
 
@@ -70,17 +70,17 @@ namespace Examples.Chapter5
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var attractor = new PhysicsAttractor
+            var attractor = new PhysicsAttractor()
             {
                 Position = size / 2
             };
             AddChild(attractor);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (position) =>
                 {
-                    var body = new SimpleBall
+                    var body = new SimpleBall()
                     {
                         GravityScale = 0,
                         Mass = 2,

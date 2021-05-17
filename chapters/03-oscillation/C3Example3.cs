@@ -37,7 +37,7 @@ namespace Examples.Chapter3
         {
             var size = GetViewportRect().Size;
 
-            var mover = new Mover
+            var mover = new Mover()
             {
                 Position = new Vector2((float)GD.RandRange(0, size.x), (float)GD.RandRange(0, size.y))
             };

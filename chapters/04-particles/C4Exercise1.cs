@@ -19,7 +19,7 @@ namespace Examples.Chapter4
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var particle = new SimpleFallingParticle
+            var particle = new SimpleFallingParticle()
             {
                 WrapMode = SimpleMover.WrapModeEnum.Bounce,
                 Position = size / 2,

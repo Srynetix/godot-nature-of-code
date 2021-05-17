@@ -23,7 +23,7 @@ namespace Examples.Chapter3
 
             foreach (int _ in Enumerable.Range(0, oscillatorsCount))
             {
-                var oscillator = new SimpleOscillator
+                var oscillator = new SimpleOscillator()
                 {
                     Amplitude = new Vector2((float)GD.RandRange(0, size.x / 2), (float)GD.RandRange(0, size.y / 2)),
                     Position = size / 2

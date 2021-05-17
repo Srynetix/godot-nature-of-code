@@ -50,13 +50,13 @@ public class VirtualControls : Control
     [Export] public float MarginAmount = 8;
 
     /// <summary>Debug draw information</summary>
-    [Export] public bool DebugDraw = false;
+    [Export] public bool DebugDraw;
 
     /// <summary>Joystick mode</summary>
-    [Export] public JoystickModeEnum JoystickMode = JoystickModeEnum.Fixed;
+    [Export] public JoystickModeEnum JoystickMode;
 
     /// <summary>Vector mode</summary>
-    [Export] public VectorModeEnum VectorMode = VectorModeEnum.Real;
+    [Export] public VectorModeEnum VectorMode;
 
     /// <summary>Visibility mode</summary>
     [Export] public VisibilityModeEnum VisibilityMode = VisibilityModeEnum.TouchscreenOnly;
@@ -71,7 +71,7 @@ public class VirtualControls : Control
     [Export(PropertyHint.Range, "0,0.75,0.05")] public float JoystickAnchorRight = 0.25f;
 
     /// <summary>Joystick fixed directions (between 0 (free) and 12)</summary>
-    [Export(PropertyHint.Range, "0,12,2")] public int JoystickDirections = 0;
+    [Export(PropertyHint.Range, "0,12,2")] public int JoystickDirections;
 
     /// <summary>Joystick symmetry angle</summary>
     [Export(PropertyHint.Range, "-180,180")] public float JoystickSymmetryAngle = 90.0f;
@@ -86,13 +86,13 @@ public class VirtualControls : Control
     public Vector2 JoystickOutput = Vector2.Zero;
 
     /// <summary>Button A is currently pressed</summary>
-    public bool ButtonAPressed = false;
+    public bool ButtonAPressed;
 
     /// <summary>Button B is currently pressed</summary>
-    public bool ButtonBPressed = false;
+    public bool ButtonBPressed;
 
     /// <summary>Joystick is receiving inputs</summary>
-    public bool JoystickReceivingInputs = false;
+    public bool JoystickReceivingInputs;
 
     private MarginContainer joystickMargin;
     private MarginContainer buttonsMargin;
@@ -136,12 +136,9 @@ public class VirtualControls : Control
                     var color = MainLinesColor;
 
                     // Handle sub lines
-                    if (directions % 2 == 0 && directions > 4)
+                    if (directions % 2 == 0 && directions > 4 && i % 2 == 1)
                     {
-                        if (i % 2 == 1)
-                        {
-                            color = SubLinesColor;
-                        }
+                        color = SubLinesColor;
                     }
 
                     DrawLine(center, center + (Vector2.Right * Radius).Rotated(-Mathf.Deg2Rad(symmetryAngle + (angleAmount * i))), color, LineWidth);
@@ -177,7 +174,7 @@ public class VirtualControls : Control
         private int touchIndex = -1;
         private Font defaultFont;
 
-        async public override void _Ready()
+        public override async void _Ready()
         {
             // Parent is a MarginContainer, next parent is VirtualControls
             parent = (VirtualControls)GetParent().GetParent();
@@ -307,11 +304,11 @@ public class VirtualControls : Control
         private Vector2 DirectionalVector(Vector2 vector, int directions, float symmetry_angle = Mathf.Pi / 2.0f)
         {
             var angle = (vector.Angle() + symmetry_angle) / (Mathf.Pi / directions);
-            angle = angle >= 0 ? Mathf.Floor(angle) : Mathf.Ceil(angle);
+            angle = (angle >= 0) ? Mathf.Floor(angle) : Mathf.Ceil(angle);
 
             if ((int)Mathf.Abs(angle) % 2 == 1)
             {
-                angle = angle >= 0 ? angle + 1 : angle - 1;
+                angle = (angle >= 0) ? angle + 1 : angle - 1;
             }
 
             angle *= Mathf.Pi / directions;

@@ -34,7 +34,7 @@ namespace Examples.Chapter2
         {
             var size = GetViewportRect().Size;
 
-            var zone = new SimpleLiquid
+            var zone = new SimpleLiquid()
             {
                 Coeff = 0.25f,
                 Size = new Vector2(size.x, size.y / 4),

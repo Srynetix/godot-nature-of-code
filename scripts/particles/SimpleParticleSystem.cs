@@ -16,7 +16,7 @@ namespace Particles
         public bool Emitting = true;
 
         /// <summary>Remove system when particle list is empty</summary>
-        public bool RemoveWhenEmptyParticles = false;
+        public bool RemoveWhenEmptyParticles;
 
         /// <summary>Particle count. Use -1 for "unlimited" particles</summary>
         public int ParticleCount = -1;
@@ -31,13 +31,13 @@ namespace Particles
         public bool LocalCoords = true;
 
         /// <summary>Particles container. Use Parent by default.
-        public Node ParticlesContainer = null;
+        public Node ParticlesContainer;
 
         /// <summary>Particles creation function</summary>
-        public ParticleCreationFunc ParticleCreationFunction = null;
+        public ParticleCreationFunc ParticleCreationFunction;
 
         private List<SimpleParticle> particles;
-        private int elapsedFrames = 0;
+        private int elapsedFrames;
 
         /// <summary>
         /// Create a default particle system.
@@ -108,7 +108,7 @@ namespace Particles
 
         private void UpdateParticles()
         {
-            List<SimpleParticle> newParticles = new List<SimpleParticle>();
+            var newParticles = new List<SimpleParticle>();
             foreach (SimpleParticle part in particles)
             {
                 if (part.IsDead())

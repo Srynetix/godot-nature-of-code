@@ -6,7 +6,7 @@ using Godot;
 public class Launcher : Control
 {
     /// <summary>Current app version</summary>
-    public const string VERSION = "1.1.0";
+    public const string VERSION = "1.2.0";
 
     /// <summary>Default clear color</summary>
     public static Color DefaultClearColor = Color.Color8(45, 45, 45);

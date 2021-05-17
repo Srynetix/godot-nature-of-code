@@ -25,7 +25,7 @@ namespace Examples.Chapter0
 
         public override void _Ready()
         {
-            var noiseTexture = new NoiseTextureEffects { Factor = 8, Octaves = 8 };
+            var noiseTexture = new NoiseTextureEffects() { Factor = 8, Octaves = 8 };
             AddChild(noiseTexture);
         }
     }

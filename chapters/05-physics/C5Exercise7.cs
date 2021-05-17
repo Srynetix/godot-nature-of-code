@@ -51,7 +51,7 @@ namespace Examples.Chapter5
                 var carLeftWheel = new Wheel();
                 carLeftWheel.Position = carBase.Position + new Vector2((-carBase.BodySize.x / 2) + carLeftWheel.Radius, carBase.BodySize.y);
                 AddChild(carLeftWheel);
-                var leftJoint = new PinJoint2D
+                var leftJoint = new PinJoint2D()
                 {
                     NodeA = carBase.GetPath(),
                     NodeB = carLeftWheel.GetPath(),
@@ -62,7 +62,7 @@ namespace Examples.Chapter5
                 var carRightWheel = new Wheel();
                 carRightWheel.Position = carBase.Position + new Vector2((carBase.BodySize.x / 2) - carRightWheel.Radius, carBase.BodySize.y);
                 AddChild(carRightWheel);
-                var rightJoint = new PinJoint2D
+                var rightJoint = new PinJoint2D()
                 {
                     NodeA = carBase.GetPath(),
                     NodeB = carRightWheel.GetPath(),
@@ -76,7 +76,7 @@ namespace Examples.Chapter5
         {
             var size = GetViewportRect().Size;
 
-            var wall = new C5Exercise3.WaveWall
+            var wall = new C5Exercise3.WaveWall()
             {
                 Length = size.x,
                 Frequency = 0.1f,
@@ -85,17 +85,17 @@ namespace Examples.Chapter5
             };
             AddChild(wall);
 
-            var car = new Car
+            var car = new Car()
             {
                 Position = new Vector2(size.x / 8, size.y / 2)
             };
             AddChild(car);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (position) =>
                 {
-                    return new SimpleBall
+                    return new SimpleBall()
                     {
                         Radius = 5,
                         Mass = 0.00001f,

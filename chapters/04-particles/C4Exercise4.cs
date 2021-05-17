@@ -10,7 +10,7 @@ namespace Examples.Chapter4
     /// Reuses Asteroid from Exercise 3.5 with a SimpleParticleSystem.
     public class C4Exercise4 : Chapter3.C3Exercise5, IExample
     {
-        public new string GetSummary()
+        new public string GetSummary()
         {
             return "Exercise 4.4:\n"
               + "Asteroids with Particles\n\n"
@@ -26,7 +26,7 @@ namespace Examples.Chapter4
             {
                 base._Ready();
 
-                particleSystem = new SimpleParticleSystem
+                particleSystem = new SimpleParticleSystem()
                 {
                     ParticlesContainer = GetParent(),
                     WrapMode = WrapModeEnum.None,
@@ -37,7 +37,7 @@ namespace Examples.Chapter4
                     ShowBehindParent = true,
                     ParticleCreationFunction = () =>
                     {
-                        var particle = new SimpleFallingParticle
+                        var particle = new SimpleFallingParticle()
                         {
                             ForceRangeX = new Vector2(-0.15f, 0.15f),
                             ForceRangeY = new Vector2(-0.15f, 0.15f),
@@ -66,7 +66,7 @@ namespace Examples.Chapter4
             controls = new VirtualControls();
             AddChild(controls);
 
-            spaceship = new SpaceshipWithParticles
+            spaceship = new SpaceshipWithParticles()
             {
                 Position = GetViewportRect().Size / 2
             };

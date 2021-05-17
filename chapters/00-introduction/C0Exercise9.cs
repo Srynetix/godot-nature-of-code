@@ -47,9 +47,9 @@ namespace Examples.Chapter0
 
         public override void _Ready()
         {
-            var noiseTexture = new AnimatedNoiseTexture { Factor = 3, Octaves = 8, NoiseSpeed = 10 };
+            var noiseTexture = new AnimatedNoiseTexture() { Factor = 3, Octaves = 8, NoiseSpeed = 10 };
             // Adapt for HTML5
-            noiseTexture.AnimationFrameDelay = OS.GetName() == "HTML5" ? 24 : 4;
+            noiseTexture.AnimationFrameDelay = (OS.GetName() == "HTML5") ? 24 : 4;
             AddChild(noiseTexture);
         }
     }

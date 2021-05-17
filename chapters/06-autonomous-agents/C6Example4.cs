@@ -34,10 +34,10 @@ namespace Examples.Chapter6
         {
             var size = GetViewportRect().Size;
 
-            var field = new CustomFlowField { Resolution = 30 };
+            var field = new CustomFlowField() { Resolution = 30 };
             AddChild(field);
 
-            var vehicle = new SimpleVehicle
+            var vehicle = new SimpleVehicle()
             {
                 TargetFlow = field,
                 Position = size / 2

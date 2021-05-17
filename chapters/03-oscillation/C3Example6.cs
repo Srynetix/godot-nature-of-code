@@ -19,7 +19,7 @@ namespace Examples.Chapter3
             public float Radius = 50;
             public float Amplitude = 250;
 
-            private float angle = 0;
+            private float angle;
             public float angularVelocity = 0.05f;
 
             public override void _Draw()
@@ -42,7 +42,7 @@ namespace Examples.Chapter3
 
         public override void _Ready()
         {
-            var ball = new Ball
+            var ball = new Ball()
             {
                 Position = GetViewportRect().Size / 2
             };

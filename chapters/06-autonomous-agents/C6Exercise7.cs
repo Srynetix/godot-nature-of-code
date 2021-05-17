@@ -17,7 +17,7 @@ namespace Examples.Chapter6
         private class AnimatedFlowField : SimpleFlowField
         {
             private readonly OpenSimplexNoise noise;
-            private float z = 0;
+            private float z;
 
             public AnimatedFlowField()
             {
@@ -43,10 +43,10 @@ namespace Examples.Chapter6
         {
             var size = GetViewportRect().Size;
 
-            var field = new AnimatedFlowField { Resolution = 30 };
+            var field = new AnimatedFlowField() { Resolution = 30 };
             AddChild(field);
 
-            var vehicle = new SimpleVehicle
+            var vehicle = new SimpleVehicle()
             {
                 TargetFlow = field,
                 Position = size / 2

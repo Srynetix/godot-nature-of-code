@@ -28,7 +28,7 @@ namespace Oscillation
         public float AngularVelocity = 0.1f;
 
         /// <summary>Wave start angle</summary>
-        public float StartAngle = 0;
+        public float StartAngle;
 
         /// <summary>Wave start angle update factor</summary>
         public float StartAngleFactor = 1;

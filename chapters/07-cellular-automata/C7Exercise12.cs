@@ -15,7 +15,7 @@ namespace Examples.Chapter7
 
         public override void _Ready()
         {
-            var ca = new ImageProcessingGameOfLife
+            var ca = new ImageProcessingGameOfLife()
             {
                 TouchBehavior = TouchBehaviorEnum.DrawCell,
                 WrapBehavior = WrapBehaviorEnum.Wrap,

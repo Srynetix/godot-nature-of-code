@@ -24,11 +24,11 @@ namespace Examples.Chapter6
         {
             var size = GetViewportRect().Size;
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (pos) =>
                 {
-                    var vehicle = new RoundVehicle
+                    var vehicle = new RoundVehicle()
                     {
                         VehicleGroupList = vehicles,
                         SeparationEnabled = true,
@@ -47,7 +47,7 @@ namespace Examples.Chapter6
             AddChild(spawner);
 
             // Create target
-            targetMover = new SimpleMover
+            targetMover = new SimpleMover()
             {
                 Position = size / 2,
                 Modulate = Colors.LightBlue.WithAlpha(128)

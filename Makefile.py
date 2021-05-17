@@ -10,19 +10,28 @@ import subprocess
 import sys
 
 BASE_DIR = os.path.dirname(os.path.normpath(os.path.abspath(__file__)))
+ANALYZER_ASSEMBLIES = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\ManagedLanguages\\VBCSharp\\LanguageServices"
 
 def execute(exe, *args):
     subprocess.call([exe] + list(args))
 
 parser = argparse.ArgumentParser(description="Makefile")
-subs = parser.add_subparsers(dest="cmd", required=True)
+subs = parser.add_subparsers(dest="cmd")
 subs.add_parser("format")
+subs.add_parser("lint")
+subs.add_parser("fix-lint")
 subs.add_parser("export")
 
 args = parser.parse_args()
 if args.cmd == "format":
     execute("roslynator", "format", "Nature of Code.csproj")
     print("Ok!")
+
+elif args.cmd == "lint":
+    execute("roslynator", "analyze", "Nature of Code.csproj", "--analyzer-assemblies", ANALYZER_ASSEMBLIES)
+
+elif args.cmd == "fix-lint":
+    execute("roslynator", "fix", "Nature of Code.csproj", "--analyzer-assemblies", ANALYZER_ASSEMBLIES)
 
 elif args.cmd == "export":
     doxygen_exe = os.environ.get("DOXYGEN_EXE", "doxygen")

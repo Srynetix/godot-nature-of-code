@@ -30,11 +30,11 @@ namespace Examples.Chapter6
         {
             const int boidsCount = 50;
             var size = GetViewportRect().Size;
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (pos) =>
                 {
-                    var boid = new LateralMovingBoid
+                    var boid = new LateralMovingBoid()
                     {
                         VehicleGroupList = boids,
                         Position = pos

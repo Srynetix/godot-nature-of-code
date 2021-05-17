@@ -26,8 +26,8 @@ namespace Examples.Chapter5
 
             public override void _Ready()
             {
-                rectangleShape2D = new RectangleShape2D { Extents = Extents };
-                collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
+                rectangleShape2D = new RectangleShape2D() { Extents = Extents };
+                collisionShape2D = new CollisionShape2D() { Shape = rectangleShape2D };
                 AddChild(collisionShape2D);
             }
 
@@ -48,8 +48,8 @@ namespace Examples.Chapter5
             public override void _Ready()
             {
                 Mass = 10;
-                rectangleShape2D = new RectangleShape2D { Extents = Extents };
-                collisionShape2D = new CollisionShape2D { Shape = rectangleShape2D };
+                rectangleShape2D = new RectangleShape2D() { Extents = Extents };
+                collisionShape2D = new CollisionShape2D() { Shape = rectangleShape2D };
                 AddChild(collisionShape2D);
             }
 
@@ -72,10 +72,10 @@ namespace Examples.Chapter5
 
             public override void _Ready()
             {
-                var windmillBase = new WindmillBase { Extents = BaseExtents };
+                var windmillBase = new WindmillBase() { Extents = BaseExtents };
                 AddChild(windmillBase);
 
-                var windmillBlade = new WindmillBlade
+                var windmillBlade = new WindmillBlade()
                 {
                     Extents = BladeExtents,
                     Torque = BladeTorque,
@@ -83,7 +83,7 @@ namespace Examples.Chapter5
                 };
                 AddChild(windmillBlade);
 
-                var joint = new PinJoint2D
+                var joint = new PinJoint2D()
                 {
                     NodeA = windmillBase.GetPath(),
                     NodeB = windmillBlade.GetPath(),
@@ -96,17 +96,17 @@ namespace Examples.Chapter5
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var windmill = new Windmill
+            var windmill = new Windmill()
             {
                 Position = new Vector2(size.x / 2, size.y - 100)
             };
             AddChild(windmill);
 
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (position) =>
                 {
-                    return new SimpleBall
+                    return new SimpleBall()
                     {
                         Mass = 0.25f,
                         Radius = 10,

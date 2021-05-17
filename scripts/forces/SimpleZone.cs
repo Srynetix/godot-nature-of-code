@@ -36,9 +36,9 @@ namespace Forces
 
         private void CreateCollisionShape()
         {
-            var collisionShape = new CollisionShape2D
+            var collisionShape = new CollisionShape2D()
             {
-                Shape = new RectangleShape2D { Extents = Size / 2 }
+                Shape = new RectangleShape2D() { Extents = Size / 2 }
             };
             AddChild(collisionShape);
         }

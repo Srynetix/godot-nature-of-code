@@ -16,10 +16,10 @@ namespace Utils
         public delegate Node2D SpawnFuncDef(Vector2 position);
 
         /// <summary>Spawn function</summary>
-        public SpawnFuncDef SpawnFunction = null;
+        public SpawnFuncDef SpawnFunction;
 
         /// <summary>Target container. Defaults to parent.
-        public Node Container = null;
+        public Node Container;
 
         /// <summary>
         /// Create a simple touch spawner.
@@ -45,12 +45,9 @@ namespace Utils
 
         public override void _UnhandledInput(InputEvent @event)
         {
-            if (@event is InputEventScreenTouch eventScreenTouch)
+            if (@event is InputEventScreenTouch eventScreenTouch && eventScreenTouch.Pressed)
             {
-                if (eventScreenTouch.Pressed)
-                {
-                    SpawnBody(eventScreenTouch.Position);
-                }
+                SpawnBody(eventScreenTouch.Position);
             }
 
             if (@event is InputEventScreenDrag eventScreenDrag)

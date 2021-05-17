@@ -223,7 +223,7 @@ namespace Examples
 
         private void ScanChapters()
         {
-            Regex rgx = new Regex(@"(?<idx>\d+)-(?<name>.+)");
+            var rgx = new Regex(@"(?<idx>\d+)-(?<name>.+)");
 
             var dir = new Directory();
             dir.Open("res://chapters");
@@ -255,8 +255,8 @@ namespace Examples
 
         private void ScanSamples()
         {
-            Regex rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
-            Regex prettyRgx = new Regex(@"(?<idx>\d+)");
+            var rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
+            var prettyRgx = new Regex(@"(?<idx>\d+)");
 
             foreach (string chapterName in chaptersList)
             {
@@ -264,7 +264,7 @@ namespace Examples
                 var list = new List<string>();
                 var dict = new Dictionary<string, PackedScene>();
 
-                Directory dir = new Directory();
+                var dir = new Directory();
                 dir.Open(chapterPath);
                 dir.ListDirBegin(true);
 
@@ -283,7 +283,7 @@ namespace Examples
                         var groups = rgx.Match(sceneFileName).Groups;
                         var category = groups["category"].Value;
                         var exampleId = groups["idx"].Value;
-                        string sceneName = category == "Exercise" ? exampleId + "x" : exampleId;
+                        string sceneName = (category == "Exercise") ? exampleId + "x" : exampleId;
 
                         var scene = (PackedScene)GD.Load(chapterPath + "/" + elem);
                         var descr = ExtractSceneSummary(scene);

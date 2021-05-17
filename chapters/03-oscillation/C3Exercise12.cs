@@ -27,16 +27,16 @@ namespace Examples.Chapter3
 
             const float angleStep = BaseAngle / ChildrenPerParent;
             var ropeLength = (size.y * 0.95f) / Steps;
-            List<SimplePendulum> parents = new List<SimplePendulum>();
+            var parents = new List<SimplePendulum>();
 
             for (int step = 0; step < Steps; ++step)
             {
-                List<SimplePendulum> newParents = new List<SimplePendulum>();
+                var newParents = new List<SimplePendulum>();
 
                 if (parents.Count == 0)
                 {
                     // Root pendulum
-                    var plm = new SimplePendulum
+                    var plm = new SimplePendulum()
                     {
                         Position = new Vector2(size.x / 2, 0),
                         RopeLength = ropeLength,
@@ -52,7 +52,7 @@ namespace Examples.Chapter3
                     {
                         for (int cIndex = 0; cIndex < ChildrenPerParent; ++cIndex)
                         {
-                            var plm = new SimplePendulum
+                            var plm = new SimplePendulum()
                             {
                                 ShowBehindParent = true,
                                 RopeLength = ropeLength,

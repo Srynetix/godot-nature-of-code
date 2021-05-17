@@ -132,7 +132,7 @@ namespace Automata
             }
 
             // Create timer
-            _timer = new Timer
+            _timer = new Timer()
             {
                 WaitTime = _waitTime,
                 Autostart = true
@@ -143,7 +143,7 @@ namespace Automata
             // Create label
             var font = SimpleDefaultFont.Regular;
             var textSize = font.GetStringSize(GenerateRuleSetString(includeBbCode: false));
-            _label = new RichTextLabel
+            _label = new RichTextLabel()
             {
                 BbcodeEnabled = true,
                 ScrollActive = false
@@ -207,7 +207,7 @@ namespace Automata
 
         private int[] GenerateRow(int currentRow)
         {
-            int[] nextgen = new int[_cols];
+            var nextgen = new int[_cols];
 
             for (int i = 1; i < _cols - 1; ++i)
             {

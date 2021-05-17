@@ -4,6 +4,8 @@
 
 **Godot Engine website**: https://godotengine.org
 
+_Made with Godot Engine **3.3**, Mono edition_
+
 ## :page_facing_up: Summary
 
 Each interactive example and interactive exercise will be implemented with **Godot Engine 3.2.3 stable**, using **C#** for the scripting.

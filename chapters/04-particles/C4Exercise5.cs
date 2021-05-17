@@ -19,13 +19,13 @@ namespace Examples.Chapter4
 
         private void AddParticleSystem(Vector2 position)
         {
-            var ps = new SimpleParticleSystem
+            var ps = new SimpleParticleSystem()
             {
                 ParticleCount = 200,
                 RemoveWhenEmptyParticles = true,
                 ParticleCreationFunction = () =>
                 {
-                    var particle = new SimpleFallingParticle
+                    var particle = new SimpleFallingParticle()
                     {
                         Lifespan = 2,
                         MeshSize = new Vector2(10, 10)
@@ -40,12 +40,9 @@ namespace Examples.Chapter4
 
         public override void _UnhandledInput(InputEvent @event)
         {
-            if (@event is InputEventScreenTouch eventScreenTouch)
+            if (@event is InputEventScreenTouch eventScreenTouch && eventScreenTouch.Pressed)
             {
-                if (eventScreenTouch.Pressed)
-                {
-                    AddParticleSystem(eventScreenTouch.Position);
-                }
+                AddParticleSystem(eventScreenTouch.Position);
             }
         }
 

@@ -28,11 +28,11 @@ namespace Examples.Chapter6
             AddChild(path);
 
             const int boidsCount = 50;
-            var spawner = new SimpleTouchSpawner
+            var spawner = new SimpleTouchSpawner()
             {
                 SpawnFunction = (pos) =>
                 {
-                    var boid = new SimpleBoid
+                    var boid = new SimpleBoid()
                     {
                         VehicleGroupList = boids,
                         Position = pos,

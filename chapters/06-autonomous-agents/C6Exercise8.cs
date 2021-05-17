@@ -17,7 +17,7 @@ namespace Examples.Chapter6
         public override void _Ready()
         {
             var size = GetViewportRect().Size;
-            var flowField = new ImageFlowField
+            var flowField = new ImageFlowField()
             {
                 TextureScale = 8,
                 Resolution = 30,
@@ -26,7 +26,7 @@ namespace Examples.Chapter6
             };
             AddChild(flowField);
 
-            var vehicle = new SimpleVehicle
+            var vehicle = new SimpleVehicle()
             {
                 TargetFlow = flowField,
                 Position = new Vector2(10, size.y / 2),

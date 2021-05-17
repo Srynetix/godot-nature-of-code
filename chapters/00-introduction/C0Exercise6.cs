@@ -21,8 +21,8 @@ namespace Examples.Chapter0
             {
                 while (true)
                 {
-                    float prob = (float)GD.RandRange(0, 1);
-                    float value = (float)GD.RandRange(0, 1);
+                    var prob = (float)GD.RandRange(0, 1);
+                    var value = (float)GD.RandRange(0, 1);
                     float target = value * value;
 
                     if (prob < target)
@@ -36,8 +36,8 @@ namespace Examples.Chapter0
             {
                 float stepsize = ComputeStepSize();
 
-                float stepx = (float)GD.RandRange(-stepsize, stepsize);
-                float stepy = (float)GD.RandRange(-stepsize, stepsize);
+                var stepx = (float)GD.RandRange(-stepsize, stepsize);
+                var stepy = (float)GD.RandRange(-stepsize, stepsize);
 
                 x += stepx * StepSize;
                 y += stepy * StepSize;

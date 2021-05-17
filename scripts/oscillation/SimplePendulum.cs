@@ -34,7 +34,7 @@ namespace Oscillation
 
         private readonly SimpleLineSprite lineSprite;
         private readonly SimpleCircleSprite circleSprite;
-        private bool touched = false;
+        private bool touched;
         private int touchIndex = -1;
         private readonly Node2D children;
 
@@ -43,8 +43,8 @@ namespace Oscillation
         /// </summary>
         public SimplePendulum()
         {
-            circleSprite = new SimpleCircleSprite { Radius = 30 };
-            lineSprite = new SimpleLineSprite { Width = 2 };
+            circleSprite = new SimpleCircleSprite() { Radius = 30 };
+            lineSprite = new SimpleLineSprite() { Width = 2 };
             children = new Node2D();
         }
 
@@ -71,13 +71,10 @@ namespace Oscillation
         {
             if (@event is InputEventScreenTouch eventScreenTouch)
             {
-                if (eventScreenTouch.Pressed && touchIndex == -1)
+                if (eventScreenTouch.Pressed && touchIndex == -1 && eventScreenTouch.Position.DistanceTo(GlobalPosition + GetBallPosition()) < Radius * 2)
                 {
-                    if (eventScreenTouch.Position.DistanceTo(GlobalPosition + GetBallPosition()) < Radius * 2)
-                    {
-                        touchIndex = eventScreenTouch.Index;
-                        touched = true;
-                    }
+                    touchIndex = eventScreenTouch.Index;
+                    touched = true;
                 }
 
                 if (!eventScreenTouch.Pressed && touchIndex == eventScreenTouch.Index)

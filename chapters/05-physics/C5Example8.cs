@@ -20,14 +20,14 @@ namespace Examples.Chapter5
         {
             var size = GetViewportRect().Size;
 
-            var box = new SimpleBox
+            var box = new SimpleBox()
             {
                 Position = size / 2
             };
             AddChild(box);
             box.AddChild(new SimpleMouseJoint());
 
-            var floor = new SimpleWall
+            var floor = new SimpleWall()
             {
                 BodySize = new Vector2(size.x, 100),
                 Position = new Vector2(size.x / 2, size.y)
