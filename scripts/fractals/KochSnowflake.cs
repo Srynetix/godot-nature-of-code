@@ -2,9 +2,14 @@ using Godot;
 
 namespace Fractals
 {
+    /// <summary>
+    /// Koch snowflake.
+    /// </summary>
     public class KochSnowflake : Node2D
     {
+        /// <summary>Diameter.</summary>
         public float Diameter;
+        /// <summary>Generation count.</summary>
         public int Generations;
 
         private KochCurve _curveA;

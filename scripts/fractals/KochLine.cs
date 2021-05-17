@@ -16,21 +16,31 @@ namespace Fractals
         /// <summary>End point</summary>
         public Vector2 End;
 
+        /// <summary>
+        /// Draw line using canvas.
+        /// </summary>
+        /// <param name="canvas">Canvas item</param>
         public void Draw(CanvasItem canvas)
         {
             canvas.DrawLine(Start, End, Colors.White);
         }
 
+        /// <summary>Get point A.</summary>
+        /// <returns>Point.</returns>
         public Vector2 KochA()
         {
             return Start;
         }
 
+        /// <summary>Get point B.</summary>
+        /// <returns>Point.</returns>
         public Vector2 KochB()
         {
             return ((End - Start) / 3) + Start;
         }
 
+        /// <summary>Get point C.</summary>
+        /// <returns>Point.</returns>
         public Vector2 KochC()
         {
             var o = Start;
@@ -38,25 +48,39 @@ namespace Fractals
             return o + v + v.Rotated(-Mathf.Deg2Rad(60));
         }
 
+        /// <summary>Get point D.</summary>
+        /// <returns>Point.</returns>
         public Vector2 KochD()
         {
             return ((End - Start) * 2 / 3.0f) + Start;
         }
 
+        /// <summary>Get point E.</summary>
+        /// <returns>Point.</returns>
         public Vector2 KochE()
         {
             return End;
         }
     }
 
+    /// <summary>
+    /// Koch curve.
+    /// </summary>
     public class KochCurve : Resource
     {
         private readonly int _generations;
 
         private List<KochLine> _lines = new List<KochLine>();
 
+        /// <summary>Line count.</summary>
         public int Count => _lines.Count;
 
+        /// <summary>
+        /// Create new Koch curve.
+        /// </summary>
+        /// <param name="start">Starting point</param>
+        /// <param name="end">Ending point</param>
+        /// <param name="generations">Generation count</param>
         public KochCurve(Vector2 start, Vector2 end, int generations)
         {
             _generations = generations;
@@ -68,12 +92,18 @@ namespace Fractals
             });
         }
 
+        /// <summary>
+        /// Generate all needed generations.
+        /// </summary>
         public void GenerateAll()
         {
             for (int i = 0; i < _generations; ++i)
                 GenerateOne();
         }
 
+        /// <summary>
+        /// Generate one generation.
+        /// </summary>
         public void GenerateOne()
         {
             var next = new List<KochLine>();
@@ -111,12 +141,21 @@ namespace Fractals
             _lines = next;
         }
 
+        /// <summary>
+        /// Draw curve using canvas.
+        /// </summary>
+        /// <param name="canvas">Canvas item</param>
         public void Draw(CanvasItem canvas)
         {
             foreach (var line in _lines)
                 line.Draw(canvas);
         }
 
+        /// <summary>
+        /// Draw curve using canvas until line index.
+        /// </summary>
+        /// <param name="canvas">Canvas item</param>
+        /// <param name="index">Line index</param>
         public void DrawUntil(CanvasItem canvas, int index)
         {
             var limit = Mathf.Max(0, Mathf.Min(index, Count));
@@ -125,9 +164,14 @@ namespace Fractals
         }
     }
 
+    /// <summary>
+    /// Koch curve node.
+    /// </summary>
     public class KochCurveNode : Node2D
     {
+        /// <summary>Animate curve</summary>
         public bool Animated;
+        /// <summary>Koch curve</summary>
         public KochCurve KochCurve;
 
         private int _currentLineIdx;

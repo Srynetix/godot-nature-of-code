@@ -3,12 +3,24 @@ using System.Collections.Generic;
 
 namespace Fractals
 {
-    public class RecursiveBranch : Resource
+    /// <summary>
+    /// Recursive branch.
+    /// </summary>
+    public class RecursiveBranch
     {
+        /// <summary>Starting point.</summary>
         public Vector2 Start { get; }
+        /// <summary>Ending point.</summary>
         public Vector2 End { get; }
+        /// <summary>Weight.</summary>
         public float Weight { get; }
 
+        /// <summary>
+        /// Creates a new recursive branch.
+        /// </summary>
+        /// <param name="start">Starting point.</param>
+        /// <param name="end">Ending point.</param>
+        /// <param name="weight">Weight.</param>
         public RecursiveBranch(Vector2 start, Vector2 end, float weight)
         {
             Start = start;
@@ -16,20 +28,34 @@ namespace Fractals
             Weight = weight;
         }
 
+        /// <summary>
+        /// Draw branch using canvas.
+        /// </summary>
+        /// <param name="canvas">Canvas item</param>
         public void Draw(CanvasItem canvas)
         {
             canvas.DrawLine(Start, End, Colors.White, Weight);
         }
     }
 
-    public class RecursiveTree : Resource
+    /// <summary>
+    /// Recursive tree.
+    /// </summary>
+    public class RecursiveTree
     {
         private readonly List<List<RecursiveBranch>> _branches = new List<List<RecursiveBranch>>();
         private readonly int _generations;
         private readonly float _angle;
 
+        /// <summary>Branch count.</summary>
         public int Count => _branches.Count;
 
+        /// <summary>
+        /// Creates a new recursive tree.
+        /// </summary>
+        /// <param name="root">Root branch</param>
+        /// <param name="angle">Angle</param>
+        /// <param name="generations">Generation count</param>
         public RecursiveTree(RecursiveBranch root, float angle, int generations)
         {
             _angle = angle;
@@ -40,6 +66,9 @@ namespace Fractals
             });
         }
 
+        /// <summary>
+        /// Generate one generation.
+        /// </summary>
         public void GenerateOne()
         {
             var next = new List<RecursiveBranch>();
@@ -60,6 +89,9 @@ namespace Fractals
             _branches.Add(next);
         }
 
+        /// <summary>
+        /// Generate all needed generations.
+        /// </summary>
         public void GenerateAll()
         {
             for (var i = 0; i < _generations; ++i)
@@ -68,6 +100,10 @@ namespace Fractals
             }
         }
 
+        /// <summary>
+        /// Draw tree using canvas.
+        /// </summary>
+        /// <param name="canvas">Canvas item</param>
         public void Draw(CanvasItem canvas)
         {
             foreach (var level in _branches)
@@ -79,6 +115,11 @@ namespace Fractals
             }
         }
 
+        /// <summary>
+        /// Draw tree using canvas until branch index.
+        /// </summary>
+        /// <param name="canvas">Canvas item</param>
+        /// <param name="index">Branch index</param>
         public void DrawUntil(CanvasItem canvas, int index)
         {
             var limit = Mathf.Max(0, Mathf.Min(index, _branches.Count));
@@ -90,9 +131,14 @@ namespace Fractals
         }
     }
 
+    /// <summary>
+    /// Recursive tree node.
+    /// </summary>
     public class RecursiveTreeNode : Node2D
     {
+        /// <summary>Animate the tree.</summary>
         public bool Animated;
+        /// <summary>Recursive tree</summary>
         public RecursiveTree RecursiveTree;
 
         private int _currentLevelIdx = 1;
