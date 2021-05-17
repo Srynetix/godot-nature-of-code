@@ -45,7 +45,7 @@ You can also access the generated C# documentation here: [C# Documentation](http
   - [x] 05. Physics libraries
   - [x] 06. Autonomous agents
   - [x] 07. Cellular automata
-  - [ ] 08. Fractals
+  - [x] 08. Fractals
   - [ ] 09. The evolution of code
   - [ ] 10. Neural networks
 - [ ] Implement the full Ecosystem project
