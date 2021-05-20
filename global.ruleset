@@ -59,6 +59,7 @@
     <Rule Id="RCS1207i" Action="Info" />
     <Rule Id="RCS1244" Action="Info" />
     <Rule Id="RCS1246a" Action="Info" />
+    <Rule Id="CS8019" Action="Error" />
   </Rules>
   <Rules AnalyzerId="Roslynator.Formatting.Analyzers" RuleNamespace="Roslynator.Formatting.Analyzers">
     <Rule Id="RCS0001" Action="Info" />
