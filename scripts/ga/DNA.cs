@@ -10,10 +10,13 @@ namespace GA
     /// </summary>
     public class DNA
     {
+        public delegate float FitnessFunctionDef(DNA dna, string target);
+
         private float _fitness;
 
         public float Fitness => _fitness;
         public char[] Genes { get; }
+        public FitnessFunctionDef FitnessFunction;
 
         public DNA(int length)
         {
@@ -26,20 +29,13 @@ namespace GA
 
         public void CalculateFitness(string target)
         {
-            int score = 0;
-            for (var i = 0; i < Genes.Length; ++i)
-            {
-                if (Genes[i] == target[i])
-                {
-                    score++;
-                }
-            }
-            _fitness = ((float)score) / target.Length;
+            _fitness = FitnessFunction(this, target);
         }
 
         public DNA Crossover(DNA partner)
         {
             var child = new DNA(Genes.Length);
+            child.FitnessFunction = FitnessFunction;
             int midpoint = MathUtils.RandRangei(0, Genes.Length - 1);
             for (var i = 0; i < Genes.Length; ++i)
             {

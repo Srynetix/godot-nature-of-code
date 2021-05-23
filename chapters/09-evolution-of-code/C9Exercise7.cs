@@ -6,13 +6,13 @@ namespace Examples
     namespace Chapter9
     {
         /// <summary>
-        /// Example 9.1: Generic algorithm: Evolving Shakespeare.
+        /// Exercise 9.7: Exponential fitness.
         /// </summary>
-        public class C9Example1 : Node2D, IExample
+        public class C9Exercise7 : Node2D, IExample
         {
             public string GetSummary()
             {
-                return "Example 9.1:\nGeneric algorithm: Evolving Shakespeare";
+                return "Exercise 9.7:\nExponential fitness";
             }
 
             private Font defaultFont;
@@ -45,7 +45,8 @@ namespace Examples
                             }
                         }
 
-                        return ((float)score) / target.Length;
+                        float maxScore = Mathf.Pow(2, target.Length);
+                        return (score * score) / (float)(target.Length * target.Length);
                     };
                 }
             }
