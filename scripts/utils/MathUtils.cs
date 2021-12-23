@@ -111,6 +111,10 @@ public static class MathUtils
         return vec;
     }
 
+    public static Vector2 RandVector2Unit() {
+        return RandVector2(-1, 1, -1, 1).Normalized();
+    }
+
     /// <summary>
     /// Return a random color.
     /// </summary>
