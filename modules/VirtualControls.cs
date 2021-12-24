@@ -94,8 +94,8 @@ public class VirtualControls : Control
     /// <summary>Joystick is receiving inputs</summary>
     public bool JoystickReceivingInputs;
 
-    private MarginContainer joystickMargin;
-    private MarginContainer buttonsMargin;
+    private MarginContainer _joystickMargin;
+    private MarginContainer _buttonsMargin;
 
     private class Joystick : CenterContainer
     {
@@ -108,19 +108,19 @@ public class VirtualControls : Control
             public float Radius => RectSize.x;
             public Vector2 OriginalPosition;
 
-            private Joystick parent;
+            private Joystick _parent;
 
             public override void _Ready()
             {
-                parent = (Joystick)GetParent();
+                _parent = (Joystick)GetParent();
                 RectMinSize = new Vector2(96, 96);
             }
 
             public override void _Draw()
             {
                 var center = RectSize / 2;
-                var directions = parent.parent.JoystickDirections;
-                var symmetryAngle = parent.parent.JoystickSymmetryAngle;
+                var directions = _parent._parent.JoystickDirections;
+                var symmetryAngle = _parent._parent.JoystickSymmetryAngle;
                 DrawCircle(center, Radius, CircleColor);
 
                 if (directions == 0)
@@ -168,35 +168,35 @@ public class VirtualControls : Control
             }
         }
 
-        private VirtualControls parent;
-        private Background background;
-        private Handle handle;
-        private int touchIndex = -1;
-        private Font defaultFont;
+        private VirtualControls _parent;
+        private Background _background;
+        private Handle _handle;
+        private int _touchIndex = -1;
+        private Font _defaultFont;
 
         public override async void _Ready()
         {
             // Parent is a MarginContainer, next parent is VirtualControls
-            parent = (VirtualControls)GetParent().GetParent();
-            defaultFont = SimpleDefaultFont.Regular;
+            _parent = (VirtualControls)GetParent().GetParent();
+            _defaultFont = SimpleDefaultFont.Regular;
 
             // Create background
-            background = new Background();
-            AddChild(background);
+            _background = new Background();
+            AddChild(_background);
 
             // Create handle
-            handle = new Handle();
-            background.AddChild(handle);
+            _handle = new Handle();
+            _background.AddChild(_handle);
 
             // Check for touchscreen mode
-            if (parent.VisibilityMode == VisibilityModeEnum.TouchscreenOnly && !OS.HasTouchscreenUiHint())
+            if (_parent.VisibilityMode == VisibilityModeEnum.TouchscreenOnly && !OS.HasTouchscreenUiHint())
             {
                 Hide();
             }
 
             // Wait for next frame to store original position
             await ToSignal(GetTree(), "idle_frame");
-            background.OriginalPosition = background.RectPosition;
+            _background.OriginalPosition = _background.RectPosition;
         }
 
         public override void _Input(InputEvent @event)
@@ -210,15 +210,15 @@ public class VirtualControls : Control
             {
                 if (TouchStarted(eventScreenTouch) && PositionIsInRect(eventScreenTouch.Position, RectGlobalPosition, RectSize))
                 {
-                    if (parent.JoystickMode == JoystickModeEnum.Dynamic || parent.JoystickMode == JoystickModeEnum.Following)
+                    if (_parent.JoystickMode == JoystickModeEnum.Dynamic || _parent.JoystickMode == JoystickModeEnum.Following)
                     {
                         ResetHandle();
                     }
 
-                    if (PositionIsInRadius(eventScreenTouch.Position, background.RectGlobalPosition + (background.RectSize / 2), background.Radius))
+                    if (PositionIsInRadius(eventScreenTouch.Position, _background.RectGlobalPosition + (_background.RectSize / 2), _background.Radius))
                     {
-                        touchIndex = eventScreenTouch.Index;
-                        handle.SelfModulate = parent.JoystickPressedColor;
+                        _touchIndex = eventScreenTouch.Index;
+                        _handle.SelfModulate = _parent.JoystickPressedColor;
                     }
                 }
                 else if (TouchEnded(eventScreenTouch))
@@ -228,47 +228,47 @@ public class VirtualControls : Control
             }
             else if (@event is InputEventScreenDrag eventScreenDrag)
             {
-                if (eventScreenDrag.Index != touchIndex)
+                if (eventScreenDrag.Index != _touchIndex)
                 {
                     return;
                 }
 
-                float ray = background.Radius;
-                float deadSize = parent.JoystickDeadZone * ray;
-                float clampSize = parent.JoystickClampZone * ray;
+                float ray = _background.Radius;
+                float deadSize = _parent.JoystickDeadZone * ray;
+                float clampSize = _parent.JoystickClampZone * ray;
 
-                var center = background.RectGlobalPosition + (background.RectSize / 2);
+                var center = _background.RectGlobalPosition + (_background.RectSize / 2);
                 var vector = eventScreenDrag.Position - center;
 
                 if (vector.Length() > deadSize)
                 {
-                    if (parent.JoystickDirections > 0)
+                    if (_parent.JoystickDirections > 0)
                     {
-                        vector = DirectionalVector(vector, parent.JoystickDirections, Mathf.Deg2Rad(parent.JoystickSymmetryAngle));
+                        vector = DirectionalVector(vector, _parent.JoystickDirections, Mathf.Deg2Rad(_parent.JoystickSymmetryAngle));
                     }
 
-                    if (parent.VectorMode == VectorModeEnum.Normalized)
+                    if (_parent.VectorMode == VectorModeEnum.Normalized)
                     {
-                        parent.JoystickOutput = vector.Normalized();
-                        handle.RectGlobalPosition = (parent.JoystickOutput * clampSize) + center - (handle.RectSize / 2);
+                        _parent.JoystickOutput = vector.Normalized();
+                        _handle.RectGlobalPosition = (_parent.JoystickOutput * clampSize) + center - (_handle.RectSize / 2);
                     }
-                    else if (parent.VectorMode == VectorModeEnum.Real)
+                    else if (_parent.VectorMode == VectorModeEnum.Real)
                     {
                         var clampedVector = vector.Clamped(clampSize);
-                        parent.JoystickOutput = vector.Normalized() * (clampedVector.Length() - deadSize) / (clampSize - deadSize);
-                        handle.RectGlobalPosition = clampedVector + center - (handle.RectSize / 2);
+                        _parent.JoystickOutput = vector.Normalized() * (clampedVector.Length() - deadSize) / (clampSize - deadSize);
+                        _handle.RectGlobalPosition = clampedVector + center - (_handle.RectSize / 2);
                     }
 
-                    parent.JoystickReceivingInputs = true;
-                    if (parent.JoystickMode == JoystickModeEnum.Following)
+                    _parent.JoystickReceivingInputs = true;
+                    if (_parent.JoystickMode == JoystickModeEnum.Following)
                     {
                         Following(vector);
                     }
                 }
                 else
                 {
-                    parent.JoystickReceivingInputs = false;
-                    parent.JoystickOutput = Vector2.Zero;
+                    _parent.JoystickReceivingInputs = false;
+                    _parent.JoystickOutput = Vector2.Zero;
                     ResetHandle();
                     return;
                 }
@@ -282,12 +282,12 @@ public class VirtualControls : Control
 
         public override void _Draw()
         {
-            if (parent.DebugDraw)
+            if (_parent.DebugDraw)
             {
                 DrawRect(new Rect2(0, 0, RectSize.x, RectSize.y), Colors.LightCyan.WithAlpha(32));
-                DrawString(defaultFont, new Vector2(0, -8), "Output: " + parent.JoystickOutput.ToString());
-                DrawString(defaultFont, new Vector2(0, -24), "RectPosition: " + background.RectPosition.ToString());
-                DrawString(defaultFont, new Vector2(0, -40), "OriginalPosition: " + background.OriginalPosition.ToString());
+                DrawString(_defaultFont, new Vector2(0, -8), "Output: " + _parent.JoystickOutput.ToString());
+                DrawString(_defaultFont, new Vector2(0, -24), "RectPosition: " + _background.RectPosition.ToString());
+                DrawString(_defaultFont, new Vector2(0, -40), "OriginalPosition: " + _background.OriginalPosition.ToString());
             }
         }
 
@@ -318,43 +318,43 @@ public class VirtualControls : Control
 
         private void Following(Vector2 vector)
         {
-            var clampSize = parent.JoystickClampZone * background.Radius;
+            var clampSize = _parent.JoystickClampZone * _background.Radius;
             if (vector.Length() > clampSize)
             {
                 var radius = vector.Normalized() * clampSize;
                 var delta = vector - radius;
-                var newPos = background.RectPosition + delta;
-                newPos.x = Mathf.Clamp(newPos.x, -background.Radius, RectSize.x - background.Radius);
-                newPos.y = Mathf.Clamp(newPos.y, -background.Radius, RectSize.y - background.Radius);
-                background.RectPosition = newPos;
+                var newPos = _background.RectPosition + delta;
+                newPos.x = Mathf.Clamp(newPos.x, -_background.Radius, RectSize.x - _background.Radius);
+                newPos.y = Mathf.Clamp(newPos.y, -_background.Radius, RectSize.y - _background.Radius);
+                _background.RectPosition = newPos;
             }
         }
 
         private void ResetHandle()
         {
-            handle.RectGlobalPosition = background.RectGlobalPosition + (background.RectSize / 2) - (handle.RectSize / 2);
+            _handle.RectGlobalPosition = _background.RectGlobalPosition + (_background.RectSize / 2) - (_handle.RectSize / 2);
         }
 
         private void ResetJoystick()
         {
             // Reset parent values
-            parent.JoystickReceivingInputs = false;
-            parent.JoystickOutput = Vector2.Zero;
+            _parent.JoystickReceivingInputs = false;
+            _parent.JoystickOutput = Vector2.Zero;
 
-            touchIndex = -1;
-            handle.SelfModulate = handle.OriginalColor;
-            background.RectPosition = background.OriginalPosition;
+            _touchIndex = -1;
+            _handle.SelfModulate = _handle.OriginalColor;
+            _background.RectPosition = _background.OriginalPosition;
             ResetHandle();
         }
 
         private bool TouchStarted(InputEventScreenTouch eventScreenTouch)
         {
-            return eventScreenTouch.Pressed && touchIndex == -1;
+            return eventScreenTouch.Pressed && _touchIndex == -1;
         }
 
         private bool TouchEnded(InputEventScreenTouch eventScreenTouch)
         {
-            return !eventScreenTouch.Pressed && touchIndex == eventScreenTouch.Index;
+            return !eventScreenTouch.Pressed && _touchIndex == eventScreenTouch.Index;
         }
     }
 
@@ -366,9 +366,9 @@ public class VirtualControls : Control
             public string Label;
             public bool Pressed;
 
-            private int touchIndex = -1;
-            private Buttons parent;
-            private Color originalColor;
+            private int _touchIndex = -1;
+            private Buttons _parent;
+            private Color _originalColor;
 
             public float Radius => RectSize.x;
 
@@ -377,12 +377,12 @@ public class VirtualControls : Control
                 ButtonColor = color;
                 Label = label;
 
-                originalColor = color;
+                _originalColor = color;
             }
 
             public override void _Ready()
             {
-                parent = (Buttons)GetParent();
+                _parent = (Buttons)GetParent();
 
                 RectMinSize = new Vector2(96, 96);
                 SizeFlagsHorizontal = (int)SizeFlags.Expand | (int)SizeFlags.ShrinkCenter;
@@ -397,27 +397,27 @@ public class VirtualControls : Control
 
                 if (@event is InputEventScreenTouch eventScreenTouch)
                 {
-                    if (eventScreenTouch.Pressed && eventScreenTouch.Index != touchIndex && eventScreenTouch.Position.DistanceTo(RectGlobalPosition + (RectSize / 2)) < Radius / 2)
+                    if (eventScreenTouch.Pressed && eventScreenTouch.Index != _touchIndex && eventScreenTouch.Position.DistanceTo(RectGlobalPosition + (RectSize / 2)) < Radius / 2)
                     {
                         ButtonColor = Colors.Yellow;
                         Pressed = true;
-                        touchIndex = eventScreenTouch.Index;
+                        _touchIndex = eventScreenTouch.Index;
                     }
 
-                    if (!eventScreenTouch.Pressed && eventScreenTouch.Index == touchIndex)
+                    if (!eventScreenTouch.Pressed && eventScreenTouch.Index == _touchIndex)
                     {
-                        ButtonColor = originalColor;
+                        ButtonColor = _originalColor;
                         Pressed = false;
-                        touchIndex = -1;
+                        _touchIndex = -1;
                     }
                 }
             }
 
             public override void _Draw()
             {
-                var labelSize = parent.defaultFont.GetStringSize(Label);
+                var labelSize = _parent._defaultFont.GetStringSize(Label);
                 DrawCircle(RectSize / 2, RectSize.x / 2, ButtonColor);
-                DrawString(parent.defaultFont, (RectSize / 2) - new Vector2(labelSize.x / 2, -labelSize.y / 4), Label);
+                DrawString(_parent._defaultFont, (RectSize / 2) - new Vector2(labelSize.x / 2, -labelSize.y / 4), Label);
             }
 
             public override void _Process(float delta)
@@ -432,25 +432,25 @@ public class VirtualControls : Control
         public string ButtonBLabel = "B";
         public Color ButtonBColor = Colors.Bisque;
 
-        private TouchButton buttonA;
-        private TouchButton buttonB;
-        private VirtualControls parent;
-        private Font defaultFont;
+        private TouchButton _buttonA;
+        private TouchButton _buttonB;
+        private VirtualControls _parent;
+        private Font _defaultFont;
 
         public override void _Ready()
         {
             // Parent is a MarginContainer, next parent is VirtualControls
-            parent = (VirtualControls)GetParent().GetParent();
-            defaultFont = SimpleDefaultFont.Regular;
+            _parent = (VirtualControls)GetParent().GetParent();
+            _defaultFont = SimpleDefaultFont.Regular;
 
             // Add buttons
-            buttonA = new TouchButton(ButtonALabel, ButtonAColor);
-            AddChild(buttonA);
-            buttonB = new TouchButton(ButtonBLabel, ButtonBColor);
-            AddChild(buttonB);
+            _buttonA = new TouchButton(ButtonALabel, ButtonAColor);
+            AddChild(_buttonA);
+            _buttonB = new TouchButton(ButtonBLabel, ButtonBColor);
+            AddChild(_buttonB);
 
             // Check for touchscreen mode
-            if (parent.VisibilityMode == VisibilityModeEnum.TouchscreenOnly && !OS.HasTouchscreenUiHint())
+            if (_parent.VisibilityMode == VisibilityModeEnum.TouchscreenOnly && !OS.HasTouchscreenUiHint())
             {
                 Hide();
             }
@@ -458,17 +458,17 @@ public class VirtualControls : Control
 
         public override void _Draw()
         {
-            if (parent.DebugDraw)
+            if (_parent.DebugDraw)
             {
                 DrawRect(new Rect2(0, 0, RectSize.x, RectSize.y), Colors.LightCyan.WithAlpha(32));
-                DrawString(defaultFont, new Vector2(0, -8), "A: " + buttonA.Pressed.ToString() + "  -  B: " + buttonB.Pressed.ToString());
+                DrawString(_defaultFont, new Vector2(0, -8), "A: " + _buttonA.Pressed.ToString() + "  -  B: " + _buttonB.Pressed.ToString());
             }
         }
 
         public override void _Process(float delta)
         {
-            parent.ButtonAPressed = buttonA.Pressed;
-            parent.ButtonBPressed = buttonB.Pressed;
+            _parent.ButtonAPressed = _buttonA.Pressed;
+            _parent.ButtonBPressed = _buttonB.Pressed;
 
             Update();
         }
@@ -488,37 +488,37 @@ public class VirtualControls : Control
         AnchorBottom = 1.0f;
 
         // Create joystick
-        joystickMargin = new MarginContainer();
-        AddChild(joystickMargin);
+        _joystickMargin = new MarginContainer();
+        AddChild(_joystickMargin);
         var joystick = new Joystick();
-        joystickMargin.AddChild(joystick);
+        _joystickMargin.AddChild(joystick);
 
         // Create buttons
-        buttonsMargin = new MarginContainer();
-        AddChild(buttonsMargin);
+        _buttonsMargin = new MarginContainer();
+        AddChild(_buttonsMargin);
         var buttons = new Buttons();
-        buttonsMargin.AddChild(buttons);
+        _buttonsMargin.AddChild(buttons);
 
         UpdateMargins();
     }
 
     private void UpdateMargins()
     {
-        joystickMargin.AnchorTop = JoystickAnchorTop;
-        joystickMargin.AnchorRight = JoystickAnchorRight;
-        joystickMargin.AnchorBottom = 1.0f;
-        joystickMargin.Set("custom_constants/margin_left", MarginAmount);
-        joystickMargin.Set("custom_constants/margin_right", MarginAmount);
-        joystickMargin.Set("custom_constants/margin_top", MarginAmount);
-        joystickMargin.Set("custom_constants/margin_bottom", MarginAmount);
+        _joystickMargin.AnchorTop = JoystickAnchorTop;
+        _joystickMargin.AnchorRight = JoystickAnchorRight;
+        _joystickMargin.AnchorBottom = 1.0f;
+        _joystickMargin.Set("custom_constants/margin_left", MarginAmount);
+        _joystickMargin.Set("custom_constants/margin_right", MarginAmount);
+        _joystickMargin.Set("custom_constants/margin_top", MarginAmount);
+        _joystickMargin.Set("custom_constants/margin_bottom", MarginAmount);
 
-        buttonsMargin.AnchorTop = 0.75f;
-        buttonsMargin.AnchorRight = 1.0f;
-        buttonsMargin.AnchorLeft = 0.75f;
-        buttonsMargin.AnchorBottom = 1.0f;
-        buttonsMargin.Set("custom_constants/margin_left", MarginAmount);
-        buttonsMargin.Set("custom_constants/margin_right", MarginAmount);
-        buttonsMargin.Set("custom_constants/margin_top", MarginAmount);
-        buttonsMargin.Set("custom_constants/margin_bottom", MarginAmount);
+        _buttonsMargin.AnchorTop = 0.75f;
+        _buttonsMargin.AnchorRight = 1.0f;
+        _buttonsMargin.AnchorLeft = 0.75f;
+        _buttonsMargin.AnchorBottom = 1.0f;
+        _buttonsMargin.Set("custom_constants/margin_left", MarginAmount);
+        _buttonsMargin.Set("custom_constants/margin_right", MarginAmount);
+        _buttonsMargin.Set("custom_constants/margin_top", MarginAmount);
+        _buttonsMargin.Set("custom_constants/margin_bottom", MarginAmount);
     }
 }

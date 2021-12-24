@@ -5,16 +5,16 @@ using Godot;
 /// </summary>
 public class BootScreen : Control
 {
-	private AnimationPlayer animationPlayer;
+    private AnimationPlayer _animationPlayer;
 
-	public override void _Ready()
-	{
-		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		animationPlayer.Connect("animation_finished", this, nameof(LoadLauncher));
-	}
+    public override void _Ready()
+    {
+        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationPlayer.Connect("animation_finished", this, nameof(LoadLauncher));
+    }
 
-	private void LoadLauncher(string _animationName)
-	{
-		GetTree().ChangeScene("res://launcher/Launcher.tscn");
-	}
+    private void LoadLauncher(string _1)
+    {
+        GetTree().ChangeScene("res://launcher/Launcher.tscn");
+    }
 }

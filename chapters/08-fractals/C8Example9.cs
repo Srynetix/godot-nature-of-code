@@ -15,22 +15,22 @@ namespace Examples
 
             private const int MAX_GENERATION = 10;
 
-            private Font defaultFont;
-            private string current = "A";
-            private int generation;
+            private Font _defaultFont;
+            private string _current = "A";
+            private int _generation;
 
             public override void _Ready()
             {
-                defaultFont = SimpleDefaultFont.Regular;
+                _defaultFont = SimpleDefaultFont.Regular;
             }
 
             private string GenerateOne()
             {
                 var builder = new StringBuilder();
 
-                for (int i = 0; i < current.Length; ++i)
+                for (int i = 0; i < _current.Length; ++i)
                 {
-                    char currentChar = current[i];
+                    char currentChar = _current[i];
                     if (currentChar == 'A')
                     {
                         builder.Append("AB");
@@ -46,10 +46,10 @@ namespace Examples
 
             public override void _UnhandledInput(InputEvent @event)
             {
-                if (@event is InputEventMouseButton eventMouseButton && eventMouseButton.Pressed && generation < MAX_GENERATION)
+                if (@event is InputEventMouseButton eventMouseButton && eventMouseButton.Pressed && _generation < MAX_GENERATION)
                 {
-                    current = GenerateOne();
-                    generation++;
+                    _current = GenerateOne();
+                    _generation++;
                     Update();
                 }
             }
@@ -57,9 +57,9 @@ namespace Examples
             public override void _Draw()
             {
                 var size = GetViewportRect().Size;
-                DrawString(defaultFont, new Vector2(10, size.y / 2), "Generation: " + generation);
-                DrawString(defaultFont, new Vector2(10, (size.y / 2) + 16), "Value: " + current);
-                DrawString(defaultFont, new Vector2(10, (size.y / 2) + 32), "Length: " + current.Length);
+                DrawString(_defaultFont, new Vector2(10, size.y / 2), "Generation: " + _generation);
+                DrawString(_defaultFont, new Vector2(10, (size.y / 2) + 16), "Value: " + _current);
+                DrawString(_defaultFont, new Vector2(10, (size.y / 2) + 32), "Length: " + _current.Length);
             }
         }
     }

@@ -20,6 +20,9 @@ indent_style = space
 indent_size = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
+dotnet_code_quality_unused_parameters = false
+dotnet_diagnostic.RCS1163.severity = none
 
 [*.md]
 trim_trailing_whitespace = false
+

@@ -17,21 +17,21 @@ namespace Examples
         /// <summary>Sample name max length</summary>
         public const int SampleNameMaxLength = 30;
 
-        private readonly List<string> chaptersList;
-        private readonly Dictionary<string, string> chaptersDict;
-        private readonly Dictionary<string, List<string>> scenesList;
-        private readonly Dictionary<string, Dictionary<string, PackedScene>> scenesDict;
-        private string currentChapter;
-        private string currentScene;
+        private readonly List<string> _chaptersList;
+        private readonly Dictionary<string, string> _chaptersDict;
+        private readonly Dictionary<string, List<string>> _scenesList;
+        private readonly Dictionary<string, Dictionary<string, PackedScene>> _scenesDict;
+        private string _currentChapter;
+        private string _currentScene;
 
         public SceneLoader()
         {
-            chaptersList = new List<string>();
-            chaptersDict = new Dictionary<string, string>();
-            scenesList = new Dictionary<string, List<string>>();
-            scenesDict = new Dictionary<string, Dictionary<string, PackedScene>>();
-            currentChapter = "";
-            currentScene = "";
+            _chaptersList = new List<string>();
+            _chaptersDict = new Dictionary<string, string>();
+            _scenesList = new Dictionary<string, List<string>>();
+            _scenesDict = new Dictionary<string, Dictionary<string, PackedScene>>();
+            _currentChapter = "";
+            _currentScene = "";
         }
 
         /// <summary>
@@ -40,9 +40,9 @@ namespace Examples
         /// <returns>Sample names</returns>
         public List<string> GetCurrentChapterSampleNames()
         {
-            if (currentChapter != "")
+            if (_currentChapter != "")
             {
-                return scenesList[currentChapter];
+                return _scenesList[_currentChapter];
             }
             else
             {
@@ -56,9 +56,9 @@ namespace Examples
         /// <returns>Sample count</returns>
         public int GetCurrentChapterSamplesCount()
         {
-            if (currentChapter != "")
+            if (_currentChapter != "")
             {
-                return scenesDict[currentChapter].Count;
+                return _scenesDict[_currentChapter].Count;
             }
 
             return -1;
@@ -70,7 +70,7 @@ namespace Examples
         /// <returns>Chapter names</returns>
         public List<string> GetChapterNames()
         {
-            return chaptersList;
+            return _chaptersList;
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace Examples
         /// <returns>Sample scene</returns>
         public PackedScene GetCurrentSample()
         {
-            if (currentChapter != "" && currentScene != "")
+            if (_currentChapter != "" && _currentScene != "")
             {
-                return scenesDict[currentChapter][currentScene];
+                return _scenesDict[_currentChapter][_currentScene];
             }
 
             return null;
@@ -93,7 +93,7 @@ namespace Examples
         /// <param name="name">Sample name</param>
         public void SetCurrentSample(string name)
         {
-            currentScene = name;
+            _currentScene = name;
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Examples
         /// <param name="name">Chapter name</param>
         public void SetCurrentChapter(string name)
         {
-            currentChapter = name;
+            _currentChapter = name;
         }
 
         /// <summary>
@@ -112,10 +112,10 @@ namespace Examples
         /// <returns>Sample index</returns>
         public int GetNextSampleId()
         {
-            if (currentChapter != "" && currentScene != "")
+            if (_currentChapter != "" && _currentScene != "")
             {
-                var scenePos = scenesList[currentChapter].IndexOf(currentScene);
-                if (scenePos == scenesList[currentChapter].Count - 1)
+                var scenePos = _scenesList[_currentChapter].IndexOf(_currentScene);
+                if (scenePos == _scenesList[_currentChapter].Count - 1)
                 {
                     return -1;
                 }
@@ -135,9 +135,9 @@ namespace Examples
         /// <returns>Sample index</returns>
         public int GetPrevSampleId()
         {
-            if (currentChapter != "" && currentScene != "")
+            if (_currentChapter != "" && _currentScene != "")
             {
-                var scenePos = scenesList[currentChapter].IndexOf(currentScene);
+                var scenePos = _scenesList[_currentChapter].IndexOf(_currentScene);
                 if (scenePos == 0)
                 {
                     return -1;
@@ -158,10 +158,10 @@ namespace Examples
         /// <returns>Chapter index</returns>
         public int GetNextChapterId()
         {
-            if (currentChapter != "")
+            if (_currentChapter != "")
             {
-                int chapPos = chaptersList.IndexOf(currentChapter);
-                if (chapPos == chaptersList.Count - 1)
+                int chapPos = _chaptersList.IndexOf(_currentChapter);
+                if (chapPos == _chaptersList.Count - 1)
                 {
                     return 0;
                 }
@@ -181,12 +181,12 @@ namespace Examples
         /// <returns>Chapter index</returns>
         public int GetPrevChapterId()
         {
-            if (currentChapter != "")
+            if (_currentChapter != "")
             {
-                int chapPos = chaptersList.IndexOf(currentChapter);
+                int chapPos = _chaptersList.IndexOf(_currentChapter);
                 if (chapPos == 0)
                 {
-                    return chaptersList.Count - 1;
+                    return _chaptersList.Count - 1;
                 }
                 else
                 {
@@ -207,14 +207,14 @@ namespace Examples
             ScanChapters();
             ScanSamples();
 
-            if (chaptersList.Count > 0)
+            if (_chaptersList.Count > 0)
             {
-                currentChapter = chaptersList[0];
+                _currentChapter = _chaptersList[0];
             }
 
-            if (currentChapter != "" && scenesList[currentChapter].Count > 0)
+            if (_currentChapter != "" && _scenesList[_currentChapter].Count > 0)
             {
-                currentScene = scenesList[currentChapter][0];
+                _currentScene = _scenesList[_currentChapter][0];
             }
 
             // Send event
@@ -242,13 +242,13 @@ namespace Examples
                     var groups = rgx.Match(elem).Groups;
                     var chapterName = groups["idx"] + " - " + groups["name"].Value.Replace("-", " ").Capitalize();
 
-                    chaptersList.Add(chapterName);
-                    chaptersDict.Add(chapterName, "res://chapters/" + elem);
+                    _chaptersList.Add(chapterName);
+                    _chaptersDict.Add(chapterName, "res://chapters/" + elem);
                 }
             }
 
             // Sort chapters by name
-            chaptersList.Sort();
+            _chaptersList.Sort();
 
             dir.ListDirEnd();
         }
@@ -258,9 +258,9 @@ namespace Examples
             var rgx = new Regex(@"C(?<chapter>\d+)(?<category>(Example|Exercise))(?<idx>\d+)");
             var prettyRgx = new Regex(@"(?<idx>\d+)");
 
-            foreach (string chapterName in chaptersList)
+            foreach (string chapterName in _chaptersList)
             {
-                string chapterPath = chaptersDict[chapterName];
+                string chapterPath = _chaptersDict[chapterName];
                 var list = new List<string>();
                 var dict = new Dictionary<string, PackedScene>();
 
@@ -307,8 +307,8 @@ namespace Examples
                     return xIdx.CompareTo(yIdx);
                 });
 
-                scenesList[chapterName] = list;
-                scenesDict[chapterName] = dict;
+                _scenesList[chapterName] = list;
+                _scenesDict[chapterName] = dict;
             }
         }
 
@@ -332,7 +332,7 @@ namespace Examples
                 // Only get nth first characters
                 if (secondLine.Length > SampleNameMaxLength)
                 {
-                    secondLine = secondLine.Substring(0, SampleNameMaxLength - 3) + "...";
+                    secondLine = secondLine[0..(SampleNameMaxLength - 3)] + "...";
                 }
                 return secondLine;
             }

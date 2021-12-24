@@ -11,45 +11,45 @@ public class Launcher : Control
     /// <summary>Default clear color</summary>
     public static Color DefaultClearColor = Color.Color8(45, 45, 45);
 
-    private VBoxContainer launcherUI;
-    private ColorRect background;
-    private Button backButton;
-    private Button examplesButton;
-    private Button ecosystemButton;
-    private Button quitButton;
-    private Label fpsLabel;
-    private Label versionLabel;
-    private RichTextLabel links;
-    private Control drawSpace;
+    private VBoxContainer _launcherUI;
+    private ColorRect _background;
+    private Button _backButton;
+    private Button _examplesButton;
+    private Button _ecosystemButton;
+    private Button _quitButton;
+    private Label _fpsLabel;
+    private Label _versionLabel;
+    private RichTextLabel _links;
+    private Control _drawSpace;
 
     public override void _Ready()
     {
         // Base default clear color
         VisualServer.SetDefaultClearColor(DefaultClearColor);
 
-        background = GetNode<ColorRect>("Background");
-        launcherUI = GetNode<VBoxContainer>("Margin/VBox");
-        backButton = GetNode<Button>("Margin/BackButton");
-        examplesButton = GetNode<Button>("Margin/VBox/Margin/Buttons/ExamplesButton");
-        ecosystemButton = GetNode<Button>("Margin/VBox/Margin/Buttons/EcosystemButton");
-        quitButton = GetNode<Button>("Margin/VBox/Margin/Buttons/QuitButton");
-        links = GetNode<RichTextLabel>("Margin/VBox/Margin/Links");
-        drawSpace = GetNode<Control>("DrawSpace");
-        fpsLabel = GetNode<Label>("Margin/FPS");
-        versionLabel = GetNode<Label>("Margin/Version");
+        _background = GetNode<ColorRect>("Background");
+        _launcherUI = GetNode<VBoxContainer>("Margin/VBox");
+        _backButton = GetNode<Button>("Margin/BackButton");
+        _examplesButton = GetNode<Button>("Margin/VBox/Margin/Buttons/ExamplesButton");
+        _ecosystemButton = GetNode<Button>("Margin/VBox/Margin/Buttons/EcosystemButton");
+        _quitButton = GetNode<Button>("Margin/VBox/Margin/Buttons/QuitButton");
+        _links = GetNode<RichTextLabel>("Margin/VBox/Margin/Links");
+        _drawSpace = GetNode<Control>("DrawSpace");
+        _fpsLabel = GetNode<Label>("Margin/FPS");
+        _versionLabel = GetNode<Label>("Margin/Version");
 
-        examplesButton.Connect("pressed", this, nameof(LoadSceneExplorer));
-        ecosystemButton.Connect("pressed", this, nameof(LoadEcosystem));
-        quitButton.Connect("pressed", this, nameof(Quit));
-        backButton.Connect("pressed", this, nameof(ReloadLauncher));
-        links.Connect("meta_clicked", this, nameof(LinkClicked));
+        _examplesButton.Connect("pressed", this, nameof(LoadSceneExplorer));
+        _ecosystemButton.Connect("pressed", this, nameof(LoadEcosystem));
+        _quitButton.Connect("pressed", this, nameof(Quit));
+        _backButton.Connect("pressed", this, nameof(ReloadLauncher));
+        _links.Connect("meta_clicked", this, nameof(LinkClicked));
 
         // Set version
-        versionLabel.Text = "Version " + VERSION;
+        _versionLabel.Text = "Version " + VERSION;
 
         if (OS.GetName() == "HTML5")
         {
-            quitButton.Hide();
+            _quitButton.Hide();
         }
 
         ToggleBackUI(false);
@@ -57,7 +57,7 @@ public class Launcher : Control
 
     public override void _Process(float delta)
     {
-        fpsLabel.Text = "FPS: " + Engine.GetFramesPerSecond();
+        _fpsLabel.Text = "FPS: " + Engine.GetFramesPerSecond();
     }
 
     private void LoadSceneExplorer()
@@ -65,7 +65,7 @@ public class Launcher : Control
         ToggleLauncherUI(false);
 
         var sceneExplorer = (PackedScene)GD.Load("res://chapters/SceneExplorer.tscn");
-        drawSpace.AddChild(sceneExplorer.Instance());
+        _drawSpace.AddChild(sceneExplorer.Instance());
 
         ToggleBackUI(true);
     }
@@ -73,7 +73,7 @@ public class Launcher : Control
     private void LoadEcosystem()
     {
         var ecosystem = (PackedScene)GD.Load("res://ecosystem/Ecosystem.tscn");
-        drawSpace.AddChild(ecosystem.Instance());
+        _drawSpace.AddChild(ecosystem.Instance());
 
         ToggleLauncherUI(false);
         ToggleBackUI(true);
@@ -81,14 +81,14 @@ public class Launcher : Control
 
     private void ToggleLauncherUI(bool state)
     {
-        versionLabel.Visible = state;
-        launcherUI.Visible = state;
-        background.Visible = state;
+        _versionLabel.Visible = state;
+        _launcherUI.Visible = state;
+        _background.Visible = state;
     }
 
     private void ToggleBackUI(bool state)
     {
-        backButton.Visible = state;
+        _backButton.Visible = state;
     }
 
     private void LinkClicked(object data)

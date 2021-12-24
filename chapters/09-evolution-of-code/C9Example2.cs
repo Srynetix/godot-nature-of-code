@@ -1,14 +1,21 @@
 using Godot;
 using System.Collections.Generic;
 
-namespace Examples {
-    namespace Chapter9 {
-        public class C9Example2 : Node2D
+namespace Examples
+{
+    namespace Chapter9
+    {
+        public class C9Example2 : Node2D, IExample
         {
-            private int lifeCounter = 0;
-            private int lifetime = 200;
-            private float mutationRate = 0.01f;
-            private int populationSize = 100;
+            public string GetSummary()
+            {
+                return "Example 9.2:\nSimple Smart Rockets";
+            }
+
+            private int lifeCounter;
+            private readonly int lifetime = 200;
+            private readonly float mutationRate = 0.01f;
+            private readonly int populationSize = 100;
             private Vector2 target;
             private RocketPopulation population;
             private Vector2 initialPosition;
@@ -23,27 +30,34 @@ namespace Examples {
 
             public override void _Process(float delta)
             {
-                for (int i = 0; i < 10; ++i) {
-                    if (lifeCounter < lifetime) {
-                        population.Live(null);
-                        lifeCounter++;
-                    } else {
-                        lifeCounter = 0;
-                        population.Fitness(target);
-                        population.Selection();
-                        population.Reproduction();
-                    }
-                }
+                // for (int i = 0; i < 10; ++i)
+                // {
+                //     if (lifeCounter < lifetime)
+                //     {
+                //         population.Live(null);
+                //         lifeCounter++;
+                //     }
+                //     else
+                //     {
+                //         lifeCounter = 0;
+                //         population.Fitness(target);
+                //         population.Selection();
+                //         population.Reproduction();
+                //     }
+                // }
 
-                // Update();
+                Update();
             }
 
             public override void _Draw()
             {
-                if (lifeCounter < lifetime) {
+                if (lifeCounter < lifetime)
+                {
                     population.Live(this);
                     lifeCounter++;
-                } else {
+                }
+                else
+                {
                     lifeCounter = 0;
                     population.Fitness(target);
                     population.Selection();
@@ -52,7 +66,8 @@ namespace Examples {
             }
         }
 
-        public class RocketPopulation {
+        public class RocketPopulation
+        {
             public int Lifetime;
             public float MutationRate;
             public Rocket[] Population;
@@ -60,30 +75,36 @@ namespace Examples {
             public List<RocketDNA> Pool;
             public int Generations;
 
-            public RocketPopulation(Vector2 initialPosition, float mutationRate, int populationSize, int lifetime) {
+            public RocketPopulation(Vector2 initialPosition, float mutationRate, int populationSize, int lifetime)
+            {
                 InitialPosition = initialPosition;
                 Lifetime = lifetime;
                 MutationRate = mutationRate;
                 Population = new Rocket[populationSize];
-                for (int i = 0; i < populationSize; ++i) {
+                for (int i = 0; i < populationSize; ++i)
+                {
                     Population[i] = new Rocket(initialPosition, lifetime);
                 }
 
                 Pool = new List<RocketDNA>();
             }
 
-            public void Fitness(Vector2 target) {
-                foreach (var rocket in Population) {
+            public void Fitness(Vector2 target)
+            {
+                foreach (var rocket in Population)
+                {
                     float d = rocket.Location.DistanceTo(target);
                     rocket.Fitness = 1 - MathUtils.Map(d, 0, InitialPosition.DistanceTo(target), 0, 1);
                 }
             }
 
-            private RocketDNA PickRandomDNAFromPool() {
+            private RocketDNA PickRandomDNAFromPool()
+            {
                 return Pool[MathUtils.RandRangei(0, Pool.Count - 2)];
             }
 
-            private RocketDNA[] PickPartnersFromPool() {
+            private RocketDNA[] PickPartnersFromPool()
+            {
                 var parents = new RocketDNA[2];
 
                 parents[0] = PickRandomDNAFromPool();
@@ -97,7 +118,8 @@ namespace Examples {
                 return parents;
             }
 
-            public void Selection() {
+            public void Selection()
+            {
                 Pool.Clear();
 
                 var bestFitness = 0;
@@ -105,7 +127,8 @@ namespace Examples {
                 foreach (var dna in Population)
                 {
                     var n = (int)(dna.Fitness * 100.0f);
-                    if (n > bestFitness) {
+                    if (n > bestFitness)
+                    {
                         bestFitness = n;
                     }
 
@@ -118,7 +141,8 @@ namespace Examples {
                 GD.Print(bestFitness);
             }
 
-            public void Reproduction() {
+            public void Reproduction()
+            {
                 for (var i = 0; i < Population.Length; ++i)
                 {
                     var parents = PickPartnersFromPool();
@@ -129,8 +153,10 @@ namespace Examples {
                 }
             }
 
-            public void Live(CanvasItem canvas) {
-                for (var i = 0; i < Population.Length; ++i) {
+            public void Live(CanvasItem canvas)
+            {
+                for (var i = 0; i < Population.Length; ++i)
+                {
                     Population[i].Run(canvas);
                 }
 
@@ -138,13 +164,16 @@ namespace Examples {
             }
         }
 
-        public class RocketDNA {
+        public class RocketDNA
+        {
             public float MaxForce = 0.1f;
             public Vector2[] Genes;
 
-            public RocketDNA(int size) {
+            public RocketDNA(int size)
+            {
                 Genes = new Vector2[size];
-                for (var i = 0; i < size; ++i) {
+                for (var i = 0; i < size; ++i)
+                {
                     Genes[i] = MathUtils.RandVector2Unit();
                     Genes[i] *= MathUtils.RandRangef(0, MaxForce);
                 }
@@ -180,46 +209,55 @@ namespace Examples {
             }
         }
 
-        public class Rocket {
+        public class Rocket
+        {
             public Vector2 Location;
             public Vector2 Velocity;
             public Vector2 Acceleration;
             public float Fitness;
             public RocketDNA Dna;
 
-            private int _geneCounter = 0;
+            private int _geneCounter;
 
-            public Rocket(Vector2 initialPosition, int lifetime) {
+            public Rocket(Vector2 initialPosition, int lifetime)
+            {
                 Dna = new RocketDNA(lifetime);
                 Location = initialPosition;
             }
 
-            public Rocket(Vector2 initialPosition, RocketDNA dna) {
+            public Rocket(Vector2 initialPosition, RocketDNA dna)
+            {
                 Dna = dna;
                 Location = initialPosition;
             }
 
-            public void ApplyForce(Vector2 force) {
+            public void ApplyForce(Vector2 force)
+            {
                 Acceleration += force;
             }
 
-            public void Draw(CanvasItem canvas) {
+            public void Draw(CanvasItem canvas)
+            {
                 canvas.DrawCircle(Location, 10, Colors.Green);
             }
 
-            public void Run(CanvasItem canvas) {
-                if (_geneCounter < Dna.Genes.Length) {
+            public void Run(CanvasItem canvas)
+            {
+                if (_geneCounter < Dna.Genes.Length)
+                {
                     ApplyForce(Dna.Genes[_geneCounter]);
                     _geneCounter++;
                     Update();
                 }
 
-                if (canvas != null) {
+                if (canvas != null)
+                {
                     Draw(canvas);
                 }
             }
 
-            public void Update() {
+            public void Update()
+            {
                 Velocity += Acceleration;
                 Location += Velocity;
                 Acceleration *= 0;

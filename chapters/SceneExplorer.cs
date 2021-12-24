@@ -8,76 +8,76 @@ namespace Examples
     /// </summary>
     public class SceneExplorer : Control
     {
-        private Control CurrentSceneContainer;
-        private Button PrevChapterButton;
-        private Button NextChapterButton;
-        private OptionButton SelectChapterButton;
-        private Button PrevExampleButton;
-        private Button NextExampleButton;
-        private OptionButton SelectExampleButton;
-        private Button ReloadExampleButton;
-        private RichTextLabel CodeLabel;
-        private RichTextLabel SummaryLabel;
-        private VBoxContainer SelectionButtons;
-        private ColorRect CodeBackground;
-        private Button ToggleCodeButton;
-        private Button ToggleUIButton;
-        private Label LoadingLabel;
-        private SceneLoader sceneLoader;
+        private Control _currentSceneContainer;
+        private Button _prevChapterButton;
+        private Button _nextChapterButton;
+        private OptionButton _selectChapterButton;
+        private Button _prevExampleButton;
+        private Button _nextExampleButton;
+        private OptionButton _selectExampleButton;
+        private Button _reloadExampleButton;
+        private RichTextLabel _codeLabel;
+        private RichTextLabel _summaryLabel;
+        private VBoxContainer _selectionButtons;
+        private ColorRect _codeBackground;
+        private Button _toggleCodeButton;
+        private Button _toggleUIButton;
+        private Label _loadingLabel;
+        private SceneLoader _sceneLoader;
 
         public override async void _Ready()
         {
-            CurrentSceneContainer = GetNode<Control>("CurrentScene");
-            CodeLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Code");
-            SummaryLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Summary");
-            CodeBackground = GetNode<ColorRect>("Container/VBox/TopControl/CodeBackground");
-            ToggleCodeButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/LeftButtons/ToggleCodeButton");
-            ToggleUIButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/LeftButtons/ToggleUIButton");
-            PrevChapterButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/PrevChapter");
-            NextChapterButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/NextChapter");
-            SelectChapterButton = GetNode<OptionButton>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/SelectChapter");
-            PrevExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/PrevExample");
-            NextExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/NextExample");
-            SelectExampleButton = GetNode<OptionButton>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/SelectExample");
-            ReloadExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/ReloadExample");
-            SelectionButtons = GetNode<VBoxContainer>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons");
-            LoadingLabel = GetNode<Label>("Container/Loading");
+            _currentSceneContainer = GetNode<Control>("CurrentScene");
+            _codeLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Code");
+            _summaryLabel = GetNode<RichTextLabel>("Container/VBox/TopControl/CodeHBox/Summary");
+            _codeBackground = GetNode<ColorRect>("Container/VBox/TopControl/CodeBackground");
+            _toggleCodeButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/LeftButtons/ToggleCodeButton");
+            _toggleUIButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/LeftButtons/ToggleUIButton");
+            _prevChapterButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/PrevChapter");
+            _nextChapterButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/NextChapter");
+            _selectChapterButton = GetNode<OptionButton>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ChapterSelection/SelectChapter");
+            _prevExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/PrevExample");
+            _nextExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/NextExample");
+            _selectExampleButton = GetNode<OptionButton>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/SelectExample");
+            _reloadExampleButton = GetNode<Button>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons/ExampleSelection/ReloadExample");
+            _selectionButtons = GetNode<VBoxContainer>("Container/VBox/ButtonsMargin/Buttons/SelectionButtons");
+            _loadingLabel = GetNode<Label>("Container/Loading");
 
-            PrevChapterButton.Connect("pressed", this, nameof(SelectPrevChapter));
-            NextChapterButton.Connect("pressed", this, nameof(SelectNextChapter));
-            PrevExampleButton.Connect("pressed", this, nameof(SelectPrevExample));
-            NextExampleButton.Connect("pressed", this, nameof(SelectNextExample));
-            ToggleCodeButton.Connect("pressed", this, nameof(ToggleCodeLabel));
-            ReloadExampleButton.Connect("pressed", this, nameof(LoadCurrentExample));
-            SelectChapterButton.Connect("item_selected", this, nameof(SelectChapterFromId));
-            SelectExampleButton.Connect("item_selected", this, nameof(SelectExampleFromId));
-            ToggleUIButton.Connect("pressed", this, nameof(ToggleUI));
+            _prevChapterButton.Connect("pressed", this, nameof(SelectPrevChapter));
+            _nextChapterButton.Connect("pressed", this, nameof(SelectNextChapter));
+            _prevExampleButton.Connect("pressed", this, nameof(SelectPrevExample));
+            _nextExampleButton.Connect("pressed", this, nameof(SelectNextExample));
+            _toggleCodeButton.Connect("pressed", this, nameof(ToggleCodeLabel));
+            _reloadExampleButton.Connect("pressed", this, nameof(LoadCurrentExample));
+            _selectChapterButton.Connect("item_selected", this, nameof(SelectChapterFromId));
+            _selectExampleButton.Connect("item_selected", this, nameof(SelectExampleFromId));
+            _toggleUIButton.Connect("pressed", this, nameof(ToggleUI));
 
-            SummaryLabel.Visible = false;
-            CodeBackground.Visible = false;
-            CodeLabel.Visible = false;
+            _summaryLabel.Visible = false;
+            _codeBackground.Visible = false;
+            _codeLabel.Visible = false;
 
-            ToggleCodeButton.Visible = false;
-            ToggleUIButton.Visible = false;
+            _toggleCodeButton.Visible = false;
+            _toggleUIButton.Visible = false;
 
-            sceneLoader = new SceneLoader();
-            sceneLoader.Connect(nameof(SceneLoader.ScenesLoaded), this, nameof(OnScenesLoaded));
+            _sceneLoader = new SceneLoader();
+            _sceneLoader.Connect(nameof(SceneLoader.ScenesLoaded), this, nameof(OnScenesLoaded));
 
             // Force min size for exercise selection
-            var font = SelectChapterButton.GetFont("font");
-            SelectExampleButton.RectMinSize = font.GetCharSize('w') * new Vector2(SceneLoader.SampleNameMaxLength, 1);
+            var font = _selectChapterButton.GetFont("font");
+            _selectExampleButton.RectMinSize = font.GetCharSize('w') * new Vector2(SceneLoader.SampleNameMaxLength, 1);
 
             await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
-            AddChild(sceneLoader);
+            AddChild(_sceneLoader);
         }
 
         private void OnScenesLoaded()
         {
-            SummaryLabel.Visible = true;
-            LoadingLabel.Visible = false;
+            _summaryLabel.Visible = true;
+            _loadingLabel.Visible = false;
 
-            ToggleCodeButton.Visible = true;
-            ToggleUIButton.Visible = true;
+            _toggleCodeButton.Visible = true;
+            _toggleUIButton.Visible = true;
 
             LoadChapterItems();
             SelectChapterFromId(0);
@@ -85,7 +85,7 @@ namespace Examples
 
         private void SelectPrevChapter()
         {
-            var prevPos = sceneLoader.GetPrevChapterId();
+            var prevPos = _sceneLoader.GetPrevChapterId();
             if (prevPos != -1)
             {
                 SelectChapterFromId(prevPos);
@@ -94,7 +94,7 @@ namespace Examples
 
         private void SelectNextChapter()
         {
-            var nextPos = sceneLoader.GetNextChapterId();
+            var nextPos = _sceneLoader.GetNextChapterId();
             if (nextPos != -1)
             {
                 SelectChapterFromId(nextPos);
@@ -103,28 +103,28 @@ namespace Examples
 
         private void SelectChapter(string chapter)
         {
-            sceneLoader.SetCurrentChapter(chapter);
+            _sceneLoader.SetCurrentChapter(chapter);
             LoadExampleItems();
             SelectExampleFromId(0);
         }
 
         private void SelectChapterFromId(int index)
         {
-            SelectChapterButton.Selected = index;
-            string itemName = SelectChapterButton.GetItemText(index);
+            _selectChapterButton.Selected = index;
+            string itemName = _selectChapterButton.GetItemText(index);
             SelectChapter(itemName);
         }
 
         private void SelectExampleFromId(int index)
         {
-            SelectExampleButton.Selected = index;
-            string itemName = SelectExampleButton.GetItemText(index);
+            _selectExampleButton.Selected = index;
+            string itemName = _selectExampleButton.GetItemText(index);
             SelectExample(itemName);
         }
 
         private void SelectPrevExample()
         {
-            var prevPos = sceneLoader.GetPrevSampleId();
+            var prevPos = _sceneLoader.GetPrevSampleId();
             if (prevPos != -1)
             {
                 SelectExampleFromId(prevPos);
@@ -132,13 +132,13 @@ namespace Examples
             else
             {
                 SelectPrevChapter();
-                SelectExampleFromId(sceneLoader.GetCurrentChapterSamplesCount() - 1);
+                SelectExampleFromId(_sceneLoader.GetCurrentChapterSamplesCount() - 1);
             }
         }
 
         private void SelectNextExample()
         {
-            var nextPos = sceneLoader.GetNextSampleId();
+            var nextPos = _sceneLoader.GetNextSampleId();
             if (nextPos != -1)
             {
                 SelectExampleFromId(nextPos);
@@ -151,37 +151,37 @@ namespace Examples
 
         private void SelectExample(string scene)
         {
-            sceneLoader.SetCurrentSample(scene);
+            _sceneLoader.SetCurrentSample(scene);
             LoadCurrentExample();
         }
 
         private void LoadCurrentExample()
         {
-            var scene = sceneLoader.GetCurrentSample();
+            var scene = _sceneLoader.GetCurrentSample();
             if (scene == null)
             {
                 return;
             }
 
-            foreach (Node child in CurrentSceneContainer.GetChildren())
+            foreach (Node child in _currentSceneContainer.GetChildren())
             {
                 child.QueueFree();
             }
 
             var instance = scene.Instance();
-            CurrentSceneContainer.AddChild(instance);
+            _currentSceneContainer.AddChild(instance);
 
             // Show code
             var script = (CSharpScript)instance.GetScript();
             string scriptPath = script.ResourcePath;
-            CodeLabel.BbcodeEnabled = true;
-            CodeLabel.BbcodeText = ReadSourceCodeAtPath(scriptPath);
-            CodeLabel.ScrollToLine(0);
+            _codeLabel.BbcodeEnabled = true;
+            _codeLabel.BbcodeText = ReadSourceCodeAtPath(scriptPath);
+            _codeLabel.ScrollToLine(0);
 
             // Set summary
             if (instance is Examples.IExample baseInstance)
             {
-                SummaryLabel.Text = baseInstance.GetSummary();
+                _summaryLabel.Text = baseInstance.GetSummary();
             }
         }
 
@@ -198,38 +198,38 @@ namespace Examples
 
         private void LoadChapterItems()
         {
-            SelectChapterButton.Clear();
+            _selectChapterButton.Clear();
 
-            foreach (string chapterName in sceneLoader.GetChapterNames())
+            foreach (string chapterName in _sceneLoader.GetChapterNames())
             {
-                SelectChapterButton.AddItem(chapterName);
+                _selectChapterButton.AddItem(chapterName);
             }
         }
 
         private void LoadExampleItems()
         {
-            SelectExampleButton.Clear();
+            _selectExampleButton.Clear();
 
-            foreach (string sceneName in sceneLoader.GetCurrentChapterSampleNames())
+            foreach (string sceneName in _sceneLoader.GetCurrentChapterSampleNames())
             {
-                SelectExampleButton.AddItem(sceneName);
+                _selectExampleButton.AddItem(sceneName);
             }
         }
 
         private void ToggleCodeLabel()
         {
-            CodeBackground.Visible = !CodeBackground.Visible;
-            CodeLabel.Visible = !CodeLabel.Visible;
-            SummaryLabel.Visible = !SummaryLabel.Visible;
+            _codeBackground.Visible = !_codeBackground.Visible;
+            _codeLabel.Visible = !_codeLabel.Visible;
+            _summaryLabel.Visible = !_summaryLabel.Visible;
         }
 
         private void ToggleUI()
         {
-            SelectionButtons.Visible = !SelectionButtons.Visible;
-            ToggleCodeButton.Visible = !ToggleCodeButton.Visible;
-            CodeLabel.Visible = false;
-            CodeBackground.Visible = false;
-            SummaryLabel.Visible = SelectionButtons.Visible;
+            _selectionButtons.Visible = !_selectionButtons.Visible;
+            _toggleCodeButton.Visible = !_toggleCodeButton.Visible;
+            _codeLabel.Visible = false;
+            _codeBackground.Visible = false;
+            _summaryLabel.Visible = _selectionButtons.Visible;
         }
     }
 }
