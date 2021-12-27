@@ -12,57 +12,56 @@ namespace Examples
                 return "Example 9.2:\nSimple Smart Rockets";
             }
 
+            private Font defaultFont;
             private int lifeCounter;
-            private readonly int lifetime = 200;
+            private readonly int lifetime = 100;
             private readonly float mutationRate = 0.01f;
-            private readonly int populationSize = 100;
+            private readonly int populationSize = 50;
             private Vector2 target;
             private RocketPopulation population;
+            private float maxValue;
             private Vector2 initialPosition;
 
             public override void _Ready()
             {
+                defaultFont = Assets.SimpleDefaultFont.Regular;
+
                 var size = GetViewportRect().Size;
-                target = new Vector2(size.x / 2, 0);
+                target = new Vector2(size.x / 2, 50);
                 initialPosition = new Vector2(size.x / 2, size.y);
                 population = new RocketPopulation(initialPosition, mutationRate, populationSize, lifetime);
+                maxValue = initialPosition.DistanceSquaredTo(target);
             }
 
             public override void _Process(float delta)
             {
-                // for (int i = 0; i < 10; ++i)
-                // {
-                //     if (lifeCounter < lifetime)
-                //     {
-                //         population.Live(null);
-                //         lifeCounter++;
-                //     }
-                //     else
-                //     {
-                //         lifeCounter = 0;
-                //         population.Fitness(target);
-                //         population.Selection();
-                //         population.Reproduction();
-                //     }
-                // }
+                if (lifeCounter < lifetime)
+                {
+                    population.Live();
+                    lifeCounter++;
+                }
+                else
+                {
+                    lifeCounter = 0;
+                    population.Fitness(maxValue, target);
+                    population.Selection();
+                    population.Reproduction();
+                }
 
                 Update();
             }
 
             public override void _Draw()
             {
-                if (lifeCounter < lifetime)
-                {
-                    population.Live(this);
-                    lifeCounter++;
-                }
-                else
-                {
-                    lifeCounter = 0;
-                    population.Fitness(target);
-                    population.Selection();
-                    population.Reproduction();
-                }
+                var size = GetViewportRect().Size;
+
+                population.Draw(this);
+                DrawCircle(target, 20, Colors.AliceBlue);
+
+                DrawString(defaultFont, new Vector2(20, size.y - 250), "Target position: " + target);
+                DrawString(defaultFont, new Vector2(20, size.y - 225), "Generation #" + (population.Generations + 1));
+                DrawString(defaultFont, new Vector2(20, size.y - 200), "Last best fitness: " + (population.LastBestFitness) + "%");
+
             }
         }
 
@@ -74,6 +73,7 @@ namespace Examples
             public Vector2 InitialPosition;
             public List<RocketDNA> Pool;
             public int Generations;
+            public int LastBestFitness;
 
             public RocketPopulation(Vector2 initialPosition, float mutationRate, int populationSize, int lifetime)
             {
@@ -89,12 +89,12 @@ namespace Examples
                 Pool = new List<RocketDNA>();
             }
 
-            public void Fitness(Vector2 target)
+            public void Fitness(float maxValue, Vector2 target)
             {
                 foreach (var rocket in Population)
                 {
-                    float d = rocket.Location.DistanceTo(target);
-                    rocket.Fitness = 1 - MathUtils.Map(d, 0, InitialPosition.DistanceTo(target), 0, 1);
+                    float d = rocket.Location.DistanceSquaredTo(target);
+                    rocket.Fitness = 1 - MathUtils.Map(d, 0, maxValue, 0, 1);
                 }
             }
 
@@ -138,7 +138,7 @@ namespace Examples
                     }
                 }
 
-                GD.Print(bestFitness);
+                LastBestFitness = bestFitness;
             }
 
             public void Reproduction()
@@ -151,22 +151,30 @@ namespace Examples
 
                     Population[i] = new Rocket(InitialPosition, child);
                 }
+
+                Generations++;
             }
 
-            public void Live(CanvasItem canvas)
+            public void Live()
             {
                 for (var i = 0; i < Population.Length; ++i)
                 {
-                    Population[i].Run(canvas);
+                    Population[i].Run();
                 }
+            }
 
-                Generations++;
+            public void Draw(CanvasItem canvas)
+            {
+                for (var i = 0; i < Population.Length; ++i)
+                {
+                    Population[i].Draw(canvas);
+                }
             }
         }
 
         public class RocketDNA
         {
-            public float MaxForce = 0.1f;
+            public float MaxForce = 0.2f;
             public Vector2[] Genes;
 
             public RocketDNA(int size)
@@ -219,12 +227,7 @@ namespace Examples
 
             private int _geneCounter;
 
-            public Rocket(Vector2 initialPosition, int lifetime)
-            {
-                Dna = new RocketDNA(lifetime);
-                Location = initialPosition;
-            }
-
+            public Rocket(Vector2 initialPosition, int lifetime) : this(initialPosition, new RocketDNA(lifetime)) { }
             public Rocket(Vector2 initialPosition, RocketDNA dna)
             {
                 Dna = dna;
@@ -238,21 +241,17 @@ namespace Examples
 
             public void Draw(CanvasItem canvas)
             {
-                canvas.DrawCircle(Location, 10, Colors.Green);
+                canvas.DrawCircle(Location, 6, Colors.Green);
+                canvas.DrawCircle(Location + (Velocity.Normalized() * 5), 2, Colors.Red);
             }
 
-            public void Run(CanvasItem canvas)
+            public void Run()
             {
                 if (_geneCounter < Dna.Genes.Length)
                 {
                     ApplyForce(Dna.Genes[_geneCounter]);
                     _geneCounter++;
                     Update();
-                }
-
-                if (canvas != null)
-                {
-                    Draw(canvas);
                 }
             }
 
